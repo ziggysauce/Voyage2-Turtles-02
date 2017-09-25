@@ -1,6 +1,6 @@
 # Voyage2-Turtles-02
 
-## Authors
+## Contributors
 
 * [Jeff Bothe](https://github.com/jmbothe)
 * [Tyler Del Rosario](https://github.com/HTMLNoob)
