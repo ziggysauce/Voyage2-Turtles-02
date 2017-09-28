@@ -5,7 +5,7 @@
   "manifest_version": 2,
   "version": "1.0",
   "icons": {
-    "128": "src/img/scuba-turtle.png"
+    "128": "assets/img/scuba-turtle.png"
   },
 
   "chrome_url_overrides": {
