@@ -1,0 +1,1 @@
+{"version":3,"sources":["styles.css"],"names":[],"mappings":"AAEA,QACA,oBAAA,CAAA,AACA,WACA,UAAA,CAAA","file":"../css/styles.css","sourcesContent":["/*SCSS code for DevTab*/\n/* I had to write a little bit of Sass in this file cuz gulp wouldnt compile a blank .scss doc -JB*/\nsection {\n  background-color: red; }\n  section h2 {\n    color: yellow; }\n"]}

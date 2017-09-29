@@ -1,1 +1,0 @@
-// JS code for DevTab

@@ -1,0 +1,6 @@
+/*SCSS code for DevTab*/
+/* I had to write a little bit of Sass in this file cuz gulp wouldnt compile a blank .scss doc -JB*/
+section {
+  background-color: red; }
+  section h2 {
+    color: yellow; }
