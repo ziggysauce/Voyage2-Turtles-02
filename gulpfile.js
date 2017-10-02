@@ -28,6 +28,7 @@ gulp.task('scss', () => {
 // IMPORTANT: if you add more css files or folders, gulp.src needs to be updated as well
 gulp.task('css', ['scss'], () => {
   gulp.src([ // add more css files here, in the order you want them to be combined
+    'src/css/reset.css',
     'src/css/styles.css'])
     .pipe(plumber())
     .pipe(sourcemaps.init())
