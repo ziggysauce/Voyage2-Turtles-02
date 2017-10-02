@@ -5,6 +5,7 @@ body {
   width: 100%;
   overflow: hidden;
   background-image: url("../assets/img/sample2.jpeg");
+  background-size: cover;
   font-family: Lato, helvetica; }
   body .overlay {
     content: '';
@@ -55,9 +56,10 @@ body {
       font-size: 2.3em; }
 
 .pomodoroTime {
-  flex: 1 0 auto;
-  margin: 150px 0px;
-  padding: 0px;
+  height: 75%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   /*----------------------------------------*/
   /*Time and Pomodoro Display*/
   /*----------------------------------------*/ }
@@ -93,7 +95,7 @@ footer {
   justify-content: space-between;
   margin: 0px;
   padding: 0px; }
-  footer .colorPallete {
+  footer .colorPalette {
     display: flex;
     width: 277px;
     padding: 0px;
