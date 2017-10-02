@@ -2,10 +2,14 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Tab</title>
 
     <!-- build:css -->
+    <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,700" rel="stylesheet">  
     <!-- endbuild -->
 
     <!-- build:js -->
@@ -13,7 +17,107 @@
     <script src="js/main.js" defer></script>
     <!-- endbuild -->
   </head>
+
   <body>
-    <p>Test test test!</p>
+
+    <div class="overlay">
+    <!--*************************************************-->
+    <!--This section contains Quicklinks and Sticky Notes-->
+    <!--*************************************************-->
+      <section class="linkNote">
+
+        <div class="quickLinks">
+
+          <p>Quick Links</p>
+          <i class="fa fa-sort-desc" aria-hidden="true"></i>
+
+        </div>
+
+        <div class="stickyNotes">
+
+          <p>+</p>
+          <i class="fa fa-sticky-note" aria-hidden="true"></i>
+
+        </div>
+
+      </section>
+
+      <!--**************************************************************-->
+      <!--This section contains user greeting and time/pomodoro display.-->
+      <!--**************************************************************-->
+      <section class="pomodoroTime">
+     
+        
+        <div class="userGreeting">
+
+          <h1>Hello, Developer</h1>
+
+        </div>
+
+        <div class="timeDisplay">
+
+          <p>11:45AM</p>
+
+
+        </div>
+
+        <div class="pomodoroDisplay">
+
+
+
+        </div>
+
+      </section>
+
+      <!--*****************************************************-->
+      <!--This section contains the Color Pallete and Settings.-->
+      <!--*****************************************************-->
+      <footer>
+        
+        <div class="colorPallete">
+
+          <i class="fa fa-paint-brush" aria-hidden="true"></i>
+
+        </div>
+
+        <div class="credits">
+
+          <p>Photographed by <a href="https://www.pexels.com/u/eberhardgross/">Eberhard Grossgasteiger</a></p>
+
+        </div>
+
+        <div class="listArea">
+
+          <ul>
+
+            <li>
+
+              <i class="fa fa-list-ul" aria-hidden="true"></i>
+              <p class="iconHover">Todo</p>
+
+            </li>
+
+            <li>
+
+              <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+              <p class="iconHover">News</p>
+
+            </li>
+
+            <li>
+
+              <i class="fa fa-cog" aria-hidden="true"></i>
+              <p class="iconHover">Settings</p>
+
+            </li>
+
+          </ul>
+
+        </div>
+
+      </footer>
+      
+    </div>
+
   </body>
 </html>
