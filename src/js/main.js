@@ -259,6 +259,12 @@ function refreshElementRects() {
   hueRect = hueCanvas.getBoundingClientRect();
 }
 
+function colorToHue(color) {
+  var color = tinycolor(color);
+  var hueString = tinycolor('hsl '+ color.toHsl().h + ' 1 .5').toHslString();
+  return hueString;
+}
+
 function setColorValues(color) {
   // convert to tinycolor object
   var color = tinycolor(color);
@@ -272,6 +278,7 @@ function setColorValues(color) {
 }
 
 function setCurrentColor(color) {
+  color = tinycolor(color);
   colorIndicator.style.backgroundColor = color;
   spectrumCursor.style.backgroundColor = color;
   hueCursor.style.backgroundColor = 'hsl('+ color.toHsl().h +', 100%, 50%)';
@@ -323,6 +330,32 @@ const startGetSpectrumColor = (e) => {
   window.addEventListener('mouseup', endGetSpectrumColor);
 };
 
+function createShadeSpectrum(color) {
+  const canvas = spectrumCanvas;
+  const ctx = spectrumCtx;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  if (!color) { color = '#f00'; }
+  ctx.fillStyle = color;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  const whiteGradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+  whiteGradient.addColorStop(0, '#fff');
+  whiteGradient.addColorStop(1, 'transparent');
+  ctx.fillStyle = whiteGradient;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  const blackGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+  blackGradient.addColorStop(0, 'transparent');
+  blackGradient.addColorStop(1, '#000');
+  ctx.fillStyle = blackGradient;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  canvas.addEventListener('mousedown', (e) => {
+    startGetSpectrumColor(e);
+  });
+}
+
 function getHueColor(e) {
   e.preventDefault();
   let y = e.pageY - hueRect.top;
@@ -366,38 +399,6 @@ function createHueSpectrum() {
   canvas.addEventListener('mousedown', (e) => {
     startGetHueColor(e);
   });
-}
-
-function createShadeSpectrum(color) {
-  const canvas = spectrumCanvas;
-  const ctx = spectrumCtx;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  if (!color) { color = '#f00'; }
-  ctx.fillStyle = color;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  const whiteGradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
-  whiteGradient.addColorStop(0, '#fff');
-  whiteGradient.addColorStop(1, 'transparent');
-  ctx.fillStyle = whiteGradient;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  const blackGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-  blackGradient.addColorStop(0, 'transparent');
-  blackGradient.addColorStop(1, '#000');
-  ctx.fillStyle = blackGradient;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  canvas.addEventListener('mousedown', (e) => {
-    startGetSpectrumColor(e);
-  });
-}
-
-function colorToHue(color) {
-  var color = tinycolor(color);
-  var hueString = tinycolor('hsl '+ color.toHsl().h + ' 1 .5').toHslString();
-  return hueString;
 }
 
 function colorToPos(color) {
