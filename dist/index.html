@@ -65,9 +65,50 @@
       <footer>
 
         <div class="colorPalette">
-
-          <i class="fa fa-paint-brush" aria-hidden="true"></i>
-
+          <!-- Color Picker Pop-Up Box -->
+          <div class="color-picker-panel">
+            <div class="panel-row">
+              <div class="panel-row">
+                <div id="rgb-fields" class="field-group value-fields rgb-fields active">
+                  <div class="field-group">
+                    <label for="" class="field-label">R</label>
+                    <input type="number" max="255" min="0" id="red" class="field-input rgb-input"/>
+                  </div>
+                  <div class="field-group">
+                    <label for="" class="field-label">G</label>
+                    <input type="number" max="255" min="0" id="green" class="field-input rgb-input"/>
+                  </div>
+                  <div class="field-group">
+                    <label for="" class="field-label">B</label>
+                    <input type="number" max="255" min="0" id="blue" class="field-input rgb-input"/>
+                  </div>
+                </div>
+                <div id="hex-field" class="field-group value-fields hex-field">
+                  <label for="" class="field-label">Hex :</label>
+                  <input type="text" id="hex" class="field-input"/>
+                </div>
+              </div>
+              <div class="panel-col">
+                <div class="preview color-indicator" id="color-indicator"></div>
+                <button id="mode-toggle" class="button mode-toggle">Mode</button>
+              </div>
+            </div>
+            <div class="panel-row">
+              <div class="spectrum-map">
+                <button id="spectrum-cursor" class="color-cursor"></button>
+                <canvas id="spectrum-canvas"></canvas>
+              </div>
+              <div class="hue-map">
+                <button id="hue-cursor" class="color-cursor"></button>
+                <canvas id="hue-canvas"></canvas>
+              </div>
+            </div>
+            <div id="user-swatches" class="swatches custom-swatches"></div>
+          </div>
+          <!-- Color Picker Toggle Button -->
+          <button type="button" name="button" class="color-picker-icon">
+            <i class="fa fa-paint-brush" aria-hidden="true"></i>
+          </button>
         </div>
 
         <div class="credits">

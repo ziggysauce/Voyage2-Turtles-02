@@ -219,3 +219,236 @@ CONTROLLER
 }(window.app.model, window.app.view));
 
 window.app.controller.initialize();
+
+/* ***** color picker section ******** */
+
+/*
+ * Creation credit to Dario Corsi (reference: https://codepen.io/dariocorsi/pen/WwOWPE?editors=0010)
+ * Uses tinycolor.js (reference: https://github.com/bgrins/TinyColor)
+ * Hidden until triggered by clicking the paintbrush icon
+ * A pop-up box appears allowing the user select colors and get corresponding HEX/RGB codes
+*/
+
+var modeToggle = document.getElementById('mode-toggle');
+var colorIndicator = document.getElementById('color-indicator');
+
+var spectrumCanvas = document.getElementById('spectrum-canvas');
+var spectrumCtx = spectrumCanvas.getContext('2d');
+var spectrumCursor = document.getElementById('spectrum-cursor');
+var spectrumRect = spectrumCanvas.getBoundingClientRect();
+
+var hueCanvas = document.getElementById('hue-canvas');
+var hueCtx = hueCanvas.getContext('2d');
+var hueCursor = document.getElementById('hue-cursor');
+var hueRect = hueCanvas.getBoundingClientRect();
+
+var hue = 0;
+var saturation = 1;
+var lightness = 0.5;
+
+var rgbFields = document.getElementById('rgb-fields');
+var hexField = document.getElementById('hex-field');
+
+var red = document.getElementById('red');
+var blue = document.getElementById('blue');
+var green = document.getElementById('green');
+var hex = document.getElementById('hex');
+
+function refreshElementRects() {
+  spectrumRect = spectrumCanvas.getBoundingClientRect();
+  hueRect = hueCanvas.getBoundingClientRect();
+}
+
+function setColorValues(color) {
+  // convert to tinycolor object
+  var color = tinycolor(color);
+  var rgbValues = color.toRgb();
+  var hexValue = color.toHex();
+  // set inputs
+  red.value = rgbValues.r;
+  green.value = rgbValues.g;
+  blue.value = rgbValues.b;
+  hex.value = hexValue;
+}
+
+function setCurrentColor(color) {
+  colorIndicator.style.backgroundColor = color;
+  spectrumCursor.style.backgroundColor = color;
+  hueCursor.style.backgroundColor = 'hsl('+ color.toHsl().h +', 100%, 50%)';
+}
+
+function updateHueCursor(y) {
+  hueCursor.style.top = y + 'px';
+}
+
+function updateSpectrumCursor(x, y) {
+  // assign position
+  spectrumCursor.style.left = x + 'px';
+  spectrumCursor.style.top = y + 'px';
+}
+
+function getSpectrumColor(e) {
+  // reference: http://stackoverflow.com/questions/23520909/get-hsl-value-given-x-y-and-hue
+  e.preventDefault();
+  // get x/y coordinates
+  let x = e.pageX - spectrumRect.left;
+  let y = e.pageY - spectrumRect.top;
+  // constrain x max
+  if (x > spectrumRect.width) { x = spectrumRect.width; }
+  if (x < 0) { x = 0; }
+  if (y > spectrumRect.height) { y = spectrumRect.height; }
+  if (y < 0) { y = 0.1; }
+  // convert between hsv and hsl
+  const xRatio = (x / spectrumRect.width) * 100;
+  const yRatio = (y / spectrumRect.height) * 100;
+  const hsvValue = 1 - (yRatio / 100);
+  const hsvSaturation = xRatio / 100;
+  lightness = (hsvValue / 2) * (2 - hsvSaturation);
+  saturation = (hsvValue * hsvSaturation) / (1 - Math.abs((2 * lightness) - 1));
+  const color = tinycolor('hsl ' + hue + ' ' + saturation + ' ' + lightness);
+  setCurrentColor(color);
+  setColorValues(color);
+  updateSpectrumCursor(x, y);
+}
+
+function endGetSpectrumColor() {
+  spectrumCursor.classList.remove('dragging');
+  window.removeEventListener('mousemove', getSpectrumColor);
+}
+
+const startGetSpectrumColor = (e) => {
+  getSpectrumColor(e);
+  spectrumCursor.classList.add('dragging');
+  window.addEventListener('mousemove', getSpectrumColor);
+  window.addEventListener('mouseup', endGetSpectrumColor);
+};
+
+function getHueColor(e) {
+  e.preventDefault();
+  let y = e.pageY - hueRect.top;
+  if (y > hueRect.height) { y = hueRect.height; }
+  if (y < 0) { y = 0; }
+  const percent = y / hueRect.height;
+  hue = 360 - (360 * percent);
+  const hueColor = tinycolor('hsl '+ hue + ' 1 .5').toHslString();
+  const color = tinycolor('hsl '+ hue + ' ' + saturation + ' ' + lightness).toHslString();
+  createShadeSpectrum(hueColor);
+  updateHueCursor(y, hueColor)
+  setCurrentColor(color);
+  setColorValues(color);
+}
+
+function endGetHueColor() {
+  hueCursor.classList.remove('dragging');
+  window.removeEventListener('mousemove', getHueColor);
+}
+
+function startGetHueColor(e) {
+  getHueColor(e);
+  hueCursor.classList.add('dragging');
+  window.addEventListener('mousemove', getHueColor);
+  window.addEventListener('mouseup', endGetHueColor);
+}
+
+function createHueSpectrum() {
+  const canvas = hueCanvas;
+  const ctx = hueCtx;
+  const hueGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+  hueGradient.addColorStop(0.00, 'hsl(0,100%,50%)');
+  hueGradient.addColorStop(0.17, 'hsl(298.8, 100%, 50%)');
+  hueGradient.addColorStop(0.33, 'hsl(241.2, 100%, 50%)');
+  hueGradient.addColorStop(0.50, 'hsl(180, 100%, 50%)');
+  hueGradient.addColorStop(0.67, 'hsl(118.8, 100%, 50%)');
+  hueGradient.addColorStop(0.83, 'hsl(61.2,100%,50%)');
+  hueGradient.addColorStop(1.00, 'hsl(360,100%,50%)');
+  ctx.fillStyle = hueGradient;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  canvas.addEventListener('mousedown', (e) => {
+    startGetHueColor(e);
+  });
+}
+
+function createShadeSpectrum(color) {
+  const canvas = spectrumCanvas;
+  const ctx = spectrumCtx;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  if (!color) { color = '#f00'; }
+  ctx.fillStyle = color;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  const whiteGradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+  whiteGradient.addColorStop(0, '#fff');
+  whiteGradient.addColorStop(1, 'transparent');
+  ctx.fillStyle = whiteGradient;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  const blackGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+  blackGradient.addColorStop(0, 'transparent');
+  blackGradient.addColorStop(1, '#000');
+  ctx.fillStyle = blackGradient;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  canvas.addEventListener('mousedown', (e) => {
+    startGetSpectrumColor(e);
+  });
+}
+
+function colorToHue(color) {
+  var color = tinycolor(color);
+  var hueString = tinycolor('hsl '+ color.toHsl().h + ' 1 .5').toHslString();
+  return hueString;
+}
+
+function colorToPos(color) {
+  var color = tinycolor(color);
+  const hsl = color.toHsl();
+  hue = hsl.h;
+  const hsv = color.toHsv();
+  const x = spectrumRect.width * hsv.s;
+  const y = spectrumRect.height * (1 - hsv.v);
+  const hueY = hueRect.height - ((hue / 360) * hueRect.height);
+  updateSpectrumCursor(x, y);
+  updateHueCursor(hueY);
+  setCurrentColor(color);
+  createShadeSpectrum(colorToHue(color));
+}
+
+// Add event listeners
+
+red.addEventListener('change', () => {
+  const color = tinycolor('rgb ' + red.value + ' ' + green.value + ' ' + blue.value );
+  colorToPos(color);
+});
+
+green.addEventListener('change', () => {
+  const color = tinycolor('rgb ' + red.value + ' ' + green.value + ' ' + blue.value );
+  colorToPos(color);
+});
+
+blue.addEventListener('change', () => {
+  const color = tinycolor('rgb ' + red.value + ' ' + green.value + ' ' + blue.value );
+  colorToPos(color);
+});
+
+modeToggle.addEventListener('click', () => {
+  if (rgbFields.classList.contains('active') ? rgbFields.classList.remove('active') : rgbFields.classList.add('active'));
+  if (hexField.classList.contains('active') ? hexField.classList.remove('active') : hexField.classList.add('active'));
+});
+
+window.addEventListener('resize', () => {
+  refreshElementRects();
+});
+
+function ColorPicker() {
+  createShadeSpectrum();
+  createHueSpectrum();
+}
+
+ColorPicker();
+$('.color-picker-panel').hide();
+
+// Create click event for color picker button
+$('.color-picker-icon').click(() => {
+  $('.color-picker-panel').fadeToggle(300);
+});
