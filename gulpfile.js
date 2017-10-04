@@ -45,6 +45,7 @@ gulp.task('css', ['scss'], () => {
 gulp.task('js', () => {
   gulp.src([ // add more js files here, in the order you want them to be combined
     'src/js/jquery-3.2.1.js',
+    'src/js/tinycolor.js',
     'src/js/main.js'])
     .pipe(plumber())
     .pipe(sourcemaps.init())
