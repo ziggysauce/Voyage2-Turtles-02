@@ -1,6 +1,9 @@
 /*
 The general software architecture pattern used here is known as Model-View-Controller (aka MVC).
 reference: https://www.youtube.com/watch?v=fa8eUcu30Lw
+
+Each individual component (Model, View or Controller) is designed using the Revealing Module Pattern.
+reference: https://www.youtube.com/watch?v=pOfwp6VlnlM
 */
 
 /* ************************************************************************
@@ -114,6 +117,9 @@ CONTROLLER
 ************************************************************************* */
 
 (function makeController(model, view) {
+
+/* ***** pomodoro section ******** */
+
   function togglePomodoro() {
     model.togglePomodoro();
     view.togglePomodoro(model.getPomodoroStatus().isActive);
@@ -157,15 +163,54 @@ CONTROLLER
     request.send();
   }
 
+/* ***** user greeting section ******** */
+
+  const userName = () => localStorage.getItem('userName');
+  const nameInput = $('#name-input');
+  const greeting = $('.user-greeting h1');
+
+  function showGreeting() {
+    if (userName()) {
+      $('.user-greeting h1').html(`Hello, <button>${userName()}</button>.`);
+    } else {
+      $('.user-greeting h1').html('Hello. What\'s your <button>name</button>?');
+    }
+    nameInput.hide().val('').blur();
+    greeting.show();
+  }
+
+  function showNameInput() {
+    nameInput.show().focus();
+    greeting.hide();
+  }
+
+  function setUserName(e) {
+    if (e.keyCode == 13) { // 'enter' key
+      localStorage.setItem('userName', $(e.target).val()); // set local storage item to value of text input
+      showGreeting();
+    }
+  }
+
+  function toggleNameInput(e) {
+    if (nameInput.is(':visible') && e.target !== nameInput[0]) {
+      showGreeting();
+    } else if (!nameInput.is(':visible') && e.target === $('.user-greeting button')[0]) {
+      showNameInput();
+    }
+  }
+
   function setupEventListeners() {
+    $(window).on('click', toggleNameInput);
+    $('#name-input').on('keyup', setUserName);
     $('.toggle-pomodoro button').on('click', togglePomodoro);
   }
 
   function initialize() {
-    loadSounds();
-    setupEventListeners();
-    clocksHandler();
+    showGreeting();
     $('.time-display p').text(model.getTime());
+    setupEventListeners();
+    loadSounds();
+    clocksHandler();
   }
 
   window.app.controller = {
