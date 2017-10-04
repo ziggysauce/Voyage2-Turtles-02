@@ -70,6 +70,12 @@ gulp.task('html', () => {
     .pipe(reload({ stream: true }));
 });
 
+gulp.task('manifest', () => {
+  gulp.src('src/manifest.json')
+    .pipe(plumber())
+    .pipe(gulp.dest('dist'));
+});
+
 // clears dist/assets folder before copying new assets from src/assets
 // runs when 'assets' is called
 gulp.task('cleanfolder', () => del(['dist/assets/**']));
@@ -102,4 +108,4 @@ gulp.task('watch', () => {
 });
 
 // default task that runs when you type 'gulp' in command line
-gulp.task('default', ['browser-sync', 'js', 'css', 'html', 'assets', 'watch']);
+gulp.task('default', ['browser-sync', 'js', 'css', 'html', 'assets', 'manifest', 'watch']);

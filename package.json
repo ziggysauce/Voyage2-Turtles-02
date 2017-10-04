@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jmbothe/Voyage2-Turtles-02.git"
+    "url": "git+https://github.com/chingu-coders/Voyage2-Turtles-02.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jmbothe/Voyage2-Turtles-02/issues"
+    "url": "https://github.com/chingu-coders/Voyage2-Turtles-02/issues"
   },
-  "homepage": "https://github.com/jmbothe/Voyage2-Turtles-02#readme",
+  "homepage": "https://github.com/chingu-coders/Voyage2-Turtles-02#readme",
   "devDependencies": {
     "browser-sync": "^2.18.13",
     "del": "^3.0.0",

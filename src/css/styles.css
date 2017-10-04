@@ -65,6 +65,8 @@ body {
 .user-greeting {
   display: flex;
   justify-content: space-around;
+  align-items: center;
+  height: 15%;
   padding: 0px;
   margin: 0px 0px 20px 0px;
   color: white;
@@ -72,6 +74,29 @@ body {
   .user-greeting h1 {
     padding: 0px;
     margin: 0px; }
+  .user-greeting button {
+    outline: none;
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-family: Lato, helvetica;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 300ms ease; }
+  .user-greeting button:hover {
+    text-decoration: underline;
+    transition: 300ms ease; }
+
+#name-input {
+  color: #fff;
+  padding: .5%;
+  margin: 1%;
+  display: none;
+  outline: none;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  border: none; }
 
 .time-display {
   display: flex;
