@@ -129,6 +129,180 @@ body {
     background-color: rgba(0, 0, 0, 0.5);
     transition: 300ms ease; }
 
+.colorPalette {
+  display: flex;
+  width: 277px;
+  padding: 0px;
+  margin: 50px 0px 0px 30px;
+  color: #D9D9D9;
+  font-size: 2.3em; }
+.color-picker-panel {
+  background: rgba(0, 0, 0, 0.6);
+  width: 310px;
+  border-radius: 8px
+  border: 2px solid #444;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  bottom: 75px;
+  left: 20px; }
+.panel-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: relative;
+  margin: 0 10px 10px; }
+.panel-row:first-child {
+  margin-top: 10px;
+  margin-bottom: 6px; }
+.panel-row:after {
+  content: "";
+  display: table;
+  clear: both; }
+.panel-header {
+  background: #15191C;
+  padding: 8px;
+  margin: 0 -10px 10px;
+  text-align: center; }
+.preview {
+  border: 2px solid #444;
+  border-radius: 4px;
+  background: #ccc;
+  width: 60px;
+  height: 35px;
+  margin-bottom: 5px; }
+.panel-col {
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; }
+.swatch {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  background: #ccc;
+  border-radius: 4px;
+  margin-left: 4px;
+  margin-bottom: 4px;
+  box-sizing: border-box;
+  border: 2px solid #444;
+  cursor: pointer; }
+.default-swatches {
+  width: 212px; }
+.default-swatches .swatch:nth-child(6n + 1) {
+  margin-left: 0px; }
+.color-cursor {
+  border-radius: 100%;
+  background: #ccc;
+  box-sizing: border-box;
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+  border: 2px solid #fff;
+  transition: all .2s ease; }
+.color-cursor.dragging {
+  transition: none; }
+.color-cursor#spectrum-cursor {
+  width: 30px;
+  height: 30px;
+  margin-left: -15px;
+  margin-top: -15px;
+  top: 0;
+  left: 0; }
+.color-cursor#hue-cursor {
+  top: 0;
+  left: 50%;
+  height: 20px;
+  width: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  pointer-events: none; }
+.spectrum-map {
+  position: relative;
+  width: 212px;
+  height: 200px;
+  overflow: hidden; }
+#spectrum-canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ccc; }
+.hue-map {
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  right: 29px;
+  width: 10px; }
+#hue-canvas {
+  border-radius: 8px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ccc; }
+.button {
+  background: rgba(255, 255, 255, 0.6);
+  border: 0;
+  border-radius: 4px;
+  color: #303030;
+  font-size: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  outline: none;
+  cursor: pointer;
+  padding: 4px; }
+.button:active {
+  background: #424242; }
+.button.mode-toggle {
+  width: 65px;
+  height: 35px; }
+.value-fields {
+  display: none;
+  align-items: center; }
+.value-fields.active {
+  display: flex; }
+.value-fields .field-label {
+  margin-right: 5px;
+  font-family: Lato, helvetica;
+  font-size: 1rem; }
+.value-fields .field-input {
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid #444;
+  box-sizing: border-box;
+  border-radius: 2px;
+  line-height: 38px;
+  padding: 0 4px;
+  text-align: center;
+  color: #CBCBCB;
+  display: block;
+  outline: none; }
+.rgb-fields .field-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Lato, helvetica;
+  font-size: 1rem; }
+.rgb-fields .field-input {
+  width: 55px;
+  margin-right: 10px; }
+.hex-field .field-input {
+  width: 155px;
+  font-family: Lato, helvetica;
+  font-size: 1rem; }
+.color-picker-icon {
+  border: none;
+  outline: none;
+  background: transparent;
+  cursor: pointer;
+  color: #D9D9D9; }
+.color-picker-icon:hover {
+  color: #FFF; }
+
 footer {
   width: 100%;
   height: 100px;
@@ -139,13 +313,7 @@ footer {
   justify-content: space-between;
   margin: 0px;
   padding: 0px; }
-  footer .colorPalette {
-    display: flex;
-    width: 277px;
-    padding: 0px;
-    margin: 50px 0px 0px 30px;
-    color: #D9D9D9;
-    font-size: 2.3em; }
+
   footer p {
     margin: 60px 0px 0px 0px;
     padding: 0px;
