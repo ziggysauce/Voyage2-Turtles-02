@@ -425,6 +425,20 @@ footer {
 	justify-content: space-between;
 	margin: 0px;
 	padding: 0px;
+	}
+
+	.color-picker-icon {
+		border: none;
+		outline: none;
+		background: transparent;
+		cursor: pointer;
+		color: #D9D9D9;
+	}
+
+	.color-picker-icon:hover {
+		color: #FFF;
+	}
+
 
 	p {
 
