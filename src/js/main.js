@@ -2,7 +2,8 @@
 The general software architecture pattern used here is known as Model-View-Controller (aka MVC).
 reference: https://www.youtube.com/watch?v=fa8eUcu30Lw
 
-Each individual component (Model, View or Controller) is designed using the Revealing Module Pattern.
+Each individual component (Model, View or Controller)
+is designed using the Revealing Module Pattern.
 reference: https://www.youtube.com/watch?v=pOfwp6VlnlM
 */
 
@@ -21,6 +22,8 @@ MODEL
     return pomodoroStatus;
   }
 
+  let pomodoroStartTime;
+
   function togglePomodoro() {
     pomodoroStatus.isActive = !pomodoroStatus.isActive;
     if (pomodoroStatus.isActive) {
@@ -38,7 +41,6 @@ MODEL
 
   const workPeriod = 60000; // eventually these variables will be set by user
   const breakPeriod = 60000;
-  let pomodoroStartTime;
 
   // basic pomodoro functionality
   function pomodoroCycle() {
@@ -73,7 +75,7 @@ MODEL
   }
 
   window.app = {}; // creates app object as porperty of global object
-  app.model = { // creates model object as property of app
+  window.app.model = { // creates model object as property of app
     getPomodoroStatus,
     togglePomodoro,
     minutesAndSeconds,
@@ -117,7 +119,6 @@ CONTROLLER
 ************************************************************************* */
 
 (function makeController(model, view) {
-
 /* ***** pomodoro section ******** */
 
   function togglePomodoro() {
@@ -139,7 +140,7 @@ CONTROLLER
       if (countdown == '0:00') {
         model.triggerSound(model.alarm);
         setTimeout(() => {
-          requestAnimationFrame(clocksHandler)
+          requestAnimationFrame(clocksHandler);
         }, 3000);
       } else {
         requestAnimationFrame(clocksHandler);
@@ -163,7 +164,7 @@ CONTROLLER
     request.send();
   }
 
-/* ***** user greeting section ******** */
+  /* ***** user greeting section ******** */
 
   const userName = () => localStorage.getItem('userName');
   const nameInput = $('#name-input');

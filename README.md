@@ -21,7 +21,7 @@ A new tab extension for Google Chrome that offers tools and resources for front-
 3. Enter `chrome://extensions` in browser's address bar
 4. In top right-hand corner, ensure that the **Developer Mode** box is checked
 5. Click **Load unpacked extension...** , a file navigation box will appear
-6. Navigate to the directory where the DevTab file is located and click **Select**
+6. Navigate to the directory where you cloned/downloaded the repo, select the `dist` folder and click **Select**
 7. DevTab extension should appear on page
 8. On right-hand side, ensure the **Enabled** box is checked
 9. Open up a new tab either by pressing the new tab button on the top-right hand corner of your browser or by pressing `Cmd+T` (mac) or `Ctrl+T` (windows)
