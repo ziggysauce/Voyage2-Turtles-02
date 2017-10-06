@@ -3,7 +3,8 @@ body {
   width: 100%;
   overflow: hidden;
   background-size: cover;
-  font-family: Lato, helvetica; }
+  font-family: Lato, helvetica;
+  font-size: 100% !important; }
   body .overlay {
     content: '';
     position: absolute;

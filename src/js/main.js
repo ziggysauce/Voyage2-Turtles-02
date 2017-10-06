@@ -561,8 +561,7 @@ const nightPicLinks = [
   'https://www.pexels.com/u/pixabay/',
 ];
 
-const bgPics = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
-const randomNum = Math.floor(Math.random() * bgPics.length);
+const randomNum = Math.floor(Math.random() * 22);
 
 /* Function gets user's local time and converts to an integer (1-24)
  * Between 1-7 and 19-24 indicates day time
@@ -577,11 +576,11 @@ function bgChange() {
     hour12: false,
   }), 10);
   if (picTime > 6 && picTime < 19) {
-    $('body').css('background-image', `url('../assets/img/dayPics/sample${bgPics[randomNum]}.jpeg')`);
+    $('body').css('background-image', `url('../assets/img/dayPics/sample${randomNum}.jpeg')`);
     $('.credits p a').attr('href', dayPicLinks[randomNum]);
     $('#pic-author').text(dayPicAuthors[randomNum]);
   } else {
-    $('body').css('background-image', `url('../assets/img/nightPics/sample${bgPics[randomNum]}.jpeg')`);
+    $('body').css('background-image', `url('../assets/img/nightPics/sample${randomNum}.jpeg')`);
     $('#pic-author').attr('href', nightPicLinks[randomNum]);
     $('#pic-author').text(nightPicAuthors[randomNum]);
   }
