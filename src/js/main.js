@@ -502,6 +502,7 @@ const dayPicLinks = [
   'https://www.pexels.com/u/grizzlybear/',
   'https://www.pexels.com/u/grizzlybear/',
   'https://www.pexels.com/u/despierres-cecile-93261/',
+  'https://www.pexels.com/u/flo-dahm-154317/',
   'https://pixabay.com/en/beach-rocks-water-sky-east-sunset-1336083/',
   'https://www.pexels.com/u/uncoated/',
   'https://www.pexels.com/u/margerretta-157232/',
