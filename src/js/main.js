@@ -454,3 +454,136 @@ $('.color-picker-panel').hide();
 $('.color-picker-icon').click(() => {
   $('.color-picker-panel').fadeToggle(300);
 });
+
+/* ***** Background Image Rotation ******** */
+
+/*
+ * Background images change every time tab is opened or page is refreshed
+ * Background images categorized into daytime (7AM-6:59PM) and nighttime (7PM-6:59AM)
+ * Background image shown depends on user's local time (day/night)
+*/
+
+// Store background picture information (day/night, authors, links)
+const dayPicAuthors = [
+  'Eberhard Grossgasteiger',
+  'Unknown',
+  'Unknown',
+  'Alex Mihis',
+  'Paul Ijsendoorn',
+  'CC0 Creative Commons',
+  'CC0 Creative Commons',
+  'Mateusz Dach',
+  'Matt Read',
+  'CC0 Creative Commons',
+  'Jonathan Peterson',
+  'Jonathan Peterson',
+  'Despierres Cecile',
+  'Flo Dahm',
+  'CC0 Creative Commons',
+  'Uncoated',
+  'Margerretta',
+  'Pixabay',
+  'freestocks',
+  'Daniel Frank',
+  'Alexandre Perotto',
+  'Maria Portelles',
+];
+const dayPicLinks = [
+  'https://www.pexels.com/u/eberhardgross/',
+  '',
+  '',
+  'https://www.pexels.com/u/mcraftpix/',
+  'https://www.pexels.com/u/paul-ijsendoorn-148531/',
+  'https://pixabay.com/en/bled-slovenia-lake-mountains-1899264/',
+  'https://pixabay.com/en/sand-dunes-ripples-wind-wilderness-1550396/',
+  'https://www.pexels.com/u/mateusz-dach-99805/',
+  'https://www.pexels.com/u/matt-read-14552/',
+  'https://pixabay.com/en/gleise-old-railroad-tracks-seemed-1555348/',
+  'https://www.pexels.com/u/grizzlybear/',
+  'https://www.pexels.com/u/grizzlybear/',
+  'https://www.pexels.com/u/despierres-cecile-93261/',
+  'https://pixabay.com/en/beach-rocks-water-sky-east-sunset-1336083/',
+  'https://www.pexels.com/u/uncoated/',
+  'https://www.pexels.com/u/margerretta-157232/',
+  'https://www.pexels.com/u/pixabay/',
+  'https://www.pexels.com/u/freestocks/',
+  'https://www.pexels.com/u/fr3nks/',
+  'https://www.pexels.com/u/alexandre-perotto-44133/',
+  'https://www.pexels.com/u/helioz/',
+];
+
+const nightPicAuthors = [
+  'Unknown',
+  'skeeze',
+  'Nout Gons',
+  'Josh Sorenson',
+  'CC0 Creative Commons',
+  'Eberhard Grossgasteiger',
+  'CC0 Creative Commons',
+  'Ales Krivec',
+  'Priseom',
+  'CC0 Creative Commons',
+  'CC0 Creative Commons',
+  'CC0 Creative Commons',
+  'Nikolai Ulltang',
+  'Snapwire',
+  'Pixabay',
+  'Kaique Rocha',
+  'Pixabay',
+  'Mateusz Dach',
+  'Uncoated',
+  'Kaique Rocha',
+  'Photo Collections',
+  'Pixabay',
+];
+const nightPicLinks = [
+  '',
+  'https://pixabay.com/en/milky-way-night-landscape-1669986/',
+  'https://www.pexels.com/u/nout-gons-80280/',
+  'https://www.pexels.com/u/joshsorenson/',
+  'https://pixabay.com/en/maldives-pier-dock-lights-bay-1768714/',
+  'https://www.pexels.com/u/eberhardgross/',
+  'https://pixabay.com/en/fog-dawn-landscape-morgenstimmung-1494433/',
+  'https://www.pexels.com/u/ales-krivec-166939/',
+  'https://www.pexels.com/u/priseom-39551/',
+  'https://pixabay.com/en/storm-weather-atmosphere-cold-front-2211333/',
+  'https://pixabay.com/en/winter-sun-sun-so-sunbeam-sunset-1547273/',
+  'https://pixabay.com/en/autumn-fog-colorful-leaves-nature-1127616/',
+  'https://www.pexels.com/u/ulltangfilms/',
+  'https://www.pexels.com/u/snapwire/',
+  'https://www.pexels.com/u/pixabay/',
+  'https://www.pexels.com/u/kaiquestr/',
+  'https://www.pexels.com/u/pixabay/',
+  'https://www.pexels.com/u/mateusz-dach-99805/',
+  'https://www.pexels.com/u/uncoated/',
+  'https://www.pexels.com/u/kaiquestr/',
+  'https://www.pexels.com/u/photocollections/',
+  'https://www.pexels.com/u/pixabay/',
+];
+
+const randomNum = Math.floor(Math.random() * 22);
+
+/* Function gets user's local time and converts to an integer (1-24)
+ * Between 1-7 and 19-24 indicates day time
+ * Between 7-19 indicates night time
+ * Randomly selects background image and associated author and reference link for page
+ */
+function bgChange() {
+  const curTime = new Date();
+  const picTime = parseInt(curTime.toLocaleString('en-US', {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: false,
+  }), 10);
+  if (picTime > 6 && picTime < 19) {
+    $('body').css('background-image', `url('../assets/img/dayPics/sample${randomNum}.jpeg')`);
+    $('.credits p a').attr('href', dayPicLinks[randomNum]);
+    $('#pic-author').text(dayPicAuthors[randomNum]);
+  } else {
+    $('body').css('background-image', `url('../assets/img/nightPics/sample${randomNum}.jpeg')`);
+    $('#pic-author').attr('href', nightPicLinks[randomNum]);
+    $('#pic-author').text(nightPicAuthors[randomNum]);
+  }
+}
+
+bgChange();
