@@ -564,8 +564,8 @@ const nightPicLinks = [
 const randomNum = Math.floor(Math.random() * 22);
 
 /* Function gets user's local time and converts to an integer (1-24)
- * Between 1-7 and 19-24 indicates day time
- * Between 7-19 indicates night time
+ * Between 7-19 indicates day time
+ * Between 1-7 and 19-24 indicates night time
  * Randomly selects background image and associated author and reference link for page
  */
 function bgChange() {
