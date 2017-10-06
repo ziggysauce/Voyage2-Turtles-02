@@ -502,6 +502,7 @@ const dayPicLinks = [
   'https://www.pexels.com/u/grizzlybear/',
   'https://www.pexels.com/u/grizzlybear/',
   'https://www.pexels.com/u/despierres-cecile-93261/',
+  'https://www.pexels.com/u/flo-dahm-154317/',
   'https://pixabay.com/en/beach-rocks-water-sky-east-sunset-1336083/',
   'https://www.pexels.com/u/uncoated/',
   'https://www.pexels.com/u/margerretta-157232/',
@@ -564,8 +565,8 @@ const nightPicLinks = [
 const randomNum = Math.floor(Math.random() * 22);
 
 /* Function gets user's local time and converts to an integer (1-24)
- * Between 1-7 and 19-24 indicates day time
- * Between 7-19 indicates night time
+ * Between 7-19 indicates day time
+ * Between 1-7 and 19-24 indicates night time
  * Randomly selects background image and associated author and reference link for page
  */
 function bgChange() {
