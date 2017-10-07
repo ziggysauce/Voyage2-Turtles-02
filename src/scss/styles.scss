@@ -36,9 +36,15 @@ body {
 	  	.quickLinks {
 
 	  		display: flex;
+
 	  		margin: 20px auto 0px 40px;
 
-	  		cursor: pointer;
+	  		.dropdownButton {
+
+	  			display: flex;
+	  			cursor: pointer;
+
+	  		}
 
 	  		p {
 
@@ -55,13 +61,128 @@ body {
 	  		i {
 
 	  			margin: 6px 6px 6px 20px;
-
+	  			padding: 0px;
 	  			color: #D9D9D9;
 	  			font-size: 1.75em;
 
 	  		}
 
+	  		.quickDropdown {
+
+	  			
+	  			position: absolute;
+	  			margin-top: 40px;
+	  			padding: 20px;
+	  			color: lightgrey;
+	  
+	  			background: -moz-linear-gradient(top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.5) 100%); /* FF3.6-15 */
+				background: -webkit-linear-gradient(top, rgba(0,0,0,0.5) 0%,rgba(0,0,0,0.5) 100%); /* Chrome10-25,Safari5.1-6 */
+				background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%,rgba(0,0,0,0.5) 100%); 
+
+				border: 1px solid transparent;
+	  			border-radius: 15px;
+
+	  			transition: .5s;
+	  			opacity: 0;/*Only properties with number values can be animated in CSS. Properties like display and visibilty do not have number values.*/
+
+	  			input {
+
+	  				display: block;
+	  				width: 115px;
+	  				padding: 2px;
+	  				margin: 7px 0px 7px 0px;
+
+	  				background-color: #333;
+	  				font-weight: 700;
+	  				border: 1px solid #333;
+	  				border-radius: 5px;
+	  				transition: .3s;
+
+	  			}
+
+	  			input:focus::placeholder {/*::placeholder is a selector that selects the content within the placehold attribute.*/
+
+	  				color: #D9D9D9;
+	  				transition: .3s;   
+
+	  			}
+
+	  			#invisibleInput {
+
+	  				opacity: 0;
+	  				position: absolute;
+
+	  			}
+
+	  			button {
+
+	  				margin: 0px;
+
+	  			}
+
+	  		}
+
+	  		h3 {
+
+	  			margin: 0px 0px 10px 0px;
+	  			padding: 0px;
+
+	  			font-size: 1.4em;
+	  			font-weight: 300;
+
+	  			border-bottom: 1px solid lightgrey;
+
+	  		}
+
+	  		ul {
+
+	  			list-style-type: none;
+	  			margin: 0px 0px 0px 0px;
+	  			padding: 0px 0px 0px 0px;
+	  			
+
+
+	  		}
+
+	  		li {
+
+	  			margin: 10px 0px 10px 0px;
+	  			padding: 0px;
+	  			font-weight: 700;
+	  			cursor: pointer;
+
+	  		}
+
+	  		a {
+
+	  			text-decoration: none;
+	  			color: lightgrey;
+
+	  		}
+
+	  		li:hover {
+
+	  			border-bottom: 1px solid white;
+
+	  		}
+
+	  		.addSite{
+
+	  			padding: 3px;
+	  			margin: 10px 0px 10px 0px;
+	  			font-weight: 700;
+	  			cursor: pointer;
+
+	  			font-size: 1em;
+	  			color: white;
+	  			background-color: lightgrey;
+	  			border: 1px solid lightgrey;
+	  			border-radius: 5px;
+
+	  		}
 	  	}
+
+
 
 	  	.stickyNotes {
 
@@ -92,7 +213,17 @@ body {
 
 	  	}
 
+	  	.quickLinks:hover {
 
+	  		.quickDropdown {
+
+	  			opacity: 1;
+	  			transition: .5s;
+
+	  		}
+
+	  	}
+	 
 }
 
 .clock-and-greeting {
@@ -511,5 +642,18 @@ footer {
 		}
 
 	}
+
+}
+
+.addUrl {
+
+	display: none;
+	
+}
+
+.urlContainer {
+
+		
+		 
 
 }

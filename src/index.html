@@ -16,6 +16,7 @@
     <script src="js/jquery-3.2.1.js" defer></script>
     <script src="js/tinycolor.js" defer></script>
     <script src="js/main.js" defer></script>
+    <script src="js/quickLink.js" defer></script>
     <!-- endbuild -->
   </head>
 
@@ -29,8 +30,43 @@
 
         <div class="quickLinks">
 
-          <p>Quick Links</p>
-          <i class="fa fa-sort-desc" aria-hidden="true"></i>
+            <div class="dropdownButton">
+
+              <p>Quick Links</p>
+              <i class="fa fa-sort-desc" aria-hidden="true"></i>
+
+            </div>
+
+           <div class="quickDropdown">
+
+            <h3>Popular Sites</h3>
+
+            <ul class="quickList">
+
+              
+
+            </ul>
+
+            <p class="addSite">+ Add New Site</p>
+            
+            <div class="addUrl">
+
+              <div class="urlContainer">
+
+                <form id="targetForm">
+
+                  <input id="titleInput" type="text" placeholder="title"/>
+                  <input id="urlInput" type="text" placeholder="url"/>
+                  <input id="invisibleInput" type="submit" />
+
+                </form>
+
+              </div>
+
+            </div>
+
+          </div>
+
 
         </div>
 
@@ -158,7 +194,10 @@
 
       </footer>
 
-    </div>
+       </div>
+
+
+   
 
   </body>
 </html>
