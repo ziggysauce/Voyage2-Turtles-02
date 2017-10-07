@@ -27,7 +27,7 @@ gulp.task('scss', () => {
 // When called, runs 'scss' task first, then runs itself.
 // IMPORTANT: if you add more css files or folders, gulp.src needs to be updated as well
 gulp.task('css', ['scss'], () => {
-  gulp.src([ // add more css files here, in the order you want them to be combined
+  const stream = gulp.src([ // add more css files here, in the order you want them to be combined
     'src/css/reset.css',
     'src/css/styles.css'])
     .pipe(plumber())
@@ -37,6 +37,8 @@ gulp.task('css', ['scss'], () => {
     .pipe(sourcemaps.write('../maps'))
     .pipe(gulp.dest('dist/css/'))
     .pipe(reload({ stream: true }));
+
+  return stream;
 });
 
 // concatenates and minifies all javascript files.
@@ -46,7 +48,8 @@ gulp.task('js', () => {
   gulp.src([ // add more js files here, in the order you want them to be combined
     'src/js/jquery-3.2.1.js',
     'src/js/tinycolor.js',
-    'src/js/main.js'])
+    'src/js/main.js',
+    'src/js/quickLink.js'])
     .pipe(plumber())
     .pipe(sourcemaps.init())
     .pipe(concat('app.min.js'))
@@ -84,9 +87,11 @@ gulp.task('cleanfolder', () => del(['dist/assets/**']));
 // copies new/changed assets into dist/assets
 // when called, runs 'cleanfolder' first
 gulp.task('assets', ['cleanfolder'], () => {
-  gulp.src(['src/assets/**/*'])
+  const stream = gulp.src(['src/assets/**/*'])
     .pipe(gulp.dest('dist/assets'))
     .pipe(reload({ stream: true }));
+
+  return stream;
 });
 
 // watches src directory and handles hot-reloading in browser
