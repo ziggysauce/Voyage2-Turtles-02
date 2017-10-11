@@ -487,7 +487,7 @@ ColorPicker();
 $('.color-picker-panel').hide();
 
 // Create click event to open color picker when icon is clicked
-$('.color-picker-icon').click((e) => {
+$('#color-picker-icon').click((e) => {
   $('.color-picker-panel').fadeToggle(300);
   e.stopPropagation();
   return false;
@@ -495,7 +495,7 @@ $('.color-picker-icon').click((e) => {
 
 // Create click event to close color picker when clicked anywhere else
 $(document).click((e) => {
-  if (e.target.className !== 'colorPalette' && !$('.colorPalette').find(e.target).length) {
+  if (e.target.className !== 'color-picker-panel' && !$('.color-picker-panel').find(e.target).length) {
     $('.color-picker-panel').fadeOut(300);
   }
 });

@@ -101,7 +101,8 @@
       <!--*****************************************************-->
       <footer>
 
-        <div class="colorPalette">
+        <div class="tools">
+
           <!-- Color Picker Pop-Up Box -->
           <div class="color-picker-panel">
             <div class="panel-row">
@@ -141,7 +142,7 @@
               </div>
               <div class="panel-col">
                 <div class="preview color-indicator" id="color-indicator"></div>
-                <button id="mode-toggle" class="button mode-toggle">Mode</button>
+                <button id="mode-toggle" class="tog-button mode-toggle">Mode</button>
               </div>
             </div>
             <div class="panel-row">
@@ -156,12 +157,27 @@
             </div>
             <div id="user-swatches" class="swatches custom-swatches"></div>
           </div>
-          <!-- Color Picker Toggle Button -->
-          <button type="button" name="button" class="color-picker-icon">
-            <i class="fa fa-paint-brush" aria-hidden="true"></i>
-          </button>
 
-        </div>
+          <!-- Tools: HTML/CSS Validator -->
+          <div class="valid-container">
+            
+          </div>
+
+          <ul class="tools-icon-list">
+            <li>
+              <!-- Color Picker Toggle Button -->
+              <button type="button" name="color-picker" class="tools-icon" id="color-picker-icon">
+                <i class="fa fa-paint-brush" aria-hidden="true"></i>
+              </button>
+            </li>
+            <li>
+              <!-- Color Picker Toggle Button -->
+              <button type="button" name="validators" class="tools-icon" id="validator-icon">
+                <i class="fa fa-wrench" aria-hidden="true"></i>
+              </button></li>
+          </ul>
+
+        </div> <!-- Tools End -->
 
         <div class="credits">
 
