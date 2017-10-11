@@ -152,7 +152,7 @@ CONTROLLER
   // free sound effects from soundbible.com
   function loadSounds() {
     const request = new XMLHttpRequest();
-    const audioUrl = '/assets/audio/alarm.mp3';
+    const audioUrl = './assets/audio/alarm.mp3';
 
     request.open('GET', audioUrl);
     request.responseType = 'arraybuffer';
@@ -751,7 +751,7 @@ function bgChange() {
     $('.credits p a').attr('href', bgInfo[randomNum].day.url);
     $('#pic-author').text(bgInfo[randomNum].day.author);
   } else {
-    $('body').css('background-image', `url('../assets/img/nightPics/sample${randomNum}.jpeg')`);
+    $('body').css('background-image', `url('./assets/img/nightPics/sample${randomNum}.jpeg')`);
     $('#pic-author').attr('href', bgInfo[randomNum].night.url);
     $('#pic-author').text(bgInfo[randomNum].night.author);
   }
