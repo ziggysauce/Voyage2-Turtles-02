@@ -35,12 +35,12 @@
 
             <ul class="quickList">
 
-              
+
 
             </ul>
 
             <p class="addSite">+ Add New Site</p>
-            
+
             <div class="addUrl">
 
               <div class="urlContainer">
@@ -124,6 +124,20 @@
                   <label for="" class="field-label">Hex :</label>
                   <input type="text" id="hex" class="field-input"/>
                 </div>
+                <div id="hsl-fields" class="field-group value-fields rgb-fields">
+                  <div class="field-group">
+                    <label for="" class="field-label">H &#176;</label>
+                    <input type="number" max="360" min="0" id="huedisplay" class="field-input rgb-input"/>
+                  </div>
+                  <div class="field-group">
+                    <label for="" class="field-label">S %</label>
+                    <input type="number" max="100" min="0" id="saturationdisplay" class="field-input rgb-input"/>
+                  </div>
+                  <div class="field-group">
+                    <label for="" class="field-label">L %</label>
+                    <input type="number" max="100" min="0" id="lightnessdisplay" class="field-input rgb-input"/>
+                  </div>
+                </div>
               </div>
               <div class="panel-col">
                 <div class="preview color-indicator" id="color-indicator"></div>
@@ -189,7 +203,7 @@
        </div>
 
 
-   
+
 
   </body>
 </html>

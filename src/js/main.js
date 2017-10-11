@@ -249,11 +249,15 @@ var lightness = 0.5;
 
 var rgbFields = document.getElementById('rgb-fields');
 var hexField = document.getElementById('hex-field');
+var hslFields = document.getElementById('hsl-fields');
 
 var red = document.getElementById('red');
 var blue = document.getElementById('blue');
 var green = document.getElementById('green');
 var hex = document.getElementById('hex');
+var huedisplay = document.getElementById('huedisplay');
+var saturationdisplay = document.getElementById('saturationdisplay');
+var lightnessdisplay = document.getElementById('lightnessdisplay');
 
 function refreshElementRects() {
   spectrumRect = spectrumCanvas.getBoundingClientRect();
@@ -271,11 +275,15 @@ function setColorValues(color) {
   var color = tinycolor(color);
   var rgbValues = color.toRgb();
   var hexValue = color.toHex();
+  var hslValues = color.toHsl();
   // set inputs
   red.value = rgbValues.r;
   green.value = rgbValues.g;
   blue.value = rgbValues.b;
   hex.value = hexValue;
+  huedisplay.value = Math.round(hslValues.h);
+  saturationdisplay.value = Math.round(hslValues.s * 100);
+  lightnessdisplay.value = Math.round(hslValues.l * 100);
 }
 
 function setCurrentColor(color) {
@@ -433,9 +441,37 @@ blue.addEventListener('change', () => {
   colorToPos(color);
 });
 
+hex.addEventListener('change', () => {
+  let color = tinycolor('#' + hex.value );
+  colorToPos(color);
+});
+
+huedisplay.addEventListener('change', () => {
+  const color = tinycolor('hsl ' + huedisplay.value + ' ' + saturationdisplay.value + ' ' + lightnessdisplay.value );
+  colorToPos(color);
+});
+
+saturationdisplay.addEventListener('change', () => {
+  const color = tinycolor('hsl ' + huedisplay.value + ' ' + saturationdisplay.value + ' ' + lightnessdisplay.value );
+  colorToPos(color);
+});
+
+lightnessdisplay.addEventListener('change', () => {
+  const color = tinycolor('hsl ' + huedisplay.value + ' ' + saturationdisplay.value + ' ' + lightnessdisplay.value );
+  colorToPos(color);
+});
+
 modeToggle.addEventListener('click', () => {
-  if (rgbFields.classList.contains('active') ? rgbFields.classList.remove('active') : rgbFields.classList.add('active'));
-  if (hexField.classList.contains('active') ? hexField.classList.remove('active') : hexField.classList.add('active'));
+  if (rgbFields.classList.contains('active')) {
+    rgbFields.classList.remove('active');
+    hexField.classList.add('active');
+  } else if (hexField.classList.contains('active')) {
+    hexField.classList.remove('active');
+    hslFields.classList.add('active');
+  } else if (hslFields.classList.contains('active')) {
+    hslFields.classList.remove('active');
+    rgbFields.classList.add('active');
+  }
 });
 
 window.addEventListener('resize', () => {
@@ -450,9 +486,18 @@ function ColorPicker() {
 ColorPicker();
 $('.color-picker-panel').hide();
 
-// Create click event for color picker button
-$('.color-picker-icon').click(() => {
+// Create click event to open color picker when icon is clicked
+$('.color-picker-icon').click((e) => {
   $('.color-picker-panel').fadeToggle(300);
+  e.stopPropagation();
+  return false;
+});
+
+// Create click event to close color picker when clicked anywhere else
+$(document).click((e) => {
+  if (e.target.className !== 'colorPalette' && !$('.colorPalette').find(e.target).length) {
+    $('.color-picker-panel').fadeOut(300);
+  }
 });
 
 /* ***** Background Image Rotation ******** */
@@ -464,102 +509,227 @@ $('.color-picker-icon').click(() => {
 */
 
 // Store background picture information (day/night, authors, links)
-const dayPicAuthors = [
-  'Eberhard Grossgasteiger',
-  'Unknown',
-  'Unknown',
-  'Alex Mihis',
-  'Paul Ijsendoorn',
-  'CC0 Creative Commons',
-  'CC0 Creative Commons',
-  'Mateusz Dach',
-  'Matt Read',
-  'CC0 Creative Commons',
-  'Jonathan Peterson',
-  'Jonathan Peterson',
-  'Despierres Cecile',
-  'Flo Dahm',
-  'CC0 Creative Commons',
-  'Uncoated',
-  'Margerretta',
-  'Pixabay',
-  'freestocks',
-  'Daniel Frank',
-  'Alexandre Perotto',
-  'Maria Portelles',
-];
-const dayPicLinks = [
-  'https://www.pexels.com/u/eberhardgross/',
-  '',
-  '',
-  'https://www.pexels.com/u/mcraftpix/',
-  'https://www.pexels.com/u/paul-ijsendoorn-148531/',
-  'https://pixabay.com/en/bled-slovenia-lake-mountains-1899264/',
-  'https://pixabay.com/en/sand-dunes-ripples-wind-wilderness-1550396/',
-  'https://www.pexels.com/u/mateusz-dach-99805/',
-  'https://www.pexels.com/u/matt-read-14552/',
-  'https://pixabay.com/en/gleise-old-railroad-tracks-seemed-1555348/',
-  'https://www.pexels.com/u/grizzlybear/',
-  'https://www.pexels.com/u/grizzlybear/',
-  'https://www.pexels.com/u/despierres-cecile-93261/',
-  'https://www.pexels.com/u/flo-dahm-154317/',
-  'https://pixabay.com/en/beach-rocks-water-sky-east-sunset-1336083/',
-  'https://www.pexels.com/u/uncoated/',
-  'https://www.pexels.com/u/margerretta-157232/',
-  'https://www.pexels.com/u/pixabay/',
-  'https://www.pexels.com/u/freestocks/',
-  'https://www.pexels.com/u/fr3nks/',
-  'https://www.pexels.com/u/alexandre-perotto-44133/',
-  'https://www.pexels.com/u/helioz/',
-];
-
-const nightPicAuthors = [
-  'Unknown',
-  'skeeze',
-  'Nout Gons',
-  'Josh Sorenson',
-  'CC0 Creative Commons',
-  'Eberhard Grossgasteiger',
-  'CC0 Creative Commons',
-  'Ales Krivec',
-  'Priseom',
-  'CC0 Creative Commons',
-  'CC0 Creative Commons',
-  'CC0 Creative Commons',
-  'Nikolai Ulltang',
-  'Snapwire',
-  'Pixabay',
-  'Kaique Rocha',
-  'Pixabay',
-  'Mateusz Dach',
-  'Uncoated',
-  'Kaique Rocha',
-  'Photo Collections',
-  'Pixabay',
-];
-const nightPicLinks = [
-  '',
-  'https://pixabay.com/en/milky-way-night-landscape-1669986/',
-  'https://www.pexels.com/u/nout-gons-80280/',
-  'https://www.pexels.com/u/joshsorenson/',
-  'https://pixabay.com/en/maldives-pier-dock-lights-bay-1768714/',
-  'https://www.pexels.com/u/eberhardgross/',
-  'https://pixabay.com/en/fog-dawn-landscape-morgenstimmung-1494433/',
-  'https://www.pexels.com/u/ales-krivec-166939/',
-  'https://www.pexels.com/u/priseom-39551/',
-  'https://pixabay.com/en/storm-weather-atmosphere-cold-front-2211333/',
-  'https://pixabay.com/en/winter-sun-sun-so-sunbeam-sunset-1547273/',
-  'https://pixabay.com/en/autumn-fog-colorful-leaves-nature-1127616/',
-  'https://www.pexels.com/u/ulltangfilms/',
-  'https://www.pexels.com/u/snapwire/',
-  'https://www.pexels.com/u/pixabay/',
-  'https://www.pexels.com/u/kaiquestr/',
-  'https://www.pexels.com/u/pixabay/',
-  'https://www.pexels.com/u/mateusz-dach-99805/',
-  'https://www.pexels.com/u/uncoated/',
-  'https://www.pexels.com/u/kaiquestr/',
-  'https://www.pexels.com/u/photocollections/',
-  'https://www.pexels.com/u/pixabay/',
+const bgInfo = [
+  {
+    day: {
+      author: 'Eberhard Grossgasteiger',
+      url: 'https://www.pexels.com/u/eberhardgross/',
+    },
+    night: {
+      author: 'Unknown',
+      url: '',
+    },
+  },
+  {
+    day: {
+      author: 'unknown',
+      url: '',
+    },
+    night: {
+      author: 'skeeze',
+      url: 'https://pixabay.com/en/milky-way-night-landscape-1669986/',
+    },
+  },
+  {
+    day: {
+      author: 'unknown',
+      url: '',
+    },
+    night: {
+      author: 'Nout Gons',
+      url: 'https://www.pexels.com/u/nout-gons-80280/',
+    },
+  },
+  {
+    day: {
+      author: 'Alex Mihis',
+      url: 'https://www.pexels.com/u/mcraftpix/',
+    },
+    night: {
+      author: 'Josh Sorenson',
+      url: 'https://www.pexels.com/u/joshsorenson/',
+    },
+  },
+  {
+    day: {
+      author: 'Paul Ijsendoorn',
+      url: 'https://www.pexels.com/u/paul-ijsendoorn-148531/',
+    },
+    night: {
+      author: 'CC0 Creative Commons',
+      url: 'https://pixabay.com/en/maldives-pier-dock-lights-bay-1768714/',
+    },
+  },
+  {
+    day: {
+      author: 'CC0 Creative Commons',
+      url: 'https://pixabay.com/en/bled-slovenia-lake-mountains-1899264/',
+    },
+    night: {
+      author: 'Eberhard Grossgasteiger',
+      url: 'https://www.pexels.com/u/eberhardgross/',
+    },
+  },
+  {
+    day: {
+      author: 'CC0 Creative Commons',
+      url: 'https://pixabay.com/en/sand-dunes-ripples-wind-wilderness-1550396/',
+    },
+    night: {
+      author: 'CC0 Creative Commons',
+      url: 'https://pixabay.com/en/fog-dawn-landscape-morgenstimmung-1494433/',
+    },
+  },
+  {
+    day: {
+      author: 'Mateusz Dach',
+      url: 'https://www.pexels.com/u/mateusz-dach-99805/',
+    },
+    night: {
+      author: 'Ales Krivec',
+      url: 'https://www.pexels.com/u/ales-krivec-166939/',
+    },
+  },
+  {
+    day: {
+      author: 'Matt Read',
+      url: 'https://www.pexels.com/u/matt-read-14552/',
+    },
+    night: {
+      author: 'Priseom',
+      url: 'https://www.pexels.com/u/priseom-39551/',
+    },
+  },
+  {
+    day: {
+      author: 'CC0 Creative Commons',
+      url: 'https://pixabay.com/en/gleise-old-railroad-tracks-seemed-1555348/',
+    },
+    night: {
+      author: 'CC0 Creative Commons',
+      url: 'https://pixabay.com/en/storm-weather-atmosphere-cold-front-2211333/',
+    },
+  },
+  {
+    day: {
+      author: 'Jonathan Peterson',
+      url: 'https://www.pexels.com/u/grizzlybear/',
+    },
+    night: {
+      author: 'CC0 Creative Commons',
+      url: 'https://pixabay.com/en/winter-sun-sun-so-sunbeam-sunset-1547273/',
+    },
+  },
+  {
+    day: {
+      author: 'Jonathan Peterson',
+      url: 'https://www.pexels.com/u/grizzlybear/',
+    },
+    night: {
+      author: 'CC0 Creative Commons',
+      url: 'https://pixabay.com/en/autumn-fog-colorful-leaves-nature-1127616/',
+    },
+  },
+  {
+    day: {
+      author: 'Despierres Cecile',
+      url: 'https://www.pexels.com/u/despierres-cecile-93261/',
+    },
+    night: {
+      author: 'Nikolai Ulltang',
+      url: 'https://www.pexels.com/u/ulltangfilms/',
+    },
+  },
+  {
+    day: {
+      author: 'Flo Dahm',
+      url: 'https://www.pexels.com/u/flo-dahm-154317/',
+    },
+    night: {
+      author: 'Snapwire',
+      url: 'https://www.pexels.com/u/snapwire/',
+    },
+  },
+  {
+    day: {
+      author: 'CC0 Creative Commons',
+      url: 'https://pixabay.com/en/beach-rocks-water-sky-east-sunset-1336083/',
+    },
+    night: {
+      author: 'Pixabay',
+      url: 'https://www.pexels.com/u/pixabay/',
+    },
+  },
+  {
+    day: {
+      author: 'Uncoated',
+      url: 'https://www.pexels.com/u/uncoated/',
+    },
+    night: {
+      author: 'Kaique Rocha',
+      url: 'https://www.pexels.com/u/kaiquestr/',
+    },
+  },
+  {
+    day: {
+      author: 'Margerretta',
+      url: 'https://www.pexels.com/u/margerretta-157232/',
+    },
+    night: {
+      author: 'Pixabay',
+      url: 'https://www.pexels.com/u/pixabay/',
+    },
+  },
+  {
+    day: {
+      author: 'Pixabay',
+      url: 'https://www.pexels.com/u/pixabay/',
+    },
+    night: {
+      author: 'Mateusz Dach',
+      url: 'https://www.pexels.com/u/mateusz-dach-99805/',
+    },
+  },
+  {
+    day: {
+      author: 'freestocks',
+      url: 'https://www.pexels.com/u/freestocks/',
+    },
+    night: {
+      author: 'Uncoated',
+      url: 'https://www.pexels.com/u/uncoated/',
+    },
+  },
+  {
+    day: {
+      author: 'Daniel Frank',
+      url: 'https://www.pexels.com/u/fr3nks/',
+    },
+    night: {
+      author: 'Kaique Rocha',
+      url: 'https://www.pexels.com/u/kaiquestr/',
+    },
+  },
+  {
+    day: {
+      author: 'Alexandre Perotto',
+      url: 'https://www.pexels.com/u/alexandre-perotto-44133/',
+    },
+    night: {
+      author: 'Photo Collections',
+      url: 'https://www.pexels.com/u/photocollections/',
+    },
+  },
+  {
+    day: {
+      author: 'Maria Portelles',
+      url: 'https://www.pexels.com/u/helioz/',
+    },
+    night: {
+      author: 'Pixabay',
+      url: 'https://www.pexels.com/u/pixabay/',
+    },
+  },
 ];
 
 const randomNum = Math.floor(Math.random() * 22);
@@ -578,12 +748,12 @@ function bgChange() {
   }), 10);
   if (picTime > 6 && picTime < 19) {
     $('body').css('background-image', `url('../assets/img/dayPics/sample${randomNum}.jpeg')`);
-    $('.credits p a').attr('href', dayPicLinks[randomNum]);
-    $('#pic-author').text(dayPicAuthors[randomNum]);
+    $('.credits p a').attr('href', bgInfo[randomNum].day.url);
+    $('#pic-author').text(bgInfo[randomNum].day.author);
   } else {
     $('body').css('background-image', `url('../assets/img/nightPics/sample${randomNum}.jpeg')`);
-    $('#pic-author').attr('href', nightPicLinks[randomNum]);
-    $('#pic-author').text(nightPicAuthors[randomNum]);
+    $('#pic-author').attr('href', bgInfo[randomNum].night.url);
+    $('#pic-author').text(bgInfo[randomNum].night.author);
   }
 }
 
