@@ -747,7 +747,7 @@ function bgChange() {
     hour12: false,
   }), 10);
   if (picTime > 6 && picTime < 19) {
-    $('body').css('background-image', `url('../assets/img/dayPics/sample${randomNum}.jpeg')`);
+    $('body').css('background-image', `url('./assets/img/dayPics/sample${randomNum}.jpeg')`);
     $('.credits p a').attr('href', bgInfo[randomNum].day.url);
     $('#pic-author').text(bgInfo[randomNum].day.author);
   } else {
