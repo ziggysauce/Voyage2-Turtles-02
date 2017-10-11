@@ -1,3 +1,6 @@
+* {
+  box-sizing: border-box; }
+
 body {
   height: 100%;
   width: 100%;
@@ -158,15 +161,21 @@ body {
     text-decoration: underline;
     transition: 300ms ease; }
 
+#name-form {
+  display: none; }
+
 #name-input {
   color: #fff;
   padding: .5%;
   margin: 1%;
-  display: none;
   outline: none;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 5px;
   border: none; }
+
+#name-submit {
+  opacity: 0;
+  position: absolute; }
 
 .time-display {
   display: flex;
@@ -455,3 +464,57 @@ footer {
 
 .addUrl {
   display: none; }
+
+.newsfeed-wrapper {
+  display: none;
+  position: fixed;
+  top: 10%;
+  bottom: 10%;
+  left: 20%;
+  right: 20%;
+  background-color: rgba(0, 0, 0, 0.6); }
+
+.newsfeed {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0; }
+  .newsfeed > :first-child {
+    margin-top: 0; }
+  .newsfeed > :last-child {
+    margin-bottom: 0; }
+
+.article {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 25%;
+  margin: 1% 0;
+  padding: 1%;
+  background-color: rgba(0, 0, 0, 0.9); }
+  .article > a {
+    width: 20%;
+    margin: 0;
+    padding: 0;
+    background-size: cover; }
+  .article > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 80%;
+    margin-left: 2.5%; }
+    .article > div > a {
+      margin: 1%;
+      padding: 1%;
+      color: #fff;
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-decoration: none; }
+    .article > div > a:hover {
+      text-decoration: underline; }
+    .article > div > p {
+      margin: 1%;
+      padding: 1%;
+      color: #fff; }
