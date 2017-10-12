@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
 
 	height: 100%;
@@ -268,15 +272,23 @@ body {
   }
 }
 
+#name-form {
+  display: none;
+}
+
 #name-input {
   color: #fff;
   padding: .5%;
   margin: 1%;
-  display: none;
   outline: none;
   background-color: hsla(0, 0, 0, .5);
   border-radius: 5px;
   border: none;
+}
+
+#name-submit {
+  opacity: 0;
+  position: absolute;
 }
 
 .time-display {
@@ -646,14 +658,71 @@ footer {
 }
 
 .addUrl {
-
 	display: none;
-
 }
 
-.urlContainer {
+// ********** NEWSFEED RULES ************
 
+.newsfeed-wrapper {
+  display: none;
+  position: fixed;
+  top: 10%;
+  bottom: 10%;
+  left: 20%;
+  right: 20%;
+  background-color: hsla(0, 0, 0, 0.6);
+}
 
+.newsfeed {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  > :first-child {
+    margin-top: 0;
+  }
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
 
-
+.article {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 25%;
+  margin: 1% 0;
+  padding: 1%;
+  background-color: hsla(0, 0, 0, 0.9);
+  > a {
+    width: 20%;
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+  }
+  > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 80%;
+    margin-left: 2.5%;
+    > a {
+      margin: 1%;
+      padding: 1%;
+      color: #fff;
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    > a:hover {
+      text-decoration: underline;
+    }
+    > p {
+      margin: 1%;
+      padding: 1%;
+      color: #fff;
+    }
+  }
 }
