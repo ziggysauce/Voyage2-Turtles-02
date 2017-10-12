@@ -38,11 +38,11 @@ body {
       margin: 0px 0px 0px 0px;
       padding: 10px 8px 8px 8px;
       font-size: 1.4em;
-      color: white; }
+      color: rgba(255, 255, 255, 0.8); }
     .linkNote .quickLinks i {
       margin: 6px 6px 6px 20px;
       padding: 0px;
-      color: #D9D9D9;
+      color: rgba(255, 255, 255, 0.6);
       font-size: 1.75em; }
     .linkNote .quickLinks .quickDropdown {
       position: absolute;
@@ -92,7 +92,8 @@ body {
       margin: 10px 0px 10px 0px;
       padding: 0px;
       font-weight: 700;
-      cursor: pointer; }
+      cursor: pointer;
+      border-bottom: 1px solid transparent; }
     .linkNote .quickLinks a {
       text-decoration: none;
       color: lightgrey; }
@@ -104,10 +105,18 @@ body {
       font-weight: 700;
       cursor: pointer;
       font-size: 1em;
-      color: white;
-      background-color: lightgrey;
+      color: rgba(255, 255, 255, 0.6);
+      background-color: rgba(0, 0, 0, 0.7);
       border: 1px solid lightgrey;
       border-radius: 5px; }
+    .linkNote .quickLinks .addSite:hover {
+      background-color: rgba(255, 255, 255, 0.8);
+      color: rgba(0, 0, 0, 0.7);
+      border: 1px solid transparent; }
+  .linkNote .quickLinks:hover p {
+    color: #FFF; }
+  .linkNote .quickLinks:hover i {
+    color: #FFF; }
   .linkNote .stickyNotes {
     display: flex;
     margin: 5px 30px 10px 10px;
@@ -115,13 +124,17 @@ body {
     .linkNote .stickyNotes p {
       margin: 8px 0px;
       padding: 10px 5px 0px 0px;
-      color: white;
+      color: rgba(255, 255, 255, 0.6);
       font-size: 2em; }
     .linkNote .stickyNotes i {
       margin: 10px 0px 0px 10px;
       padding: 10px 0px 0px 0px;
-      color: white;
+      color: rgba(255, 255, 255, 0.6);
       font-size: 2.3em; }
+  .linkNote .stickyNotes:hover p {
+    color: #FFF; }
+  .linkNote .stickyNotes:hover i {
+    color: #FFF; }
   .linkNote .quickLinks:hover .quickDropdown {
     opacity: 1;
     transition: .5s; }
@@ -208,13 +221,61 @@ body {
     background-color: rgba(0, 0, 0, 0.5);
     transition: 300ms ease; }
 
-.colorPalette {
+footer {
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
   display: flex;
-  width: 277px;
-  padding: 0px;
-  margin: 50px 0px 0px 30px;
-  color: #D9D9D9;
-  font-size: 2.3em; }
+  justify-content: space-between;
+  margin: 0px;
+  padding: 0px; }
+  footer p {
+    margin: 60px 0px 0px 0px;
+    padding: 0px;
+    color: #D9D9D9;
+    font-size: .9em; }
+    footer p a {
+      text-decoration: none;
+      color: #D9D9D9; }
+    footer p a:hover {
+      border-bottom: 1px solid #D9D9D9; }
+  footer .listArea {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 30%;
+    margin: auto 0px; }
+    footer .listArea ul {
+      display: flex;
+      margin: auto 0px;
+      padding: 0px;
+      list-style-type: none; }
+      footer .listArea ul li {
+        cursor: pointer;
+        margin: auto;
+        padding: 5px; }
+        footer .listArea ul li i {
+          margin: 0px;
+          padding: 20px 20px 0px 20px;
+          color: rgba(255, 255, 255, 0.6);
+          font-size: 1.8em;
+          transition: .5s; }
+        footer .listArea ul li .iconHover {
+          opacity: 0;
+          margin: 0px 20px;
+          padding: 0px;
+          color: #FFF;
+          font-size: 1em;
+          transition: .5s; }
+      footer .listArea ul li:hover .iconHover {
+        opacity: 1;
+        visibility: visible;
+        transition: .5s; }
+      footer .listArea ul li:hover i {
+        color: #FFF;
+        transition: .5s; }
 
 .color-picker-panel {
   background: rgba(0, 0, 0, 0.6);
@@ -223,7 +284,7 @@ body {
   border: 2px solid #444;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
   position: absolute;
-  bottom: 75px;
+  bottom: 80px;
   left: 20px; }
 
 .panel-row {
@@ -344,7 +405,7 @@ body {
   height: 100%;
   background: #ccc; }
 
-.button {
+.tog-button {
   background: rgba(255, 255, 255, 0.6);
   border: 0;
   border-radius: 4px;
@@ -355,10 +416,10 @@ body {
   cursor: pointer;
   padding: 4px; }
 
-.button:active {
+.tog-button:active {
   background: #424242; }
 
-.button.mode-toggle {
+.tog-button.mode-toggle {
   width: 65px;
   height: 35px; }
 
@@ -402,65 +463,127 @@ body {
   font-family: Lato, helvetica;
   font-size: 1rem; }
 
-.color-picker-icon {
+.tools-container {
+  background: rgba(0, 0, 0, 0.6);
+  width: 310px;
+  border-radius: 8px;
+  border: 2px solid #444;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  bottom: 80px;
+  left: 110px;
+  height: 115px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; }
+
+.tools-container button {
+  padding: 5px;
+  margin: 5px;
+  color: rgba(255, 255, 255, 0.7);
+  background: transparent;
+  border: 1px solid transparent;
+  outline: none;
+  font-family: Lato, Helvetica;
+  font-size: 1.3em; }
+
+.tools-container button:hover {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+  cursor: pointer; }
+
+.valid-container {
+  color: #C4C4C4;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 8px;
+  border: 2px solid #444;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 75vh;
+  width: 75vw;
+  bottom: 12.5vh;
+  left: 12.5vw; }
+
+.instructions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  padding: 5px;
+  padding-bottom: 30px; }
+  .instructions h3, .instructions p {
+    margin: 0px;
+    padding: 5px; }
+
+.formfields {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  overflow: scroll;
+  width: 95%; }
+  .formfields legend {
+    padding: 5px; }
+  .formfields fieldset {
+    border: none;
+    border-top: 2px solid #C4C4C4; }
+  .formfields section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0px auto;
+    min-width: 50vh; }
+  .formfields textarea {
+    overflow: scroll; }
+  .formfields #check-code {
+    margin-bottom: 5px;
+    padding: 5px;
+    background: transparent;
+    outline: none;
+    border: 1px solid #C4C4C4;
+    border-radius: 5px;
+    color: #C4C4C4;
+    cursor: pointer; }
+  .formfields #check-code:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: rgba(0, 0, 0, 0.7); }
+
+.tools {
+  display: flex;
+  width: 30%;
+  margin: auto 0px;
+  color: #D9D9D9; }
+
+.tools-icon-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 0px;
+  width: 100%;
+  margin: 0px;
+  list-style-type: none; }
+  .tools-icon-list li {
+    display: flex;
+    padding: 0px 20px;
+    cursor: pointer; }
+    .tools-icon-list li button {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 2.3em; }
+
+.tools-icon {
   border: none;
   outline: none;
   background: transparent;
   cursor: pointer;
   color: #D9D9D9; }
 
-.color-picker-icon:hover {
+.tools-icon:hover {
   color: #FFF; }
-
-footer {
-  width: 100%;
-  height: 100px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  justify-content: space-between;
-  margin: 0px;
-  padding: 0px; }
-  footer p {
-    margin: 60px 0px 0px 0px;
-    padding: 0px;
-    color: #D9D9D9;
-    font-size: .9em; }
-    footer p a {
-      text-decoration: none;
-      color: #D9D9D9; }
-    footer p a:hover {
-      border-bottom: 1px solid #D9D9D9; }
-  footer .listArea {
-    display: flex;
-    width: 277px;
-    margin: 40px 0px 0px 30px; }
-    footer .listArea ul {
-      display: flex;
-      margin: 0px 10px 0px 0px;
-      padding: 0px;
-      list-style-type: none; }
-      footer .listArea ul li {
-        cursor: pointer;
-        margin: 0px 15px 0px 25px;
-        padding: 5px; }
-        footer .listArea ul li i {
-          margin: 0px;
-          padding: 0px;
-          color: #D9D9D9;
-          font-size: 1.8em; }
-        footer .listArea ul li .iconHover {
-          opacity: 0;
-          margin: 0px 0px 0px 0px;
-          padding: 0px;
-          color: white;
-          font-size: 1em;
-          transition: .5s; }
-      footer .listArea ul li:hover .iconHover {
-        opacity: 1;
-        visibility: visible;
-        transition: .5s; }
 
 .addUrl {
   display: none; }
