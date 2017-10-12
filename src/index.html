@@ -167,8 +167,36 @@
           </div>
 
           <!-- Tools: HTML/CSS Validator -->
+          <div class="tools-container">
+            <button type="button" name="html-validator" id="html-val">HTML Validator</button>
+            <button type="button" name="css-validator" id="css-val">CSS Validator</button>
+          </div>
+
           <div class="valid-container">
-            
+            <section class="instructions">
+              <h3>HTML Validation</h3>
+              <p>Enter HTML markup and click 'CHECK' to validate.</p>
+            </section>
+            <div class="formfields">
+              <section> <!-- HTML Markup -->
+                <form class="validate-form" id="code-markup" method="post">
+                  <fieldset>
+                    <legend>HTML Markup</legend>
+                    <div>
+                      <input type="hidden" name="output" value="json">
+                      <textarea name="content" rows="14" cols="35" placeholder="Enter HTML markup here..."></textarea>
+                    </div>
+                  </fieldset>
+                </form>
+                <button type="button" name="check" id="check-code">CHECK</button>
+              </section>
+              <section> <!-- Validation Result -->
+                <fieldset>
+                  <legend>Validation Results</legend>
+                  <pre id="code-validated"><code></code></pre>
+                </fieldset>
+              </section>
+            </div>
           </div>
 
           <ul class="tools-icon-list">
@@ -179,7 +207,7 @@
               </button>
             </li>
             <li>
-              <!-- Color Picker Toggle Button -->
+              <!-- Tool Options Toggle Button -->
               <button type="button" name="validators" class="tools-icon" id="validator-icon">
                 <i class="fa fa-wrench" aria-hidden="true"></i>
               </button></li>

@@ -494,11 +494,11 @@ $('#color-picker-icon').click((e) => {
 });
 
 // Create click event to close color picker when clicked anywhere else
-$(document).click((e) => {
-  if (e.target.className !== 'color-picker-panel' && !$('.color-picker-panel').find(e.target).length) {
-    $('.color-picker-panel').fadeOut(300);
-  }
-});
+// $(document).click((e) => {
+//   if (e.target.className !== 'color-picker-panel' && !$('.color-picker-panel').find(e.target).length) {
+//     $('.color-picker-panel').fadeOut(300);
+//   }
+// });
 
 /* ***** Background Image Rotation ******** */
 
@@ -758,3 +758,44 @@ function bgChange() {
 }
 
 bgChange();
+
+/* ***** html validation section ******** */
+
+/*
+ * Hidden until triggered by clicking the wrench icon
+ * Wrench icon shows link options to click on: HTML, CSS
+ * A pop-up box appears allowing the user enter HTML/CSS code
+ * The user needs to click on the 'check' button for the function to perform
+ * The corresponding validations are shows
+ * If the text exceeds the text fields, the user can scroll to see all the content
+*/
+
+$('.tools-container').hide();
+$('.valid-container').hide();
+
+// Create click event to open tool options when wrench icon is clicked
+$('#validator-icon').click((e) => {
+  $('.tools-container').fadeToggle(300);
+  e.stopPropagation();
+  return false;
+});
+
+$('#html-val').click((e) => {
+  $('.tools-container').fadeOut(300);
+  $('.valid-container').fadeToggle(300);
+  e.stopPropagation();
+  return false;
+});
+
+// Create click event to close tool options when clicked anywhere else
+$(document).click((e) => {
+  if (!$('.color-picker-panel').find(e.target).length || e.target.type === 'button') {
+    $('.color-picker-panel').fadeOut(300);
+  }
+  if (e.target.className !== 'tools-container') {
+    $('.tools-container').fadeOut(300);
+  }
+  if (!$('.valid-container').find(e.target).length || e.target.type === 'button') {
+    $('.valid-container').fadeOut(300);
+  }
+});
