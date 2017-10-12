@@ -8,10 +8,9 @@ reference: https://www.youtube.com/watch?v=pOfwp6VlnlM
 */
 
 /* ************************************************************************
-MODEL
-************************************************************************* */
-
-(function makeModel() {
+POMODORO MODEL
+************************************************************************ */
+(function makePomodoroModel() {
   const pomodoroStatus = {
     isActive: false, // whether or not the pomodoro clock is on or off
     isOnBreak: false, // whether or not the pomodoro clock is in work mode or break mode
@@ -75,7 +74,7 @@ MODEL
   }
 
   window.app = {}; // creates app object as porperty of global object
-  window.app.model = { // creates model object as property of app
+  window.app.pomodoroModel = { // creates model object as property of app
     getPomodoroStatus,
     togglePomodoro,
     minutesAndSeconds,
@@ -85,60 +84,173 @@ MODEL
     triggerSound,
   };
 }());
-
 /* ************************************************************************
-VIEW
+POMODORO VIEW
 ************************************************************************* */
+(function makePomodoroView() {
+  const button = $('.toggle-pomodoro button');
+  const display = $('.time-display p');
 
-(function makeView() {
   function togglePomodoro(pomodoroIsActive) {
     if (pomodoroIsActive) {
-      $('.toggle-pomodoro button').text('Stop Pomodoro Cycle');
+      button.text('Stop Pomodoro Cycle');
     } else if (!pomodoroIsActive) {
-      $('.toggle-pomodoro button').text('Start Pomodoro Cycle');
+      button.text('Start Pomodoro Cycle');
     }
   }
 
   function updateTime(time) {
-    $('.time-display p').text(time);
+    display.text(time);
   }
 
   function updateCountdown(countdown, task) {
-    $('.time-display p').text(`${countdown} ${task}`);
+    display.text(`${countdown} ${task}`);
   }
 
-  window.app.view = {
+  window.app.pomodoroView = {
     togglePomodoro,
     updateTime,
     updateCountdown,
   };
 }());
+/* ************************************************************************
+USER GREETING MODEL
+************************************************************************* */
+(function makeGreetingModel() {
+  const setUserName = name => localStorage.setItem('userName', name);
+  const getUserName = () => localStorage.getItem('userName');
 
+  window.app.greetingModel = {
+    setUserName,
+    getUserName,
+  };
+}());
+/* ************************************************************************
+USER GREETING VIEW
+************************************************************************* */
+(function makeGreetingView() {
+  const nameForm = $('#name-form');
+  const nameInput = $('#name-input');
+  const greeting = $('.user-greeting h1');
+
+  function showGreeting(userName) {
+    if (userName) {
+      greeting.html(`Hello, <button>${userName}</button>.`);
+    } else {
+      greeting.html('Hello. What\'s your <button>name</button>?');
+    }
+    nameForm.hide();
+    nameInput.val('').blur();
+    greeting.show();
+  }
+
+  function showNameInput() {
+    nameForm.show();
+    nameInput.focus();
+    greeting.hide();
+  }
+
+  function toggleNameInput(userName) {
+    return function handler(e) {
+      if (nameInput.is(':visible') && e.target !== nameInput[0]) {
+        showGreeting(userName);
+      } else if (!nameInput.is(':visible') && e.target === $('.user-greeting button')[0]) {
+        showNameInput();
+      }
+    };
+  }
+
+  window.app.greetingView = {
+    showGreeting,
+    showNameInput,
+    toggleNameInput,
+  };
+}());
+/* ************************************************************************
+NEWSFEED MODEL
+************************************************************************* */
+(function makeNewsfeedModel() {
+  const APIKey = 'dcbb5b4e58ce4a95941e5a3f5ba1c9b8';
+  const sources = ['hacker-news', 'recode', 'techcrunch'];
+  const articlesList = [];
+
+  window.app.newsfeedModel = {
+    APIKey,
+    sources,
+    articlesList,
+  };
+}());
+/* ************************************************************************
+NEWSFEED VIEW
+************************************************************************* */
+(function makeNewsfeedView() {
+  const newsfeedWrapper = $('.newsfeed-wrapper');
+
+  function toggleNewsfeed(e) {
+    if (newsfeedWrapper.is(':visible') && e.target !== newsfeedWrapper[0]) {
+      newsfeedWrapper.fadeOut();
+    } else if (!newsfeedWrapper.is(':visible') && e.target === $('.fa-newspaper-o')[0]) {
+      newsfeedWrapper.fadeIn();
+    }
+  }
+
+  function generateArticle(source, url, image, title, author) {
+    author = author == null ? 'unnamed author' : author.toLowerCase().replace(/^by/, '');
+    image = image == null ? './assets/img/scuba-turtle.png' : image;
+
+    return `
+      <li class="article">
+      <a class="article-image" href="${url}" style="background-image: url(${image})" target="_blank">
+      </a>
+      <div class"artcle-body">
+        <a class="headline" href="${url}" target="_blank">${title}</a>
+        <p class="source">${author} - ${source}</p>
+      </div>
+    </li>
+    `;
+  }
+
+  function append(sourceArticles) {
+    $('.newsfeed').append(`${sourceArticles}`);
+  }
+
+  window.app.newsfeedView = {
+    toggleNewsfeed,
+    generateArticle,
+    append,
+  };
+}());
 /* ************************************************************************
 CONTROLLER
 ************************************************************************* */
-
-(function makeController(model, view) {
-/* ***** pomodoro section ******** */
+(function makeController(
+  pomodoroModel,
+  pomodoroView,
+  greetingModel,
+  greetingView,
+  newsfeedModel,
+  newsfeedView,
+) {
+/* ***** POMODORO SECTION ******** */
 
   function togglePomodoro() {
-    model.togglePomodoro();
-    view.togglePomodoro(model.getPomodoroStatus().isActive);
+    pomodoroModel.togglePomodoro();
+    pomodoroView.togglePomodoro(pomodoroModel.getPomodoroStatus().isActive);
   }
 
   // continuous loop that updates clock display. reference https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
   function clocksHandler() {
-    if (!model.getPomodoroStatus().isActive) {
-      view.updateTime(model.getTime());
+    if (!pomodoroModel.getPomodoroStatus().isActive) {
+      pomodoroView.updateTime(pomodoroModel.getTime());
       requestAnimationFrame(clocksHandler);
-    } else if (model.getPomodoroStatus().isActive) {
-      const countdown = model.minutesAndSeconds(model.pomodoroCycle());
-      const task = model.getPomodoroStatus().isOnBreak ? 'break' : 'work';
+    } else if (pomodoroModel.getPomodoroStatus().isActive) {
+      const countdown = pomodoroModel.minutesAndSeconds(pomodoroModel.pomodoroCycle());
+      const task = pomodoroModel.getPomodoroStatus().isOnBreak ? 'break' : 'work';
 
-      view.updateCountdown(countdown, task);
+      pomodoroView.updateCountdown(countdown, task);
 
       if (countdown == '0:00') {
-        model.triggerSound(model.alarm);
+        pomodoroModel.triggerSound(pomodoroModel.alarm);
         setTimeout(() => {
           requestAnimationFrame(clocksHandler);
         }, 3000);
@@ -152,72 +264,85 @@ CONTROLLER
   // free sound effects from soundbible.com
   function loadSounds() {
     const request = new XMLHttpRequest();
-    const audioUrl = '/assets/audio/alarm.mp3';
+    const audioUrl = './assets/audio/alarm.mp3';
 
     request.open('GET', audioUrl);
     request.responseType = 'arraybuffer';
     request.onload = function onload() {
-      model.audio.decodeAudioData(request.response, (buffer) => {
-        model.alarm = buffer;
+      pomodoroModel.audio.decodeAudioData(request.response, (buffer) => {
+        pomodoroModel.alarm = buffer;
       });
     };
     request.send();
   }
 
-  /* ***** user greeting section ******** */
-
-  const userName = () => localStorage.getItem('userName');
-  const nameInput = $('#name-input');
-  const greeting = $('.user-greeting h1');
-
-  function showGreeting() {
-    if (userName()) {
-      $('.user-greeting h1').html(`Hello, <button>${userName()}</button>.`);
-    } else {
-      $('.user-greeting h1').html('Hello. What\'s your <button>name</button>?');
-    }
-    nameInput.hide().val('').blur();
-    greeting.show();
-  }
-
-  function showNameInput() {
-    nameInput.show().focus();
-    greeting.hide();
-  }
+  /* ***** USER GREETING SECTION ******** */
 
   function setUserName(e) {
-    if (e.keyCode == 13) { // 'enter' key
-      localStorage.setItem('userName', $(e.target).val()); // set local storage item to value of text input
-      showGreeting();
-    }
+    e.preventDefault();
+    greetingModel.setUserName($('#name-input').val());
+    greetingView.showGreeting(greetingModel.getUserName());
   }
 
-  function toggleNameInput(e) {
-    if (nameInput.is(':visible') && e.target !== nameInput[0]) {
-      showGreeting();
-    } else if (!nameInput.is(':visible') && e.target === $('.user-greeting button')[0]) {
-      showNameInput();
-    }
+  function toggleNameInput() {
+    return greetingView.toggleNameInput(greetingModel.getUserName());
   }
+
+  /* ******** NEWSFEED SECTION ******* */
+
+  function loadNewsArticles() {
+    newsfeedModel.sources.forEach((source) => {
+      const settings = {
+        async: true,
+        crossDomain: true,
+        url: `https://newsapi.org/v1/articles?source=${source}&sortBy=top&apiKey=${newsfeedModel.APIKey}`,
+        method: 'GET',
+      };
+
+      $.ajax(settings).done((response) => {
+        const content = response.articles.map((article) => {
+          return newsfeedView.generateArticle(
+            response.source,
+            article.url,
+            article.urlToImage,
+            article.title,
+            article.author,
+          );
+        });
+        newsfeedView.append(`${content.filter((item, index) => index < 3).join('\r\n')}`);
+      });
+    });
+  }
+
+  /* ********* GENERAL ************ */
 
   function setupEventListeners() {
-    $(window).on('click', toggleNameInput);
-    $('#name-input').on('keyup', setUserName);
+    $(window).on('click', toggleNameInput())
+      .on('click', newsfeedView.toggleNewsfeed);
+    $('#name-form').on('submit', setUserName);
     $('.toggle-pomodoro button').on('click', togglePomodoro);
   }
 
   function initialize() {
-    showGreeting();
-    $('.time-display p').text(model.getTime());
+    greetingView.showGreeting(greetingModel.getUserName());
+    $('.time-display p').text(pomodoroModel.getTime());
     setupEventListeners();
     loadSounds();
+    loadNewsArticles();
     clocksHandler();
   }
 
   window.app.controller = {
     initialize,
   };
-}(window.app.model, window.app.view));
+}(
+  window.app.pomodoroModel,
+  window.app.pomodoroView,
+  window.app.greetingModel,
+  window.app.greetingView,
+  window.app.newsfeedModel,
+  window.app.newsfeedView,
+));
 
 window.app.controller.initialize();
 
@@ -747,11 +872,11 @@ function bgChange() {
     hour12: false,
   }), 10);
   if (picTime > 6 && picTime < 19) {
-    $('body').css('background-image', `url('../assets/img/dayPics/sample${randomNum}.jpeg')`);
+    $('body').css('background-image', `url('./assets/img/dayPics/sample${randomNum}.jpeg')`);
     $('.credits p a').attr('href', bgInfo[randomNum].day.url);
     $('#pic-author').text(bgInfo[randomNum].day.author);
   } else {
-    $('body').css('background-image', `url('../assets/img/nightPics/sample${randomNum}.jpeg')`);
+    $('body').css('background-image', `url('./assets/img/nightPics/sample${randomNum}.jpeg')`);
     $('#pic-author').attr('href', bgInfo[randomNum].night.url);
     $('#pic-author').text(bgInfo[randomNum].night.author);
   }
