@@ -277,6 +277,12 @@ footer {
         color: #FFF;
         transition: .5s; }
 
+.tools {
+  display: flex;
+  width: 30%;
+  margin: auto 0px;
+  color: #D9D9D9; }
+
 .color-picker-panel {
   background: rgba(0, 0, 0, 0.6);
   width: 310px;
@@ -525,7 +531,8 @@ footer {
   justify-content: center;
   flex-wrap: wrap;
   overflow: scroll;
-  width: 95%; }
+  width: 95%;
+  height: 80%; }
   .formfields legend {
     padding: 5px; }
   .formfields fieldset {
@@ -537,7 +544,9 @@ footer {
     justify-content: center;
     align-items: center;
     margin: 0px auto;
-    min-width: 50vh; }
+    min-width: 50vh;
+    overflow-y: scroll;
+    border: 2px dotted green; }
   .formfields textarea {
     overflow: scroll; }
   .formfields #check-code {
@@ -553,11 +562,10 @@ footer {
     background-color: rgba(255, 255, 255, 0.8);
     color: rgba(0, 0, 0, 0.7); }
 
-.tools {
-  display: flex;
-  width: 30%;
-  margin: auto 0px;
-  color: #D9D9D9; }
+#code-validated {
+  max-width: 600px;
+  border: 2px dotted red;
+  overflow-y: scroll; }
 
 .tools-icon-list {
   display: flex;

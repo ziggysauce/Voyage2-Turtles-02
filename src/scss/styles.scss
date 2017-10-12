@@ -461,7 +461,15 @@ footer {
 
 }
 
-// Color Picker Pop-up CSS
+.tools {
+	display: flex;
+	width: 30%;
+	// width: 277px;
+	margin: auto 0px;
+	color: #D9D9D9;
+}
+
+// ********** COLOR PICKER RULES ************
 .color-picker-panel {
 	background: rgba(0,0,0,0.6);
 	width: 310px;
@@ -664,7 +672,7 @@ footer {
 	font-size: 1rem;
 }
 
-// Tools pop-up CSS
+// ********** TOOLS RULES ************
 .tools-container {
 	background: rgba(0,0,0,0.6);
 	width: 310px;
@@ -698,8 +706,8 @@ footer {
 }
 
 .tools-container button:hover {
-	border-bottom: 1px solid rgba(255,255,255,0.7);
-	cursor: pointer;
+  border-bottom: 1px solid rgba(255,255,255,0.7);
+  cursor: pointer;
 }
 
 .valid-container {
@@ -745,6 +753,7 @@ footer {
 	flex-wrap: wrap;
 	overflow: scroll;
 	width: 95%;
+  height: 80%;
 
 	legend {
 		padding: 5px;
@@ -762,6 +771,8 @@ footer {
 		align-items: center;
 		margin: 0px auto;
 		min-width: 50vh;
+    overflow-y: scroll;
+    border: 2px dotted green;
 	}
 
 	textarea {
@@ -789,13 +800,10 @@ footer {
 
 }
 
-// Tool Icons CSS
-.tools {
-	display: flex;
-	width: 30%;
-	// width: 277px;
-	margin: auto 0px;
-	color: #D9D9D9;
+#code-validated {
+  max-width: 600px;
+  border: 2px dotted red;
+  overflow-y: scroll;
 }
 
 .tools-icon-list {

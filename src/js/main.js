@@ -1,3 +1,6 @@
+// $('.tools-container').hide();
+$('.valid-container').hide();
+
 /*
 The general software architecture pattern used here is known as Model-View-Controller (aka MVC).
 reference: https://www.youtube.com/watch?v=fa8eUcu30Lw
@@ -220,6 +223,38 @@ NEWSFEED VIEW
     append,
   };
 }());
+
+/* ************************************************************************
+VALIDATOR MODEL
+************************************************************************* */
+
+(function makeValidatorModel() {
+  const url = 'https://validator.w3.org/nu/';
+
+  window.app.validatorModel = {
+    url,
+  };
+}());
+
+/* ************************************************************************
+VALIDATOR VIEW
+************************************************************************* */
+
+(function makeValidatorView() {
+  const validContainer = $('.valid-container');
+
+  function toggleValidator(e) {
+    if (validContainer.is(':visible') && e.target !== validContainer[0]) {
+      validContainer.fadeOut();
+    } else if (!validContainer.is(':visible') && e.target === $('#html-val')[0]) {
+      validContainer.fadeIn();
+    }
+  }
+
+  window.app.validatorView = {
+    toggleValidator,
+  };
+}());
 /* ************************************************************************
 CONTROLLER
 ************************************************************************* */
@@ -230,6 +265,8 @@ CONTROLLER
   greetingView,
   newsfeedModel,
   newsfeedView,
+  validatorModel,
+  validatorView,
 ) {
 /* ***** POMODORO SECTION ******** */
 
@@ -314,11 +351,52 @@ CONTROLLER
     });
   }
 
+  /* ***** VALIDATOR SECTION ******** */
+
+  function loadValidator() {
+    const example = '<!DOCTYPE html>\n<html>\n\t<head>\n\t<title>Test</title>\n\t</head>\n\t<body>\n\t\t<i-am-not-valid />\n\t</body>\n</html>';
+    const input = $('#code-markup');
+    const output = $('#code-validated>code');
+    const code = $('textarea[name="content"]', input);
+    const check = $('button[type="submit"]', input);
+    const format = function getData(data, filter) {
+      data = filter ? _.filter(data.messages, filter) : data.messages;
+      return JSON.stringify(data, null, 2);
+    };
+
+    code.val(example);
+
+    input.on('submit', (e) => {
+      e.preventDefault();
+      check.attr('disabled', 'disabled');
+      const newestData = new FormData(this);
+
+      $.ajax({
+        url: `${validatorModel.url}`,
+        data: newestData,
+        type: 'POST',
+        processData: false,
+        contentType: false,
+        success: (data) => {
+          output.text(format(data, { type: 'error' }));
+        },
+        error: () => {
+          output.text('Sorry, it looks like this code is outdated. Please update your extension or feel free to send a pull request with your own personal updates.');
+        },
+        complete: () => {
+          check.removeAttr('disabled', 'disabled');
+        },
+      });
+    });
+    input.trigger('submit');
+  }
+
   /* ********* GENERAL ************ */
 
   function setupEventListeners() {
     $(window).on('click', toggleNameInput())
-      .on('click', newsfeedView.toggleNewsfeed);
+      .on('click', newsfeedView.toggleNewsfeed)
+      .on('click', validatorView.toggleValidator);
     $('#name-form').on('submit', setUserName);
     $('.toggle-pomodoro button').on('click', togglePomodoro);
   }
@@ -330,6 +408,7 @@ CONTROLLER
     loadSounds();
     loadNewsArticles();
     clocksHandler();
+    loadValidator();
   }
 
   window.app.controller = {
@@ -342,6 +421,8 @@ CONTROLLER
   window.app.greetingView,
   window.app.newsfeedModel,
   window.app.newsfeedView,
+  window.app.validatorModel,
+  window.app.validatorView,
 ));
 
 window.app.controller.initialize();
@@ -872,11 +953,11 @@ function bgChange() {
     hour12: false,
   }), 10);
   if (picTime > 6 && picTime < 19) {
-    $('body').css('background-image', `url('./assets/img/dayPics/sample${randomNum}.jpeg')`);
+    $('body').css('background-image', `url('./assets/img/dayPics/sample${randomNum}.jpeg')`).fadeIn(3000);
     $('.credits p a').attr('href', bgInfo[randomNum].day.url);
     $('#pic-author').text(bgInfo[randomNum].day.author);
   } else {
-    $('body').css('background-image', `url('./assets/img/nightPics/sample${randomNum}.jpeg')`);
+    $('body').css('background-image', `url('./assets/img/nightPics/sample${randomNum}.jpeg')`).fadeIn(3000);
     $('#pic-author').attr('href', bgInfo[randomNum].night.url);
     $('#pic-author').text(bgInfo[randomNum].night.author);
   }
@@ -895,32 +976,34 @@ bgChange();
  * If the text exceeds the text fields, the user can scroll to see all the content
 */
 
-$('.tools-container').hide();
-$('.valid-container').hide();
+
+
+// makeValidatorView();
+// toggleValidator();
 
 // Create click event to open tool options when wrench icon is clicked
-$('#validator-icon').click((e) => {
-  $('.tools-container').fadeToggle(300);
-  e.stopPropagation();
-  return false;
-});
-
-$('#html-val').click((e) => {
-  $('.tools-container').fadeOut(300);
-  $('.valid-container').fadeToggle(300);
-  e.stopPropagation();
-  return false;
-});
-
-// Create click event to close tool options when clicked anywhere else
-$(document).click((e) => {
-  if (!$('.color-picker-panel').find(e.target).length || e.target.type === 'button') {
-    $('.color-picker-panel').fadeOut(300);
-  }
-  if (e.target.className !== 'tools-container') {
-    $('.tools-container').fadeOut(300);
-  }
-  if (!$('.valid-container').find(e.target).length || e.target.type === 'button') {
-    $('.valid-container').fadeOut(300);
-  }
-});
+// $('#validator-icon').click((e) => {
+//   $('.tools-container').fadeToggle(300);
+//   e.stopPropagation();
+//   return false;
+// });
+//
+// $('#html-val').click((e) => {
+//   $('.tools-container').fadeOut(300);
+//   $('.valid-container').fadeToggle(300);
+//   e.stopPropagation();
+//   return false;
+// });
+//
+// // Create click event to close tool options when clicked anywhere else
+// $(document).click((e) => {
+//   if (!$('.color-picker-panel').find(e.target).length || e.target.type === 'button') {
+//     $('.color-picker-panel').fadeOut(300);
+//   }
+//   if (e.target.className !== 'tools-container') {
+//     $('.tools-container').fadeOut(300);
+//   }
+//   if (!$('.valid-container').find(e.target).length || e.target.type === 'button') {
+//     $('.valid-container').fadeOut(300);
+//   }
+// });
