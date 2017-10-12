@@ -1,4 +1,4 @@
-// $('.tools-container').hide();
+$('.tools-container').hide();
 $('.valid-container').hide();
 
 /*
@@ -241,13 +241,19 @@ VALIDATOR VIEW
 ************************************************************************* */
 
 (function makeValidatorView() {
-  const validContainer = $('.valid-container');
+  const validBox = $('.valid-container');
+  const toolsBox = $('.tools-container');
 
   function toggleValidator(e) {
-    if (validContainer.is(':visible') && e.target !== validContainer[0]) {
-      validContainer.fadeOut();
-    } else if (!validContainer.is(':visible') && e.target === $('#html-val')[0]) {
-      validContainer.fadeIn();
+    if (validBox.is(':visible') && !validBox.find(e.target).length) {
+      validBox.fadeOut();
+    } else if (!validBox.is(':visible') && e.target === $('#html-val')[0]) {
+      toolsBox.fadeOut();
+      validBox.fadeIn();
+    } else if (toolsBox.is(':visible') && !toolsBox.find(e.target).length) {
+      toolsBox.fadeOut();
+    } else if (!toolsBox.is(':visible') && e.target === $('.fa-wrench')[0]) {
+      toolsBox.fadeIn();
     }
   }
 
