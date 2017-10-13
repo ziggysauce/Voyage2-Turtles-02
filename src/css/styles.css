@@ -22,6 +22,9 @@ body {
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.25) 100%);
     /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */ }
 
+.addUrl {
+  display: none; }
+
 .linkNote {
   display: flex;
   justify-content: space-around;
@@ -542,12 +545,14 @@ footer {
     align-items: center;
     margin: 0px auto;
     width: 100%;
-    overflow: scroll;
-    border: 2px dotted green; }
+    overflow: scroll; }
   .formfields textarea {
     overflow: scroll;
-    border: 2px dotted blue;
-    width: 100%; }
+    font-family: Lato, Helvetica;
+    font-weight: 700;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #252525; }
   .formfields #check-code {
     margin-top: 5px;
     padding: 5px;
@@ -562,16 +567,20 @@ footer {
     color: rgba(0, 0, 0, 0.7); }
 
 .validate-form {
-  border: 2px dotted orange;
-  width: 100%; }
+  width: 35vw;
+  height: 100%;
+  overflow: hidden; }
 
 #code-validated {
-  max-height: 400px;
-  white-space: pre-wrap;
-  background: #FFF;
-  color: #000;
+  max-width: 100%;
+  max-height: 85%;
   overflow: scroll;
-  border: 2px dotted red; }
+  white-space: pre-wrap;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #252525; }
+  #code-validated code {
+    font-family: Lato, Helvetica;
+    font-weight: 700; }
 
 .tools-icon-list {
   display: flex;
@@ -598,9 +607,6 @@ footer {
 
 .tools-icon:hover {
   color: #FFF; }
-
-.addUrl {
-  display: none; }
 
 .newsfeed-wrapper {
   display: none;

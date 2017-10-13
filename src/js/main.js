@@ -223,19 +223,6 @@ NEWSFEED VIEW
 }());
 
 /* ************************************************************************
-VALIDATOR MODEL
-************************************************************************* */
-
-(function makeValidatorModel() {
-  const url = 'https://validator.w3.org/nu/';
-  // const url = 'https://html5.validator.nu/';
-
-  window.app.validatorModel = {
-    url,
-  };
-}());
-
-/* ************************************************************************
 VALIDATOR VIEW
 ************************************************************************* */
 
@@ -270,7 +257,6 @@ CONTROLLER
   greetingView,
   newsfeedModel,
   newsfeedView,
-  validatorModel,
   validatorView,
 ) {
 /* ***** POMODORO SECTION ******** */
@@ -356,47 +342,7 @@ CONTROLLER
     });
   }
 
-  /* ***** VALIDATOR SECTION ******** */
-
-  function loadValidator() {
-    const $input = $('#code-markup');
-    const $output = $('#code-validated>code');
-    const format = function getData(data) {
-      // data = filter ? _.filter(data.messages, filter) : data.messages;
-      return JSON.stringify(data, null, 2);
-    };
-
-    $input.on('submit', (e) => {
-      e.preventDefault();
-      // $check.attr('disabled', 'disabled');
-      const newestData = new FormData();
-      newestData.append($('textarea').text, 'json');
-
-      $.ajax({
-        url: `${validatorModel.url}`,
-        data: newestData,
-        method: 'POST',
-        processData: false,
-        contentType: false,
-        success: (data) => {
-          console.log(data.messages);
-          $output.text(format(data, { type: 'error' }));
-        },
-        error: () => {
-          $output.text('Sorry, it looks like this code is outdated. Please update your extension or feel free to send a pull request with your own personal updates.');
-        },
-        // complete: () => {
-        //   $check.removeAttr('disabled', 'disabled');
-        //   $loading.addClass('hide');
-        // },
-      });
-    });
-    $input.trigger('submit');
-  }
-
   /* ********* GENERAL ************ */
-  $('.tools-container').hide();
-  // $('.valid-container').hide();
 
   function setupEventListeners() {
     $(window).on('click', toggleNameInput())
@@ -413,7 +359,6 @@ CONTROLLER
     loadSounds();
     loadNewsArticles();
     clocksHandler();
-    loadValidator();
   }
 
   window.app.controller = {
@@ -426,7 +371,6 @@ CONTROLLER
   window.app.greetingView,
   window.app.newsfeedModel,
   window.app.newsfeedView,
-  window.app.validatorModel,
   window.app.validatorView,
 ));
 
@@ -979,7 +923,7 @@ function bgChange() {
 
 bgChange();
 
-/* ***** html validation section ******** */
+/* ***** VALIDATOR SECTION ******** */
 
 /*
  * Hidden until triggered by clicking the wrench icon
@@ -990,34 +934,41 @@ bgChange();
  * If the text exceeds the text fields, the user can scroll to see all the content
 */
 
+function loadValidator() {
+  const $input = $('#code-markup');
+  const $output = $('#code-validated>code');
+  const format = function getData(data) {
+    const useData = data.messages;
+    function filter(filterdata) {
+      return (`Type: ${filterdata.type}\nLine: ${filterdata.lastLine}\nMessage: ${filterdata.message}\n\n`);
+    }
 
+    return (useData.map(filter).join(''));
+  };
 
-// makeValidatorView();
-// toggleValidator();
+  $input.on('submit', function makeData(e) {
+    e.preventDefault();
 
-// Create click event to open tool options when wrench icon is clicked
-// $('#validator-icon').click((e) => {
-//   $('.tools-container').fadeToggle(300);
-//   e.stopPropagation();
-//   return false;
-// });
-//
-// $('#html-val').click((e) => {
-//   $('.tools-container').fadeOut(300);
-//   $('.valid-container').fadeToggle(300);
-//   e.stopPropagation();
-//   return false;
-// });
-//
-// // Create click event to close tool options when clicked anywhere else
-// $(document).click((e) => {
-//   if (!$('.color-picker-panel').find(e.target).length || e.target.type === 'button') {
-//     $('.color-picker-panel').fadeOut(300);
-//   }
-//   if (e.target.className !== 'tools-container') {
-//     $('.tools-container').fadeOut(300);
-//   }
-//   if (!$('.valid-container').find(e.target).length || e.target.type === 'button') {
-//     $('.valid-container').fadeOut(300);
-//   }
-// });
+    const newdata = new FormData(this);
+
+    $.ajax({
+      url: 'https://validator.w3.org/nu/',
+      data: newdata,
+      method: 'POST',
+      processData: false,
+      contentType: false,
+      success: (content) => {
+        $output.text(format(content, { type: 'error' }));
+      },
+      error: () => {
+        $output.text('Sorry, it looks like this code is outdated. Please update your extension or feel free to send a pull request with your own personal updates.');
+      },
+    });
+  });
+
+  $input.trigger('submit');
+}
+
+$('.tools-container').hide();
+$('.valid-container').hide();
+loadValidator();
