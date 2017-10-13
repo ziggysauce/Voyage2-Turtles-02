@@ -126,15 +126,15 @@ body {
     opacity: 1;
     transition: .5s; }
 
+/*----------------------------------------*/
+/*Time and Pomodoro Display*/
+/*----------------------------------------*/
 .clock-and-greeting {
   height: 75%;
   display: flex;
   flex-direction: column;
   justify-content: center; }
 
-/*----------------------------------------*/
-/*Time and Pomodoro Display*/
-/*----------------------------------------*/
 .user-greeting {
   display: flex;
   justify-content: space-around;
@@ -208,6 +208,12 @@ body {
     background-color: rgba(0, 0, 0, 0.5);
     transition: 300ms ease; }
 
+.stop, .pause, .reset, .work-break {
+  display: none; }
+
+/*----------------------------------------*/
+/*Color Palette*/
+/*----------------------------------------*/
 .colorPalette {
   display: flex;
   width: 277px;
