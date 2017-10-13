@@ -759,28 +759,26 @@ footer {
 		padding: 5px;
 	}
 
-	fieldset {
-		border: none;
-		border-top: 2px solid #C4C4C4;
-	}
-
 	section {
 		display: flex;
-		flex-direction: column;
-		justify-content: center;
+		flex-direction: row;
+		justify-content: space-around;
 		align-items: center;
 		margin: 0px auto;
-		min-width: 50vh;
-    overflow-y: scroll;
+    width: 100%;
+    overflow: scroll;
+
     border: 2px dotted green;
 	}
 
 	textarea {
 		overflow: scroll;
+    border: 2px dotted blue;
+    width: 100%;
 	}
 
 	#check-code {
-		margin-bottom: 5px;
+		margin-top: 5px;
 		padding: 5px;
 		background: transparent;
 		outline: none;
@@ -797,13 +795,19 @@ footer {
 }
 
 .validate-form {
-
+  border: 2px dotted orange;
+  width: 100%;
 }
 
 #code-validated {
-  max-width: 600px;
+  // width: 100%;
+  // max-width: 300px;
+  max-height: 400px;
+  white-space: pre-wrap;
+  background: #FFF;
+  color: #000;
+  overflow: scroll;
   border: 2px dotted red;
-  overflow-y: scroll;
 }
 
 .tools-icon-list {

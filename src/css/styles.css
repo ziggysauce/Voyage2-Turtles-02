@@ -535,22 +535,21 @@ footer {
   height: 80%; }
   .formfields legend {
     padding: 5px; }
-  .formfields fieldset {
-    border: none;
-    border-top: 2px solid #C4C4C4; }
   .formfields section {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-around;
     align-items: center;
     margin: 0px auto;
-    min-width: 50vh;
-    overflow-y: scroll;
+    width: 100%;
+    overflow: scroll;
     border: 2px dotted green; }
   .formfields textarea {
-    overflow: scroll; }
+    overflow: scroll;
+    border: 2px dotted blue;
+    width: 100%; }
   .formfields #check-code {
-    margin-bottom: 5px;
+    margin-top: 5px;
     padding: 5px;
     background: transparent;
     outline: none;
@@ -562,10 +561,17 @@ footer {
     background-color: rgba(255, 255, 255, 0.8);
     color: rgba(0, 0, 0, 0.7); }
 
+.validate-form {
+  border: 2px dotted orange;
+  width: 100%; }
+
 #code-validated {
-  max-width: 600px;
-  border: 2px dotted red;
-  overflow-y: scroll; }
+  max-height: 400px;
+  white-space: pre-wrap;
+  background: #FFF;
+  color: #000;
+  overflow: scroll;
+  border: 2px dotted red; }
 
 .tools-icon-list {
   display: flex;

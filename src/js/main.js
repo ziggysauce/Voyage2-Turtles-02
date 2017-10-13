@@ -1,5 +1,3 @@
-$('.tools-container').hide();
-$('.valid-container').hide();
 
 /*
 The general software architecture pattern used here is known as Model-View-Controller (aka MVC).
@@ -230,6 +228,7 @@ VALIDATOR MODEL
 
 (function makeValidatorModel() {
   const url = 'https://validator.w3.org/nu/';
+  // const url = 'https://html5.validator.nu/';
 
   window.app.validatorModel = {
     url,
@@ -360,44 +359,44 @@ CONTROLLER
   /* ***** VALIDATOR SECTION ******** */
 
   function loadValidator() {
-    const example = '<!DOCTYPE html>\n<html>\n\t<head>\n\t<title>Test</title>\n\t</head>\n\t<body>\n\t\t<i-am-not-valid />\n\t</body>\n</html>';
-    const input = $('#code-markup');
-    const output = $('#code-validated>code');
-    const code = $('textarea[name="content"]', input);
-    const check = $('button[type="submit"]', input);
-    const format = function getData(data, filter) {
-      data = filter ? _.filter(data.messages, filter) : data.messages;
+    const $input = $('#code-markup');
+    const $output = $('#code-validated>code');
+    const format = function getData(data) {
+      // data = filter ? _.filter(data.messages, filter) : data.messages;
       return JSON.stringify(data, null, 2);
     };
 
-    code.val(example);
-
-    input.on('submit', (e) => {
+    $input.on('submit', (e) => {
       e.preventDefault();
-      check.attr('disabled', 'disabled');
-      const newestData = new FormData(this);
+      // $check.attr('disabled', 'disabled');
+      const newestData = new FormData();
+      newestData.append($('textarea').text, 'json');
 
       $.ajax({
         url: `${validatorModel.url}`,
         data: newestData,
-        type: 'POST',
+        method: 'POST',
         processData: false,
         contentType: false,
         success: (data) => {
-          output.text(format(data, { type: 'error' }));
+          console.log(data.messages);
+          $output.text(format(data, { type: 'error' }));
         },
         error: () => {
-          output.text('Sorry, it looks like this code is outdated. Please update your extension or feel free to send a pull request with your own personal updates.');
+          $output.text('Sorry, it looks like this code is outdated. Please update your extension or feel free to send a pull request with your own personal updates.');
         },
-        complete: () => {
-          check.removeAttr('disabled', 'disabled');
-        },
+        // complete: () => {
+        //   $check.removeAttr('disabled', 'disabled');
+        //   $loading.addClass('hide');
+        // },
       });
     });
-    input.trigger('submit');
+    $input.trigger('submit');
   }
 
   /* ********* GENERAL ************ */
+  $('.tools-container').hide();
+  // $('.valid-container').hide();
 
   function setupEventListeners() {
     $(window).on('click', toggleNameInput())
