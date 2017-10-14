@@ -230,15 +230,16 @@ body {
 
 }
 
+/*----------------------------------------*/
+/*Time and Pomodoro Display*/
+/*----------------------------------------*/
 .clock-and-greeting {
 	height: 75%;
 	display: flex;
 	flex-direction: column;
   justify-content: center;
 }
-/*----------------------------------------*/
-/*Time and Pomodoro Display*/
-/*----------------------------------------*/
+
 .user-greeting {
   display: flex;
   justify-content: space-around;
@@ -330,6 +331,14 @@ body {
   }
 }
 
+.stop, .pause, .reset, .work-break {
+  display: none;
+}
+
+/*----------------------------------------*/
+/*Color Palette*/
+/*----------------------------------------*/
+
 .colorPalette {
 
 	display: flex;
@@ -342,7 +351,6 @@ body {
 
 }
 
-// Color Picker Pop-up CSS
 .color-picker-panel {
 	background: rgba(0,0,0,0.6);
 	width: 310px;

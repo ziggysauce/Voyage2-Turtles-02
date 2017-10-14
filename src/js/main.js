@@ -11,46 +11,11 @@ reference: https://www.youtube.com/watch?v=pOfwp6VlnlM
 POMODORO MODEL
 ************************************************************************ */
 (function makePomodoroModel() {
-  const pomodoroStatus = {
-    isActive: false, // whether or not the pomodoro clock is on or off
-    isOnBreak: false, // whether or not the pomodoro clock is in work mode or break mode
-  };
-
-  // allows controller to access these variables
-  function getPomodoroStatus() {
-    return pomodoroStatus;
-  }
-
-  let pomodoroStartTime;
-
-  function togglePomodoro() {
-    pomodoroStatus.isActive = !pomodoroStatus.isActive;
-    if (pomodoroStatus.isActive) {
-      pomodoroStatus.isOnBreak = false;
-      pomodoroStartTime = performance.now();
-    }
-  }
-
   // converts milliseconds into minutes and seconds
   function minutesAndSeconds(milliseconds) {
     const minutes = Math.floor(milliseconds / 60000);
     const seconds = ((milliseconds % 60000) / 1000).toFixed(0);
     return seconds == 60 ? `${minutes + 1}:00` : `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-  }
-
-  const workPeriod = 60000; // eventually these variables will be set by user
-  const breakPeriod = 60000;
-
-  // basic pomodoro functionality
-  function pomodoroCycle() {
-    const period = pomodoroStatus.isOnBreak ? breakPeriod : workPeriod;
-    const countdown = period - (performance.now() - pomodoroStartTime);
-    if (countdown < 1000) {
-      pomodoroStatus.isOnBreak = !pomodoroStatus.isOnBreak;
-      pomodoroStartTime = performance.now() + 3500;
-      return 0;
-    }
-    return countdown;
   }
 
   function getTime() {
@@ -60,6 +25,59 @@ POMODORO MODEL
       minute: 'numeric',
       hour12: true,
     });
+  }
+
+  const status = {
+    isActive: false, // whether or not the pomodoro clock is on or off
+    isOnBreak: false, // whether or not the pomodoro clock is in work mode or break mode
+    isPaused: false,
+    startTime: null,
+    elapsedTime: 0,
+    pauseTime: 0,
+    workPeriod: 60000, // eventually these variables will be set by user
+    breakPeriod: 60000,
+  };
+
+  function getStatus() {
+    return status;
+  }
+
+  function resetClock() {
+    status.isPaused = false;
+    status.startTime = performance.now();
+    status.elapsedTime = 0;
+    status.pauseTime = 0;
+  }
+
+  function toggleActive() {
+    status.isActive = !status.isActive;
+    if (status.isActive) {
+      status.isOnBreak = false;
+      resetClock();
+    }
+  }
+
+  function toggleWorkBreak() {
+    status.isOnBreak = !status.isOnBreak;
+    resetClock();
+  }
+
+  function togglePause() {
+    status.isPaused = !status.isPaused;
+    if (status.isPaused) status.pauseTime = status.elapsedTime;
+    if (!status.isPaused) status.startTime = performance.now();
+  }
+
+  function cycle() {
+    const period = status.isOnBreak ? status.breakPeriod : status.workPeriod;
+    const countdown = period - status.elapsedTime;
+
+    if (!status.isPaused) {
+      status.elapsedTime = (performance.now() - status.startTime) + status.pauseTime;
+    }
+    if (countdown < 1000) return minutesAndSeconds(0);
+
+    return minutesAndSeconds(countdown);
   }
 
   // basic web audio API context. reference: https://developer.mozilla.org/en-US/docs/Web/API/AudioContext
@@ -75,11 +93,13 @@ POMODORO MODEL
 
   window.app = {}; // creates app object as porperty of global object
   window.app.pomodoroModel = { // creates model object as property of app
-    getPomodoroStatus,
-    togglePomodoro,
-    minutesAndSeconds,
-    pomodoroCycle,
     getTime,
+    getStatus,
+    resetClock,
+    toggleActive,
+    toggleWorkBreak,
+    togglePause,
+    cycle,
     audio,
     triggerSound,
   };
@@ -88,15 +108,35 @@ POMODORO MODEL
 POMODORO VIEW
 ************************************************************************* */
 (function makePomodoroView() {
-  const button = $('.toggle-pomodoro button');
+  const startButton = $('.start');
+  const stopButton = $('.stop');
+  const pauseButton = $('.pause');
+  const resetButton = $('.reset');
+  const workBreakButton = $('.work-break');
   const display = $('.time-display p');
 
-  function togglePomodoro(pomodoroIsActive) {
+  function toggleActive(pomodoroIsActive) {
     if (pomodoroIsActive) {
-      button.text('Stop Pomodoro Cycle');
+      startButton.hide();
+      stopButton.show();
+      resetButton.show();
+      pauseButton.show();
+      workBreakButton.show();
     } else if (!pomodoroIsActive) {
-      button.text('Start Pomodoro Cycle');
+      startButton.show();
+      stopButton.hide();
+      resetButton.hide();
+      pauseButton.hide();
+      workBreakButton.hide();
     }
+  }
+
+  function togglePause(pomodoroIsPaused) {
+    pauseButton.text(`${pomodoroIsPaused ? 'Resume' : 'Pause'}`);
+  }
+
+  function toggleWorkBreak(pomodoroIsOnBreak) {
+    workBreakButton.text(`${pomodoroIsOnBreak ? 'Work' : 'Break'}`);
   }
 
   function updateTime(time) {
@@ -108,7 +148,9 @@ POMODORO VIEW
   }
 
   window.app.pomodoroView = {
-    togglePomodoro,
+    toggleActive,
+    togglePause,
+    toggleWorkBreak,
     updateTime,
     updateCountdown,
   };
@@ -233,30 +275,44 @@ CONTROLLER
 ) {
 /* ***** POMODORO SECTION ******** */
 
-  function togglePomodoro() {
-    pomodoroModel.togglePomodoro();
-    pomodoroView.togglePomodoro(pomodoroModel.getPomodoroStatus().isActive);
+  function togglePomodoroActive() {
+    pomodoroModel.toggleActive();
+    pomodoroView.toggleActive(pomodoroModel.getStatus().isActive);
+    pomodoroView.togglePause(pomodoroModel.getStatus().isPaused);
+    pomodoroView.toggleWorkBreak(pomodoroModel.getStatus().isOnBreak);
+  }
+
+  function togglePomodoroPause() {
+    pomodoroModel.togglePause();
+    pomodoroView.togglePause(pomodoroModel.getStatus().isPaused);
+  }
+
+  function toggleWorkBreak() {
+    pomodoroModel.toggleWorkBreak();
+    pomodoroView.toggleWorkBreak(pomodoroModel.getStatus().isOnBreak);
+    pomodoroView.togglePause(pomodoroModel.getStatus().isPaused);
+  }
+
+  function resetPomodoro() {
+    pomodoroModel.resetClock();
+    pomodoroView.togglePause(pomodoroModel.getStatus().isPaused);
   }
 
   // continuous loop that updates clock display. reference https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
   function clocksHandler() {
-    if (!pomodoroModel.getPomodoroStatus().isActive) {
+    if (!pomodoroModel.getStatus().isActive) {
       pomodoroView.updateTime(pomodoroModel.getTime());
       requestAnimationFrame(clocksHandler);
-    } else if (pomodoroModel.getPomodoroStatus().isActive) {
-      const countdown = pomodoroModel.minutesAndSeconds(pomodoroModel.pomodoroCycle());
-      const task = pomodoroModel.getPomodoroStatus().isOnBreak ? 'break' : 'work';
-
-      pomodoroView.updateCountdown(countdown, task);
+    } else if (pomodoroModel.getStatus().isActive) {
+      const countdown = pomodoroModel.cycle();
+      const task = pomodoroModel.getStatus().isOnBreak ? 'break' : 'work';
 
       if (countdown == '0:00') {
         pomodoroModel.triggerSound(pomodoroModel.alarm);
-        setTimeout(() => {
-          requestAnimationFrame(clocksHandler);
-        }, 3000);
-      } else {
-        requestAnimationFrame(clocksHandler);
+        toggleWorkBreak();
       }
+      pomodoroView.updateCountdown(countdown, task);
+      requestAnimationFrame(clocksHandler);
     }
   }
 
@@ -320,7 +376,10 @@ CONTROLLER
     $(window).on('click', toggleNameInput())
       .on('click', newsfeedView.toggleNewsfeed);
     $('#name-form').on('submit', setUserName);
-    $('.toggle-pomodoro button').on('click', togglePomodoro);
+    $('.start, .stop').on('click', togglePomodoroActive);
+    $('.pause').on('click', togglePomodoroPause);
+    $('.reset').on('click', resetPomodoro);
+    $('.work-break').on('click', toggleWorkBreak);
   }
 
   function initialize() {
