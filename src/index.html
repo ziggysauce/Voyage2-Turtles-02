@@ -112,47 +112,48 @@
       <!--*****************************************************-->
       <footer>
 
-        <div class="colorPalette">
+        <div class="tools">
+
           <!-- Color Picker Pop-Up Box -->
           <div class="color-picker-panel">
             <div class="panel-row">
               <div class="panel-row">
                 <div id="rgb-fields" class="field-group value-fields rgb-fields active">
                   <div class="field-group">
-                    <label for="" class="field-label">R</label>
+                    <label class="field-label">R</label>
                     <input type="number" max="255" min="0" id="red" class="field-input rgb-input"/>
                   </div>
                   <div class="field-group">
-                    <label for="" class="field-label">G</label>
+                    <label class="field-label">G</label>
                     <input type="number" max="255" min="0" id="green" class="field-input rgb-input"/>
                   </div>
                   <div class="field-group">
-                    <label for="" class="field-label">B</label>
+                    <label class="field-label">B</label>
                     <input type="number" max="255" min="0" id="blue" class="field-input rgb-input"/>
                   </div>
                 </div>
                 <div id="hex-field" class="field-group value-fields hex-field">
-                  <label for="" class="field-label">Hex :</label>
+                  <label class="field-label">Hex :</label>
                   <input type="text" id="hex" class="field-input"/>
                 </div>
                 <div id="hsl-fields" class="field-group value-fields rgb-fields">
                   <div class="field-group">
-                    <label for="" class="field-label">H &#176;</label>
+                    <label class="field-label">H &#176;</label>
                     <input type="number" max="360" min="0" id="huedisplay" class="field-input rgb-input"/>
                   </div>
                   <div class="field-group">
-                    <label for="" class="field-label">S %</label>
+                    <label class="field-label">S %</label>
                     <input type="number" max="100" min="0" id="saturationdisplay" class="field-input rgb-input"/>
                   </div>
                   <div class="field-group">
-                    <label for="" class="field-label">L %</label>
+                    <label class="field-label">L %</label>
                     <input type="number" max="100" min="0" id="lightnessdisplay" class="field-input rgb-input"/>
                   </div>
                 </div>
               </div>
               <div class="panel-col">
                 <div class="preview color-indicator" id="color-indicator"></div>
-                <button id="mode-toggle" class="button mode-toggle">Mode</button>
+                <button id="mode-toggle" class="tog-button mode-toggle">Mode</button>
               </div>
             </div>
             <div class="panel-row">
@@ -167,12 +168,53 @@
             </div>
             <div id="user-swatches" class="swatches custom-swatches"></div>
           </div>
-          <!-- Color Picker Toggle Button -->
-          <button type="button" name="button" class="color-picker-icon">
-            <i class="fa fa-paint-brush" aria-hidden="true"></i>
-          </button>
 
-        </div>
+          <!-- Tools: HTML/CSS Validator -->
+          <div class="tools-container">
+            <button type="button" name="html-validator" id="html-val">HTML Validator</button>
+            <button type="button" name="css-validator" id="css-val">CSS Validator</button>
+          </div>
+
+          <div class="valid-container">
+            <section class="instructions">
+              <h3>HTML Validation</h3>
+              <p>Enter HTML markup and click 'CHECK' to validate.</p>
+            </section>
+            <div class="formfields">
+              <section> <!-- HTML Markup -->
+                <form class="validate-form" id="code-markup" method="post" enctype="multipart/form-data">
+                  <fieldset>
+                    <legend>HTML Markup</legend>
+                    <div>
+                      <input type="hidden" name="out" value="json">
+                      <textarea name="content" rows="15" placeholder="Enter HTML markup here..."></textarea>
+                    </div>
+                    <button id="check-code" type="submit">CHECK</button>
+                  </fieldset>
+                </form>
+                <fieldset class="validate-form"> <!-- Validation Result -->
+                  <legend>Validation Results</legend>
+                  <pre id="code-validated"><code></code></pre>
+                </fieldset>
+              </section>
+            </div>
+          </div>
+
+          <ul class="tools-icon-list">
+            <li>
+              <!-- Color Picker Toggle Button -->
+              <button type="button" name="color-picker" class="tools-icon" id="color-picker-icon">
+                <i class="fa fa-paint-brush" aria-hidden="true"></i>
+              </button>
+            </li>
+            <li>
+              <!-- Tool Options Toggle Button -->
+              <button type="button" name="validators" class="tools-icon" id="validator-icon">
+                <i class="fa fa-wrench" aria-hidden="true"></i>
+              </button></li>
+          </ul>
+
+        </div> <!-- Tools End -->
 
         <div class="credits">
 
@@ -217,9 +259,6 @@
       </section>
 
     </div>
-
-
-
 
   </body>
 </html>
