@@ -925,3 +925,175 @@ footer {
     }
   }
 }
+
+			.stickyContainer { /*Stick Note Styles*/
+
+				position: absolute;
+				display: flex;
+				flex-direction: column;
+				overflow: hidden;
+				width: 220px;
+				height: 180px;
+
+				
+				outline: 1px solid transparent;
+				border: 1px solid #7da4d7;
+				border-radius: 10px;
+			}
+
+			.stickBar {
+
+				display: flex;
+				margin: 0px;
+				padding: 0px 0px 15px 0px;
+
+				color: white;
+			}
+
+			
+
+			.stickIcon {
+
+				font-size: 1.3em;
+				margin: 10px 10px 0px 10px;
+
+			}
+
+			.stickIcon:hover {
+
+				cursor: pointer;
+				color: #D9D9D9;
+				transition: .5s;
+
+			}
+
+			.stickLeft {
+
+				margin-right: auto;
+
+			}
+
+			.stickNote {
+
+				width: 200px;
+				height: 100%;
+
+				margin: 10px;
+				padding: 0px;
+
+				font-size: 1em;
+				color: #333;
+				font-family: helvetica;
+				border: none;
+				outline: none;
+				resize: none;
+			}
+
+			.blueBar {
+
+				background-color: #1267d6;
+
+			}
+
+			.blueArea {
+
+				background-color: #7da4d7;
+				border: 1px solid #7da4d7;
+
+			}
+
+			.greenBar {
+
+				background-color: #16810a;
+
+			}
+
+			.greenArea {
+
+				background-color: #80d676;
+				border: 1px solid #80d676;
+
+			}
+
+			.yellowBar {
+
+				background-color: #f4af15;
+
+			}
+
+			.yellowArea {
+
+				background-color: #f1db87;
+				border: 1px solid #f1db87;
+
+			}
+
+			.purpleBar {
+
+				background-color: #5e0e99;
+
+			}
+
+			.purpleArea {
+
+				background-color: #d8aef7;
+				border: 1px solid #d8aef7;
+
+			}
+
+			.pinkBar {
+
+				background-color: #c70498;
+
+			}
+
+			.pinkArea {
+
+				background-color: #f58cdb;
+				border: 1px solid #f58cdb;
+
+			}
+
+
+			.greyBar {
+
+				background-color: #aaa8a9;
+
+			}
+
+			.greyArea {
+
+				background-color: #e5e0e4;
+				border: 1px solid #e5e0e4;
+
+			}
+
+			.palleteBar {
+
+				display: none;
+				margin: 0px;
+				padding: 10px;
+				background-color: white;
+
+			}
+
+			.palleteBar ul {
+
+				display: flex;
+				margin: 0px 0px 0px 0px;
+				padding: 5px;
+				justify-content: space-around;
+
+			}
+
+			.palleteBar li {
+
+				width: 25px;
+				height: 25px;
+				margin: 0px 1px 0px 1px;
+				list-style-type: none;
+				border: 1px solid transparent;
+				border-radius: 50%;
+				cursor: pointer;
+
+			}

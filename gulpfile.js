@@ -49,7 +49,9 @@ gulp.task('js', () => {
     'src/js/jquery-3.2.1.js',
     'src/js/tinycolor.js',
     'src/js/main.js',
-    'src/js/quickLink.js'])
+    'src/js/quickLink.js',
+    'src/js/stickyNote.js',
+    'src/js/jquery-ui.min.js'])
     .pipe(plumber())
     .pipe(sourcemaps.init())
     .pipe(concat('app.min.js'))
