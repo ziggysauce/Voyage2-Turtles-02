@@ -1,3 +1,4 @@
+
 /*
 The general software architecture pattern used here is known as Model-View-Controller (aka MVC).
 reference: https://www.youtube.com/watch?v=fa8eUcu30Lw
@@ -262,6 +263,32 @@ NEWSFEED VIEW
     append,
   };
 }());
+
+/* ************************************************************************
+VALIDATOR VIEW
+************************************************************************* */
+
+(function makeValidatorView() {
+  const validBox = $('.valid-container');
+  const toolsBox = $('.tools-container');
+
+  function toggleValidator(e) {
+    if (validBox.is(':visible') && !validBox.find(e.target).length) {
+      validBox.fadeOut();
+    } else if (!validBox.is(':visible') && e.target === $('#html-val')[0]) {
+      toolsBox.fadeOut();
+      validBox.fadeIn();
+    } else if (toolsBox.is(':visible') && !toolsBox.find(e.target).length) {
+      toolsBox.fadeOut();
+    } else if (!toolsBox.is(':visible') && e.target === $('.fa-wrench')[0]) {
+      toolsBox.fadeIn();
+    }
+  }
+
+  window.app.validatorView = {
+    toggleValidator,
+  };
+}());
 /* ************************************************************************
 CONTROLLER
 ************************************************************************* */
@@ -272,6 +299,7 @@ CONTROLLER
   greetingView,
   newsfeedModel,
   newsfeedView,
+  validatorView,
 ) {
 /* ***** POMODORO SECTION ******** */
 
@@ -374,7 +402,8 @@ CONTROLLER
 
   function setupEventListeners() {
     $(window).on('click', toggleNameInput())
-      .on('click', newsfeedView.toggleNewsfeed);
+      .on('click', newsfeedView.toggleNewsfeed)
+      .on('click', validatorView.toggleValidator);
     $('#name-form').on('submit', setUserName);
     $('.start, .stop').on('click', togglePomodoroActive);
     $('.pause').on('click', togglePomodoroPause);
@@ -401,6 +430,7 @@ CONTROLLER
   window.app.greetingView,
   window.app.newsfeedModel,
   window.app.newsfeedView,
+  window.app.validatorView,
 ));
 
 window.app.controller.initialize();
@@ -671,16 +701,25 @@ ColorPicker();
 $('.color-picker-panel').hide();
 
 // Create click event to open color picker when icon is clicked
-$('.color-picker-icon').click((e) => {
-  $('.color-picker-panel').fadeToggle(300);
-  e.stopPropagation();
-  return false;
-});
+// $('#color-picker-icon').click((e) => {
+//   $('.color-picker-panel').fadeToggle(300);
+//   e.stopPropagation();
+//   return false;
+// });
 
 // Create click event to close color picker when clicked anywhere else
-$(document).click((e) => {
-  if (e.target.className !== 'colorPalette' && !$('.colorPalette').find(e.target).length) {
-    $('.color-picker-panel').fadeOut(300);
+// $(document).click((e) => {
+//   if (e.target.className !== 'color-picker-panel' && !$('.color-picker-panel').find(e.target).length) {
+//     $('.color-picker-panel').fadeOut(300);
+//   }
+// });
+
+$(window).click((e) => {
+  const colpic = $('.color-picker-panel');
+  if (colpic.is(':visible') && !colpic.find(e.target).length) {
+    colpic.fadeOut();
+  } else if (!colpic.is(':visible') && e.target === $('.fa-paint-brush')[0]) {
+    colpic.fadeIn();
   }
 });
 
@@ -931,14 +970,64 @@ function bgChange() {
     hour12: false,
   }), 10);
   if (picTime > 6 && picTime < 19) {
-    $('body').css('background-image', `url('./assets/img/dayPics/sample${randomNum}.jpeg')`);
+    $('body').css('background-image', `url('./assets/img/dayPics/sample${randomNum}.jpeg')`).fadeIn(3000);
     $('.credits p a').attr('href', bgInfo[randomNum].day.url);
     $('#pic-author').text(bgInfo[randomNum].day.author);
   } else {
-    $('body').css('background-image', `url('./assets/img/nightPics/sample${randomNum}.jpeg')`);
+    $('body').css('background-image', `url('./assets/img/nightPics/sample${randomNum}.jpeg')`).fadeIn(3000);
     $('#pic-author').attr('href', bgInfo[randomNum].night.url);
     $('#pic-author').text(bgInfo[randomNum].night.author);
   }
 }
 
 bgChange();
+
+/* ***** VALIDATOR SECTION ******** */
+
+/*
+ * Hidden until triggered by clicking the wrench icon
+ * Wrench icon shows link options to click on: HTML, CSS
+ * A pop-up box appears allowing the user enter HTML/CSS code
+ * The user needs to click on the 'check' button for the function to perform
+ * The corresponding validations are shows
+ * If the text exceeds the text fields, the user can scroll to see all the content
+*/
+
+function loadValidator() {
+  const $input = $('#code-markup');
+  const $output = $('#code-validated>code');
+  const format = function getData(data) {
+    const useData = data.messages;
+    function filter(filterdata) {
+      return (`Type: ${filterdata.type}\nLine: ${filterdata.lastLine}\nMessage: ${filterdata.message}\n\n`);
+    }
+
+    return (useData.map(filter).join(''));
+  };
+
+  $input.on('submit', function makeData(e) {
+    e.preventDefault();
+
+    const newdata = new FormData(this);
+
+    $.ajax({
+      url: 'https://validator.w3.org/nu/',
+      data: newdata,
+      method: 'POST',
+      processData: false,
+      contentType: false,
+      success: (content) => {
+        $output.text(format(content, { type: 'error' }));
+      },
+      error: () => {
+        $output.text('Sorry, it looks like this code is outdated. Please update your extension or feel free to send a pull request with your own personal updates.');
+      },
+    });
+  });
+
+  $input.trigger('submit');
+}
+
+$('.tools-container').hide();
+$('.valid-container').hide();
+loadValidator();
