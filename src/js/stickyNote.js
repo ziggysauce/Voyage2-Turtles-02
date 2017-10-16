@@ -169,167 +169,88 @@ $(document).ready(function (){
 
 					});
 
+					/*After a good bit of effort, I took Dan's advice and took another whack at minimizing the insane list of event listeners and it works! :D thanks @ziggysauce!
+					This reduces the amount of code by almost 100 lines!*/
+					var colorArray = [//These are the names of classes that have already been defined in the CSS.
 
-					/*---------------------------------------------------*/
-					//This is a list of event listeners that will change the background-color of the sticky note.
+					{
 
-					$("#" + noteID + " .palleteBar .yellowBar").click(function() {
+						areaClass: "yellowArea",
+						barClass: "yellowBar"
 
-						for (var x = 0; x < noteRetrieve.length; x++) {
+					},
 
-							if (noteRetrieve[x].id == noteID) {//In order to add color to the specific sticky note, we need to iterate through the array of sticky notes and find the sticky note 
-							// that matches noteID.
-								
-								$("#" + noteID).removeClass(noteRetrieve[x].areaClass).addClass("yellowArea");
-								$("#" + noteID + " textarea").removeClass(noteRetrieve[x].areaClass).addClass("yellowArea");
-								$("#" + noteID + " .stickBar").removeClass(noteRetrieve[x].barClass).addClass("yellowBar");
+					{
 
-								noteRetrieve[x].areaClass = "yellowArea";
-								noteRetrieve[x].barClass = "yellowBar";
+						areaClass: "greenArea",
+						barClass: "greenBar"
 
-								$("#" + noteID + " .palleteBar").hide();
-								$("#" + noteID + " .stickBar").fadeIn("slow");
+					},
 
-								updateStickStorage();
+					{
 
-							}
+						areaClass: "blueArea",
+						barClass: "blueBar"
 
-						}
+					},
 
+					{
+
+						areaClass: "purpleArea",
+						barClass: "purpleBar"
+
+					},
+
+					{
+
+						areaClass: "pinkArea",
+						barClass: "pinkBar"
+
+					},
+
+					{
+
+						areaClass: "greyArea",
+						barClass: "greyBar"
+
+					}
+					
+					];
+
+					for (var x = 0; x < colorArray.length; x++) {//
 						
+						colorEvent(colorArray[x]);
 
-					});
+					}
 
-					$("#" + noteID + " .palleteBar .greenBar").click(function() {
+					function colorEvent(index) {
 
-						for (var x = 0; x < noteRetrieve.length; x++) {
+						$("#" + noteID + " .palleteBar" + " ." + index.barClass).click(function() {
 
-							if (noteRetrieve[x].id == noteID) {//In order to add color to the specific sticky note, we need to iterate through the array of sticky notes and find the sticky note 
-							// that matches noteID.
-								
-								$("#" + noteID).removeClass(noteRetrieve[x].areaClass).addClass("greenArea");
-								$("#" + noteID + " textarea").removeClass(noteRetrieve[x].areaClass).addClass("greenArea");
-								$("#" + noteID + " .stickBar").removeClass(noteRetrieve[x].barClass).addClass("greenBar");
+							for(var z = 0; z < noteRetrieve.length; z++) {
 
-								noteRetrieve[x].areaClass = "greenArea";
-								noteRetrieve[x].barClass = "greenBar";
+								if(noteRetrieve[z].id == noteID) {
 
-								$("#" + noteID + " .palleteBar").hide();
-								$("#" + noteID + " .stickBar").fadeIn("slow");
+									$("#" + noteID).removeClass(noteRetrieve[z].areaClass).addClass(index.areaClass);
+									$("#" + noteID + " textarea").removeClass(noteRetrieve[z].areaClass).addClass(index.areaClass);
+									$("#" + noteID + " .stickBar").removeClass(noteRetrieve[z].barClass).addClass(index.barClass);
 
-								updateStickStorage();
+									noteRetrieve[z].areaClass = index.areaClass;
+									noteRetrieve[z].barClass = index.barClass;
 
-							}
+									$("#" + noteID + " .palleteBar").hide();
 
-						}
+									$("#" + noteID + " .stickBar").fadeIn("slow");
 
-						
+									updateStickStorage();
 
-					});
-
-					$("#" + noteID + " .palleteBar .blueBar").click(function() {
-
-						for (var x = 0; x < noteRetrieve.length; x++) {
-
-							if (noteRetrieve[x].id == noteID) {//In order to add color to the specific sticky note, we need to iterate through the array of sticky notes and find the sticky note 
-							// that matches noteID.
-								
-								$("#" + noteID).removeClass(noteRetrieve[x].areaClass).addClass("blueArea");
-								$("#" + noteID + " textarea").removeClass(noteRetrieve[x].areaClass).addClass("blueArea");
-								$("#" + noteID + " .stickBar").removeClass(noteRetrieve[x].barClass).addClass("blueBar");
-
-								noteRetrieve[x].areaClass = "blueArea";
-								noteRetrieve[x].barClass = "blueBar";
-
-								$("#" + noteID + " .palleteBar").hide();
-								$("#" + noteID + " .stickBar").fadeIn("slow");
-
-								updateStickStorage();
+								}
 
 							}
 
-						}
+						}); 
 
-						
-
-					});
-
-					$("#" + noteID + " .palleteBar .purpleBar").click(function() {
-
-						for (var x = 0; x < noteRetrieve.length; x++) {
-
-							if (noteRetrieve[x].id == noteID) {//In order to add color to the specific sticky note, we need to iterate through the array of sticky notes and find the sticky note 
-							// that matches noteID.
-								
-								$("#" + noteID).removeClass(noteRetrieve[x].areaClass).addClass("purpleArea");
-								$("#" + noteID + " textarea").removeClass(noteRetrieve[x].areaClass).addClass("purpleArea");
-								$("#" + noteID + " .stickBar").removeClass(noteRetrieve[x].barClass).addClass("purpleBar");
-
-								noteRetrieve[x].areaClass = "purpleArea";
-								noteRetrieve[x].barClass = "purpleBar";
-
-								$("#" + noteID + " .palleteBar").hide();
-								$("#" + noteID + " .stickBar").fadeIn("slow");
-
-								updateStickStorage();
-
-							}
-
-						}
-
-						
-
-					});
-
-					$("#" + noteID + " .palleteBar .pinkBar").click(function() {
-
-						for (var x = 0; x < noteRetrieve.length; x++) {
-
-							if (noteRetrieve[x].id == noteID) {//In order to add color to the specific sticky note, we need to iterate through the array of sticky notes and find the sticky note 
-							// that matches noteID.
-								
-								$("#" + noteID).removeClass(noteRetrieve[x].areaClass).addClass("pinkArea");
-								$("#" + noteID + " textarea").removeClass(noteRetrieve[x].areaClass).addClass("pinkArea");
-								$("#" + noteID + " .stickBar").removeClass(noteRetrieve[x].barClass).addClass("pinkBar");
-
-								noteRetrieve[x].areaClass = "pinkArea";
-								noteRetrieve[x].barClass = "pinkBar";
-
-								$("#" + noteID + " .palleteBar").hide();
-								$("#" + noteID + " .stickBar").fadeIn("slow");
-
-								updateStickStorage();
-
-							}
-
-						}
-
-					});
-
-					$("#" + noteID + " .palleteBar .greyBar").click(function() {
-
-						for (var x = 0; x < noteRetrieve.length; x++) {
-
-							if (noteRetrieve[x].id == noteID) {//In order to add color to the specific sticky note, we need to iterate through the array of sticky notes and find the sticky note 
-							// that matches noteID.
-								
-								$("#" + noteID).removeClass(noteRetrieve[x].areaClass).addClass("greyArea");
-								$("#" + noteID + " textarea").removeClass(noteRetrieve[x].areaClass).addClass("greyArea");
-								$("#" + noteID + " .stickBar").removeClass(noteRetrieve[x].barClass).addClass("greyBar");
-
-								noteRetrieve[x].areaClass = "greyArea";
-								noteRetrieve[x].barClass = "greyBar";
-
-								$("#" + noteID + " .palleteBar").hide();
-								$("#" + noteID + " .stickBar").fadeIn("slow");
-
-								updateStickStorage();
-
-							}
-
-						}
-
-					});
+					}
 
 					function updateStickStorage() {//This updates the localStorage.
 
