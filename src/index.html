@@ -171,12 +171,14 @@
             <div id="user-swatches" class="swatches custom-swatches"></div>
           </div>
 
-          <!-- Tools: HTML/CSS Validator -->
+          <!-- Tools: Checkers -->
           <div class="tools-container">
             <button type="button" name="html-validator" id="html-val">HTML Validator</button>
             <button type="button" name="css-validator" id="css-val">CSS Validator</button>
+            <button type="button" name="page-speed" id="insights">Page Speed</button>
           </div>
 
+          <!-- HTML Checker Container -->
           <div class="valid-container">
             <section class="instructions">
               <h3>HTML Validation</h3>
@@ -199,6 +201,27 @@
                   <pre id="code-validated"><code></code></pre>
                 </fieldset>
               </section>
+            </div>
+          </div>
+
+          <!-- Speed Checker Container -->
+          <div class="page-speed-container">
+            <div id="psc-box">
+              <h2 class="psc-top">Page Speed Insights</h2>
+              <form id="anaylze-url">
+                <h3 id="speed-page-error"></h3>
+                <div id="CheckedUrl">
+                  <input type="text" id="path" placeholder="Enter a webpage URL" autofocus>
+                  <button type="submit" id="analyzePage">DESKTOP</button>
+                  <button id="switch-speed-view" type="submit">MOBILE</button>
+                  <div id="loader-icon"><i class="fa fa-spinner"></i></div>
+                </div>
+              </form>
+            </div>
+            <div class="returnresults">
+              <pre id="output" class="page-speed-box"></pre>
+              <pre id="possible" class="page-speed-box"></pre>
+              <pre id="found" class="page-speed-box"></pre>
             </div>
           </div>
 
