@@ -1055,35 +1055,32 @@ loadValidator();
 const API_KEY = 'AIzaSyDKAeC02KcdPOHWVEZqdR1t5wwgaFJJKiM';
 const API_URL = 'https://www.googleapis.com/pagespeedonline/v1/runPagespeed?';
 const callbacks = {};
-let input = '';
+let speedInput = '';
+let speedRadio = '';
 $('.returnresults').hide();
 $('#loader-icon').hide();
 
 // Create function to begin speed checker
-function runPagespeedDesktop() {
+function runPagespeed() {
   const s = document.createElement('script');
   s.type = 'text/javascript';
   s.async = false;
-  const query = [
-    `url=${input}`,
-    'callback=runPagespeedCallbacks',
-    `key=${API_KEY}`,
-  ].join('&');
-  s.src = API_URL + query;
-  document.head.insertBefore(s, null);
-}
-
-// Create function to begin speed checker
-function runPagespeedMobile() {
-  const s = document.createElement('script');
-  s.type = 'text/javascript';
-  s.async = false;
-  const query = [
-    `url=${input}`,
-    'callback=runPagespeedCallbacks',
-    `key=${API_KEY}`,
-    'strategy=mobile',
-  ].join('&');
+  let query = [];
+  if (speedRadio === 'mobile') {
+    query = [
+      `url=${speedInput}`,
+      'callback=runPagespeedCallbacks',
+      `key=${API_KEY}`,
+      'strategy=mobile',
+    ].join('&');
+  } else {
+    query = [
+      `url=${speedInput}`,
+      'callback=runPagespeedCallbacks',
+      `key=${API_KEY}`,
+      'strategy=desktop',
+    ].join('&');
+  }
   s.src = API_URL + query;
   document.head.insertBefore(s, null);
 }
@@ -1094,13 +1091,15 @@ function runPagespeedCallbacks(result) {
     const errors = result.error.errors;
     for (var i = 0, len = errors.length; i < len; ++i) {
       if (errors[i].reason === 'badRequest' && API_KEY === 'yourAPIKey') {
-        console.log('Please specify your Google API key in the API_KEY variable.');
+        // console.log('Please specify your Google API key in the API_KEY variable.');
         $('#speed-page-error').append('Please specify your Google API key in the API_KEY variable.');
       } else {
-        console.log(errors[i].message);
+        // console.log(errors[i].message);
         $('#speed-page-error').append(`${errors[i].message}`);
       }
     }
+    $('#loader-icon').removeClass('spin').hide();
+    $('#analyzePage').removeAttr('disabled', 'disabled');
     return;
   }
 
@@ -1114,6 +1113,7 @@ function runPagespeedCallbacks(result) {
 }
 
 callbacks.displayPageSpeedScore = (result) => {
+  console.log(result);
   const region = document.getElementById('output');
   const rules = result.formattedResults.ruleResults;
   const redirects = rules.AvoidLandingPageRedirects;
@@ -1151,10 +1151,10 @@ callbacks.displayPageSpeedScore = (result) => {
       <span>URL: ${result.id}</span>
     </div>
     `).appendTo(region);
-  if ($('#analyzePage')[0].className === 'active') {
-    $('#results-speed-title').prepend('Desktop ');
-  } else {
+  if (speedRadio === 'mobile') {
     $('#results-speed-title').prepend('Mobile ');
+  } else {
+    $('#results-speed-title').prepend('Desktop ');
   }
 
   // Make container for possible optimizations
@@ -1300,30 +1300,19 @@ callbacks.displayPageSpeedScore = (result) => {
   $('.returnresults').slideDown(500);
   $('#loader-icon').removeClass('spin').hide();
   $('#analyzePage').removeAttr('disabled', 'disabled');
-  $('#switch-speed-view').removeAttr('disabled', 'disabled');
 };
 
+// Desktop & Mobile Score trigger from URL provided
 $('#analyzePage').on('click', () => {
   // Clear previous results
+  $('#speed-page-error').empty();
   $('.returnresults').slideUp(500);
   $('.page-speed-box').slideUp(500).empty();
   // Cannot click again until fully loaded
   $('#analyzePage').addClass('active').attr('disabled', 'disabled');
   // Loading icon to indicate user to be patient
   $('#loader-icon').show().addClass('spin');
-  input = $('#path').val();
-  runPagespeedDesktop();
-});
-
-$('#switch-speed-view').on('click', () => {
-  // Clear previous results
-  $('.returnresults').slideUp(500);
-  $('.page-speed-box').slideUp(500).empty();
-  $('#analyzePage').removeClass('active');
-  // Cannot click again until fully loaded
-  $('#switch-speed-view').attr('disabled', 'disabled');
-  // Loading icon to indicate user to be patient
-  $('#loader-icon').show().addClass('spin');
-  input = $('#path').val();
-  runPagespeedMobile();
+  speedInput = $('#path').val();
+  speedRadio = $('.toggle-custom-view:checked').val();
+  runPagespeed();
 });

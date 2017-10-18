@@ -638,14 +638,11 @@ footer {
   border-radius: 8px;
   border: 2px solid #444;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  max-height: 90vw;
+  max-height: 95%;
   width: 90%;
+  overflow: scroll;
   position: fixed;
-  top: 10%;
-  bottom: 10%;
+  top: 0%;
   left: 3%; }
 
 #speed-page-error {
@@ -662,6 +659,25 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center; }
+  #CheckedUrl label {
+    padding: 5px; }
+
+.radio-speed-view {
+  border: none; }
+  .radio-speed-view input {
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #C4C4C4;
+    transition: 0.2s all linear;
+    outline: none;
+    margin-right: 5px;
+    position: relative;
+    top: 4px; }
+  .radio-speed-view input:checked {
+    border: 6px solid #7BB8FF; }
 
 .psc-top {
   max-height: 15%;
@@ -686,7 +702,7 @@ footer {
 #path::placeholder {
   color: #C4C4C4; }
 
-#analyzePage, #switch-speed-view {
+#analyzePage {
   padding: 10px;
   margin: 10px;
   background: #7BB8FF;
@@ -703,16 +719,8 @@ footer {
 #analyzePage:hover {
   background: #005bc6; }
 
-#switch-speed-view {
-  background: #ff6161; }
-
-#switch-speed-view:hover {
-  background: #b50000; }
-
 .returnresults {
   padding: 10px;
-  width: 98%;
-  max-height: 60vh;
   overflow: scroll;
   background: transparent; }
 
@@ -724,20 +732,8 @@ footer {
   font-family: Lato, helvetica;
   font-size: 12px;
   overflow: scroll;
-  /*max-height: 50vh;*/
   white-space: pre-line; }
 
-/*#output {
-  border: 2px dotted red;
-}
-
-#possible {
-  border: 2px dotted green;
-}
-
-#found {
-  border: 2px dotted orange;
-}*/
 #results-speed-title {
   margin: 0px;
   padding: 10px 0px;

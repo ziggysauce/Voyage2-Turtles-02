@@ -202,8 +202,11 @@
                 <h3 id="speed-page-error"></h3>
                 <div id="CheckedUrl">
                   <input type="text" id="path" placeholder="Enter a webpage URL" autofocus>
-                  <button type="submit" id="analyzePage">DESKTOP</button>
-                  <button id="switch-speed-view" type="submit">MOBILE</button>
+                  <fieldset class="radio-speed-view">
+                    <label><input id="radio-desktop" class="toggle-custom-view" type="radio" name="view" value="desktop" checked> Desktop</label>
+                    <label><input id="radio-mobile" class="toggle-custom-view" type="radio" name="view" value="mobile"> Mobile</label>
+                  </fieldset>
+                  <button type="submit" id="analyzePage">ANALYZE</button>
                   <div id="loader-icon"><i class="fa fa-spinner"></i></div>
                 </div>
               </form>
