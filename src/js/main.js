@@ -18,14 +18,16 @@ POMODORO MODEL
     const seconds = ((milliseconds % 60000) / 1000).toFixed(0);
     return seconds == 60 ? `${minutes + 1}:00` : `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   }
-
+  
   function getTime() {
+    // was using toLocaleString() before, but it was causing a memory leak - jmbothe
     const time = new Date();
-    return time.toLocaleString('en-US', {
-      hour: 'numeric',
-      minute: 'numeric',
-      hour12: true,
-    });
+    let hours = time.getHours();
+    const timeOfDay = hours < 12 ? 'AM' : 'PM';
+    hours = hours === 0 || hours === 12 ? 12 : hours % 12;
+    let minutes = time.getMinutes();
+    minutes = minutes < 10 ? `0${minutes}` : minutes;
+    return hours + ':' + minutes + timeOfDay;
   }
 
   const status = {
@@ -114,7 +116,7 @@ POMODORO VIEW
   const pauseButton = $('.pause');
   const resetButton = $('.reset');
   const workBreakButton = $('.work-break');
-  const display = $('.time-display p');
+  const display = document.querySelector('.time-display p');
 
   function toggleActive(pomodoroIsActive) {
     if (pomodoroIsActive) {
@@ -141,11 +143,11 @@ POMODORO VIEW
   }
 
   function updateTime(time) {
-    display.text(time);
+    display.innerText = `${time}`;
   }
 
   function updateCountdown(countdown, task) {
-    display.text(`${countdown} ${task}`);
+    display.innerText = `${countdown} ${task}`;
   }
 
   window.app.pomodoroView = {
@@ -238,7 +240,7 @@ NEWSFEED VIEW
   }
 
   function generateArticle(source, url, image, title, author) {
-    author = author == null ? 'unnamed author' : author.toLowerCase().replace(/^by/, '');
+    author = author == null || author == '' ? 'unnamed author' : author.toLowerCase().replace(/^by/, '');
     image = image == null ? './assets/img/scuba-turtle.png' : image;
 
     return `
@@ -295,7 +297,6 @@ VALIDATOR & PAGE SPEED (TOOLBOX) VIEW
     toggleToolbox,
   };
 }());
-
 /* ************************************************************************
 CONTROLLER
 ************************************************************************* */
@@ -337,7 +338,6 @@ CONTROLLER
   function clocksHandler() {
     if (!pomodoroModel.getStatus().isActive) {
       pomodoroView.updateTime(pomodoroModel.getTime());
-      requestAnimationFrame(clocksHandler);
     } else if (pomodoroModel.getStatus().isActive) {
       const countdown = pomodoroModel.cycle();
       const task = pomodoroModel.getStatus().isOnBreak ? 'break' : 'work';
@@ -347,8 +347,8 @@ CONTROLLER
         toggleWorkBreak();
       }
       pomodoroView.updateCountdown(countdown, task);
-      requestAnimationFrame(clocksHandler);
     }
+    requestAnimationFrame(clocksHandler);
   }
 
   // basic web audio API audio loading function. reference: https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/decodeAudioData
@@ -420,7 +420,7 @@ CONTROLLER
 
   function initialize() {
     greetingView.showGreeting(greetingModel.getUserName());
-    $('.time-display p').text(pomodoroModel.getTime());
+    pomodoroView.updateTime(pomodoroModel.getTime());
     setupEventListeners();
     loadSounds();
     loadNewsArticles();
