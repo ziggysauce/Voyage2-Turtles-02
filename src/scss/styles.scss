@@ -790,7 +790,7 @@ footer {
     color: #252525;
 	}
 
-	#check-code {
+	#check-html, #check-css {
 		margin-top: 5px;
 		padding: 5px;
 		background: transparent;
@@ -801,7 +801,7 @@ footer {
 		cursor: pointer;
 	}
 
-	#check-code:hover {
+	#check-html:hover, #check-css:hover {
 		background-color: rgba(255,255,255,.8);
 		color: rgba(0,0,0,.7);
 	}
@@ -813,7 +813,7 @@ footer {
   overflow: hidden;
 }
 
-#code-validated {
+#html-validated, #css-validated {
   max-width: 100%;
   max-height: 85%;
   overflow: scroll;
