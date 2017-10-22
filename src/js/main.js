@@ -9,283 +9,31 @@ reference: https://www.youtube.com/watch?v=pOfwp6VlnlM
 */
 
 /* ************************************************************************
-POMODORO MODEL
-************************************************************************ */
-(function makePomodoroModel() {
-  // converts milliseconds into minutes and seconds
-  function minutesAndSeconds(milliseconds) {
-    const minutes = Math.floor(milliseconds / 60000);
-    const seconds = ((milliseconds % 60000) / 1000).toFixed(0);
-    return seconds == 60 ? `${minutes + 1}:00` : `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-  }
-  
-  function getTime() {
-    // was using toLocaleString() before, but it was causing a memory leak - jmbothe
-    const time = new Date();
-    let hours = time.getHours();
-    const timeOfDay = hours < 12 ? 'AM' : 'PM';
-    hours = hours === 0 || hours === 12 ? 12 : hours % 12;
-    let minutes = time.getMinutes();
-    minutes = minutes < 10 ? `0${minutes}` : minutes;
-    return hours + ':' + minutes + timeOfDay;
-  }
-
-  const status = {
-    isActive: false, // whether or not the pomodoro clock is on or off
-    isOnBreak: false, // whether or not the pomodoro clock is in work mode or break mode
-    isPaused: false,
-    startTime: null,
-    elapsedTime: 0,
-    pauseTime: 0,
-    workPeriod: 60000, // eventually these variables will be set by user
-    breakPeriod: 60000,
-  };
-
-  function getStatus() {
-    return status;
-  }
-
-  function resetClock() {
-    status.isPaused = false;
-    status.startTime = performance.now();
-    status.elapsedTime = 0;
-    status.pauseTime = 0;
-  }
-
-  function toggleActive() {
-    status.isActive = !status.isActive;
-    if (status.isActive) {
-      status.isOnBreak = false;
-      resetClock();
-    }
-  }
-
-  function toggleWorkBreak() {
-    status.isOnBreak = !status.isOnBreak;
-    resetClock();
-  }
-
-  function togglePause() {
-    status.isPaused = !status.isPaused;
-    if (status.isPaused) status.pauseTime = status.elapsedTime;
-    if (!status.isPaused) status.startTime = performance.now();
-  }
-
-  function cycle() {
-    const period = status.isOnBreak ? status.breakPeriod : status.workPeriod;
-    const countdown = period - status.elapsedTime;
-
-    if (!status.isPaused) {
-      status.elapsedTime = (performance.now() - status.startTime) + status.pauseTime;
-    }
-    if (countdown < 1000) return minutesAndSeconds(0);
-
-    return minutesAndSeconds(countdown);
-  }
-
-  // basic web audio API context. reference: https://developer.mozilla.org/en-US/docs/Web/API/AudioContext
-  const audio = new AudioContext();
-
-  // basic web audio API playback function. reference: https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode
-  function triggerSound(buffer) {
-    const source = audio.createBufferSource();
-    source.buffer = buffer;
-    source.connect(audio.destination);
-    source.start(0);
-  }
-
-  window.app = {}; // creates app object as porperty of global object
-  window.app.pomodoroModel = { // creates model object as property of app
-    getTime,
-    getStatus,
-    resetClock,
-    toggleActive,
-    toggleWorkBreak,
-    togglePause,
-    cycle,
-    audio,
-    triggerSound,
-  };
-}());
-/* ************************************************************************
-POMODORO VIEW
-************************************************************************* */
-(function makePomodoroView() {
-  const startButton = $('.start');
-  const stopButton = $('.stop');
-  const pauseButton = $('.pause');
-  const resetButton = $('.reset');
-  const workBreakButton = $('.work-break');
-  const display = document.querySelector('.time-display p');
-
-  function toggleActive(pomodoroIsActive) {
-    if (pomodoroIsActive) {
-      startButton.hide();
-      stopButton.show();
-      resetButton.show();
-      pauseButton.show();
-      workBreakButton.show();
-    } else if (!pomodoroIsActive) {
-      startButton.show();
-      stopButton.hide();
-      resetButton.hide();
-      pauseButton.hide();
-      workBreakButton.hide();
-    }
-  }
-
-  function togglePause(pomodoroIsPaused) {
-    pauseButton.text(`${pomodoroIsPaused ? 'Resume' : 'Pause'}`);
-  }
-
-  function toggleWorkBreak(pomodoroIsOnBreak) {
-    workBreakButton.text(`${pomodoroIsOnBreak ? 'Work' : 'Break'}`);
-  }
-
-  function updateTime(time) {
-    display.innerText = `${time}`;
-  }
-
-  function updateCountdown(countdown, task) {
-    display.innerText = `${countdown} ${task}`;
-  }
-
-  window.app.pomodoroView = {
-    toggleActive,
-    togglePause,
-    toggleWorkBreak,
-    updateTime,
-    updateCountdown,
-  };
-}());
-/* ************************************************************************
-USER GREETING MODEL
-************************************************************************* */
-(function makeGreetingModel() {
-  const setUserName = name => localStorage.setItem('userName', name);
-  const getUserName = () => localStorage.getItem('userName');
-
-  window.app.greetingModel = {
-    setUserName,
-    getUserName,
-  };
-}());
-/* ************************************************************************
-USER GREETING VIEW
-************************************************************************* */
-(function makeGreetingView() {
-  const nameForm = $('#name-form');
-  const nameInput = $('#name-input');
-  const greeting = $('.user-greeting h1');
-
-  function showGreeting(userName) {
-    if (userName) {
-      greeting.html(`Hello, <button>${userName}</button>.`);
-    } else {
-      greeting.html('Hello. What\'s your <button>name</button>?');
-    }
-    nameForm.hide();
-    nameInput.val('').blur();
-    greeting.show();
-  }
-
-  function showNameInput() {
-    nameForm.show();
-    nameInput.focus();
-    greeting.hide();
-  }
-
-  function toggleNameInput(userName) {
-    return function handler(e) {
-      if (nameInput.is(':visible') && e.target !== nameInput[0]) {
-        showGreeting(userName);
-      } else if (!nameInput.is(':visible') && e.target === $('.user-greeting button')[0]) {
-        showNameInput();
-      }
-    };
-  }
-
-  window.app.greetingView = {
-    showGreeting,
-    showNameInput,
-    toggleNameInput,
-  };
-}());
-/* ************************************************************************
-NEWSFEED MODEL
-************************************************************************* */
-(function makeNewsfeedModel() {
-  const APIKey = 'dcbb5b4e58ce4a95941e5a3f5ba1c9b8';
-  const sources = ['hacker-news', 'recode', 'techcrunch'];
-  const articlesList = [];
-
-  window.app.newsfeedModel = {
-    APIKey,
-    sources,
-    articlesList,
-  };
-}());
-/* ************************************************************************
-NEWSFEED VIEW
-************************************************************************* */
-(function makeNewsfeedView() {
-  const newsfeedWrapper = $('.newsfeed-wrapper');
-
-  function toggleNewsfeed(e) {
-    if (newsfeedWrapper.is(':visible') && e.target !== newsfeedWrapper[0]) {
-      newsfeedWrapper.fadeOut();
-    } else if (!newsfeedWrapper.is(':visible') && e.target === $('.fa-newspaper-o')[0]) {
-      newsfeedWrapper.fadeIn();
-    }
-  }
-
-  function generateArticle(source, url, image, title, author) {
-    author = author == null || author == '' ? 'unnamed author' : author.toLowerCase().replace(/^by/, '');
-    image = image == null ? './assets/img/scuba-turtle.png' : image;
-
-    return `
-      <li class="article">
-      <a class="article-image" href="${url}" style="background-image: url(${image})" target="_blank">
-      </a>
-      <div class"artcle-body">
-        <a class="headline" href="${url}" target="_blank">${title}</a>
-        <p class="source">${author} - ${source}</p>
-      </div>
-    </li>
-    `;
-  }
-
-  function append(sourceArticles) {
-    $('.newsfeed').append(`${sourceArticles}`);
-  }
-
-  window.app.newsfeedView = {
-    toggleNewsfeed,
-    generateArticle,
-    append,
-  };
-}());
-
-/* ************************************************************************
 VALIDATOR & PAGE SPEED (TOOLBOX) VIEW
 ************************************************************************* */
 
 (function makeToolboxView() {
-  const validBox = $('.valid-container');
+  const htmlBox = $('.valid-container.html-validator');
+  const cssBox = $('.valid-container.css-validator');
   const toolsBox = $('.tools-container');
   const speedBox = $('.page-speed-container');
 
   function toggleToolbox(e) {
-    if (validBox.is(':visible') && !validBox.find(e.target).length) {
-      validBox.fadeOut();
-    } else if (!validBox.is(':visible') && e.target === $('#html-val')[0]) {
+    if (htmlBox.is(':visible') && !htmlBox.find(e.target).length) {
+      htmlBox.fadeOut();
+    } else if (!htmlBox.is(':visible') && e.target === $('#html-val')[0]) {
       toolsBox.fadeOut();
-      validBox.fadeIn();
+      htmlBox.fadeIn();
     } else if (speedBox.is(':visible') && !speedBox.find(e.target).length) {
       speedBox.fadeOut();
     } else if (!speedBox.is(':visible') && e.target === $('#insights')[0]) {
       toolsBox.fadeOut();
       speedBox.fadeIn();
+    } else if (cssBox.is(':visible') && !cssBox.find(e.target).length) {
+      cssBox.fadeOut();
+    } else if (!cssBox.is(':visible') && e.target === $('#css-val')[0]) {
+      toolsBox.fadeOut();
+      cssBox.fadeIn();
     } else if (toolsBox.is(':visible') && !toolsBox.find(e.target).length) {
       toolsBox.fadeOut();
     } else if (!toolsBox.is(':visible') && e.target === $('.fa-wrench')[0]) {
@@ -301,8 +49,8 @@ VALIDATOR & PAGE SPEED (TOOLBOX) VIEW
 CONTROLLER
 ************************************************************************* */
 (function makeController(
-  pomodoroModel,
-  pomodoroView,
+  clocksModel,
+  clocksView,
   greetingModel,
   greetingView,
   newsfeedModel,
@@ -312,59 +60,56 @@ CONTROLLER
 /* ***** POMODORO SECTION ******** */
 
   function togglePomodoroActive() {
-    pomodoroModel.toggleActive();
-    pomodoroView.toggleActive(pomodoroModel.getStatus().isActive);
-    pomodoroView.togglePause(pomodoroModel.getStatus().isPaused);
-    pomodoroView.toggleWorkBreak(pomodoroModel.getStatus().isOnBreak);
+    clocksModel.toggleActive();
+    clocksView.toggleActive(clocksModel.getStatus().isActive);
+    clocksView.togglePause(clocksModel.getStatus().isPaused);
+    clocksView.toggleWorkBreak(clocksModel.getStatus().isOnBreak);
   }
 
   function togglePomodoroPause() {
-    pomodoroModel.togglePause();
-    pomodoroView.togglePause(pomodoroModel.getStatus().isPaused);
+    clocksModel.togglePause();
+    clocksView.togglePause(clocksModel.getStatus().isPaused);
   }
 
   function toggleWorkBreak() {
-    pomodoroModel.toggleWorkBreak();
-    pomodoroView.toggleWorkBreak(pomodoroModel.getStatus().isOnBreak);
-    pomodoroView.togglePause(pomodoroModel.getStatus().isPaused);
+    clocksModel.toggleWorkBreak();
+    clocksView.toggleWorkBreak(clocksModel.getStatus().isOnBreak);
+    clocksView.togglePause(clocksModel.getStatus().isPaused);
   }
 
   function resetPomodoro() {
-    pomodoroModel.resetClock();
-    pomodoroView.togglePause(pomodoroModel.getStatus().isPaused);
+    clocksModel.resetClock();
+    clocksView.togglePause(clocksModel.getStatus().isPaused);
   }
 
   // continuous loop that updates clock display. reference https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
   function clocksHandler() {
-    if (!pomodoroModel.getStatus().isActive) {
-      pomodoroView.updateTime(pomodoroModel.getTime());
-    } else if (pomodoroModel.getStatus().isActive) {
-      const countdown = pomodoroModel.cycle();
-      const task = pomodoroModel.getStatus().isOnBreak ? 'break' : 'work';
+    if (!clocksModel.getStatus().isActive) {
+      clocksView.updateTime(clocksModel.getTime());
+    } else if (clocksModel.getStatus().isActive) {
+      const countdown = clocksModel.cycle();
+      const task = clocksModel.getStatus().isOnBreak ? 'break' : 'work';
 
       if (countdown == '0:00') {
-        pomodoroModel.triggerSound(pomodoroModel.alarm);
+        clocksModel.triggerSound(clocksModel.alarm);
         toggleWorkBreak();
       }
-      pomodoroView.updateCountdown(countdown, task);
+      clocksView.updateCountdown(countdown, task);
     }
     requestAnimationFrame(clocksHandler);
   }
 
   // basic web audio API audio loading function. reference: https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/decodeAudioData
   // free sound effects from soundbible.com
-  function loadSounds() {
-    const request = new XMLHttpRequest();
-    const audioUrl = './assets/audio/alarm.mp3';
 
-    request.open('GET', audioUrl);
-    request.responseType = 'arraybuffer';
-    request.onload = function onload() {
-      pomodoroModel.audio.decodeAudioData(request.response, (buffer) => {
-        pomodoroModel.alarm = buffer;
+  function loadSounds() {
+    fetch('./assets/audio/alarm.mp3')
+      .then(response => response.arrayBuffer())
+      .then((buffer) => {
+        clocksModel.audio.decodeAudioData(buffer, (decodedData) => {
+          clocksModel.alarm = decodedData;
+        });
       });
-    };
-    request.send();
   }
 
   /* ***** USER GREETING SECTION ******** */
@@ -383,25 +128,20 @@ CONTROLLER
 
   function loadNewsArticles() {
     newsfeedModel.sources.forEach((source) => {
-      const settings = {
-        async: true,
-        crossDomain: true,
-        url: `https://newsapi.org/v1/articles?source=${source}&sortBy=top&apiKey=${newsfeedModel.APIKey}`,
-        method: 'GET',
-      };
-
-      $.ajax(settings).done((response) => {
-        const content = response.articles.map((article) => {
-          return newsfeedView.generateArticle(
-            response.source,
-            article.url,
-            article.urlToImage,
-            article.title,
-            article.author,
-          );
+      fetch(`https://newsapi.org/v1/articles?source=${source}&sortBy=top&apiKey=${newsfeedModel.APIKey}`)
+        .then(response => response.json())
+        .then((data) => {
+          const content = data.articles.map((article) => {
+            return newsfeedView.generateArticle(
+              data.source,
+              article.url,
+              article.urlToImage,
+              article.title,
+              article.author,
+            );
+          });
+          newsfeedView.append(`${content.filter((item, index) => index < 3).join('\r\n')}`);
         });
-        newsfeedView.append(`${content.filter((item, index) => index < 3).join('\r\n')}`);
-      });
     });
   }
 
@@ -420,7 +160,7 @@ CONTROLLER
 
   function initialize() {
     greetingView.showGreeting(greetingModel.getUserName());
-    pomodoroView.updateTime(pomodoroModel.getTime());
+    clocksView.updateTime(clocksModel.getTime());
     setupEventListeners();
     loadSounds();
     loadNewsArticles();
@@ -431,8 +171,8 @@ CONTROLLER
     initialize,
   };
 }(
-  window.app.pomodoroModel,
-  window.app.pomodoroView,
+  window.app.clocksModel,
+  window.app.clocksView,
   window.app.greetingModel,
   window.app.greetingView,
   window.app.newsfeedModel,
@@ -1000,9 +740,9 @@ bgChange();
  * If the text exceeds the text fields, the user can scroll to see all the content
 */
 
-function loadValidator() {
-  const $input = $('#code-markup');
-  const $output = $('#code-validated>code');
+function loadHTMLValidator() {
+  const $input = $('#html-markup');
+  const $output = $('#html-validated>code');
   const format = function getData(data) {
     const useData = data.messages;
     function filter(filterdata) {
@@ -1038,7 +778,35 @@ function loadValidator() {
 $('.tools-container').hide();
 $('.valid-container').hide();
 $('.page-speed-container').hide();
-loadValidator();
+loadHTMLValidator();
+
+function loadCSSValidator() {
+  const $input = $('#css-markup');
+  const $output = $('#css-validated>code');
+
+  function format(type, line, message) {
+    return `
+    Type: ${type}
+    Line: ${line}
+    Message: ${message}
+    `;
+  }
+
+  $input.on('submit', (e) => {
+    e.preventDefault();
+
+    const content = $('#css-markup textarea').val().replace(/\n/ig, '%0A');
+
+    const proxyURL = 'https://cors-anywhere.herokuapp.com/';
+    const validatorURL = `http://jigsaw.w3.org/css-validator/validator?text=${content}&profile=css3&output=json`;
+    fetch(proxyURL + validatorURL)
+      .then(response => response.json())
+      .then(results => $output.text(results.cssvalidation.errors.map((item) => {
+        return format(item.type, item.line, item.message);
+      }).join('')));
+  });
+}
+loadCSSValidator();
 
 /* ***** PAGE SPEED SECTION ******** */
 

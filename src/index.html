@@ -16,6 +16,9 @@
     <script src="js/jquery-3.2.1.js" defer></script>
     <script src="js/jquery-ui.min.js" defer></script>
     <script src="js/tinycolor.js" defer></script>
+    <script src="js/components/clocks.js" defer></script>
+    <script src="js/components/greeting.js" defer></script>
+    <script src="js/components/newsfeed.js" defer></script>
     <script src="js/main.js" defer></script>
     <script src="js/quickLink.js" defer></script>
     <script src="js/stickyNote.js" defer></script>
@@ -179,26 +182,52 @@
           </div>
 
           <!-- HTML Checker Container -->
-          <div class="valid-container">
+          <div class="valid-container html-validator">
             <section class="instructions">
               <h3>HTML Validation</h3>
               <p>Enter HTML markup and click 'CHECK' to validate.</p>
             </section>
             <div class="formfields">
               <section> <!-- HTML Markup -->
-                <form class="validate-form" id="code-markup" method="post" enctype="multipart/form-data">
+                <form class="validate-form" id="html-markup" method="post" enctype="multipart/form-data">
                   <fieldset>
                     <legend>HTML Markup</legend>
                     <div>
                       <input type="hidden" name="out" value="json">
                       <textarea name="content" rows="15" placeholder="Enter HTML markup here..."></textarea>
                     </div>
-                    <button id="check-code" type="submit">CHECK</button>
+                    <button id="check-html" type="submit">CHECK</button>
                   </fieldset>
                 </form>
                 <fieldset class="validate-form"> <!-- Validation Result -->
                   <legend>Validation Results</legend>
-                  <pre id="code-validated"><code></code></pre>
+                  <pre id="html-validated"><code></code></pre>
+                </fieldset>
+              </section>
+            </div>
+          </div>
+
+          <!-- CSS Checker Container -->
+          <div class="valid-container css-validator">
+            <section class="instructions">
+              <h3>CSS Validation</h3>
+              <p>Copy and Paste CSS in text area below and click 'CHECK' to validate.</p>
+            </section>
+            <div class="formfields">
+              <section> <!-- CSS -->
+                <form class="validate-form" id="css-markup" method="post" enctype="multipart/form-data">
+                  <fieldset>
+                    <legend>CSS</legend>
+                    <div>
+                      <input type="hidden" name="out" value="json">
+                      <textarea name="content" rows="15" placeholder="Enter CSS here..."></textarea>
+                    </div>
+                    <button id="check-css" type="submit">CHECK</button>
+                  </fieldset>
+                </form>
+                <fieldset class="validate-form"> <!-- Validation Result -->
+                  <legend>Validation Results</legend>
+                  <pre id="css-validated"><code></code></pre>
                 </fieldset>
               </section>
             </div>
