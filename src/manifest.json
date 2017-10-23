@@ -7,7 +7,6 @@
   "icons": {
     "128": "assets/img/scuba-turtle.png"
   },
-
   "chrome_url_overrides": {
     "newtab": "index.html"
   }

@@ -140,6 +140,7 @@ body {
     color: #FFF; }
   .linkNote .quickLinks:hover .quickDropdown {
     opacity: 1;
+    z-index: 1;
     transition: .5s; }
 
 /*----------------------------------------*/
@@ -289,6 +290,7 @@ footer {
 .tools {
   display: flex;
   width: 30%;
+  z-index: 1;
   margin: auto 0px;
   color: #D9D9D9; }
 
@@ -558,7 +560,7 @@ footer {
     width: 100%;
     background-color: rgba(255, 255, 255, 0.8);
     color: #252525; }
-  .formfields #check-code {
+  .formfields #check-html, .formfields #check-css {
     margin-top: 5px;
     padding: 5px;
     background: transparent;
@@ -567,7 +569,7 @@ footer {
     border-radius: 5px;
     color: #C4C4C4;
     cursor: pointer; }
-  .formfields #check-code:hover {
+  .formfields #check-html:hover, .formfields #check-css:hover {
     background-color: rgba(255, 255, 255, 0.8);
     color: rgba(0, 0, 0, 0.7); }
 
@@ -576,14 +578,14 @@ footer {
   height: 100%;
   overflow: hidden; }
 
-#code-validated {
+#html-validated, #css-validated {
   max-width: 100%;
   max-height: 85%;
   overflow: scroll;
   white-space: pre-wrap;
   background-color: rgba(255, 255, 255, 0.8);
   color: #252525; }
-  #code-validated code {
+  #html-validated code, #css-validated code {
     font-family: Lato, Helvetica;
     font-weight: 700; }
 
@@ -804,6 +806,7 @@ footer {
   bottom: 10%;
   left: 20%;
   right: 20%;
+  z-index: 1;
   background-color: rgba(0, 0, 0, 0.6); }
 
 .newsfeed {
@@ -859,6 +862,7 @@ footer {
   overflow: hidden;
   width: 220px;
   height: 180px;
+  z-index: 0;
   outline: 1px solid transparent;
   border: 1px solid #7da4d7;
   border-radius: 10px; }
