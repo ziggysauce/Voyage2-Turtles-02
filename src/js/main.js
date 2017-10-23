@@ -293,12 +293,15 @@ TOOLBOX VIEW
 PAGE SPEED MODEL
 ************************************************************************* */
 (function makePageSpeedModel() {
+  // Object that will hold the callbacks that process results from the PageSpeed Insights API.
+  // const callbacks = {};
   const API_KEY = 'AIzaSyDKAeC02KcdPOHWVEZqdR1t5wwgaFJJKiM';
   const API_URL = 'https://www.googleapis.com/pagespeedonline/v1/runPagespeed?';
 
   window.app.pagespeedModel = {
     API_KEY,
     API_URL,
+    // callbacks,
   };
 }());
 
@@ -310,7 +313,6 @@ PAGE SPEED VIEW
   const speedBox = $('.page-speed-container');
 
   function toggleSpeedBox(e) {
-    $('#loader-icon').hide();
     if (speedBox.is(':visible') && !speedBox.find(e.target).length) {
       speedBox.fadeOut();
     } else if (!speedBox.is(':visible') && e.target === $('#insights')[0]) {
@@ -445,62 +447,12 @@ CONTROLLER
   }
 
   /* ********* PAGE SPEED SECTION ********** */
+
   function loadPageSpeedChecker() {
-    const speedInput = $('#path').val();
-    const speedRadio = $('.toggle-custom-view:checked').val();
     const callbacks = {};
 
-    // Create function to begin speed checker
-    function runPagespeed() {
-      const s = document.createElement('script');
-      s.type = 'text/javascript';
-      s.async = false;
-      let query = [];
-      if (speedRadio === 'mobile') {
-        query = [
-          `url=${speedInput}`,
-          'callback=runPagespeedCallbacks',
-          `key=${pagespeedModel.API_KEY}`,
-          'strategy=mobile',
-        ].join('&');
-      } else {
-        query = [
-          `url=${speedInput}`,
-          'callback=runPagespeedCallbacks',
-          `key=${pagespeedModel.API_KEY}`,
-          'strategy=desktop',
-        ].join('&');
-      }
-      s.src = pagespeedModel.API_URL + query;
-      document.head.insertBefore(s, null);
-    }
-
-    // JSONP callback. Checks for errors, then invokes callback handlers.
-    function runPagespeedCallbacks(result) {
-      if (result.error) {
-        const errors = result.error.errors;
-        for (var i = 0, len = errors.length; i < len; ++i) {
-          if (errors[i].reason === 'badRequest' && pagespeedModel.API_KEY === 'yourAPIKey') {
-            // console.log('Please specify your Google API key in the API_KEY variable.');
-            $('#speed-page-error').append('Please specify your Google API key in the API_KEY variable.');
-          } else {
-            // console.log(errors[i].message);
-            $('#speed-page-error').append(`${errors[i].message}`);
-          }
-        }
-        $('#loader-icon').removeClass('spin').hide();
-        $('#analyzePage').removeAttr('disabled', 'disabled');
-        return;
-      }
-
-      // Sent to each function on callbacks object.
-      for (const fn in callbacks) {
-        const f = callbacks[fn];
-        if (typeof f == 'function') {
-          callbacks[fn](result);
-        }
-      }
-    }
+    $('.returnresults').hide();
+    $('#loader-icon').hide();
 
     callbacks.displayPageSpeedScore = (result) => {
       // pagespeedView.generatePageSpeedBox();
@@ -541,7 +493,7 @@ CONTROLLER
           <span>URL: ${result.id}</span>
         </div>
         `).appendTo(region);
-      if (speedRadio === 'mobile') {
+      if ($('.toggle-custom-view:checked').val() === 'mobile') {
         $('#results-speed-title').prepend('Mobile ');
       } else {
         $('#results-speed-title').prepend('Desktop ');
@@ -667,10 +619,9 @@ CONTROLLER
             const top = $(`#${foundRules.indexOf(m)}content`);
             const bottom = $(`#${foundRules.indexOf(m)}anchor`);
 
+            // Show found optimizations
             // Fill container for found optimizations
             title.append(`${m.localizedRuleName}`);
-
-            // Show found optimizations
             top.append(`${m.urlBlocks[0].header.format}`);
             bottom.append('Learn More');
             bottom.attr('href', `${m.urlBlocks[0].header.args[0].value}`);
@@ -690,17 +641,88 @@ CONTROLLER
       $('.returnresults').slideDown(500);
       $('#loader-icon').removeClass('spin').hide();
       $('#analyzePage').removeAttr('disabled', 'disabled');
+      $('.toggle-custom-view').removeAttr('disabled', 'disabled');
     };
+
+    // Invokes the PageSpeed Insights API. The response will contain
+    // JavaScript that invokes our callback with the PageSpeed results
+    function runPagespeed() {
+      if ($('.toggle-custom-view:checked').val() === 'mobile') {
+        $.ajax({
+          url: `${pagespeedModel.API_URL}&key=${pagespeedModel.API_KEY}&strategy=mobile&url=${$('#path').val()}`,
+          method: 'GET',
+          dataType: 'JSONP',
+          async: false,
+          processData: false,
+          contentType: false,
+          success: (result) => {
+            // JSONP callback. Checks for errors, then invokes callback handlers
+            if (result.error) {
+              const errors = result.error.errors;
+              for (var i = 0, len = errors.length; i < len; ++i) {
+                if (errors[i].reason === 'badRequest' && pagespeedModel.API_KEY === 'yourAPIKey') {
+                  // console.log('Please specify your Google API key in the API_KEY variable.');
+                  $('#speed-page-error').append('Please specify your Google API key in the API_KEY variable.');
+                } else {
+                  // console.log(errors[i].message);
+                  $('#speed-page-error').append(`${errors[i].message}`);
+                }
+              }
+              return;
+            }
+
+            // Dispatch to each function on callbacks object.
+            for (const fn in callbacks) {
+              const f = callbacks[fn];
+              if (typeof f == 'function') {
+                callbacks[fn](result);
+              }
+            }
+          },
+        });
+      } else {
+        $.ajax({
+          url: `${pagespeedModel.API_URL}&key=${pagespeedModel.API_KEY}&strategy=desktop&url=${$('#path').val()}`,
+          method: 'GET',
+          dataType: 'JSONP',
+          async: false,
+          processData: false,
+          contentType: false,
+          success: (result) => {
+            // JSONP callback. Checks for errors, then invokes callback handlers
+            if (result.error) {
+              const errors = result.error.errors;
+              for (var i = 0, len = errors.length; i < len; ++i) {
+                if (errors[i].reason === 'badRequest' && pagespeedModel.API_KEY === 'yourAPIKey') {
+                  // console.log('Please specify your Google API key in the API_KEY variable.');
+                  $('#speed-page-error').append('Please specify your Google API key in the API_KEY variable.');
+                } else {
+                  // console.log(errors[i].message);
+                  $('#speed-page-error').append(`${errors[i].message}`);
+                }
+              }
+              return;
+            }
+
+            // Dispatch to each function on callbacks object.
+            for (const fn in callbacks) {
+              const f = callbacks[fn];
+              if (typeof f == 'function') {
+                callbacks[fn](result);
+              }
+            }
+          },
+        });
+      }
+    }
+
     // Desktop & Mobile Score trigger from URL provided
     $('#analyzePage').on('click', () => {
-      // Clear previous results
-      $('#speed-page-error').empty();
+      $('#speed-page-error').empty(); // Clear previous results
       $('.returnresults').slideUp(500);
       $('.page-speed-box').slideUp(500).empty();
-      // Cannot click again until fully loaded
-      $('#analyzePage').addClass('active').attr('disabled', 'disabled');
-      // Loading icon to indicate user to be patient
-      $('#loader-icon').show().addClass('spin');
+      $('#analyzePage').addClass('active').attr('disabled', 'disabled'); // Cannot click again until fully loaded
+      $('#loader-icon').show().addClass('spin'); // Loading icon to indicate user to be patient
       runPagespeed();
     });
   }
@@ -726,6 +748,7 @@ CONTROLLER
     loadSounds();
     loadNewsArticles();
     clocksHandler();
+    loadPageSpeedChecker();
   }
 
   window.app.controller = {
@@ -1009,20 +1032,6 @@ function ColorPicker() {
 
 ColorPicker();
 $('.color-picker-panel').hide();
-
-// Create click event to open color picker when icon is clicked
-// $('#color-picker-icon').click((e) => {
-//   $('.color-picker-panel').fadeToggle(300);
-//   e.stopPropagation();
-//   return false;
-// });
-
-// Create click event to close color picker when clicked anywhere else
-// $(document).click((e) => {
-//   if (e.target.className !== 'color-picker-panel' && !$('.color-picker-panel').find(e.target).length) {
-//     $('.color-picker-panel').fadeOut(300);
-//   }
-// });
 
 $(window).click((e) => {
   const colpic = $('.color-picker-panel');
@@ -1342,278 +1351,3 @@ $('.tools-container').hide();
 $('.valid-container').hide();
 $('.page-speed-container').hide();
 loadValidator();
-
-/* ***** PAGE SPEED SECTION ******** */
-
-/*
- * Hidden until triggered by clicking the wrench icon
- * Wrench icon shows link options to click on
- * A pop-up box appears allowing the user enter a URL
- * The user needs to click on the 'desktop' or 'mobile' button for the function to perform
- * The corresponding page speed information is shown
- * If the text exceeds the text fields, the user can scroll to see all the content
- * Googe's Page Speed Insights API: https://developers.google.com/speed/docs/insights/v2/first-app
-*/
-
-const API_KEY = 'AIzaSyDKAeC02KcdPOHWVEZqdR1t5wwgaFJJKiM';
-const API_URL = 'https://www.googleapis.com/pagespeedonline/v1/runPagespeed?';
-const callbacks = {};
-let speedInput = '';
-let speedRadio = '';
-$('.returnresults').hide();
-$('#loader-icon').hide();
-
-// JSONP callback. Checks for errors, then invokes callback handlers.
-function runPagespeedCallbacks(result) {
-  if (result.error) {
-    const errors = result.error.errors;
-    for (var i = 0, len = errors.length; i < len; ++i) {
-      if (errors[i].reason === 'badRequest' && API_KEY === 'yourAPIKey') {
-        // console.log('Please specify your Google API key in the API_KEY variable.');
-        $('#speed-page-error').append('Please specify your Google API key in the API_KEY variable.');
-      } else {
-        // console.log(errors[i].message);
-        $('#speed-page-error').append(`${errors[i].message}`);
-      }
-    }
-    $('#loader-icon').removeClass('spin').hide();
-    $('#analyzePage').removeAttr('disabled', 'disabled');
-    return;
-  }
-
-  // Sent to each function on callbacks object.
-  for (const fn in callbacks) {
-    const f = callbacks[fn];
-    if (typeof f == 'function') {
-      callbacks[fn](result);
-    }
-  }
-}
-
-callbacks.displayPageSpeedScore = (result) => {
-  console.log(result);
-  const region = document.getElementById('output');
-  const rules = result.formattedResults.ruleResults;
-  const redirects = rules.AvoidLandingPageRedirects;
-  const compress = rules.EnableGzipCompression;
-  const caching = rules.LeverageBrowserCaching;
-  const responseTime = rules.MainResourceServerResponseTime;
-  const minCss = rules.MinifyCss;
-  const minHtml = rules.MinifyHTML;
-  const minJs = rules.MinifyJavaScript;
-  const resources = rules.MinimizeRenderBlockingResources;
-  const images = rules.OptimizeImages;
-  const content = rules.PrioritizeVisibleContent;
-  const rulesArray = [redirects, compress, caching, responseTime, minCss, minHtml,
-    minJs, resources, images, content];
-  const possibleRules = [];
-  const foundRules = [];
-
-  rulesArray.map((i) => {
-    if (i.ruleImpact > 0) {
-      possibleRules.push(i);
-      possibleRules.sort((a, b) => b.ruleImpact - a.ruleImpact);
-    } else {
-      foundRules.push(i);
-    }
-    return i;
-  });
-
-  $('#output').hide().slideDown(500);
-  $('#possible').hide().slideDown(500);
-  $('#found').hide().slideDown(500);
-
-  $(`
-    <div class="speed-score-box">
-      <h4 id="results-speed-title">Score: ${result.score}</h4>
-      <span>URL: ${result.id}</span>
-    </div>
-    `).appendTo(region);
-  if (speedRadio === 'mobile') {
-    $('#results-speed-title').prepend('Mobile ');
-  } else {
-    $('#results-speed-title').prepend('Desktop ');
-  }
-
-  // Make container for possible optimizations
-  const possible = document.getElementById('possible');
-  if (possibleRules.length > 0) {
-    $('<h1 class=optimizationTitles>Possible Optimizations</h1>').appendTo(possible);
-  } else {
-    $('<h1 class=optimizationTitles>Congratulations! No issues found.</h1>').appendTo(possible);
-  }
-
-  possibleRules.map((i) => {
-    $(`<h4 class="speedTitles">${i.localizedRuleName}</h4>`).appendTo(possible);
-    // possible.append(`${i.localizedRuleName}\n`);
-    $(`
-      <button class="click-details inactive" type="submit" id="${possibleRules.indexOf(i)}button">More Details</button>
-      <div class="addInfo" id="${possibleRules.indexOf(i)}">
-        <span id="${possibleRules.indexOf(i)}info"></span>
-        <span><a href="#" id="${possibleRules.indexOf(i)}link" class="learn-more-link" target="_blank"></a></span>
-        <span id="${possibleRules.indexOf(i)}these"></span>
-      </div>
-    `).appendTo(possible);
-
-    const first = $(`#${possibleRules.indexOf(i)}info`);
-    const second = $(`#${possibleRules.indexOf(i)}link`);
-    const third = $(`#${possibleRules.indexOf(i)}these`);
-
-    $('#output').hide().slideDown(500);
-    $('#possible').hide().slideDown(500);
-    $('#found').hide().slideDown(500);
-    $(`#${possibleRules.indexOf(i)}`).hide();
-
-    // Show more info when clicking 'More Details' button
-    $(`#${possibleRules.indexOf(i)}button`).on('click', () => {
-      if ($(`#${possibleRules.indexOf(i)}button`)[0].className === 'click-details inactive') {
-        $(`#${possibleRules.indexOf(i)}button`).removeClass('inactive');
-        $(`#${possibleRules.indexOf(i)}button`).addClass('active');
-        $(`#${possibleRules.indexOf(i)}button`).text('Less Details');
-
-        // Show possible optimizations
-        // Specific test cases per rule
-        for (let j = 0; j < i.urlBlocks.length; j += 1) {
-          if (i.urlBlocks.length > 2 && j === 1) {
-            first.append(`${i.urlBlocks[j].header.format}\n`);
-          }
-          if (i.urlBlocks.length > 2 && j === 2) {
-            second.append(`${i.urlBlocks[j].header.format}\n`);
-            second.attr('href', `${i.urlBlocks[j].header.args[0].value}`);
-            for (let k = 0; k < i.urlBlocks[j].urls.length; k += 1) {
-              third.append(`${i.urlBlocks[j].urls[k].result.args[0].value}\n`);
-            }
-          }
-          if (i.urlBlocks.length <= 2) {
-            if (j === 0) {
-              if (i.localizedRuleName === 'Reduce server response time') {
-                first.append(`In our test, your server responded in ${i.urlBlocks[j].header.args[0].value}. There are many factors that can slow down your server response time. Please read our recommendations to learn how you can monitor and measure where your server is spending the most time.\n`);
-                second.append('Learn More');
-                second.attr('href', `${i.urlBlocks[j].header.args[1].value}`);
-              } else {
-                first.append(`${i.urlBlocks[j].header.format}\n`);
-              }
-            }
-            if (j === 1) {
-              if (i.localizedRuleName === 'Prioritize visible content') {
-                third.append(`${i.urlBlocks[j].header.format}\n`);
-                second.append(`${i.localizedRuleName}\n`);
-                second.attr('href', `${i.urlBlocks[j].header.args[0].value}`);
-              } else if (i.localizedRuleName === 'Reduce server response time') {
-                first.append(`In our test, your server responded in ${i.urlBlocks[j].header.args[0].value}. There are many factors that can slow down your server response time. Please read our recommendations to learn how you can monitor and measure where your server is spending the most time.\n`);
-                second.append('Learn More');
-                second.attr('href', `${i.urlBlocks[j].header.args[1].value}`);
-              } else {
-                second.append(`${i.localizedRuleName} of the following:\n`);
-                second.attr('href', `${i.urlBlocks[j].header.args[0].value}`);
-                for (let k = 0; k < i.urlBlocks[j].urls.length; k += 1) {
-                  third.append(`${i.urlBlocks[j].urls[k].result.args[0].value}\n`);
-                }
-              }
-            }
-          }
-        }
-        $(`#${possibleRules.indexOf(i)}`).slideDown(500);
-      } else {
-        $(`#${possibleRules.indexOf(i)}button`).removeClass('active');
-        $(`#${possibleRules.indexOf(i)}button`).addClass('inactive');
-        $(`#${possibleRules.indexOf(i)}button`).text('More Details');
-        $(`#${possibleRules.indexOf(i)}`).slideUp(500, () => {
-          first.empty();
-          second.empty();
-          second.attr('href', '#');
-          third.empty();
-        });
-      }
-    });
-    return i;
-  });
-
-  // Create top of found optimizations container
-  const found = document.getElementById('found');
-  $('<h1 class=optimizationTitles>Optimizations Found</h1>').appendTo(found);
-  $('<button class="click-details inactive" type="submit" id="moreFoundOptimizations">More Details</button><div class="addFoundOptimizations"</div>').appendTo(found);
-
-  // Show more info when clicking 'More Details' button
-  $('#moreFoundOptimizations').on('click', () => {
-    if ($('#moreFoundOptimizations')[0].className === 'click-details inactive') {
-      $('#moreFoundOptimizations').removeClass('inactive');
-      $('#moreFoundOptimizations').addClass('active');
-      $('#moreFoundOptimizations').text('Less Details');
-      $('.addFoundOptimizations').hide();
-
-      foundRules.map((m) => {
-        $(`
-          <h4 id="${foundRules.indexOf(m)}title" class="speedTitles"></h4>
-          <div class="addFoundInfo">
-            <div id="${foundRules.indexOf(m)}content"></div>
-            <div><a href="#" id="${foundRules.indexOf(m)}anchor" class="learn-more-link" target="_blank"></a></div>
-          </div>
-          `).appendTo($('.addFoundOptimizations'));
-
-        const title = $(`#${foundRules.indexOf(m)}title`);
-        const top = $(`#${foundRules.indexOf(m)}content`);
-        const bottom = $(`#${foundRules.indexOf(m)}anchor`);
-
-        // Fill container for found optimizations
-        title.append(`${m.localizedRuleName}`);
-
-        // Show found optimizations
-        top.append(`${m.urlBlocks[0].header.format}`);
-        bottom.append('Learn More');
-        bottom.attr('href', `${m.urlBlocks[0].header.args[0].value}`);
-        // $(`#${foundRules.indexOf(m)}`).slideDown(500);
-        return m;
-      });
-      $('.addFoundOptimizations').slideDown(500);
-    } else {
-      $('#moreFoundOptimizations').removeClass('active');
-      $('#moreFoundOptimizations').addClass('inactive');
-      $('#moreFoundOptimizations').text('More Details');
-      $('.addFoundOptimizations').slideUp(500, () => {
-        $('.addFoundOptimizations').empty();
-      });
-    }
-  });
-  $('.returnresults').slideDown(500);
-  $('#loader-icon').removeClass('spin').hide();
-  $('#analyzePage').removeAttr('disabled', 'disabled');
-};
-
-// Create function to begin speed checker
-function runPagespeed() {
-  if (speedRadio === 'mobile') {
-    $.ajax({
-      url: `${API_URL}&key=${API_KEY}&callback=runPagespeedCallbacks&strategy=mobile&url=${speedInput}`,
-      method: 'GET',
-      dataType: 'JSONP',
-      async: false,
-      processData: false,
-      contentType: false,
-    });
-  } else {
-    $.ajax({
-      url: `${API_URL}&key=${API_KEY}&callback=runPagespeedCallbacks&strategy=desktop&url=${speedInput}`,
-      method: 'GET',
-      dataType: 'JSONP',
-      async: false,
-      processData: false,
-      contentType: false,
-    });
-  }
-}
-
-// Desktop & Mobile Score trigger from URL provided
-$('#analyzePage').on('click', () => {
-  // Clear previous results
-  $('#speed-page-error').empty();
-  $('.returnresults').slideUp(500);
-  $('.page-speed-box').slideUp(500).empty();
-  // Cannot click again until fully loaded
-  $('#analyzePage').addClass('active').attr('disabled', 'disabled');
-  // Loading icon to indicate user to be patient
-  $('#loader-icon').show().addClass('spin');
-  speedInput = $('#path').val();
-  speedRadio = $('.toggle-custom-view:checked').val();
-  runPagespeed();
-});
