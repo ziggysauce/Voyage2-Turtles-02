@@ -1,8 +1,8 @@
 
+
 /*
 The general software architecture pattern used here is known as Model-View-Controller (aka MVC).
 reference: https://www.youtube.com/watch?v=fa8eUcu30Lw
-
 Each individual component (Model, View or Controller)
 is designed using the Revealing Module Pattern.
 reference: https://www.youtube.com/watch?v=pOfwp6VlnlM
@@ -11,10 +11,12 @@ reference: https://www.youtube.com/watch?v=pOfwp6VlnlM
 /* ************************************************************************
 VALIDATOR & PAGE SPEED (TOOLBOX) VIEW
 ************************************************************************* */
+
 (function makeToolboxView() {
   const htmlBox = $('.valid-container.html-validator');
   const cssBox = $('.valid-container.css-validator');
   const toolsBox = $('.tools-container');
+  const speedBox = $('.page-speed-container');
 
   function toggleToolbox(e) {
     if (htmlBox.is(':visible') && !htmlBox.find(e.target).length) {
@@ -43,51 +45,6 @@ VALIDATOR & PAGE SPEED (TOOLBOX) VIEW
     toggleToolbox,
   };
 }());
-/* ************************************************************************
-PAGE SPEED MODEL
-************************************************************************* */
-(function makePageSpeedModel() {
-  // Object that will hold the callbacks that process results from the PageSpeed Insights API.
-  // const callbacks = {};
-  const API_KEY = 'AIzaSyDKAeC02KcdPOHWVEZqdR1t5wwgaFJJKiM';
-  const API_URL = 'https://www.googleapis.com/pagespeedonline/v1/runPagespeed?';
-
-  window.app.pagespeedModel = {
-    API_KEY,
-    API_URL,
-    // callbacks,
-  };
-}());
-
-/* ************************************************************************
-PAGE SPEED VIEW
-************************************************************************* */
-(function makePageSpeedView() {
-  const toolsBox = $('.tools-container');
-  const speedBox = $('.page-speed-container');
-
-  function toggleSpeedBox(e) {
-    if (speedBox.is(':visible') && !speedBox.find(e.target).length) {
-      speedBox.fadeOut();
-    } else if (!speedBox.is(':visible') && e.target === $('#insights')[0]) {
-      toolsBox.fadeOut();
-      speedBox.fadeIn();
-    }
-  }
-  //
-  // function generatePageSpeedBox() {
-  //   $('.returnresults').append(`
-  //     <pre id="output" class="page-speed-box"></pre>
-  //     <pre id="possible" class="page-speed-box"></pre>
-  //     <pre id="found" class="page-speed-box"></pre>
-  //   `);
-  // }
-
-  window.app.pagespeedView = {
-    toggleSpeedBox,
-    // generatePageSpeedBox,
-  };
-}());
 
 /* ************************************************************************
 CONTROLLER
@@ -101,7 +58,7 @@ CONTROLLER
   newsfeedView,
   toolboxView,
   pagespeedModel,
-  pagespeedView,
+  colorpickerView,
 ) {
 /* ***** POMODORO SECTION ******** */
 
@@ -413,6 +370,9 @@ CONTROLLER
                   $('#speed-page-error').append(`${errors[i].message}`);
                 }
               }
+              $('#loader-icon').removeClass('spin').hide();
+              $('#analyzePage').removeAttr('disabled', 'disabled');
+              $('.toggle-custom-view').removeAttr('disabled', 'disabled');
               return;
             }
 
@@ -446,6 +406,9 @@ CONTROLLER
                   $('#speed-page-error').append(`${errors[i].message}`);
                 }
               }
+              $('#loader-icon').removeClass('spin').hide();
+              $('#analyzePage').removeAttr('disabled', 'disabled');
+              $('.toggle-custom-view').removeAttr('disabled', 'disabled');
               return;
             }
 
@@ -467,6 +430,7 @@ CONTROLLER
       $('.returnresults').slideUp(500);
       $('.page-speed-box').slideUp(500).empty();
       $('#analyzePage').addClass('active').attr('disabled', 'disabled'); // Cannot click again until fully loaded
+      $('.toggle-custom-view').attr('disabled', 'disabled'); // Cannot switch between desktop and mobile until fully loaded
       $('#loader-icon').show().addClass('spin'); // Loading icon to indicate user to be patient
       runPagespeed();
     });
@@ -478,7 +442,7 @@ CONTROLLER
     $(window).on('click', toggleNameInput())
       .on('click', newsfeedView.toggleNewsfeed)
       .on('click', toolboxView.toggleToolbox)
-      .on('click', pagespeedView.toggleSpeedBox);
+      .on('click', colorpickerView.toggleColorPicker);
     $('#name-form').on('submit', setUserName);
     $('.start, .stop').on('click', togglePomodoroActive);
     $('.pause').on('click', togglePomodoroPause);
@@ -508,7 +472,7 @@ CONTROLLER
   window.app.newsfeedView,
   window.app.toolboxView,
   window.app.pagespeedModel,
-  window.app.pagespeedView,
+  window.app.colorpickerView,
 ));
 
 window.app.controller.initialize();
@@ -754,15 +718,15 @@ lightnessdisplay.addEventListener('change', () => {
 });
 
 modeToggle.addEventListener('click', () => {
-  if (rgbFields.classList.contains('active')) {
-    rgbFields.classList.remove('active');
-    hexField.classList.add('active');
-  } else if (hexField.classList.contains('active')) {
+  if (hexField.classList.contains('active')) {
     hexField.classList.remove('active');
+    rgbFields.classList.add('active');
+  } else if (rgbFields.classList.contains('active')) {
+    rgbFields.classList.remove('active');
     hslFields.classList.add('active');
   } else if (hslFields.classList.contains('active')) {
     hslFields.classList.remove('active');
-    rgbFields.classList.add('active');
+    hexField.classList.add('active');
   }
 });
 
@@ -777,15 +741,6 @@ function ColorPicker() {
 
 ColorPicker();
 $('.color-picker-panel').hide();
-
-$(window).click((e) => {
-  const colpic = $('.color-picker-panel');
-  if (colpic.is(':visible') && !colpic.find(e.target).length) {
-    colpic.fadeOut();
-  } else if (!colpic.is(':visible') && e.target === $('.fa-paint-brush')[0]) {
-    colpic.fadeIn();
-  }
-});
 
 /* ***** Background Image Rotation ******** */
 

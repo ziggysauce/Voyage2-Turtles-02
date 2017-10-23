@@ -9,9 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:300,700" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 
-
     <script src="js/app.min.js" defer></script>
-
   </head>
 
   <body>
@@ -112,7 +110,11 @@
           <div class="color-picker-panel">
             <div class="panel-row">
               <div class="panel-row">
-                <div id="rgb-fields" class="field-group value-fields rgb-fields active">
+                <div id="hex-field" class="field-group value-fields hex-field active">
+                  <label class="field-label">Hex :</label>
+                  <input type="text" id="hex" class="field-input"/>
+                </div>
+                <div id="rgb-fields" class="field-group value-fields rgb-fields">
                   <div class="field-group">
                     <label class="field-label">R</label>
                     <input type="number" max="255" min="0" id="red" class="field-input rgb-input"/>
@@ -125,10 +127,6 @@
                     <label class="field-label">B</label>
                     <input type="number" max="255" min="0" id="blue" class="field-input rgb-input"/>
                   </div>
-                </div>
-                <div id="hex-field" class="field-group value-fields hex-field">
-                  <label class="field-label">Hex :</label>
-                  <input type="text" id="hex" class="field-input"/>
                 </div>
                 <div id="hsl-fields" class="field-group value-fields rgb-fields">
                   <div class="field-group">
