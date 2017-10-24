@@ -1,4 +1,3 @@
-/* ***** color picker section ******** */
 
 /*
  * Creation credit to Dario Corsi (reference: https://codepen.io/dariocorsi/pen/WwOWPE?editors=0010)

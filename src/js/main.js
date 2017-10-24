@@ -1,5 +1,4 @@
 
-
 /*
 The general software architecture pattern used here is known as Model-View-Controller (aka MVC).
 reference: https://www.youtube.com/watch?v=fa8eUcu30Lw
@@ -7,44 +6,6 @@ Each individual component (Model, View or Controller)
 is designed using the Revealing Module Pattern.
 reference: https://www.youtube.com/watch?v=pOfwp6VlnlM
 */
-
-/* ************************************************************************
-VALIDATOR & PAGE SPEED (TOOLBOX) VIEW
-************************************************************************* */
-
-(function makeToolboxView() {
-  const htmlBox = $('.valid-container.html-validator');
-  const cssBox = $('.valid-container.css-validator');
-  const toolsBox = $('.tools-container');
-  const speedBox = $('.page-speed-container');
-
-  function toggleToolbox(e) {
-    if (htmlBox.is(':visible') && !htmlBox.find(e.target).length) {
-      htmlBox.fadeOut();
-    } else if (!htmlBox.is(':visible') && e.target === $('#html-val')[0]) {
-      toolsBox.fadeOut();
-      htmlBox.fadeIn();
-    } else if (speedBox.is(':visible') && !speedBox.find(e.target).length) {
-      speedBox.fadeOut();
-    } else if (!speedBox.is(':visible') && e.target === $('#insights')[0]) {
-      toolsBox.fadeOut();
-      speedBox.fadeIn();
-    } else if (cssBox.is(':visible') && !cssBox.find(e.target).length) {
-      cssBox.fadeOut();
-    } else if (!cssBox.is(':visible') && e.target === $('#css-val')[0]) {
-      toolsBox.fadeOut();
-      cssBox.fadeIn();
-    } else if (toolsBox.is(':visible') && !toolsBox.find(e.target).length) {
-      toolsBox.fadeOut();
-    } else if (!toolsBox.is(':visible') && e.target === $('.fa-wrench')[0]) {
-      toolsBox.fadeIn();
-    }
-  }
-
-  window.app.toolboxView = {
-    toggleToolbox,
-  };
-}());
 
 /* ************************************************************************
 CONTROLLER
@@ -57,9 +18,14 @@ CONTROLLER
   newsfeedModel,
   newsfeedView,
   toolboxView,
+  htmlModel,
+  htmlView,
+  cssModel,
+  cssView,
   pagespeedModel,
   colorpickerModel,
   colorpickerView,
+  backgroundModel,
 ) {
 /* ***** POMODORO SECTION ******** */
 
@@ -147,6 +113,46 @@ CONTROLLER
           newsfeedView.append(`${content.filter((item, index) => index < 3).join('\r\n')}`);
         });
     });
+  }
+
+  /* ********* VALIDATOR SECTION ********** */
+
+  function htmlValidatorCall(e) {
+    e.preventDefault();
+
+    const newdata = new FormData(this);
+
+    $.ajax({
+      url: 'https://validator.w3.org/nu/',
+      data: newdata,
+      method: 'POST',
+      processData: false,
+      contentType: false,
+      success: (content) => {
+        htmlView.successOutput(htmlModel.format(content, { type: 'error' }));
+      },
+      error: () => {
+        htmlView.errorOutput();
+      },
+    });
+  }
+
+  function CSSValidatorCall(e) {
+    e.preventDefault();
+
+    const content = $('#css-markup textarea').val().replace(/\n/ig, '%0A');
+    const proxyURL = 'https://cors-anywhere.herokuapp.com/';
+    const validatorURL = `http://jigsaw.w3.org/css-validator/validator?text=${content}&profile=css3&output=json`;
+
+    fetch(proxyURL + validatorURL)
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        cssView.errorOutput();
+        throw new Error('Network response was not ok.');
+      })
+      .then(results => cssView.successOutput(results.cssvalidation.errors, cssModel.format));
   }
 
   /* ********* PAGE SPEED SECTION ********** */
@@ -666,9 +672,37 @@ CONTROLLER
     }());
   }
 
+  /* ********* BACKGROUND SECTION ************ */
+
+  /*
+   * Randomly selects background image and associated author and reference link for page
+   * Background images change every time tab is opened or page is refreshed
+   * Background images categorized into daytime (7AM-6:59PM) and nighttime (7PM-6:59AM)
+   * Background image shown depends on user's local time (day/night)
+   */
+
+  function loadBackground() {
+    const curTime = new Date();
+    const picTime = parseInt(curTime.toLocaleString('en-US', {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: false,
+    }), 10);
+    if (picTime > 6 && picTime < 19) {
+      $('.devtab-bg').css('background-image', `url('./assets/img/dayPics/sample${backgroundModel.randomNum}.jpeg')`);
+      $('.credits p a').attr('href', backgroundModel.bgInfo[backgroundModel.randomNum].day.url);
+      $('#pic-author').text(backgroundModel.bgInfo[backgroundModel.randomNum].day.author);
+    } else {
+      $('.devtab-bg').css('background-image', `url('./assets/img/nightPics/sample${backgroundModel.randomNum}.jpeg')`);
+      $('#pic-author').attr('href', backgroundModel.bgInfo[backgroundModel.randomNum].night.url);
+      $('#pic-author').text(backgroundModel.bgInfo[backgroundModel.randomNum].night.author);
+    }
+  }
+
   /* ********* GENERAL ************ */
 
   function setupEventListeners() {
+    $(window).on('load', loadBackground);
     $(window).on('click', toggleNameInput())
       .on('click', newsfeedView.toggleNewsfeed)
       .on('click', toolboxView.toggleToolbox)
@@ -678,6 +712,8 @@ CONTROLLER
     $('.pause').on('click', togglePomodoroPause);
     $('.reset').on('click', resetPomodoro);
     $('.work-break').on('click', toggleWorkBreak);
+    $('#html-markup').on('submit', htmlValidatorCall);
+    $('#css-markup').on('submit', CSSValidatorCall);
   }
 
   function initialize() {
@@ -689,6 +725,10 @@ CONTROLLER
     clocksHandler();
     loadPageSpeedChecker();
     loadColorPicker();
+    $('.tools-container').hide();
+    $('.valid-container').hide();
+    $('.page-speed-container').hide();
+    $('.devtab-bg').hide().fadeIn(3000);
   }
 
   window.app.controller = {
@@ -702,347 +742,14 @@ CONTROLLER
   window.app.newsfeedModel,
   window.app.newsfeedView,
   window.app.toolboxView,
+  window.app.htmlModel,
+  window.app.htmlView,
+  window.app.cssModel,
+  window.app.cssView,
   window.app.pagespeedModel,
   window.app.colorpickerModel,
   window.app.colorpickerView,
+  window.app.backgroundModel,
 ));
 
 window.app.controller.initialize();
-
-/* ***** Background Image Rotation ******** */
-
-/*
- * Background images change every time tab is opened or page is refreshed
- * Background images categorized into daytime (7AM-6:59PM) and nighttime (7PM-6:59AM)
- * Background image shown depends on user's local time (day/night)
-*/
-
-// Store background picture information (day/night, authors, links)
-const bgInfo = [
-  {
-    day: {
-      author: 'Eberhard Grossgasteiger',
-      url: 'https://www.pexels.com/u/eberhardgross/',
-    },
-    night: {
-      author: 'Unknown',
-      url: '',
-    },
-  },
-  {
-    day: {
-      author: 'unknown',
-      url: '',
-    },
-    night: {
-      author: 'skeeze',
-      url: 'https://pixabay.com/en/milky-way-night-landscape-1669986/',
-    },
-  },
-  {
-    day: {
-      author: 'unknown',
-      url: '',
-    },
-    night: {
-      author: 'Nout Gons',
-      url: 'https://www.pexels.com/u/nout-gons-80280/',
-    },
-  },
-  {
-    day: {
-      author: 'Alex Mihis',
-      url: 'https://www.pexels.com/u/mcraftpix/',
-    },
-    night: {
-      author: 'Josh Sorenson',
-      url: 'https://www.pexels.com/u/joshsorenson/',
-    },
-  },
-  {
-    day: {
-      author: 'Paul Ijsendoorn',
-      url: 'https://www.pexels.com/u/paul-ijsendoorn-148531/',
-    },
-    night: {
-      author: 'CC0 Creative Commons',
-      url: 'https://pixabay.com/en/maldives-pier-dock-lights-bay-1768714/',
-    },
-  },
-  {
-    day: {
-      author: 'CC0 Creative Commons',
-      url: 'https://pixabay.com/en/bled-slovenia-lake-mountains-1899264/',
-    },
-    night: {
-      author: 'Eberhard Grossgasteiger',
-      url: 'https://www.pexels.com/u/eberhardgross/',
-    },
-  },
-  {
-    day: {
-      author: 'CC0 Creative Commons',
-      url: 'https://pixabay.com/en/sand-dunes-ripples-wind-wilderness-1550396/',
-    },
-    night: {
-      author: 'CC0 Creative Commons',
-      url: 'https://pixabay.com/en/fog-dawn-landscape-morgenstimmung-1494433/',
-    },
-  },
-  {
-    day: {
-      author: 'Mateusz Dach',
-      url: 'https://www.pexels.com/u/mateusz-dach-99805/',
-    },
-    night: {
-      author: 'Ales Krivec',
-      url: 'https://www.pexels.com/u/ales-krivec-166939/',
-    },
-  },
-  {
-    day: {
-      author: 'Matt Read',
-      url: 'https://www.pexels.com/u/matt-read-14552/',
-    },
-    night: {
-      author: 'Priseom',
-      url: 'https://www.pexels.com/u/priseom-39551/',
-    },
-  },
-  {
-    day: {
-      author: 'CC0 Creative Commons',
-      url: 'https://pixabay.com/en/gleise-old-railroad-tracks-seemed-1555348/',
-    },
-    night: {
-      author: 'CC0 Creative Commons',
-      url: 'https://pixabay.com/en/storm-weather-atmosphere-cold-front-2211333/',
-    },
-  },
-  {
-    day: {
-      author: 'Jonathan Peterson',
-      url: 'https://www.pexels.com/u/grizzlybear/',
-    },
-    night: {
-      author: 'CC0 Creative Commons',
-      url: 'https://pixabay.com/en/winter-sun-sun-so-sunbeam-sunset-1547273/',
-    },
-  },
-  {
-    day: {
-      author: 'Jonathan Peterson',
-      url: 'https://www.pexels.com/u/grizzlybear/',
-    },
-    night: {
-      author: 'CC0 Creative Commons',
-      url: 'https://pixabay.com/en/autumn-fog-colorful-leaves-nature-1127616/',
-    },
-  },
-  {
-    day: {
-      author: 'Despierres Cecile',
-      url: 'https://www.pexels.com/u/despierres-cecile-93261/',
-    },
-    night: {
-      author: 'Nikolai Ulltang',
-      url: 'https://www.pexels.com/u/ulltangfilms/',
-    },
-  },
-  {
-    day: {
-      author: 'Flo Dahm',
-      url: 'https://www.pexels.com/u/flo-dahm-154317/',
-    },
-    night: {
-      author: 'Snapwire',
-      url: 'https://www.pexels.com/u/snapwire/',
-    },
-  },
-  {
-    day: {
-      author: 'CC0 Creative Commons',
-      url: 'https://pixabay.com/en/beach-rocks-water-sky-east-sunset-1336083/',
-    },
-    night: {
-      author: 'Pixabay',
-      url: 'https://www.pexels.com/u/pixabay/',
-    },
-  },
-  {
-    day: {
-      author: 'Uncoated',
-      url: 'https://www.pexels.com/u/uncoated/',
-    },
-    night: {
-      author: 'Kaique Rocha',
-      url: 'https://www.pexels.com/u/kaiquestr/',
-    },
-  },
-  {
-    day: {
-      author: 'Margerretta',
-      url: 'https://www.pexels.com/u/margerretta-157232/',
-    },
-    night: {
-      author: 'Pixabay',
-      url: 'https://www.pexels.com/u/pixabay/',
-    },
-  },
-  {
-    day: {
-      author: 'Pixabay',
-      url: 'https://www.pexels.com/u/pixabay/',
-    },
-    night: {
-      author: 'Mateusz Dach',
-      url: 'https://www.pexels.com/u/mateusz-dach-99805/',
-    },
-  },
-  {
-    day: {
-      author: 'freestocks',
-      url: 'https://www.pexels.com/u/freestocks/',
-    },
-    night: {
-      author: 'Uncoated',
-      url: 'https://www.pexels.com/u/uncoated/',
-    },
-  },
-  {
-    day: {
-      author: 'Daniel Frank',
-      url: 'https://www.pexels.com/u/fr3nks/',
-    },
-    night: {
-      author: 'Kaique Rocha',
-      url: 'https://www.pexels.com/u/kaiquestr/',
-    },
-  },
-  {
-    day: {
-      author: 'Alexandre Perotto',
-      url: 'https://www.pexels.com/u/alexandre-perotto-44133/',
-    },
-    night: {
-      author: 'Photo Collections',
-      url: 'https://www.pexels.com/u/photocollections/',
-    },
-  },
-  {
-    day: {
-      author: 'Maria Portelles',
-      url: 'https://www.pexels.com/u/helioz/',
-    },
-    night: {
-      author: 'Pixabay',
-      url: 'https://www.pexels.com/u/pixabay/',
-    },
-  },
-];
-
-const randomNum = Math.floor(Math.random() * 22);
-
-/* Function gets user's local time and converts to an integer (1-24)
- * Between 7-19 indicates day time
- * Between 1-7 and 19-24 indicates night time
- * Randomly selects background image and associated author and reference link for page
- */
-function bgChange() {
-  const curTime = new Date();
-  const picTime = parseInt(curTime.toLocaleString('en-US', {
-    hour: 'numeric',
-    minute: 'numeric',
-    hour12: false,
-  }), 10);
-  if (picTime > 6 && picTime < 19) {
-    $('body').css('background-image', `url('./assets/img/dayPics/sample${randomNum}.jpeg')`).fadeIn(3000);
-    $('.credits p a').attr('href', bgInfo[randomNum].day.url);
-    $('#pic-author').text(bgInfo[randomNum].day.author);
-  } else {
-    $('body').css('background-image', `url('./assets/img/nightPics/sample${randomNum}.jpeg')`).fadeIn(3000);
-    $('#pic-author').attr('href', bgInfo[randomNum].night.url);
-    $('#pic-author').text(bgInfo[randomNum].night.author);
-  }
-}
-
-bgChange();
-
-/* ***** VALIDATOR SECTION ******** */
-
-/*
- * Hidden until triggered by clicking the wrench icon
- * Wrench icon shows link options to click on
- * A pop-up box appears allowing the user enter HTML/CSS code
- * The user needs to click on the 'check' button for the function to perform
- * The corresponding validations are shows
- * If the text exceeds the text fields, the user can scroll to see all the content
-*/
-
-function loadHTMLValidator() {
-  const $input = $('#html-markup');
-  const $output = $('#html-validated>code');
-  const format = function getData(data) {
-    const useData = data.messages;
-    function filter(filterdata) {
-      return (`Type: ${filterdata.type}\nLine: ${filterdata.lastLine}\nMessage: ${filterdata.message}\n\n`);
-    }
-
-    return (useData.map(filter).join(''));
-  };
-
-  $input.on('submit', function makeData(e) {
-    e.preventDefault();
-
-    const newdata = new FormData(this);
-
-    $.ajax({
-      url: 'https://validator.w3.org/nu/',
-      data: newdata,
-      method: 'POST',
-      processData: false,
-      contentType: false,
-      success: (content) => {
-        $output.text(format(content, { type: 'error' }));
-      },
-      error: () => {
-        $output.text('Sorry, it looks like this code is outdated. Please update your extension or feel free to send a pull request with your own personal updates.');
-      },
-    });
-  });
-
-  $input.trigger('submit');
-}
-
-$('.tools-container').hide();
-$('.valid-container').hide();
-$('.page-speed-container').hide();
-loadHTMLValidator();
-
-function loadCSSValidator() {
-  const $input = $('#css-markup');
-  const $output = $('#css-validated>code');
-
-  function format(type, line, message) {
-    return `
-    Type: ${type}
-    Line: ${line}
-    Message: ${message}
-    `;
-  }
-
-  $input.on('submit', (e) => {
-    e.preventDefault();
-
-    const content = $('#css-markup textarea').val().replace(/\n/ig, '%0A');
-
-    const proxyURL = 'https://cors-anywhere.herokuapp.com/';
-    const validatorURL = `http://jigsaw.w3.org/css-validator/validator?text=${content}&profile=css3&output=json`;
-    fetch(proxyURL + validatorURL)
-      .then(response => response.json())
-      .then(results => $output.text(results.cssvalidation.errors.map((item) => {
-        return format(item.type, item.line, item.message);
-      }).join('')));
-  });
-}
-loadCSSValidator();
