@@ -56,6 +56,7 @@ CONTROLLER
   newsfeedModel,
   newsfeedView,
   toolboxView,
+  stickyApp,
 ) {
 /* ***** POMODORO SECTION ******** */
 
@@ -145,6 +146,34 @@ CONTROLLER
     });
   }
 
+  /* ********* STICKY NOTE LISTENER ******* */
+
+  function stickClickEvent() {
+
+    var newStickyObject = {
+
+      title: "Sticky Note",
+      barClass: "blueBar",
+      areaClass: "blueArea",
+      text: "",
+      left: 500,
+      top: 500,
+      id: Math.floor((Math.random() * 1000) + 1)
+
+    }
+
+    stickyApp.stickyNoteModel(newStickyObject);
+    function stickyObjectFunction() {
+
+      var pushArray = [newStickyObject];
+      return pushArray;
+
+    }
+
+    stickyApp.stickyNoteView(stickyObjectFunction);
+
+  }
+
   /* ********* GENERAL ************ */
 
   function setupEventListeners() {
@@ -156,6 +185,7 @@ CONTROLLER
     $('.pause').on('click', togglePomodoroPause);
     $('.reset').on('click', resetPomodoro);
     $('.work-break').on('click', toggleWorkBreak);
+    $('#newNote').on('click', stickClickEvent);
   }
 
   function initialize() {
@@ -165,8 +195,9 @@ CONTROLLER
     loadSounds();
     loadNewsArticles();
     clocksHandler();
+    stickyApp.stickyNoteView(stickyApp.stickyNoteModel);
   }
-
+  
   window.app.controller = {
     initialize,
   };
@@ -178,6 +209,7 @@ CONTROLLER
   window.app.newsfeedModel,
   window.app.newsfeedView,
   window.app.toolboxView,
+  window.app.stickyApp,
 ));
 
 window.app.controller.initialize();

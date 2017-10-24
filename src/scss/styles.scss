@@ -1158,174 +1158,221 @@ footer {
   }
 }
 
-			.stickyContainer { /*Stick Note Styles*/
 
-				position: absolute;
-				display: flex;
-				flex-direction: column;
-				overflow: hidden;
-				width: 220px;
-				height: 180px;
+.stickyContainer {
 
-				z-index: 0;
-				outline: 1px solid transparent;
-				border: 1px solid #7da4d7;
-				border-radius: 10px;
-			}
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	width: 220px;
+	height: 180px;
 
-			.stickBar {
+	
+	outline: 1px solid transparent;
+	border: 1px solid #7da4d7;
+	border-radius: 10px;
 
-				display: flex;
-				margin: 0px;
-				padding: 0px 0px 15px 0px;
+}
 
-				color: white;
-			}
+.stickBar {
 
+	display: flex;
+	margin: 0px;
+	padding: 0px 0px 15px 0px;
 
+	color: white;
+}
 
-			.stickIcon {
 
-				font-size: 1.3em;
-				margin: 10px 10px 0px 10px;
 
-			}
+.stickIcon {
 
-			.stickIcon:hover {
+	font-size: 1.3em;
+	margin: 10px 10px 0px 10px;
+	transition: .5s;
 
-				cursor: pointer;
-				color: #D9D9D9;
-				transition: .5s;
+}
 
-			}
+.stickIcon:hover {
 
-			.stickLeft {
+	cursor: pointer;
+	color: #D9D9D9;
+	transition: .5s;
 
-				margin-right: auto;
+}
 
-			}
+.stickyContainer p {
 
-			.stickNote {
+	cursor: pointer;
+	font-weight: bold;
+	margin: 5px 0px;
+	padding: 5px 0px;
+	font-size: .98em;
+	transition: .5s;
 
-				width: 200px;
-				height: 100%;
+}
 
-				margin: 10px;
-				padding: 0px;
+.stickyContainer p:hover {
 
-				font-size: 1em;
-				color: #333;
-				font-family: helvetica;
-				border: none;
-				outline: none;
-				resize: none;
-			}
+	cursor: pointer;
+	color: #D9D9D9;
+	transition: .5s;
+}
 
-			.blueBar {
+.stickyContainer input {
 
-				background-color: #1267d6;
+	display: none;
+	height: 20px;
+	width: 90px;
+	padding: 2px;
+	margin: 10px 0px 10px 0px;
 
-			}
+	outline: none;
+	font-size: .9em;
+	font-family: 'Lato';
+	font-weight: 700;
+	background-color: lightgrey;
+	
+	border: 1px solid lightgrey;
+	border-radius: 5px;
 
-			.blueArea {
+}
 
-				background-color: #7da4d7;
-				border: 1px solid #7da4d7;
+.stickLeft {
 
-			}
+	margin-right: auto;
 
-			.greenBar {
+}
 
-				background-color: #16810a;
+.fa-trash {
 
-			}
+	margin-left: auto; 
 
-			.greenArea {
+}
 
-				background-color: #80d676;
-				border: 1px solid #80d676;
+.stickNote {
 
-			}
+	width: 200px;
+	height: 100%;
 
-			.yellowBar {
+	margin: 10px;
+	padding: 0px;
 
-				background-color: #f4af15;
+	font-size: .95em;
+	color: #333;
+	font-family: 'Lato';
+	font-weight: 700;
+	border: none;
+	outline: none;
+	resize: none;
+}
 
-			}
+.blueBar {
 
-			.yellowArea {
+	background-color: #1267d6;
 
-				background-color: #f1db87;
-				border: 1px solid #f1db87;
+}
 
-			}
+.blueArea {
 
-			.purpleBar {
+	background-color: #7da4d7;
+	border: 1px solid #7da4d7;
 
-				background-color: #5e0e99;
+}
 
-			}
+.greenBar {
 
-			.purpleArea {
+	background-color: #16810a;
 
-				background-color: #d8aef7;
-				border: 1px solid #d8aef7;
+}
 
-			}
+.greenArea {
 
-			.pinkBar {
+	background-color: #80d676;
+	border: 1px solid #80d676;
 
-				background-color: #c70498;
+}
 
-			}
+.yellowBar {
 
-			.pinkArea {
+	background-color: #f4af15;
 
-				background-color: #f58cdb;
-				border: 1px solid #f58cdb;
+}
 
-			}
+.yellowArea {
 
+	background-color: #f1db87;
+	border: 1px solid #f1db87;
 
-			.greyBar {
+}
 
-				background-color: #aaa8a9;
+.purpleBar {
 
-			}
+	background-color: #5e0e99;
 
-			.greyArea {
+}
 
-				background-color: #e5e0e4;
-				border: 1px solid #e5e0e4;
+.purpleArea {
 
-			}
+	background-color: #d8aef7;
+	border: 1px solid #d8aef7;
 
-			.palleteBar {
+}
 
-				display: none;
-				margin: 0px;
-				padding: 10px;
-				background-color: white;
+.pinkBar {
 
-			}
+	background-color: #c70498;
 
-			.palleteBar ul {
+}
 
-				display: flex;
-				margin: 0px 0px 0px 0px;
-				padding: 5px;
-				justify-content: space-around;
+.pinkArea {
 
-			}
+	background-color: #f58cdb;
+	border: 1px solid #f58cdb;
 
-			.palleteBar li {
+}
 
-				width: 25px;
-				height: 25px;
-				margin: 0px 1px 0px 1px;
-				list-style-type: none;
-				border: 1px solid transparent;
-				border-radius: 50%;
-				cursor: pointer;
 
-			}
+.greyBar {
+
+	background-color: #aaa8a9;
+
+}
+
+.greyArea {
+
+	background-color: #e5e0e4;
+	border: 1px solid #e5e0e4;
+
+}
+
+.palleteBar {
+
+	display: none;
+	margin: 0px;
+	padding: 10px;
+	background-color: white;
+
+}
+
+.palleteBar ul {
+
+	display: flex;
+	margin: 0px 0px 0px 0px;
+	padding: 5px;
+	justify-content: space-around;
+
+}
+
+.palleteBar li {
+
+	width: 22px;
+	height: 22px;
+	margin: 0px 1px 0px 1px;
+	list-style-type: none;
+	border: 1px solid transparent;
+	border-radius: 50%;
+	cursor: pointer;
+
+}
