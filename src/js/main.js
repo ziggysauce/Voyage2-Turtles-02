@@ -702,7 +702,7 @@ CONTROLLER
   /* ********* GENERAL ************ */
 
   function setupEventListeners() {
-    $(window).on('load', loadBackground);
+    $(window).on('load', loadBackground());
     $(window).on('click', toggleNameInput())
       .on('click', newsfeedView.toggleNewsfeed)
       .on('click', toolboxView.toggleToolbox)
