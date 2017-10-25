@@ -140,7 +140,8 @@ CONTROLLER
   function CSSValidatorCall(e) {
     e.preventDefault();
 
-    const content = $('#css-markup textarea').val().replace(/\n/ig, '%0A');
+    // const content = $('#css-markup textarea').val().replace(/\n/ig, '%0A');
+    const content = $('#css-markup textarea').val();
     const proxyURL = 'https://cors-anywhere.herokuapp.com/';
     const validatorURL = `http://jigsaw.w3.org/css-validator/validator?text=${content}&profile=css3&output=json`;
 
@@ -702,8 +703,8 @@ CONTROLLER
   /* ********* GENERAL ************ */
 
   function setupEventListeners() {
-    $(window).on('load', loadBackground());
-    $(window).on('click', toggleNameInput())
+    $(window).on('load', loadBackground())
+      .on('click', toggleNameInput())
       .on('click', newsfeedView.toggleNewsfeed)
       .on('click', toolboxView.toggleToolbox)
       .on('click', colorpickerView.toggleColorPicker);
@@ -717,6 +718,7 @@ CONTROLLER
   }
 
   function initialize() {
+    $('.devtab-bg').hide().fadeIn(2000);
     greetingView.showGreeting(greetingModel.getUserName());
     clocksView.updateTime(clocksModel.getTime());
     setupEventListeners();
@@ -728,7 +730,6 @@ CONTROLLER
     $('.tools-container').hide();
     $('.valid-container').hide();
     $('.page-speed-container').hide();
-    $('.devtab-bg').hide().fadeIn(3000);
   }
 
   window.app.controller = {
