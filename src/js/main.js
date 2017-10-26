@@ -28,6 +28,7 @@ CONTROLLER
   colorpickerView,
   backgroundModel,
   backgroundView,
+  stickyApp,
 ) {
 /* ***** POMODORO SECTION ******** */
 
@@ -115,6 +116,34 @@ CONTROLLER
           newsfeedView.append(`${content.filter((item, index) => index < 3).join('\r\n')}`);
         });
     });
+  }
+
+  /* ********* STICKY NOTE LISTENER ******* */
+
+  function stickClickEvent() {
+
+    var newStickyObject = {
+
+      title: "Sticky Note",
+      barClass: "blueBar",
+      areaClass: "blueArea",
+      text: "",
+      left: 600,
+      top: 50,
+      id: Math.floor((Math.random() * 1000) + 1)
+
+    }
+
+    stickyApp.stickyNoteModel(newStickyObject);
+    function stickyObjectFunction() {
+
+      var pushArray = [newStickyObject];
+      return pushArray;
+
+    }
+
+    stickyApp.stickyNoteView(stickyObjectFunction);
+
   }
 
   /* ********* VALIDATOR SECTION ********** */
@@ -224,9 +253,6 @@ CONTROLLER
   /* ********* COLOR PICKER SECTION ********** */
 
   function loadColorPicker() {
-    colorpickerView.createShadeSpectrum();
-    colorpickerView.createHueSpectrum();
-
     function endGetSpectrumColor() {
       colorpickerModel.spectrumCursor.classList.remove('dragging');
       window.removeEventListener('mousemove', colorpickerModel.getSpectrumColor);
@@ -337,6 +363,9 @@ CONTROLLER
         colorpickerModel.hexField.classList.add('active');
       }
     });
+
+    colorpickerView.createShadeSpectrum();
+    colorpickerView.createHueSpectrum();
   }
 
   /* ********* BACKGROUND SECTION ************ */
@@ -357,7 +386,8 @@ CONTROLLER
   /* ********* GENERAL ************ */
 
   function setupEventListeners() {
-    $(window).on('click', toggleNameInput())
+    $(window).on('load', loadBackground())
+      .on('click', toggleNameInput())
       .on('click', newsfeedView.toggleNewsfeed)
       .on('click', toolboxView.toggleToolbox)
       .on('click', colorpickerView.toggleColorPicker);
@@ -368,11 +398,17 @@ CONTROLLER
     $('.work-break').on('click', toggleWorkBreak);
     $('#html-markup').on('submit', htmlValidatorCall);
     $('#css-markup').on('submit', CSSValidatorCall);
+    $('#newNote').on('click', stickClickEvent);
   }
 
   function initialize() {
     $('.devtab-bg').hide();
-    loadBackground();
+    $('.tools-container').hide();
+    $('.valid-container').hide();
+    $('.page-speed-container').hide();
+    $('.returnresults').hide();
+    $('#loader-icon').hide();
+    $('.color-picker-panel').hide();
     greetingView.showGreeting(greetingModel.getUserName());
     clocksView.updateTime(clocksModel.getTime());
     setupEventListeners();
@@ -381,12 +417,7 @@ CONTROLLER
     clocksHandler();
     loadPageSpeedChecker();
     loadColorPicker();
-    $('.tools-container').hide();
-    $('.valid-container').hide();
-    $('.page-speed-container').hide();
-    $('.returnresults').hide();
-    $('#loader-icon').hide();
-    $('.color-picker-panel').hide();
+    stickyApp.stickyNoteView(stickyApp.stickyNoteModel);
   }
 
   window.app.controller = {
@@ -410,6 +441,7 @@ CONTROLLER
   window.app.colorpickerView,
   window.app.backgroundModel,
   window.app.backgroundView,
+  window.app.stickyApp,
 ));
 
 window.app.controller.initialize();
