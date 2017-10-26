@@ -4,7 +4,24 @@ BACKGROUND MODEL
 ************************************************************************* */
 
 (function makeBackgroundModel() {
-  // Store background picture information (day/night, authors, links)
+  const curTime = new Date();
+  const picTime = parseInt(curTime.toLocaleString('en-US', {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: false,
+  }), 10);
+
+  window.app.backgroundModel = {
+    picTime,
+  };
+}());
+
+/* ************************************************************************
+BACKGROUND MODEL
+************************************************************************* */
+
+// Store background picture information (day/night, authors, links)
+(function makeBackgroundView() {
   const bgInfo = [
     {
       day: {
@@ -227,15 +244,24 @@ BACKGROUND MODEL
       },
     },
   ];
+  const randomNum = Math.floor(Math.random() * bgInfo.length);
 
-  const randomNum = Math.floor(Math.random() * 22);
+  function generateDayBg() {
+    $('.devtab-bg').css('background-image', `url('./assets/img/dayPics/sample${randomNum}.jpeg')`).fadeIn(2000);
+    $('.credits p a').attr('href', bgInfo[randomNum].day.url);
+    $('#pic-author').text(bgInfo[randomNum].day.author);
+  }
 
-  window.app.backgroundModel = {
+  function generateNightBg() {
+    $('.devtab-bg').css('background-image', `url('./assets/img/nightPics/sample${randomNum}.jpeg')`).fadeIn(2000);
+    $('#pic-author').attr('href', bgInfo[randomNum].night.url);
+    $('#pic-author').text(bgInfo[randomNum].night.author);
+  }
+
+  window.app.backgroundView = {
     bgInfo,
     randomNum,
+    generateDayBg,
+    generateNightBg,
   };
 }());
-
-/* ************************************************************************
-BACKGROUND VIEW
-************************************************************************* */

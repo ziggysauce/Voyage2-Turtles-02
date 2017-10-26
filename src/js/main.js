@@ -27,6 +27,7 @@ CONTROLLER
   colorpickerModel,
   colorpickerView,
   backgroundModel,
+  backgroundView,
 ) {
 /* ***** POMODORO SECTION ******** */
 
@@ -217,111 +218,24 @@ CONTROLLER
   /* ********* COLOR PICKER SECTION ********** */
 
   function loadColorPicker() {
-    function refreshElementRects() {
-      colorpickerModel.spectrumRect = colorpickerModel.spectrumCanvas.getBoundingClientRect();
-      colorpickerModel.hueRect = colorpickerModel.hueCanvas.getBoundingClientRect();
-    }
-
-    function colorToHue(color) {
-      var color = tinycolor(color);
-      var hueString = tinycolor('hsl '+ color.toHsl().h + ' 1 .5').toHslString();
-      return hueString;
-    }
-
-    function setColorValues(color) {
-      // convert to tinycolor object
-      var color = tinycolor(color);
-      var rgbValues = color.toRgb();
-      var hexValue = color.toHex();
-      var hslValues = color.toHsl();
-      // set inputs
-      colorpickerModel.red.value = rgbValues.r;
-      colorpickerModel.green.value = rgbValues.g;
-      colorpickerModel.blue.value = rgbValues.b;
-      colorpickerModel.hex.value = hexValue;
-      colorpickerModel.huedisplay.value = Math.round(hslValues.h);
-      colorpickerModel.saturationdisplay.value = Math.round(hslValues.s * 100);
-      colorpickerModel.lightnessdisplay.value = Math.round(hslValues.l * 100);
-    }
-
-    function setCurrentColor(color) {
-      color = tinycolor(color);
-      colorpickerModel.colorIndicator.style.backgroundColor = color;
-      colorpickerModel.spectrumCursor.style.backgroundColor = color;
-      colorpickerModel.hueCursor.style.backgroundColor = 'hsl('+ color.toHsl().h +', 100%, 50%)';
-    }
-
-    function updateHueCursor(y) {
-      colorpickerModel.hueCursor.style.top = y + 'px';
-    }
-
-    function updateSpectrumCursor(x, y) {
-      // assign position
-      colorpickerModel.spectrumCursor.style.left = x + 'px';
-      colorpickerModel.spectrumCursor.style.top = y + 'px';
-    }
-
-    function getSpectrumColor(e) {
-      // reference: http://stackoverflow.com/questions/23520909/get-hsl-value-given-x-y-and-hue
-      e.preventDefault();
-      // get x/y coordinates
-      let x = e.pageX - colorpickerModel.spectrumRect.left;
-      let y = e.pageY - colorpickerModel.spectrumRect.top;
-      // constrain x max
-      if (x > colorpickerModel.spectrumRect.width) { x = colorpickerModel.spectrumRect.width; }
-      if (x < 0) { x = 0; }
-      if (y > colorpickerModel.spectrumRect.height) { y = colorpickerModel.spectrumRect.height; }
-      if (y < 0) { y = 0.1; }
-      // convert between hsv and hsl
-      const xRatio = (x / colorpickerModel.spectrumRect.width) * 100;
-      const yRatio = (y / colorpickerModel.spectrumRect.height) * 100;
-      const hsvValue = 1 - (yRatio / 100);
-      const hsvSaturation = xRatio / 100;
-      colorpickerModel.lightness = (hsvValue / 2) * (2 - hsvSaturation);
-      colorpickerModel.saturation = (hsvValue * hsvSaturation) / (1 - Math.abs((2 * colorpickerModel.lightness) - 1));
-      const color = tinycolor('hsl ' + colorpickerModel.hue + ' ' + colorpickerModel.saturation + ' ' + colorpickerModel.lightness);
-      setCurrentColor(color);
-      setColorValues(color);
-      updateSpectrumCursor(x, y);
-    }
+    colorpickerView.createShadeSpectrum();
+    colorpickerView.createHueSpectrum();
 
     function endGetSpectrumColor() {
       colorpickerModel.spectrumCursor.classList.remove('dragging');
-      window.removeEventListener('mousemove', getSpectrumColor);
+      window.removeEventListener('mousemove', colorpickerModel.getSpectrumColor);
     }
 
     const startGetSpectrumColor = (e) => {
-      getSpectrumColor(e);
+      colorpickerModel.getSpectrumColor(e);
       colorpickerModel.spectrumCursor.classList.add('dragging');
-      window.addEventListener('mousemove', getSpectrumColor);
+      window.addEventListener('mousemove', colorpickerModel.getSpectrumColor);
       window.addEventListener('mouseup', endGetSpectrumColor);
     };
 
-    function createShadeSpectrum(color) {
-      const canvas = colorpickerModel.spectrumCanvas;
-      const ctx = colorpickerModel.spectrumCtx;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      if (!color) { color = '#f00'; }
-      ctx.fillStyle = color;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      const whiteGradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
-      whiteGradient.addColorStop(0, '#fff');
-      whiteGradient.addColorStop(1, 'transparent');
-      ctx.fillStyle = whiteGradient;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      const blackGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-      blackGradient.addColorStop(0, 'transparent');
-      blackGradient.addColorStop(1, '#000');
-      ctx.fillStyle = blackGradient;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      canvas.addEventListener('mousedown', (e) => {
-        startGetSpectrumColor(e);
-      });
-    }
+    colorpickerModel.spectrumCanvas.addEventListener('mousedown', (e) => {
+      startGetSpectrumColor(e);
+    });
 
     function getHueColor(e) {
       e.preventDefault();
@@ -332,10 +246,10 @@ CONTROLLER
       colorpickerModel.hue = 360 - (360 * percent);
       const hueColor = tinycolor('hsl '+ colorpickerModel.hue + ' 1 .5').toHslString();
       const color = tinycolor('hsl '+ colorpickerModel.hue + ' ' + colorpickerModel.saturation + ' ' + colorpickerModel.lightness).toHslString();
-      createShadeSpectrum(hueColor);
-      updateHueCursor(y, hueColor)
-      setCurrentColor(color);
-      setColorValues(color);
+      colorpickerView.createShadeSpectrum(hueColor);
+      colorpickerModel.updateHueCursor(y, hueColor);
+      colorpickerModel.setCurrentColor(color);
+      colorpickerModel.setColorValues(color);
     }
 
     function endGetHueColor() {
@@ -350,23 +264,9 @@ CONTROLLER
       window.addEventListener('mouseup', endGetHueColor);
     }
 
-    function createHueSpectrum() {
-      const canvas = colorpickerModel.hueCanvas;
-      const ctx = colorpickerModel.hueCtx;
-      const hueGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-      hueGradient.addColorStop(0.00, 'hsl(0,100%,50%)');
-      hueGradient.addColorStop(0.17, 'hsl(298.8, 100%, 50%)');
-      hueGradient.addColorStop(0.33, 'hsl(241.2, 100%, 50%)');
-      hueGradient.addColorStop(0.50, 'hsl(180, 100%, 50%)');
-      hueGradient.addColorStop(0.67, 'hsl(118.8, 100%, 50%)');
-      hueGradient.addColorStop(0.83, 'hsl(61.2,100%,50%)');
-      hueGradient.addColorStop(1.00, 'hsl(360,100%,50%)');
-      ctx.fillStyle = hueGradient;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      canvas.addEventListener('mousedown', (e) => {
-        startGetHueColor(e);
-      });
-    }
+    colorpickerModel.hueCanvas.addEventListener('mousedown', (e) => {
+      startGetHueColor(e);
+    });
 
     function colorToPos(color) {
       var color = tinycolor(color);
@@ -376,45 +276,46 @@ CONTROLLER
       const x = colorpickerModel.spectrumRect.width * hsv.s;
       const y = colorpickerModel.spectrumRect.height * (1 - hsv.v);
       const hueY = colorpickerModel.hueRect.height - ((colorpickerModel.hue / 360) * colorpickerModel.hueRect.height);
-      updateSpectrumCursor(x, y);
-      updateHueCursor(hueY);
-      setCurrentColor(color);
-      createShadeSpectrum(colorToHue(color));
+      colorpickerModel.updateSpectrumCursor(x, y);
+      colorpickerModel.updateHueCursor(hueY);
+      colorpickerModel.setCurrentColor(color);
+      colorpickerModel.setColorValues(color);
+      colorpickerView.createShadeSpectrum(colorpickerModel.colorToHue(color));
     }
 
     // Add event listeners
     colorpickerModel.red.addEventListener('change', () => {
-      const color = tinycolor('rgb ' + colorpickerModel.red.value + ' ' + colorpickerModel.green.value + ' ' + colorpickerModel.blue.value );
+      const color = tinycolor(`rgb ${colorpickerModel.red.value} ${colorpickerModel.green.value} ${colorpickerModel.blue.value}`);
       colorToPos(color);
     });
 
     colorpickerModel.green.addEventListener('change', () => {
-      const color = tinycolor('rgb ' + colorpickerModel.red.value + ' ' + colorpickerModel.green.value + ' ' + colorpickerModel.blue.value );
+      const color = tinycolor(`rgb ${colorpickerModel.red.value} ${colorpickerModel.green.value} ${colorpickerModel.blue.value}`);
       colorToPos(color);
     });
 
     colorpickerModel.blue.addEventListener('change', () => {
-      const color = tinycolor('rgb ' + colorpickerModel.red.value + ' ' + colorpickerModel.green.value + ' ' + colorpickerModel.blue.value );
+      const color = tinycolor(`rgb ${colorpickerModel.red.value} ${colorpickerModel.green.value} ${colorpickerModel.blue.value}`);
       colorToPos(color);
     });
 
     colorpickerModel.hex.addEventListener('change', () => {
-      let color = tinycolor('#' + colorpickerModel.hex.value );
+      const color = tinycolor(`#${colorpickerModel.hex.value}`);
       colorToPos(color);
     });
 
     colorpickerModel.huedisplay.addEventListener('change', () => {
-      const color = tinycolor('hsl ' + colorpickerModel.huedisplay.value + ' ' + colorpickerModel.saturationdisplay.value + ' ' + colorpickerModel.lightnessdisplay.value );
+      const color = tinycolor(`hsl ${colorpickerModel.huedisplay.value} ${colorpickerModel.saturationdisplay.value} ${colorpickerModel.lightnessdisplay.value}`);
       colorToPos(color);
     });
 
     colorpickerModel.saturationdisplay.addEventListener('change', () => {
-      const color = tinycolor('hsl ' + colorpickerModel.huedisplay.value + ' ' + colorpickerModel.saturationdisplay.value + ' ' + colorpickerModel.lightnessdisplay.value );
+      const color = tinycolor(`hsl ${colorpickerModel.huedisplay.value} ${colorpickerModel.saturationdisplay.value} ${colorpickerModel.lightnessdisplay.value}`);
       colorToPos(color);
     });
 
     colorpickerModel.lightnessdisplay.addEventListener('change', () => {
-      const color = tinycolor('hsl ' + colorpickerModel.huedisplay.value + ' ' + colorpickerModel.saturationdisplay.value + ' ' + colorpickerModel.lightnessdisplay.value );
+      const color = tinycolor(`hsl ${colorpickerModel.huedisplay.value} ${colorpickerModel.saturationdisplay.value} ${colorpickerModel.lightnessdisplay.value}`);
       colorToPos(color);
     });
 
@@ -430,15 +331,6 @@ CONTROLLER
         colorpickerModel.hexField.classList.add('active');
       }
     });
-
-    window.addEventListener('resize', () => {
-      refreshElementRects();
-    });
-
-    (function ColorPicker() {
-      createShadeSpectrum();
-      createHueSpectrum();
-    }());
   }
 
   /* ********* BACKGROUND SECTION ************ */
@@ -451,28 +343,15 @@ CONTROLLER
    */
 
   function loadBackground() {
-    const curTime = new Date();
-    const picTime = parseInt(curTime.toLocaleString('en-US', {
-      hour: 'numeric',
-      minute: 'numeric',
-      hour12: false,
-    }), 10);
-    if (picTime > 6 && picTime < 19) {
-      $('.devtab-bg').css('background-image', `url('./assets/img/dayPics/sample${backgroundModel.randomNum}.jpeg')`).fadeIn(2000);
-      $('.credits p a').attr('href', backgroundModel.bgInfo[backgroundModel.randomNum].day.url);
-      $('#pic-author').text(backgroundModel.bgInfo[backgroundModel.randomNum].day.author);
-    } else {
-      $('.devtab-bg').css('background-image', `url('./assets/img/nightPics/sample${backgroundModel.randomNum}.jpeg')`).fadeIn(2000);
-      $('#pic-author').attr('href', backgroundModel.bgInfo[backgroundModel.randomNum].night.url);
-      $('#pic-author').text(backgroundModel.bgInfo[backgroundModel.randomNum].night.author);
-    }
+    if (backgroundModel.picTime > 6 && backgroundModel.picTime < 19) {
+      backgroundView.generateDayBg();
+    } else { backgroundView.generateNightBg(); }
   }
 
   /* ********* GENERAL ************ */
 
   function setupEventListeners() {
-    $(window).on('load', loadBackground())
-      .on('click', toggleNameInput())
+    $(window).on('click', toggleNameInput())
       .on('click', newsfeedView.toggleNewsfeed)
       .on('click', toolboxView.toggleToolbox)
       .on('click', colorpickerView.toggleColorPicker);
@@ -487,6 +366,7 @@ CONTROLLER
 
   function initialize() {
     $('.devtab-bg').hide();
+    loadBackground();
     greetingView.showGreeting(greetingModel.getUserName());
     clocksView.updateTime(clocksModel.getTime());
     setupEventListeners();
@@ -523,6 +403,7 @@ CONTROLLER
   window.app.colorpickerModel,
   window.app.colorpickerView,
   window.app.backgroundModel,
+  window.app.backgroundView,
 ));
 
 window.app.controller.initialize();
