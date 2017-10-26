@@ -23,6 +23,7 @@ CONTROLLER
   cssModel,
   cssView,
   pagespeedModel,
+  pagespeedView,
   colorpickerModel,
   colorpickerView,
   backgroundModel,
@@ -159,277 +160,46 @@ CONTROLLER
   /* ********* PAGE SPEED SECTION ********** */
 
   function loadPageSpeedChecker() {
-    const callbacks = {};
-
-    $('.returnresults').hide();
-    $('#loader-icon').hide();
-
-    callbacks.displayPageSpeedScore = (result) => {
-      // pagespeedView.generatePageSpeedBox();
-      const region = document.getElementById('output');
-      const rules = result.formattedResults.ruleResults;
-      const redirects = rules.AvoidLandingPageRedirects;
-      const compress = rules.EnableGzipCompression;
-      const caching = rules.LeverageBrowserCaching;
-      const responseTime = rules.MainResourceServerResponseTime;
-      const minCss = rules.MinifyCss;
-      const minHtml = rules.MinifyHTML;
-      const minJs = rules.MinifyJavaScript;
-      const resources = rules.MinimizeRenderBlockingResources;
-      const images = rules.OptimizeImages;
-      const content = rules.PrioritizeVisibleContent;
-      const rulesArray = [redirects, compress, caching, responseTime, minCss, minHtml,
-        minJs, resources, images, content];
-      const possibleRules = [];
-      const foundRules = [];
-
-      rulesArray.map((i) => {
-        if (i.ruleImpact > 0) {
-          possibleRules.push(i);
-          possibleRules.sort((a, b) => b.ruleImpact - a.ruleImpact);
-        } else {
-          foundRules.push(i);
-        }
-        return i;
-      });
-
-      $('#output').hide().slideDown(500);
-      $('#possible').hide().slideDown(500);
-      $('#found').hide().slideDown(500);
-
-      $(`
-        <div class="speed-score-box">
-          <h4 id="results-speed-title">Score: ${result.score}</h4>
-          <span>URL: ${result.id}</span>
-        </div>
-        `).appendTo(region);
-      if ($('.toggle-custom-view:checked').val() === 'mobile') {
-        $('#results-speed-title').prepend('Mobile ');
-      } else {
-        $('#results-speed-title').prepend('Desktop ');
-      }
-
-      // Make container for possible optimizations
-      const possible = document.getElementById('possible');
-      if (possibleRules.length > 0) {
-        $('<h1 class=optimizationTitles>Possible Optimizations</h1>').appendTo(possible);
-      } else {
-        $('<h1 class=optimizationTitles>Congratulations! No issues found.</h1>').appendTo(possible);
-      }
-
-      possibleRules.map((i) => {
-        $(`<h4 class="speedTitles">${i.localizedRuleName}</h4>`).appendTo(possible);
-        // possible.append(`${i.localizedRuleName}\n`);
-        $(`
-          <button class="click-details inactive" type="submit" id="${possibleRules.indexOf(i)}button">More Details</button>
-          <div class="addInfo" id="${possibleRules.indexOf(i)}">
-            <span id="${possibleRules.indexOf(i)}info"></span>
-            <span><a href="#" id="${possibleRules.indexOf(i)}link" class="learn-more-link" target="_blank"></a></span>
-            <span id="${possibleRules.indexOf(i)}these"></span>
-          </div>
-        `).appendTo(possible);
-
-        const first = $(`#${possibleRules.indexOf(i)}info`);
-        const second = $(`#${possibleRules.indexOf(i)}link`);
-        const third = $(`#${possibleRules.indexOf(i)}these`);
-
-        $('#output').hide().slideDown(500);
-        $('#possible').hide().slideDown(500);
-        $('#found').hide().slideDown(500);
-        $(`#${possibleRules.indexOf(i)}`).hide();
-
-        // Show more info when clicking 'More Details' button
-        $(`#${possibleRules.indexOf(i)}button`).on('click', () => {
-          if ($(`#${possibleRules.indexOf(i)}button`)[0].className === 'click-details inactive') {
-            $(`#${possibleRules.indexOf(i)}button`).removeClass('inactive');
-            $(`#${possibleRules.indexOf(i)}button`).addClass('active');
-            $(`#${possibleRules.indexOf(i)}button`).text('Less Details');
-
-            // Show possible optimizations
-            // Specific test cases per rule
-            for (let j = 0; j < i.urlBlocks.length; j += 1) {
-              if (i.urlBlocks.length > 2 && j === 1) {
-                first.append(`${i.urlBlocks[j].header.format}\n`);
-              }
-              if (i.urlBlocks.length > 2 && j === 2) {
-                second.append(`${i.urlBlocks[j].header.format}\n`);
-                second.attr('href', `${i.urlBlocks[j].header.args[0].value}`);
-                for (let k = 0; k < i.urlBlocks[j].urls.length; k += 1) {
-                  third.append(`${i.urlBlocks[j].urls[k].result.args[0].value}\n`);
-                }
-              }
-              if (i.urlBlocks.length <= 2) {
-                if (j === 0) {
-                  if (i.localizedRuleName === 'Reduce server response time') {
-                    first.append(`In our test, your server responded in ${i.urlBlocks[j].header.args[0].value}. There are many factors that can slow down your server response time. Please read our recommendations to learn how you can monitor and measure where your server is spending the most time.\n`);
-                    second.append('Learn More');
-                    second.attr('href', `${i.urlBlocks[j].header.args[1].value}`);
-                  } else {
-                    first.append(`${i.urlBlocks[j].header.format}\n`);
-                  }
-                }
-                if (j === 1) {
-                  if (i.localizedRuleName === 'Prioritize visible content') {
-                    third.append(`${i.urlBlocks[j].header.format}\n`);
-                    second.append(`${i.localizedRuleName}\n`);
-                    second.attr('href', `${i.urlBlocks[j].header.args[0].value}`);
-                  } else if (i.localizedRuleName === 'Reduce server response time') {
-                    first.append(`In our test, your server responded in ${i.urlBlocks[j].header.args[0].value}. There are many factors that can slow down your server response time. Please read our recommendations to learn how you can monitor and measure where your server is spending the most time.\n`);
-                    second.append('Learn More');
-                    second.attr('href', `${i.urlBlocks[j].header.args[1].value}`);
-                  } else {
-                    second.append(`${i.localizedRuleName} of the following:\n`);
-                    second.attr('href', `${i.urlBlocks[j].header.args[0].value}`);
-                    for (let k = 0; k < i.urlBlocks[j].urls.length; k += 1) {
-                      third.append(`${i.urlBlocks[j].urls[k].result.args[0].value}\n`);
-                    }
-                  }
-                }
-              }
-            }
-            $(`#${possibleRules.indexOf(i)}`).slideDown(500);
+    function verifySpeedResults(result) {
+      // JSONP callback. Checks for errors, then invokes callback handlers
+      if (result.error) {
+        const errors = result.error.errors;
+        for (var i = 0, len = errors.length; i < len; ++i) {
+          if (errors[i].reason === 'badRequest' && pagespeedModel.API_KEY === 'yourAPIKey') {
+            // console.log('Please specify your Google API key in the API_KEY variable.');
+            $('#speed-page-error').append('Please specify your Google API key in the API_KEY variable.');
           } else {
-            $(`#${possibleRules.indexOf(i)}button`).removeClass('active');
-            $(`#${possibleRules.indexOf(i)}button`).addClass('inactive');
-            $(`#${possibleRules.indexOf(i)}button`).text('More Details');
-            $(`#${possibleRules.indexOf(i)}`).slideUp(500, () => {
-              first.empty();
-              second.empty();
-              second.attr('href', '#');
-              third.empty();
-            });
+            // console.log(errors[i].message);
+            $('#speed-page-error').append(`${errors[i].message}`);
           }
-        });
-        return i;
-      });
-
-      // Create top of found optimizations container
-      const found = document.getElementById('found');
-      $('<h1 class=optimizationTitles>Optimizations Found</h1>').appendTo(found);
-      $('<button class="click-details inactive" type="submit" id="moreFoundOptimizations">More Details</button><div class="addFoundOptimizations"</div>').appendTo(found);
-
-      // Show more info when clicking 'More Details' button
-      $('#moreFoundOptimizations').on('click', () => {
-        if ($('#moreFoundOptimizations')[0].className === 'click-details inactive') {
-          $('#moreFoundOptimizations').removeClass('inactive');
-          $('#moreFoundOptimizations').addClass('active');
-          $('#moreFoundOptimizations').text('Less Details');
-          $('.addFoundOptimizations').hide();
-
-          foundRules.map((m) => {
-            $(`
-              <h4 id="${foundRules.indexOf(m)}title" class="speedTitles"></h4>
-              <div class="addFoundInfo">
-                <div id="${foundRules.indexOf(m)}content"></div>
-                <div><a href="#" id="${foundRules.indexOf(m)}anchor" class="learn-more-link" target="_blank"></a></div>
-              </div>
-              `).appendTo($('.addFoundOptimizations'));
-
-            const title = $(`#${foundRules.indexOf(m)}title`);
-            const top = $(`#${foundRules.indexOf(m)}content`);
-            const bottom = $(`#${foundRules.indexOf(m)}anchor`);
-
-            // Show found optimizations
-            // Fill container for found optimizations
-            title.append(`${m.localizedRuleName}`);
-            top.append(`${m.urlBlocks[0].header.format}`);
-            bottom.append('Learn More');
-            bottom.attr('href', `${m.urlBlocks[0].header.args[0].value}`);
-            // $(`#${foundRules.indexOf(m)}`).slideDown(500);
-            return m;
-          });
-          $('.addFoundOptimizations').slideDown(500);
-        } else {
-          $('#moreFoundOptimizations').removeClass('active');
-          $('#moreFoundOptimizations').addClass('inactive');
-          $('#moreFoundOptimizations').text('More Details');
-          $('.addFoundOptimizations').slideUp(500, () => {
-            $('.addFoundOptimizations').empty();
-          });
         }
-      });
-      $('.returnresults').slideDown(500);
-      $('#loader-icon').removeClass('spin').hide();
-      $('#analyzePage').removeAttr('disabled', 'disabled');
-      $('.toggle-custom-view').removeAttr('disabled', 'disabled');
-    };
+        $('#loader-icon').removeClass('spin').hide();
+        $('#analyzePage').removeAttr('disabled', 'disabled');
+        $('.toggle-custom-view').removeAttr('disabled', 'disabled');
+        return;
+      }
+      pagespeedView.displayPageSpeedScore(result);
+    }
 
     // Invokes the PageSpeed Insights API. The response will contain
     // JavaScript that invokes our callback with the PageSpeed results
     function runPagespeed() {
+      let urlStrategy = '';
+
       if ($('.toggle-custom-view:checked').val() === 'mobile') {
-        $.ajax({
-          url: `${pagespeedModel.API_URL}&key=${pagespeedModel.API_KEY}&strategy=mobile&url=${$('#path').val()}`,
-          method: 'GET',
-          dataType: 'JSONP',
-          async: false,
-          processData: false,
-          contentType: false,
-          success: (result) => {
-            // JSONP callback. Checks for errors, then invokes callback handlers
-            if (result.error) {
-              const errors = result.error.errors;
-              for (var i = 0, len = errors.length; i < len; ++i) {
-                if (errors[i].reason === 'badRequest' && pagespeedModel.API_KEY === 'yourAPIKey') {
-                  // console.log('Please specify your Google API key in the API_KEY variable.');
-                  $('#speed-page-error').append('Please specify your Google API key in the API_KEY variable.');
-                } else {
-                  // console.log(errors[i].message);
-                  $('#speed-page-error').append(`${errors[i].message}`);
-                }
-              }
-              $('#loader-icon').removeClass('spin').hide();
-              $('#analyzePage').removeAttr('disabled', 'disabled');
-              $('.toggle-custom-view').removeAttr('disabled', 'disabled');
-              return;
-            }
+        urlStrategy = `${pagespeedModel.API_URL}&key=${pagespeedModel.API_KEY}&strategy=mobile&url=${$('#path').val()}`;
+      } else { urlStrategy = `${pagespeedModel.API_URL}&key=${pagespeedModel.API_KEY}&strategy=desktop&url=${$('#path').val()}`; }
 
-            // Dispatch to each function on callbacks object.
-            for (const fn in callbacks) {
-              const f = callbacks[fn];
-              if (typeof f == 'function') {
-                callbacks[fn](result);
-              }
-            }
-          },
-        });
-      } else {
-        $.ajax({
-          url: `${pagespeedModel.API_URL}&key=${pagespeedModel.API_KEY}&strategy=desktop&url=${$('#path').val()}`,
-          method: 'GET',
-          dataType: 'JSONP',
-          async: false,
-          processData: false,
-          contentType: false,
-          success: (result) => {
-            // JSONP callback. Checks for errors, then invokes callback handlers
-            if (result.error) {
-              const errors = result.error.errors;
-              for (var i = 0, len = errors.length; i < len; ++i) {
-                if (errors[i].reason === 'badRequest' && pagespeedModel.API_KEY === 'yourAPIKey') {
-                  // console.log('Please specify your Google API key in the API_KEY variable.');
-                  $('#speed-page-error').append('Please specify your Google API key in the API_KEY variable.');
-                } else {
-                  // console.log(errors[i].message);
-                  $('#speed-page-error').append(`${errors[i].message}`);
-                }
-              }
-              $('#loader-icon').removeClass('spin').hide();
-              $('#analyzePage').removeAttr('disabled', 'disabled');
-              $('.toggle-custom-view').removeAttr('disabled', 'disabled');
-              return;
-            }
-
-            // Dispatch to each function on callbacks object.
-            for (const fn in callbacks) {
-              const f = callbacks[fn];
-              if (typeof f == 'function') {
-                callbacks[fn](result);
-              }
-            }
-          },
-        });
-      }
+      $.ajax({
+        url: urlStrategy,
+        dataType: 'JSONP',
+        async: false,
+        processData: false,
+        contentType: false,
+        success: (result) => {
+          verifySpeedResults(result);
+        },
+      });
     }
 
     // Desktop & Mobile Score trigger from URL provided
@@ -447,8 +217,6 @@ CONTROLLER
   /* ********* COLOR PICKER SECTION ********** */
 
   function loadColorPicker() {
-    $('.color-picker-panel').hide();
-
     function refreshElementRects() {
       colorpickerModel.spectrumRect = colorpickerModel.spectrumCanvas.getBoundingClientRect();
       colorpickerModel.hueRect = colorpickerModel.hueCanvas.getBoundingClientRect();
@@ -690,11 +458,11 @@ CONTROLLER
       hour12: false,
     }), 10);
     if (picTime > 6 && picTime < 19) {
-      $('.devtab-bg').css('background-image', `url('./assets/img/dayPics/sample${backgroundModel.randomNum}.jpeg')`);
+      $('.devtab-bg').css('background-image', `url('./assets/img/dayPics/sample${backgroundModel.randomNum}.jpeg')`).fadeIn(2000);
       $('.credits p a').attr('href', backgroundModel.bgInfo[backgroundModel.randomNum].day.url);
       $('#pic-author').text(backgroundModel.bgInfo[backgroundModel.randomNum].day.author);
     } else {
-      $('.devtab-bg').css('background-image', `url('./assets/img/nightPics/sample${backgroundModel.randomNum}.jpeg')`);
+      $('.devtab-bg').css('background-image', `url('./assets/img/nightPics/sample${backgroundModel.randomNum}.jpeg')`).fadeIn(2000);
       $('#pic-author').attr('href', backgroundModel.bgInfo[backgroundModel.randomNum].night.url);
       $('#pic-author').text(backgroundModel.bgInfo[backgroundModel.randomNum].night.author);
     }
@@ -718,7 +486,7 @@ CONTROLLER
   }
 
   function initialize() {
-    $('.devtab-bg').hide().fadeIn(2000);
+    $('.devtab-bg').hide();
     greetingView.showGreeting(greetingModel.getUserName());
     clocksView.updateTime(clocksModel.getTime());
     setupEventListeners();
@@ -730,6 +498,9 @@ CONTROLLER
     $('.tools-container').hide();
     $('.valid-container').hide();
     $('.page-speed-container').hide();
+    $('.returnresults').hide();
+    $('#loader-icon').hide();
+    $('.color-picker-panel').hide();
   }
 
   window.app.controller = {
@@ -748,6 +519,7 @@ CONTROLLER
   window.app.cssModel,
   window.app.cssView,
   window.app.pagespeedModel,
+  window.app.pagespeedView,
   window.app.colorpickerModel,
   window.app.colorpickerView,
   window.app.backgroundModel,

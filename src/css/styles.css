@@ -621,7 +621,7 @@ footer {
 
 #loader-icon {
   font-size: 2em;
-  margin-left: 10px;
+  margin: 0px auto;
   transition: all 500ms linear; }
 
 .spin {
@@ -661,11 +661,11 @@ footer {
   display: flex;
   flex-direction: column; }
 
-#CheckedUrl {
+#checkedUrl {
   display: flex;
   justify-content: center;
   align-items: center; }
-  #CheckedUrl label {
+  #checkedUrl label {
     padding: 5px; }
 
 .radio-speed-view {
