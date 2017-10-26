@@ -156,8 +156,8 @@ CONTROLLER
       barClass: "blueBar",
       areaClass: "blueArea",
       text: "",
-      left: 500,
-      top: 500,
+      left: 600,
+      top: 50,
       id: Math.floor((Math.random() * 1000) + 1)
 
     }

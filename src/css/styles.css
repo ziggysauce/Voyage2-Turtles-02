@@ -863,8 +863,8 @@ footer {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  width: 220px;
-  height: 180px;
+  width: 230px;
+  height: 190px;
   outline: 1px solid transparent;
   border: 1px solid #7da4d7;
   border-radius: 10px; }

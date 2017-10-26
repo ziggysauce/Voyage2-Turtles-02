@@ -52,6 +52,7 @@ gulp.task('js', () => {
     'src/js/components/clocks.js',
     'src/js/components/greeting.js',
     'src/js/components/newsfeed.js',
+    'src/js/components/stickyNote.js',
     'src/js/main.js',
     'src/js/quickLink.js',
     'src/js/stickyNote.js',
