@@ -42,7 +42,7 @@ PAGE SPEED MODEL
 (function makePageSpeedModel() {
   // Object that will hold the callbacks that process results from the PageSpeed Insights API.
   const API_KEY = 'AIzaSyDKAeC02KcdPOHWVEZqdR1t5wwgaFJJKiM';
-  const API_URL = 'https://www.googleapis.com/pagespeedonline/v1/runPagespeed?';
+  const API_URL = 'https://www.googleapis.com/pagespeedonline/v2/runPagespeed?';
 
   window.app.pagespeedModel = {
     API_KEY,
@@ -89,7 +89,7 @@ PAGE SPEED VIEW
 
     $(`
       <div class="speed-score-box">
-        <h4 id="results-speed-title">Score: ${result.score}</h4>
+        <h4 id="results-speed-title">Score: ${result.ruleGroups.SPEED.score}</h4>
         <span>URL: ${result.id}</span>
       </div>
       `).appendTo(region);

@@ -191,17 +191,23 @@ CONTROLLER
         urlStrategy = `${pagespeedModel.API_URL}&key=${pagespeedModel.API_KEY}&strategy=mobile&url=${$('#path').val()}`;
       } else { urlStrategy = `${pagespeedModel.API_URL}&key=${pagespeedModel.API_KEY}&strategy=desktop&url=${$('#path').val()}`; }
 
-      $.ajax({
-        url: urlStrategy,
-        dataType: 'JSONP',
-        async: false,
-        processData: false,
-        contentType: false,
-        success: (result) => {
-          verifySpeedResults(result);
-        },
+      $.getJSON(urlStrategy, (result) => {
+        verifySpeedResults(result);
       });
     }
+    // ajax call not working with chrome extension because jQuery requires a callback,
+    // creating an in-line script into the head of the document
+
+    // $.ajax({
+    //   url: urlStrategy,
+    //   dataType: 'JSONP',
+    //   async: false,
+    //   processData: false,
+    //   contentType: false,
+    //   success: (result) => {
+    //     verifySpeedResults(result);
+    //   },
+    // });
 
     // Desktop & Mobile Score trigger from URL provided
     $('#analyzePage').on('click', () => {
