@@ -79,30 +79,6 @@ COLOR PICKER MODEL
     spectrumCursor.style.top = y + 'px';
   }
 
-  function getSpectrumColor(e) {
-    // reference: http://stackoverflow.com/questions/23520909/get-hsl-value-given-x-y-and-hue
-    e.preventDefault();
-    // get x/y coordinates
-    let x = e.pageX - spectrumRect.left;
-    let y = e.pageY - spectrumRect.top;
-    // constrain x max
-    if (x > spectrumRect.width) { x = spectrumRect.width; }
-    if (x < 0) { x = 0; }
-    if (y > spectrumRect.height) { y = spectrumRect.height; }
-    if (y < 0) { y = 0.1; }
-    // convert between hsv and hsl
-    const xRatio = (x / spectrumRect.width) * 100;
-    const yRatio = (y / spectrumRect.height) * 100;
-    const hsvValue = 1 - (yRatio / 100);
-    const hsvSaturation = xRatio / 100;
-    lightness = (hsvValue / 2) * (2 - hsvSaturation);
-    saturation = (hsvValue * hsvSaturation) / (1 - Math.abs((2 * lightness) - 1));
-    const color = tinycolor(`hsl ${hue} ${saturation} ${lightness}`);
-    setCurrentColor(color);
-    setColorValues(color);
-    updateSpectrumCursor(x, y);
-  }
-
   window.app.colorpickerModel = {
     modeToggle,
     colorIndicator,
@@ -132,7 +108,6 @@ COLOR PICKER MODEL
     setCurrentColor,
     updateHueCursor,
     updateSpectrumCursor,
-    getSpectrumColor,
   };
 }());
 

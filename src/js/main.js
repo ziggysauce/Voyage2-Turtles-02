@@ -253,15 +253,39 @@ CONTROLLER
   /* ********* COLOR PICKER SECTION ********** */
 
   function loadColorPicker() {
+    function getSpectrumColor(e) {
+      // reference: http://stackoverflow.com/questions/23520909/get-hsl-value-given-x-y-and-hue
+      e.preventDefault();
+      // get x/y coordinates
+      let x = e.pageX - colorpickerModel.spectrumRect.left;
+      let y = e.pageY - colorpickerModel.spectrumRect.top;
+      // constrain x max
+      if (x > colorpickerModel.spectrumRect.width) { x = colorpickerModel.spectrumRect.width; }
+      if (x < 0) { x = 0; }
+      if (y > colorpickerModel.spectrumRect.height) { y = colorpickerModel.spectrumRect.height; }
+      if (y < 0) { y = 0.1; }
+      // convert between hsv and hsl
+      const xRatio = (x / colorpickerModel.spectrumRect.width) * 100;
+      const yRatio = (y / colorpickerModel.spectrumRect.height) * 100;
+      const hsvValue = 1 - (yRatio / 100);
+      const hsvSaturation = xRatio / 100;
+      colorpickerModel.lightness = (hsvValue / 2) * (2 - hsvSaturation);
+      colorpickerModel.saturation = (hsvValue * hsvSaturation) / (1 - Math.abs((2 * colorpickerModel.lightness) - 1));
+      const color = tinycolor(`hsl ${colorpickerModel.hue} ${colorpickerModel.saturation} ${colorpickerModel.lightness}`);
+      colorpickerModel.setCurrentColor(color);
+      colorpickerModel.setColorValues(color);
+      colorpickerModel.updateSpectrumCursor(x, y);
+    }
+
     function endGetSpectrumColor() {
       colorpickerModel.spectrumCursor.classList.remove('dragging');
-      window.removeEventListener('mousemove', colorpickerModel.getSpectrumColor);
+      window.removeEventListener('mousemove', getSpectrumColor);
     }
 
     const startGetSpectrumColor = (e) => {
-      colorpickerModel.getSpectrumColor(e);
+      getSpectrumColor(e);
       colorpickerModel.spectrumCursor.classList.add('dragging');
-      window.addEventListener('mousemove', colorpickerModel.getSpectrumColor);
+      window.addEventListener('mousemove', getSpectrumColor);
       window.addEventListener('mouseup', endGetSpectrumColor);
     };
 
