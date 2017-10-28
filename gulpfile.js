@@ -52,10 +52,12 @@ gulp.task('js', () => {
     'src/js/components/clocks.js',
     'src/js/components/greeting.js',
     'src/js/components/newsfeed.js',
+    'src/js/components/toolbox.js',
+    'src/js/components/colorpicker.js',
+    'src/js/components/background.js',
     'src/js/components/stickyNote.js',
     'src/js/main.js',
     'src/js/quickLink.js',
-    'src/js/stickyNote.js',
   ])
     .pipe(plumber())
     .pipe(sourcemaps.init())

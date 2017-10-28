@@ -3,14 +3,19 @@
 }
 
 body {
-
 	height: 100%;
 	width: 100%;
 	overflow: hidden;
-	// background-image: url("../assets/img/sample2.jpeg");
 	background-size: cover;
   font-family: Lato, helvetica;
   font-size: 100%!important;
+
+  .devtab-bg {
+    // display: none;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+  }
 
 	.overlay {
 		content: '';
@@ -20,11 +25,9 @@ body {
 		left: 0;
 		bottom: 0;
 
-		
 		background: -moz-linear-gradient(top, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.25) 100%); /* FF3.6-15 */
 		background: -webkit-linear-gradient(top, rgba(0,0,0,0.25) 0%,rgba(0,0,0,0.25) 100%); /* Chrome10-25,Safari5.1-6 */
 		background: linear-gradient(to bottom, rgba(0,0,0,0.25) 0%,rgba(0,0,0,0.25) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-
 	}
 
 
@@ -83,9 +86,9 @@ body {
 	  			padding: 20px;
 	  			color: lightgrey;
 
-	  			background: -moz-linear-gradient(top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.5) 100%); /* FF3.6-15 */
-					background: -webkit-linear-gradient(top, rgba(0,0,0,0.5) 0%,rgba(0,0,0,0.5) 100%); /* Chrome10-25,Safari5.1-6 */
-					background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%,rgba(0,0,0,0.5) 100%);
+	  			background: -moz-linear-gradient(top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 100%); /* FF3.6-15 */
+					background: -webkit-linear-gradient(top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.5) 100%); /* Chrome10-25,Safari5.1-6 */
+					background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.5) 100%);
 
 					border: 1px solid transparent;
 	  			border-radius: 15px;
@@ -689,7 +692,7 @@ footer {
 
 // ********** TOOLS RULES ************
 .tools-container {
-	background: rgba(0,0,0,0.6);
+	background: rgba(0,0,0,0.7);
 	width: 310px;
 	border-radius: 8px;
 	border: 2px solid #444;
@@ -867,7 +870,7 @@ footer {
 
 #loader-icon {
   font-size: 2em;
-  margin-left: 10px;
+  margin: 0px auto;
   transition: all 500ms linear;
 }
 
@@ -893,22 +896,19 @@ footer {
 
   color: #C4C4C4;
   background: #000;
-  // background-color: hsla(0, 0, 0, 0.6);
   border-radius: 8px;
   border: 2px solid #444;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  max-height: 90vw;
+  max-height: 95%;
   width: 90%;
+  overflow: scroll;
 
   position: fixed;
-  top: 10%;
-  bottom: 10%;
+  top: 0%;
   left: 3%;
+
+
 }
 
 #speed-page-error {
@@ -923,10 +923,39 @@ footer {
   flex-direction: column;
 }
 
-#CheckedUrl {
+#checkedUrl {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  label {
+    padding: 5px;
+  }
+}
+
+.radio-speed-view {
+  border: none;
+
+  input {
+    -webkit-appearance: none;
+    appearance: none;
+
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+
+    border: 2px solid #C4C4C4;
+    transition: 0.2s all linear;
+    outline: none;
+    margin-right: 5px;
+
+    position: relative;
+    top: 4px;
+  }
+
+  input:checked {
+    border: 6px solid #7BB8FF;
+  }
 }
 
 .psc-top {
@@ -956,7 +985,7 @@ footer {
   color: #C4C4C4;
 }
 
-#analyzePage, #switch-speed-view {
+#analyzePage {
   padding: 10px;
   margin: 10px;
   background: #7BB8FF;
@@ -975,20 +1004,9 @@ footer {
   background: #005bc6;
 }
 
-#switch-speed-view {
-  background: #ff6161;
-}
-
-#switch-speed-view:hover {
-  background: #b50000;
-}
-
 .returnresults {
   padding: 10px;
-  width: 98%;
-  max-height: 60vh;
   overflow: scroll;
-
   background: transparent;
 }
 
@@ -1000,21 +1018,8 @@ footer {
   font-family: Lato, helvetica;
   font-size: 12px;
   overflow: scroll;
-  /*max-height: 50vh;*/
   white-space: pre-line;
 }
-
-/*#output {
-  border: 2px dotted red;
-}
-
-#possible {
-  border: 2px dotted green;
-}
-
-#found {
-  border: 2px dotted orange;
-}*/
 
 #results-speed-title {
   margin: 0px;
@@ -1168,7 +1173,7 @@ footer {
 	width: 230px;
 	height: 190px;
 
-	
+
 	outline: 1px solid transparent;
 	border: 1px solid #7da4d7;
 	border-radius: 10px;
@@ -1184,10 +1189,9 @@ footer {
 	color: white;
 }
 
-
+// ********** STICKYNOTE RULES ************
 
 .stickIcon {
-
 	font-size: 1.3em;
 	margin: 10px 10px 0px 10px;
 	transition: .5s;
@@ -1197,7 +1201,7 @@ footer {
 .stickIcon:hover {
 
 	cursor: pointer;
-	color: #D9D9D9;
+	color: #252525;
 	transition: .5s;
 
 }
@@ -1216,7 +1220,7 @@ footer {
 .stickyContainer p:hover {
 
 	cursor: pointer;
-	color: #D9D9D9;
+	color: #252525;
 	transition: .5s;
 }
 
@@ -1230,10 +1234,10 @@ footer {
 
 	outline: none;
 	font-size: .9em;
-	font-family: 'Lato';
+	font-family: 'Lato', helvetica;
 	font-weight: 700;
 	background-color: lightgrey;
-	
+
 	border: 1px solid lightgrey;
 	border-radius: 5px;
 
@@ -1247,7 +1251,7 @@ footer {
 
 .fa-trash {
 
-	margin-left: auto; 
+	margin-left: auto;
 
 }
 
@@ -1261,7 +1265,7 @@ footer {
 
 	font-size: .95em;
 	color: #333;
-	font-family: 'Lato';
+	font-family: 'Lato', helvetica;
 	font-weight: 700;
 	border: none;
 	outline: none;
@@ -1375,4 +1379,8 @@ footer {
 	border-radius: 50%;
 	cursor: pointer;
 
+}
+
+.stickyContainer {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
 }
