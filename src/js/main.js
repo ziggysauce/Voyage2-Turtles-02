@@ -122,23 +122,21 @@ CONTROLLER
   /* ********* STICKY NOTE LISTENER ******* */
 
   function stickClickEvent() {
-
-    var colorList = ["blue","yellow","green","purple","pink","grey","red"];
-    var randomColor = colorList[Math.floor((Math.random() * colorList.length))];
-
-    var newStickyObject = {
-      title: "Sticky Note",
-      barClass: randomColor + "Bar",
-      areaClass: randomColor +"Area",
-      text: "",
+    const colorList = ['blue', 'yellow', 'green', 'purple', 'pink', 'grey', 'red'];
+    const randomColor = colorList[Math.floor((Math.random() * colorList.length))];
+    const newStickyObject = {
+      title: 'Sticky Note',
+      barClass: `${randomColor}Bar`,
+      areaClass: `${randomColor}Area`,
+      text: '',
       left: 600,
       top: 50,
-      id: Math.floor((Math.random() * 1000) + 1)
-    }
+      id: Math.floor((Math.random() * 1000) + 1),
+    };
 
     stickyApp.stickyNoteModel(newStickyObject);
     function stickyObjectFunction() {
-      var pushArray = [newStickyObject];
+      const pushArray = [newStickyObject];
       return pushArray;
     }
     stickyApp.stickyNoteView(stickyObjectFunction);
@@ -236,10 +234,10 @@ CONTROLLER
       } else {
         $('#speed-page-error').append(`Sorry '${$('#path').val()}' was not valid. Please make sure to enter a valid formatted URL (https://example.com) and try again.`);
       }
-      $('#loader-icon').removeClass('spin').hide();
-      $('#analyzePage').removeAttr('disabled', 'disabled');
-      $('.toggle-custom-view').removeAttr('disabled', 'disabled');
     }
+    $('#loader-icon').removeClass('spin').hide();
+    $('#analyzePage').removeAttr('disabled', 'disabled');
+    $('.toggle-custom-view').removeAttr('disabled', 'disabled');
 
     // Desktop & Mobile Score trigger from URL provided
     $('#analyzePage').on('click', () => {
@@ -413,7 +411,9 @@ CONTROLLER
   /* ********* GENERAL ************ */
 
   function setupEventListeners() {
-    $(window).on('load', loadBackground())
+    $(window).on('load', () => {
+      $('.devtab-bg').css({ visibility: 'visible' }).hide().fadeIn(1000);
+    })
       .on('click', toggleNameInput())
       .on('click', newsfeedView.toggleNewsfeed)
       .on('click', toolboxView.toggleToolbox)
@@ -426,11 +426,10 @@ CONTROLLER
     $('#html-markup').on('submit', htmlValidatorCall);
     $('#css-markup').on('submit', CSSValidatorCall);
     $('#newNote').on('click', stickClickEvent);
-    quickControl();//Sets up quicklink e-listeners
+    quickControl(); // Sets up quicklink e-listeners
   }
 
   function initialize() {
-    $('.devtab-bg').hide();
     $('.tools-container').hide();
     $('.valid-container').hide();
     $('.page-speed-container').hide();
@@ -445,6 +444,7 @@ CONTROLLER
     clocksHandler();
     loadPageSpeedChecker();
     loadColorPicker();
+    loadBackground();
     stickyApp.stickyNoteView(stickyApp.stickyNoteModel);
     quickLinkApp.quickView(quickLinkApp.quickModel);
   }

@@ -11,7 +11,7 @@ body {
   font-size: 100%!important;
 
   .devtab-bg {
-    // display: none;
+    visibility: hidden;
     width: 100%;
     height: 100%;
     background-size: cover;
@@ -80,21 +80,22 @@ body {
 
 	  		.quickDropdown {
 
-
+          display: none;
 	  			position: absolute;
 	  			margin-top: 40px;
 	  			padding: 20px;
 	  			color: lightgrey;
 
 	  			background: -moz-linear-gradient(top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 100%); /* FF3.6-15 */
-				background: -webkit-linear-gradient(top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.5) 100%); /* Chrome10-25,Safari5.1-6 */
-				background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.5) 100%);
+				  background: -webkit-linear-gradient(top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.5) 100%); /* Chrome10-25,Safari5.1-6 */
+				  background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.5) 100%);
 
-				border: 1px solid transparent;
-	  			border-radius: 15px;
+          border-radius: 8px;
+          border: 2px solid #444;
+          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
 
 	  			transition: .5s;
-	  			opacity: 0;/*Only properties with number values can be animated in CSS. Properties like display and visibilty do not have number values.*/
+	  			// opacity: 0;/*Only properties with number values can be animated in CSS. Properties like display and visibilty do not have number values.*/
 
 	  			input {
 
@@ -188,8 +189,8 @@ body {
 	  			cursor: pointer;
 
 	  			font-size: 1em;
-				color: rgba(255,255,255,.6);
-				// background-color: rgba(0,0,0,.7);
+				  color: rgba(255,255,255,.6);
+				  // background-color: rgba(0,0,0,.7);
 	  			border: 1px solid lightgrey;
 	  			border-radius: 5px;
 	  			transition: .5s;
@@ -197,8 +198,8 @@ body {
 	  		}
 
 				.addSite:hover {
-				background-color: rgba(255,255,255,.8);
-				color: rgba(0,0,0,.7);
+				  background-color: rgba(255,255,255,.8);
+				  color: rgba(0,0,0,.7);
 	  			border: 1px solid transparent;
 	  			transition: .5s;
 				}
@@ -253,18 +254,14 @@ body {
 				}
 			}
 
-	  	.quickLinks:hover {
-
+	  	.dropdownButton:hover {
 	  		.quickDropdown {
-
-	  			opacity: 1;
+          display: block;
+	  			// opacity: 1;
 	  			z-index: 1;
 	  			transition: .5s;
-
 	  		}
-
 	  	}
-
 }
 
 /*----------------------------------------*/
@@ -305,7 +302,9 @@ body {
     transition: 300ms ease;
   }
   button:hover {
-    text-decoration: underline;
+    // text-decoration: underline;
+    background-color: hsla(0, 0, 0, 0.5);
+    border-radius: 8px;
     transition: 300ms ease;
   }
 }
@@ -372,10 +371,6 @@ body {
   display: none;
 }
 
-/*----------------------------------------*/
-/*Color Palette*/
-/*----------------------------------------*/
-
 footer {
 
 	width: 100%;
@@ -390,27 +385,18 @@ footer {
 	padding: 0px;
 
 	p {
-
 		margin: 60px 0px 0px 0px;
 		padding: 0px;
 
 		color: #D9D9D9;
 		font-size: .9em;
-
 		a {
-
 			text-decoration: none;
-
 			color: #D9D9D9;
-
 		}
-
 		a:hover {
-
 			border-bottom: 1px solid #D9D9D9;
-
 		}
-
 	}
 
 	.listArea {
@@ -492,6 +478,7 @@ footer {
 }
 
 // ********** COLOR PICKER RULES ************
+
 .color-picker-panel {
 	background: rgba(0,0,0,0.6);
 	width: 310px;
@@ -695,6 +682,7 @@ footer {
 }
 
 // ********** TOOLS RULES ************
+
 .tools-container {
 	background: rgba(0,0,0,0.7);
 	width: 310px;
@@ -798,6 +786,7 @@ footer {
     width: 100%;
     background-color: rgba(255,255,255,.8);
     color: #252525;
+    padding: 10px;
 	}
 
 	#check-html, #check-css {
@@ -830,6 +819,7 @@ footer {
   white-space: pre-wrap;
   background-color: rgba(255,255,255,.8);
   color: #252525;
+  padding: 10px;
 
   code {
     font-family: Lato, Helvetica;
@@ -899,7 +889,7 @@ footer {
   padding: 0px 5px;
 
   color: #C4C4C4;
-  background: #000;
+  background: rgba(0, 0, 0, 1.0);
   border-radius: 8px;
   border: 2px solid #444;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
@@ -1105,6 +1095,7 @@ footer {
 // ********** NEWSFEED RULES ************
 
 .newsfeed-wrapper {
+  border-radius: 8px;
   display: none;
   position: fixed;
   top: 10%;
@@ -1112,10 +1103,11 @@ footer {
   left: 20%;
   right: 20%;
   z-index: 1;
-  background-color: hsla(0, 0, 0, 0.6);
+  // background-color: hsla(0, 0, 0, 0.6);
 }
 
 .newsfeed {
+  border-radius: 8px;
   overflow-y: scroll;
   overflow-x: hidden;
   width: 100%;
@@ -1131,6 +1123,8 @@ footer {
 }
 
 .article {
+  border-radius: 8px;
+  border: 2px solid #444;
   display: flex;
   justify-content: center;
   width: 100%;

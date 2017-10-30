@@ -250,13 +250,13 @@ BACKGROUND MODEL
 // Store background picture information (day/night, authors, links)
 (function makeBackgroundView() {
   function generateDayBg(backgroundModel) {
-    $('.devtab-bg').css('background-image', `url('./assets/img/dayPics/sample${backgroundModel.randomNum}.jpeg')`).fadeIn(1000);
+    $('.devtab-bg').css('background-image', `url('./assets/img/dayPics/sample${backgroundModel.randomNum}.jpeg')`);
     $('#pic-author').attr('href', backgroundModel.bgInfo[backgroundModel.randomNum].day.url);
     $('#pic-author').text(backgroundModel.bgInfo[backgroundModel.randomNum].day.author);
   }
 
   function generateNightBg(backgroundModel) {
-    $('.devtab-bg').css('background-image', `url('./assets/img/nightPics/sample${backgroundModel.randomNum}.jpeg')`).fadeIn(1000);
+    $('.devtab-bg').css('background-image', `url('./assets/img/nightPics/sample${backgroundModel.randomNum}.jpeg')`);
     $('#pic-author').attr('href', backgroundModel.bgInfo[backgroundModel.randomNum].night.url);
     $('#pic-author').text(backgroundModel.bgInfo[backgroundModel.randomNum].night.author);
   }
