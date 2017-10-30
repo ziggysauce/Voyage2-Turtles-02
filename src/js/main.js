@@ -406,8 +406,8 @@ CONTROLLER
 
   function loadBackground() {
     if (backgroundModel.picTime > 6 && backgroundModel.picTime < 19) {
-      backgroundView.generateDayBg();
-    } else { backgroundView.generateNightBg(); }
+      backgroundView.generateDayBg(backgroundModel);
+    } else { backgroundView.generateNightBg(backgroundModel); }
   }
 
   /* ********* GENERAL ************ */
