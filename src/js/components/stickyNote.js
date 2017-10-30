@@ -42,7 +42,7 @@ function stickyNoteView(dataRecieve) {
 
 		var appendStickNote =` 
 
-		<div id='${modelData[i].id}' class='draggable ui-widget-content stickyContainer ${modelData[i].areaClass}' >
+		<div style="display:none" id='${modelData[i].id}' class='draggable ui-widget-content stickyContainer ${modelData[i].areaClass}' >
 
 			<div class='stickBar ${modelData[i].barClass}' >
 
@@ -76,6 +76,8 @@ function stickyNoteView(dataRecieve) {
 
 					<li class="greyBar"></li>
 
+					<li class="redBar"></li>
+
 				</ul>
 
 			</div>
@@ -88,6 +90,7 @@ function stickyNoteView(dataRecieve) {
 	
 		$("body").append(appendStickNote);//Adds appendStickNote to the HTML page.
 
+		$("#" + modelData[i].id).fadeIn(250);
 		//This places the sticky note where it was last placed by defining the CSS "left" and "top" properties.
 		$("#" + modelData[i].id).css({left: modelData[i].left, top: modelData[i].top});
 
@@ -163,51 +166,7 @@ function addEventListener(index) {
 
 	});
 
-	var colorArray = [
-
-	{
-
-		areaClass: "yellowArea",
-		barClass: "yellowBar"
-
-	},
-
-	{
-
-		areaClass: "greenArea",
-		barClass: "greenBar"
-
-	},
-
-	{
-
-		areaClass: "blueArea",
-		barClass: "blueBar"
-
-	},
-
-	{
-
-		areaClass: "purpleArea",
-		barClass: "purpleBar"
-
-	},
-
-	{
-
-		areaClass: "pinkArea",
-		barClass: "pinkBar"
-
-	},
-
-	{
-
-		areaClass: "greyArea",
-		barClass: "greyBar"
-
-	}
-	
-	];
+	var colorArray = ["blue","yellow","green","purple","pink","grey","red",];
 
 	for (var x = 0; x < colorArray.length; x++) {
 		
@@ -217,18 +176,18 @@ function addEventListener(index) {
 
 	function colorEvent(index) {
 
-		$("#" + noteID + " .palleteBar" + " ." + index.barClass).click(function() {
+		$("#" + noteID + " .palleteBar" + " ." + index + "Bar").click(function() {
 
 			for(var z = 0; z < noteRetrieve.length; z++) {
 
 				if(noteRetrieve[z].id == noteID) {
 
-					$("#" + noteID).removeClass(noteRetrieve[z].areaClass).addClass(index.areaClass);
-					$("#" + noteID + " textarea").removeClass(noteRetrieve[z].areaClass).addClass(index.areaClass);
-					$("#" + noteID + " .stickBar").removeClass(noteRetrieve[z].barClass).addClass(index.barClass);
+					$("#" + noteID).removeClass(noteRetrieve[z].areaClass).addClass(index + "Area");
+					$("#" + noteID + " textarea").removeClass(noteRetrieve[z].areaClass).addClass(index + "Area");
+					$("#" + noteID + " .stickBar").removeClass(noteRetrieve[z].barClass).addClass(index + "Bar");
 
-					noteRetrieve[z].areaClass = index.areaClass;
-					noteRetrieve[z].barClass = index.barClass;
+					noteRetrieve[z].areaClass = index + "Area";
+					noteRetrieve[z].barClass = index + "Bar";
 
 					$("#" + noteID + " .palleteBar").hide();
 					$("#" + noteID + " .stickBar").fadeIn("slow");
