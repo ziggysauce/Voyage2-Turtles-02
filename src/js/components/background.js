@@ -247,13 +247,13 @@ BACKGROUND MODEL
   const randomNum = Math.floor(Math.random() * bgInfo.length);
 
   function generateDayBg() {
-    $('.devtab-bg').css('background-image', `url('./assets/img/dayPics/sample${randomNum}.jpeg')`).fadeIn(2000);
+    $('.devtab-bg').css('background-image', `url('./assets/img/dayPics/sample${randomNum}.jpeg')`).fadeIn(1000);
     $('.credits p a').attr('href', bgInfo[randomNum].day.url);
     $('#pic-author').text(bgInfo[randomNum].day.author);
   }
 
   function generateNightBg() {
-    $('.devtab-bg').css('background-image', `url('./assets/img/nightPics/sample${randomNum}.jpeg')`).fadeIn(2000);
+    $('.devtab-bg').css('background-image', `url('./assets/img/nightPics/sample${randomNum}.jpeg')`).fadeIn(1000);
     $('#pic-author').attr('href', bgInfo[randomNum].night.url);
     $('#pic-author').text(bgInfo[randomNum].night.author);
   }

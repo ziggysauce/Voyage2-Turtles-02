@@ -192,8 +192,8 @@ CONTROLLER
   function loadPageSpeedChecker() {
     function verifySpeedResults(result) {
       // JSONP callback. Checks for errors, then invokes callback handlers
-      if (result.error) {
-        const errors = result.error.errors;
+      if (result.responseJSON) {
+        const errors = result.responseJSON.error.errors;
         for (var i = 0, len = errors.length; i < len; ++i) {
           if (errors[i].reason === 'badRequest' && pagespeedModel.API_KEY === 'yourAPIKey') {
             // console.log('Please specify your Google API key in the API_KEY variable.');
@@ -206,9 +206,7 @@ CONTROLLER
         $('#loader-icon').removeClass('spin').hide();
         $('#analyzePage').removeAttr('disabled', 'disabled');
         $('.toggle-custom-view').removeAttr('disabled', 'disabled');
-        return;
       }
-      pagespeedView.displayPageSpeedScore(result);
     }
 
     // Invokes the PageSpeed Insights API. The response will contain
@@ -216,27 +214,23 @@ CONTROLLER
     function runPagespeed() {
       let urlStrategy = '';
 
+      // Check to see if user wants desktop or mobile speed
       if ($('.toggle-custom-view:checked').val() === 'mobile') {
         urlStrategy = `${pagespeedModel.API_URL}&key=${pagespeedModel.API_KEY}&strategy=mobile&url=${$('#path').val()}`;
       } else { urlStrategy = `${pagespeedModel.API_URL}&key=${pagespeedModel.API_KEY}&strategy=desktop&url=${$('#path').val()}`; }
 
-      $.getJSON(urlStrategy, (result) => {
-        verifySpeedResults(result);
-      });
+      // Check to see if URL entered is valid
+      if ($('#path').get(0).checkValidity() === true) {
+        $.getJSON(urlStrategy, (result) => {
+          pagespeedView.displayPageSpeedScore(result);
+        });
+      } else {
+        $('#speed-page-error').append(`Sorry '${$('#path').val()}' was not valid. Please make sure to enter a valid formatted URL (https://example.com) and try again.`);
+        $('#loader-icon').removeClass('spin').hide();
+        $('#analyzePage').removeAttr('disabled', 'disabled');
+        $('.toggle-custom-view').removeAttr('disabled', 'disabled');
+      }
     }
-    // ajax call not working with chrome extension because jQuery requires a callback,
-    // creating an in-line script into the head of the document
-
-    // $.ajax({
-    //   url: urlStrategy,
-    //   dataType: 'JSONP',
-    //   async: false,
-    //   processData: false,
-    //   contentType: false,
-    //   success: (result) => {
-    //     verifySpeedResults(result);
-    //   },
-    // });
 
     // Desktop & Mobile Score trigger from URL provided
     $('#analyzePage').on('click', () => {

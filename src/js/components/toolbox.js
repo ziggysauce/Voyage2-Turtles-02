@@ -138,24 +138,34 @@ PAGE SPEED VIEW
           // Show possible optimizations
           // Specific test cases per rule
           for (let j = 0; j < i.urlBlocks.length; j += 1) {
-            if (i.urlBlocks.length > 2 && j === 1) {
+            if (i.urlBlocks.length >= 2 && j === 0) {
               first.append(`${i.urlBlocks[j].header.format}\n`);
             }
-            if (i.urlBlocks.length > 2 && j === 2) {
-              second.append(`${i.urlBlocks[j].header.format}\n`);
+            if (i.urlBlocks.length >= 2 && j === 1) {
+              second.append(`${i.localizedRuleName} of the following:\n`);
               second.attr('href', `${i.urlBlocks[j].header.args[0].value}`);
               for (let k = 0; k < i.urlBlocks[j].urls.length; k += 1) {
                 third.append(`${i.urlBlocks[j].urls[k].result.args[0].value}\n`);
               }
             }
-            if (i.urlBlocks.length <= 2) {
+            if (i.urlBlocks.length < 2) {
               if (j === 0) {
                 if (i.localizedRuleName === 'Reduce server response time') {
                   first.append(`In our test, your server responded in ${i.urlBlocks[j].header.args[0].value}. There are many factors that can slow down your server response time. Please read our recommendations to learn how you can monitor and measure where your server is spending the most time.\n`);
                   second.append('Learn More');
                   second.attr('href', `${i.urlBlocks[j].header.args[1].value}`);
+                } else if (i.localizedRuleName === 'Prioritize visible content') {
+                  first.append(`${i.summary.format}\n`);
+                  second.append(`${i.localizedRuleName} of the following:\n`);
+                  second.attr('href', `${i.urlBlocks[j].header.args[0].value}`);
+                  third.append(`${i.urlBlocks[j].urls[0].result.format}\n`);
                 } else {
-                  first.append(`${i.urlBlocks[j].header.format}\n`);
+                  first.append(`${i.summary.format}\n`);
+                  second.append(`${i.localizedRuleName} of the following:\n`);
+                  second.attr('href', `${i.urlBlocks[j].header.args[0].value}`);
+                  for (let k = 0; k < i.urlBlocks[j].urls.length; k += 1) {
+                    third.append(`${i.urlBlocks[j].urls[k].result.args[0].value}\n`);
+                  }
                 }
               }
               if (j === 1) {
@@ -208,23 +218,20 @@ PAGE SPEED VIEW
 
         foundRules.map((m) => {
           $(`
-            <h4 id="${foundRules.indexOf(m)}title" class="speedTitles"></h4>
             <div class="addFoundInfo">
-              <div id="${foundRules.indexOf(m)}content"></div>
+              <h4 id="${foundRules.indexOf(m)}title" class="speedTitles"></h4>
               <div><a href="#" id="${foundRules.indexOf(m)}anchor" class="learn-more-link" target="_blank"></a></div>
             </div>
             `).appendTo($('.addFoundOptimizations'));
 
           const title = $(`#${foundRules.indexOf(m)}title`);
-          const top = $(`#${foundRules.indexOf(m)}content`);
-          const bottom = $(`#${foundRules.indexOf(m)}anchor`);
+          const link = $(`#${foundRules.indexOf(m)}anchor`);
 
           // Show found optimizations
           // Fill container for found optimizations
           title.append(`${m.localizedRuleName}`);
-          top.append(`${m.urlBlocks[0].header.format}`);
-          bottom.append('Learn More');
-          bottom.attr('href', `${m.urlBlocks[0].header.args[0].value}`);
+          link.append('Learn More');
+          link.attr('href', `${m.summary.args[0].value}`);
           // $(`#${foundRules.indexOf(m)}`).slideDown(500);
           return m;
         });
