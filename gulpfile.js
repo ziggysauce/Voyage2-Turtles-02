@@ -56,8 +56,8 @@ gulp.task('js', () => {
     'src/js/components/colorpicker.js',
     'src/js/components/background.js',
     'src/js/components/stickyNote.js',
+    'src/js/components/quickLink.js',
     'src/js/main.js',
-    'src/js/quickLink.js',
   ])
     .pipe(plumber())
     .pipe(sourcemaps.init())
