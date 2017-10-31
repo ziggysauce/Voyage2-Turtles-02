@@ -1012,3 +1012,32 @@ footer {
 
 .stickyContainer {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7); }
+
+.setting-wrapper {
+  background: rgba(0, 0, 0, 0.6);
+  width: 500px;
+  border-radius: 8px;
+  border: 2px solid #444;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+  color: white;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  bottom: 80px;
+  right: 10px; }
+
+.setting-header {
+  text-align: center;
+  margin: 0px;
+  padding: 0px;
+  border-bottom: 2px solid #444; }
+
+.setting-header h2 {
+  margin: 5px 0px;
+  padding: 0px;
+  font-size: 1.5em;
+  font-family: 'Roboto';
+  font-weight: bold; }
+
+.setting-green {
+  color: #47d147; }
