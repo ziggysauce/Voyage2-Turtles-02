@@ -201,7 +201,7 @@ CONTROLLER
     $('#check-css').attr('disabled', 'disabled');
 
     // const content = $('#css-markup textarea').val().replace(/\n/ig, '%0A');
-    const content = $('#css-markup textarea').val();
+    const content = encodeURIComponent($('#css-markup textarea').val());
     const proxyURL = 'https://cors-anywhere.herokuapp.com/';
     const validatorURL = `http://jigsaw.w3.org/css-validator/validator?text=${content}&profile=css3&output=json`;
 
