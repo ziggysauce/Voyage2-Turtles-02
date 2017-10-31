@@ -9,6 +9,7 @@ body {
   font-family: Lato, helvetica;
   font-size: 100% !important; }
   body .devtab-bg {
+    visibility: hidden;
     width: 100%;
     height: 100%;
     background-size: cover; }
@@ -52,6 +53,7 @@ body {
       color: rgba(255, 255, 255, 0.6);
       font-size: 1.75em; }
     .linkNote .quickLinks .quickDropdown {
+      display: none;
       position: absolute;
       margin-top: 40px;
       padding: 20px;
@@ -61,11 +63,10 @@ body {
       background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.5) 100%);
       /* Chrome10-25,Safari5.1-6 */
       background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.5) 100%);
-      border: 1px solid transparent;
-      border-radius: 15px;
-      transition: .5s;
-      opacity: 0;
-      /*Only properties with number values can be animated in CSS. Properties like display and visibilty do not have number values.*/ }
+      border-radius: 8px;
+      border: 2px solid #444;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+      transition: .5s; }
       .linkNote .quickLinks .quickDropdown input {
         display: block;
         width: 115px;
@@ -145,8 +146,8 @@ body {
     color: #FFF; }
   .linkNote .stickyNotes:hover i {
     color: #FFF; }
-  .linkNote .quickLinks:hover .quickDropdown {
-    opacity: 1;
+  .linkNote .dropdownButton:hover .quickDropdown {
+    display: block;
     z-index: 1;
     transition: .5s; }
 
@@ -182,7 +183,8 @@ body {
     text-decoration: none;
     transition: 300ms ease; }
   .user-greeting button:hover {
-    text-decoration: underline;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
     transition: 300ms ease; }
 
 #name-form {
@@ -235,9 +237,6 @@ body {
 .stop, .pause, .reset, .work-break {
   display: none; }
 
-/*----------------------------------------*/
-/*Color Palette*/
-/*----------------------------------------*/
 footer {
   width: 100%;
   height: 100px;
@@ -566,7 +565,8 @@ footer {
     font-weight: 700;
     width: 100%;
     background-color: rgba(255, 255, 255, 0.8);
-    color: #252525; }
+    color: #252525;
+    padding: 10px; }
   .formfields #check-html, .formfields #check-css {
     margin-top: 5px;
     padding: 5px;
@@ -591,7 +591,8 @@ footer {
   overflow: scroll;
   white-space: pre-wrap;
   background-color: rgba(255, 255, 255, 0.8);
-  color: #252525; }
+  color: #252525;
+  padding: 10px; }
   #html-validated code, #css-validated code {
     font-family: Lato, Helvetica;
     font-weight: 700; }
@@ -643,7 +644,7 @@ footer {
   margin: 20px;
   padding: 0px 5px;
   color: #C4C4C4;
-  background: #000;
+  background: black;
   border-radius: 8px;
   border: 2px solid #444;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
@@ -739,14 +740,14 @@ footer {
   color: #C4C4C4;
   padding: 5px;
   font-family: Lato, helvetica;
-  font-size: 12px;
+  font-size: 15px;
   overflow: scroll;
   white-space: pre-line; }
 
 #results-speed-title {
   margin: 0px;
   padding: 10px 0px;
-  font-size: 16px;
+  font-size: 20px;
   color: #FFF; }
 
 .speed-score-box {
@@ -760,11 +761,11 @@ footer {
   padding-left: 30px; }
 
 .optimizationTitles {
-  font-size: 18px;
+  font-size: 20px;
   color: #FFF; }
 
 .click-details {
-  padding: 5px 10px;
+  padding: 10px;
   margin: 10px;
   background: #43ac00;
   outline: none;
@@ -781,7 +782,7 @@ footer {
   background: #235900; }
 
 .addInfo {
-  padding-left: 40px; }
+  padding: 0px 40px; }
 
 .addFoundOptimizations {
   display: flex;
@@ -789,16 +790,18 @@ footer {
   justify-content: center; }
 
 .addFoundInfo {
-  padding: 0px 0px 10px 40px;
-  margin-bottom: 10px; }
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0px; }
 
 .speedTitles {
   padding-left: 5px;
-  margin: 0px;
+  margin: 5px;
   font-family: Lato, Helvetica;
-  font-size: 14px; }
+  font-size: 16px; }
 
 .learn-more-link {
+  margin-left: 30px;
   text-decoration: none;
   color: #ff7819;
   font-weight: 700; }
@@ -807,16 +810,17 @@ footer {
   text-decoration: underline; }
 
 .newsfeed-wrapper {
+  border-radius: 8px;
   display: none;
   position: fixed;
   top: 10%;
   bottom: 10%;
   left: 20%;
   right: 20%;
-  z-index: 1;
-  background-color: rgba(0, 0, 0, 0.6); }
+  z-index: 1; }
 
 .newsfeed {
+  border-radius: 8px;
   overflow-y: scroll;
   overflow-x: hidden;
   width: 100%;
@@ -829,6 +833,8 @@ footer {
     margin-bottom: 0; }
 
 .article {
+  border-radius: 8px;
+  border: 2px solid #444;
   display: flex;
   justify-content: center;
   width: 100%;

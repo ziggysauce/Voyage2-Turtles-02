@@ -122,78 +122,54 @@ CONTROLLER
   /* ********* STICKY NOTE LISTENER ******* */
 
   function stickClickEvent() {
-
-    var colorList = ["blue","yellow","green","purple","pink","grey","red"];
-
-    var randomColor = colorList[Math.floor((Math.random() * colorList.length))];
-
-    var newStickyObject = {
-
-      title: "Sticky Note",
-      barClass: randomColor + "Bar",
-      areaClass: randomColor +"Area",
-      text: "",
+    const colorList = ['blue', 'yellow', 'green', 'purple', 'pink', 'grey', 'red'];
+    const randomColor = colorList[Math.floor((Math.random() * colorList.length))];
+    const newStickyObject = {
+      title: 'Sticky Note',
+      barClass: `${randomColor}Bar`,
+      areaClass: `${randomColor}Area`,
+      text: '',
       left: 600,
       top: 50,
-      id: Math.floor((Math.random() * 1000) + 1)
-
-    }
+      id: Math.floor((Math.random() * 1000) + 1),
+    };
 
     stickyApp.stickyNoteModel(newStickyObject);
     function stickyObjectFunction() {
-
-      var pushArray = [newStickyObject];
+      const pushArray = [newStickyObject];
       return pushArray;
-
     }
-
     stickyApp.stickyNoteView(stickyObjectFunction);
-
   }
 
   /* ********* QUICK LINK SECTION ********* */
 
   function quickControl() {
-
     $(".addSite").click(function() {
-
       $('.addUrl').fadeToggle("slow");
-
     });
 
     $("#targetForm").submit(function(e) {//When the quickLinks submit button is pressed, this will grab the input values and push it to localStorage.
-
       e.preventDefault();
 
       var titleInput = $("#titleInput").val();
       var urlInput = $("#urlInput").val();
-
-
       var newObject = {//In order to push this to localStorage we will want it in object form so that the for loop above can access these properties.
-
         title: titleInput,
         url: urlInput
-
       }
-
       $('.addUrl').fadeOut('slow');
-
       //This resets the inputs so that it doesnt show the link you already put in.
       $("#titleInput").val("");
       $("#urlInput").val("");
 
       function updateQuickStorage() {
-
         quickLinkApp.quickModel(newObject);
-
         quickLinkApp.quickView(quickModel);
-
       }
 
       updateQuickStorage();
-
     });
-
   }
 
   /* ********* VALIDATOR SECTION ********** */
@@ -240,53 +216,28 @@ CONTROLLER
   /* ********* PAGE SPEED SECTION ********** */
 
   function loadPageSpeedChecker() {
-    function verifySpeedResults(result) {
-      // JSONP callback. Checks for errors, then invokes callback handlers
-      if (result.error) {
-        const errors = result.error.errors;
-        for (var i = 0, len = errors.length; i < len; ++i) {
-          if (errors[i].reason === 'badRequest' && pagespeedModel.API_KEY === 'yourAPIKey') {
-            // console.log('Please specify your Google API key in the API_KEY variable.');
-            $('#speed-page-error').append('Please specify your Google API key in the API_KEY variable.');
-          } else {
-            // console.log(errors[i].message);
-            $('#speed-page-error').append(`${errors[i].message}`);
-          }
-        }
-        $('#loader-icon').removeClass('spin').hide();
-        $('#analyzePage').removeAttr('disabled', 'disabled');
-        $('.toggle-custom-view').removeAttr('disabled', 'disabled');
-        return;
-      }
-      pagespeedView.displayPageSpeedScore(result);
-    }
-
     // Invokes the PageSpeed Insights API. The response will contain
     // JavaScript that invokes our callback with the PageSpeed results
     function runPagespeed() {
       let urlStrategy = '';
 
+      // Check to see if user wants desktop or mobile speed
       if ($('.toggle-custom-view:checked').val() === 'mobile') {
         urlStrategy = `${pagespeedModel.API_URL}&key=${pagespeedModel.API_KEY}&strategy=mobile&url=${$('#path').val()}`;
       } else { urlStrategy = `${pagespeedModel.API_URL}&key=${pagespeedModel.API_KEY}&strategy=desktop&url=${$('#path').val()}`; }
 
-      $.getJSON(urlStrategy, (result) => {
-        verifySpeedResults(result);
-      });
+      // Check to see if URL entered is valid
+      if ($('#path').get(0).checkValidity() === true) {
+        $.getJSON(urlStrategy, (result) => {
+          pagespeedView.displayPageSpeedScore(result);
+        });
+      } else {
+        $('#speed-page-error').append(`Sorry '${$('#path').val()}' was not valid. Please make sure to enter a valid formatted URL (https://example.com) and try again.`);
+      }
     }
-    // ajax call not working with chrome extension because jQuery requires a callback,
-    // creating an in-line script into the head of the document
-
-    // $.ajax({
-    //   url: urlStrategy,
-    //   dataType: 'JSONP',
-    //   async: false,
-    //   processData: false,
-    //   contentType: false,
-    //   success: (result) => {
-    //     verifySpeedResults(result);
-    //   },
-    // });
+    $('#loader-icon').removeClass('spin').hide();
+    $('#analyzePage').removeAttr('disabled', 'disabled');
+    $('.toggle-custom-view').removeAttr('disabled', 'disabled');
 
     // Desktop & Mobile Score trigger from URL provided
     $('#analyzePage').on('click', () => {
@@ -453,14 +404,16 @@ CONTROLLER
 
   function loadBackground() {
     if (backgroundModel.picTime > 6 && backgroundModel.picTime < 19) {
-      backgroundView.generateDayBg();
-    } else { backgroundView.generateNightBg(); }
+      backgroundView.generateDayBg(backgroundModel);
+    } else { backgroundView.generateNightBg(backgroundModel); }
   }
 
   /* ********* GENERAL ************ */
 
   function setupEventListeners() {
-    $(window).on('load', loadBackground())
+    $(window).on('load', () => {
+      $('.devtab-bg').css({ visibility: 'visible' }).hide().fadeIn(1000);
+    })
       .on('click', toggleNameInput())
       .on('click', newsfeedView.toggleNewsfeed)
       .on('click', toolboxView.toggleToolbox)
@@ -473,11 +426,10 @@ CONTROLLER
     $('#html-markup').on('submit', htmlValidatorCall);
     $('#css-markup').on('submit', CSSValidatorCall);
     $('#newNote').on('click', stickClickEvent);
-    quickControl();//Sets up quicklink e-listeners
+    quickControl(); // Sets up quicklink e-listeners
   }
 
   function initialize() {
-    $('.devtab-bg').hide();
     $('.tools-container').hide();
     $('.valid-container').hide();
     $('.page-speed-container').hide();
@@ -492,6 +444,7 @@ CONTROLLER
     clocksHandler();
     loadPageSpeedChecker();
     loadColorPicker();
+    loadBackground();
     stickyApp.stickyNoteView(stickyApp.stickyNoteModel);
     quickLinkApp.quickView(quickLinkApp.quickModel);
   }

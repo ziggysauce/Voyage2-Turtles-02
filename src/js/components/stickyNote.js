@@ -18,7 +18,7 @@ function stickyNoteModel(newData) {
 
 		noteRetrieve.push(newData);
 		localStorage.setItem("stickNoteStorage", JSON.stringify(noteRetrieve));
-		
+
 	}
 
 	console.log(noteRetrieve);
@@ -28,19 +28,19 @@ function stickyNoteModel(newData) {
 
 /*-----------------*/
 /***--VIEW--***/
-/*-----------------*/	
+/*-----------------*/
 function stickyNoteView(dataRecieve) {
 
 	var modelData = dataRecieve();
 	for (var i = 0; i < modelData.length; i++) {
 
 		//appendStickNote creates the new sticky note and places data from noteRetrieve into the new sticky note.
-		//This uses Template Literals which greatly increases the readability of the HTML below. Thanks @jmbothe for suggesting this! 
+		//This uses Template Literals which greatly increases the readability of the HTML below. Thanks @jmbothe for suggesting this!
 
 		 //We need to randomize an id for each sticky note but we also need to ensure that each id wont clash into each other.
 																	 //There is an EXTREMELY slight change that 2 ids would be created but the change of it happening is so slight that it isnt worth going through the extra-lines of code to make it fool-proof.
 
-		var appendStickNote =` 
+		var appendStickNote =`
 
 		<div style="display:none" id='${modelData[i].id}' class='draggable ui-widget-content stickyContainer ${modelData[i].areaClass}' >
 
@@ -87,14 +87,14 @@ function stickyNoteView(dataRecieve) {
 		</div>
 
 		`
-	
+
 		$("body").append(appendStickNote);//Adds appendStickNote to the HTML page.
 
 		$("#" + modelData[i].id).fadeIn(250);
 		//This places the sticky note where it was last placed by defining the CSS "left" and "top" properties.
 		$("#" + modelData[i].id).css({left: modelData[i].left, top: modelData[i].top});
 
-		addEventListener(modelData[i].id);//The function is called and begins to listen for events. 
+		addEventListener(modelData[i].id);//The function is called and begins to listen for events.
 	}
 }
 
@@ -113,7 +113,7 @@ function addEventListener(index) {
 
 			if (noteRetrieve[x].id == noteID) {
 				noteRetrieve.splice(x, 1);//We splice the sticky note from the array of sticky notes.
-				console.log(noteRetrieve);//The console.logs are simply for debugging purposes. I'll remove them when are code is product ready.				
+				console.log(noteRetrieve);//The console.logs are simply for debugging purposes. I'll remove them when are code is product ready.
 				console.log(noteID);
 				updateStickStorage();//updateStickStorage is a function that updates the localstorage.
 			}
@@ -126,7 +126,7 @@ function addEventListener(index) {
 	$("#" + noteID + " .stickLeft").click(function() {//When the user clicks onto the three dots icon, it displays the sticky note pallete.
 		$("#" + noteID + " .stickBar").hide();
 		$("#" + noteID + " .palleteBar").fadeIn("slow");
-	}); 
+	});
 
 	$("#" + noteID).mouseup(function() {//When a user drags a stick note and then RELEASES the stick note or on mouseup, this function will record the left and top css properties.
 		for (var x = 0; x < noteRetrieve.length; x++) {
@@ -135,7 +135,7 @@ function addEventListener(index) {
 											   //If noteID does equal to noteRetrieve[x].id, then that means we found the correct sticky note to remove.
 
 				noteRetrieve[x].left = $("#" + noteID).css("left");
-				noteRetrieve[x].top	 = $("#" + noteID).css("top");						  
+				noteRetrieve[x].top	 = $("#" + noteID).css("top");
 				updateStickStorage();
 
 			}
@@ -169,7 +169,7 @@ function addEventListener(index) {
 	var colorArray = ["blue","yellow","green","purple","pink","grey","red",];
 
 	for (var x = 0; x < colorArray.length; x++) {
-		
+
 		colorEvent(colorArray[x]);
 
 	}
@@ -197,7 +197,7 @@ function addEventListener(index) {
 
 			}
 
-		}); 
+		});
 
 	}
 

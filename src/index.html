@@ -43,37 +43,37 @@
                 <p>Quick Links</p>
                 <i class="fa fa-sort-desc" aria-hidden="true"></i>
 
+                <div class="quickDropdown">
+
+                 <h3>Popular Sites</h3>
+
+                 <ul class="quickList">
+
+                 </ul>
+
+                 <p class="addSite">+ Add New Site</p>
+
+                 <div class="addUrl">
+
+                   <div class="urlContainer">
+
+                     <form id="targetForm">
+
+                       <input id="titleInput" type="text" placeholder="title"/>
+                       <input id="urlInput" type="text" placeholder="url"/>
+                       <input id="invisibleInput" type="submit" />
+
+                     </form>
+
+                   </div>
+
+                 </div>
+
+               </div>
+
               </div>
 
-             <div class="quickDropdown">
 
-              <h3>Popular Sites</h3>
-
-              <ul class="quickList">
-
-
-
-              </ul>
-
-              <p class="addSite">+ Add New Site</p>
-
-              <div class="addUrl">
-
-                <div class="urlContainer">
-
-                  <form id="targetForm">
-
-                    <input id="titleInput" type="text" placeholder="title"/>
-                    <input id="urlInput" type="text" placeholder="url"/>
-                    <input id="invisibleInput" type="submit" />
-
-                  </form>
-
-                </div>
-
-              </div>
-
-            </div>
 
 
           </div>
@@ -244,7 +244,7 @@
                 <form id="anaylze-url">
                   <h3 id="speed-page-error"></h3>
                   <div id="checkedUrl">
-                    <input type="text" id="path" placeholder="Enter a webpage URL" autofocus>
+                    <input type="url" id="path" placeholder="Enter a webpage URL" pattern="https?://.+" autofocus required>
                     <fieldset class="radio-speed-view">
                       <label><input id="radio-desktop" class="toggle-custom-view" type="radio" name="view" value="desktop" checked> Desktop</label>
                       <label><input id="radio-mobile" class="toggle-custom-view" type="radio" name="view" value="mobile"> Mobile</label>
@@ -285,13 +285,6 @@
           <div class="listArea">
 
             <ul>
-
-              <li>
-                
-                <i class="fa fa-list-ul" aria-hidden="true"></i>
-                <p class="iconHover">Todo</p>
-
-              </li>
 
               <li>
 

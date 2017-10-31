@@ -24,7 +24,7 @@
 			];
 
 			localStorage.setItem("linkArray", JSON.stringify(retrieve));//Here, we create the "linkArray" object and we set retrieve as its value.
-			
+
 		}
 
 		var retrieve = localStorage.getItem("linkArray");//We declare the retrieve variable and assign the "linkArray" object to retrieve.
