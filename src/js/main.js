@@ -165,7 +165,7 @@ CONTROLLER
 
       function updateQuickStorage() {
         quickLinkApp.quickModel(newObject);
-        quickLinkApp.quickView(quickModel);
+        $(".quickList").append("<li><a href='" + newObject.url + "'>" + newObject.title + "</a></li>");
       }
 
       updateQuickStorage();
