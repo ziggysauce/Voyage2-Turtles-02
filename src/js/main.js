@@ -201,19 +201,27 @@ CONTROLLER
     $('#check-css').attr('disabled', 'disabled');
 
     // const content = $('#css-markup textarea').val().replace(/\n/ig, '%0A');
-    const content = $('#css-markup textarea').val();
+    const content = encodeURIComponent($('#css-markup textarea').val());
     const proxyURL = 'https://cors-anywhere.herokuapp.com/';
     const validatorURL = `http://jigsaw.w3.org/css-validator/validator?text=${content}&profile=css3&output=json`;
 
     fetch(proxyURL + validatorURL)
       .then((response) => {
-        if (response.ok) {
-          return response.json();
+        if (!response.ok) {
+          cssView.errorOutput();
+          throw Error('Network response was not ok.');
         }
-        cssView.errorOutput();
-        throw new Error('Network response was not ok.');
+        return response.json();
       })
+<<<<<<< HEAD
       .then(results => cssView.successOutput(results.cssvalidation.errors, cssModel.format));
+=======
+      .then(results => cssView.successOutput(results.cssvalidation.errors, cssModel.format))
+      .catch((error) => {
+        cssView.errorOutput();
+        console.log(error);
+      });
+>>>>>>> 7f5736972525c5cbcaacac6770e2f3e43f045880
     $('#check-css').removeAttr('disabled', 'disabled');
   }
 
