@@ -320,9 +320,13 @@ CSS VALIDATOR VIEW
   const $output = $('#css-validated>code');
 
   function successOutput(results, format) {
-    $output.text(results.map((item) => {
-      return format(item.type, item.line, item.message);
-    }).join(''));
+    if (!results) {
+      $output.text('No errors! Well done!');
+    } else {
+      $output.text(results.map((item) => {
+        return format(item.type, item.line, item.message);
+      }).join(''));
+    }
   }
 
   function errorOutput() {
