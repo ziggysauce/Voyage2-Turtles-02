@@ -176,6 +176,7 @@ CONTROLLER
 
   function htmlValidatorCall(e) {
     e.preventDefault();
+    $('#check-html').attr('disabled', 'disabled');
 
     const newdata = new FormData(this);
 
@@ -192,26 +193,41 @@ CONTROLLER
         htmlView.errorOutput();
       },
     });
+    $('#check-html').removeAttr('disabled', 'disabled');
   }
 
   function CSSValidatorCall(e) {
     e.preventDefault();
+    $('#check-css').attr('disabled', 'disabled');
 
     // const content = $('#css-markup textarea').val().replace(/\n/ig, '%0A');
-    const content = $('#css-markup textarea').val();
+    const content = encodeURIComponent($('#css-markup textarea').val());
     const proxyURL = 'https://cors-anywhere.herokuapp.com/';
     const validatorURL = `http://jigsaw.w3.org/css-validator/validator?text=${content}&profile=css3&output=json`;
 
     fetch(proxyURL + validatorURL)
       .then((response) => {
-        if (response.ok) {
-          return response.json();
+        if (!response.ok) {
+          cssView.errorOutput();
+          throw Error('Network response was not ok.');
         }
-        cssView.errorOutput();
-        throw new Error('Network response was not ok.');
+        return response.json();
       })
-      .then(results => cssView.successOutput(results.cssvalidation.errors, cssModel.format));
+      .then(results => cssView.successOutput(results.cssvalidation.errors, cssModel.format))
+      .catch((error) => {
+        cssView.errorOutput();
+        console.log(error);
+      });
+    $('#check-css').removeAttr('disabled', 'disabled');
   }
+
+  // Event listeners to clear content
+  $('#clear-html').on('click', () => {
+    $('#html-validated>code').empty();
+  });
+  $('#clear-css').on('click', () => {
+    $('#css-validated>code').empty();
+  });
 
   /* ********* PAGE SPEED SECTION ********** */
 
@@ -233,11 +249,12 @@ CONTROLLER
         });
       } else {
         $('#speed-page-error').append(`Sorry '${$('#path').val()}' was not valid. Please make sure to enter a valid formatted URL (https://example.com) and try again.`);
+        $('#loader-icon').removeClass('spin').hide();
+        $('#analyzePage').removeAttr('disabled', 'disabled');
+        $('#clearPage').removeAttr('disabled', 'disabled');
+        $('.toggle-custom-view').removeAttr('disabled', 'disabled');
       }
     }
-    $('#loader-icon').removeClass('spin').hide();
-    $('#analyzePage').removeAttr('disabled', 'disabled');
-    $('.toggle-custom-view').removeAttr('disabled', 'disabled');
 
     // Desktop & Mobile Score trigger from URL provided
     $('#analyzePage').on('click', () => {
@@ -245,9 +262,17 @@ CONTROLLER
       $('.returnresults').slideUp(500);
       $('.page-speed-box').slideUp(500).empty();
       $('#analyzePage').addClass('active').attr('disabled', 'disabled'); // Cannot click again until fully loaded
+      $('#clearPage').addClass('active').attr('disabled', 'disabled');
       $('.toggle-custom-view').attr('disabled', 'disabled'); // Cannot switch between desktop and mobile until fully loaded
       $('#loader-icon').show().addClass('spin'); // Loading icon to indicate user to be patient
       runPagespeed();
+    });
+
+    // Event listener to clear results
+    $('#clearPage').on('click', () => {
+      $('#speed-page-error').empty(); // Clear previous results
+      $('.returnresults').slideUp(500);
+      $('.page-speed-box').slideUp(500).empty();
     });
   }
 
@@ -406,6 +431,10 @@ CONTROLLER
     if (backgroundModel.picTime > 6 && backgroundModel.picTime < 19) {
       backgroundView.generateDayBg(backgroundModel);
     } else { backgroundView.generateNightBg(backgroundModel); }
+
+    // if (user inputs their own image url for background) {
+    //   backgroundView.generateUserBg(backgroundModel);
+    // }
   }
 
   /* ********* GENERAL ************ */

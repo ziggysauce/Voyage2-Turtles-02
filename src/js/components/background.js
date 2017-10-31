@@ -235,11 +235,13 @@ BACKGROUND MODEL
   ];
 
   const randomNum = Math.floor(Math.random() * bgInfo.length);
+  const userInput = 'https://static.pexels.com/photos/226465/pexels-photo-226465.jpeg';
 
   window.app.backgroundModel = {
     picTime,
     bgInfo,
     randomNum,
+    userInput,
   };
 }());
 
@@ -261,8 +263,14 @@ BACKGROUND MODEL
     $('#pic-author').text(backgroundModel.bgInfo[backgroundModel.randomNum].night.author);
   }
 
+  function generateUserBg(backgroundModel) {
+    $('.devtab-bg').css('background-image', `url(${backgroundModel.userInput})`);
+    $('.credits p').text('');
+  }
+
   window.app.backgroundView = {
     generateDayBg,
     generateNightBg,
+    generateUserBg,
   };
 }());
