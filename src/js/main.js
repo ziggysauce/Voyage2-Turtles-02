@@ -207,13 +207,17 @@ CONTROLLER
 
     fetch(proxyURL + validatorURL)
       .then((response) => {
-        if (response.ok) {
-          return response.json();
+        if (!response.ok) {
+          cssView.errorOutput();
+          throw Error('Network response was not ok.');
         }
-        cssView.errorOutput();
-        throw new Error('Network response was not ok.');
+        return response.json();
       })
-      .then(results => cssView.successOutput(results.cssvalidation.errors, cssModel.format));
+      .then(results => cssView.successOutput(results.cssvalidation.errors, cssModel.format))
+      .catch((error) => {
+        cssView.errorOutput();
+        console.log(error);
+      });
     $('#check-css').removeAttr('disabled', 'disabled');
   }
 
