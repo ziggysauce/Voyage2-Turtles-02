@@ -106,8 +106,8 @@ body {
     .linkNote .quickLinks a {
       text-decoration: none;
       color: lightgrey; }
-    .linkNote .quickLinks li:hover {
-      border-bottom: 1px solid white; }
+    .linkNote .quickLinks li:hover a {
+      color: #FFF; }
     .linkNote .quickLinks .addSite {
       padding: 3px;
       margin: 10px 0px 10px 0px;
@@ -477,6 +477,9 @@ footer {
   cursor: pointer;
   padding: 4px; }
 
+.tog-button:hover {
+  background: rgba(255, 255, 255, 0.8); }
+
 .tog-button:active {
   background: #424242; }
 
@@ -493,18 +496,21 @@ footer {
 
 .value-fields .field-label {
   margin-right: 5px;
+  margin-bottom: 5px;
   font-family: 'Lato', helvetica;
-  font-size: 1rem; }
+  font-size: 1rem;
+  font-weight: bold; }
 
 .value-fields .field-input {
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(255, 255, 255, 0.6);
   border: 0;
   box-sizing: border-box;
   border-radius: 2px;
   line-height: 38px;
   padding: 0 4px;
   text-align: center;
-  color: #CBCBCB;
+  color: #303030;
+  font-weight: bold;
   display: block;
   outline: none; }
 
@@ -549,7 +555,7 @@ footer {
   font-size: 1.3em; }
 
 .tools-container button:hover {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+  color: #FFF;
   cursor: pointer; }
 
 .valid-container {
@@ -576,17 +582,28 @@ footer {
   .instructions h3, .instructions p {
     margin: 0px;
     padding: 5px; }
+  .instructions p:nth-of-type(1) strong {
+    color: #4c8edd; }
+  .instructions p:nth-of-type(2) strong {
+    color: #d44646; }
 
 .formfields {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   flex-wrap: wrap;
   overflow: scroll;
   width: 95%;
-  height: 80%; }
+  height: 100%; }
+  .formfields .val-boxes {
+    display: flex;
+    flex-direction: row; }
+  .formfields fieldset {
+    border: 0;
+    height: 400px; }
   .formfields legend {
-    padding: 5px; }
+    font-size: 1.3em;
+    font-weight: bold; }
   .formfields section {
     display: flex;
     flex-direction: row;
@@ -596,17 +613,18 @@ footer {
     width: 100%;
     overflow: scroll; }
   .formfields textarea {
+    resize: none;
     overflow-y: scroll;
     overflow-x: hidden;
     font-family: 'Lato', Helvetica;
     font-weight: 700;
     width: 100%;
+    height: 300px;
     background-color: rgba(255, 255, 255, 0.8);
     color: #252525;
-    padding: 10px; }
+    padding: 10px;
+    margin-top: 15px; }
   .formfields #check-html, .formfields #check-css {
-    margin-top: 5px;
-    padding: 5px;
     background: #4c8edd;
     outline: none;
     border: none;
@@ -615,19 +633,37 @@ footer {
     cursor: pointer;
     font-family: 'Lato', Helvetica;
     font-size: 1em;
-    letter-spacing: 2px; }
+    letter-spacing: 2px;
+    width: 30%;
+    padding: 5px;
+    margin-top: 8px; }
   .formfields #check-html:hover, .formfields #check-css:hover {
     background: #005bc6; }
+  .formfields #clear-html, .formfields #clear-css {
+    background: #d44646;
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    color: #FFF;
+    cursor: pointer;
+    font-family: 'Lato', Helvetica;
+    font-size: 1em;
+    letter-spacing: 2px;
+    width: 30%;
+    padding: 5px;
+    margin-left: 10px;
+    margin-top: 8px; }
+  .formfields #clear-html:hover, .formfields #clear-css:hover {
+    background: #8b0505; }
 
 .validate-form {
   width: 35vw;
-  height: 100%;
   overflow-y: scroll;
   overflow-x: hidden; }
 
 #html-validated, #css-validated {
-  max-width: 100%;
-  max-height: 85%;
+  width: 100%;
+  height: 300px;
   overflow-y: scroll;
   overflow-x: hidden;
   white-space: pre-wrap;
@@ -687,7 +723,8 @@ footer {
     padding: 5px; }
 
 .radio-speed-view {
-  border: none; }
+  border: none;
+  width: 20%; }
   .radio-speed-view input {
     -webkit-appearance: none;
     appearance: none;
@@ -714,7 +751,7 @@ footer {
   color: red; }
 
 #path {
-  width: 60%;
+  width: 50%;
   height: 30px;
   padding: 5px;
   outline: none;
@@ -726,9 +763,10 @@ footer {
 #path::placeholder {
   color: #C4C4C4; }
 
-#analyzePage {
+#analyzePage, #clearPage {
   padding: 10px;
   margin: 10px;
+  width: 10%;
   background: #4c8edd;
   outline: none;
   border: none;
@@ -740,8 +778,14 @@ footer {
   font-size: 1em;
   letter-spacing: 2px; }
 
-#analyzePage:hover {
+#analyzePage:hover, #clearPage:hover {
   background: #005bc6; }
+
+#clearPage {
+  background: #d44646; }
+
+#clearPage:hover {
+  background: #8b0505; }
 
 .returnresults {
   padding: 10px;
@@ -869,16 +913,16 @@ footer {
     .article > div > a {
       margin: 1%;
       padding: 1%;
-      color: #fff;
+      color: rgba(255, 255, 255, 0.7);
       font-size: 1.5rem;
       font-weight: bold;
       text-decoration: none; }
     .article > div > a:hover {
-      text-decoration: underline; }
+      color: #FFF; }
     .article > div > p {
       margin: 1%;
       padding: 1%;
-      color: #fff; }
+      color: rgba(255, 255, 255, 0.7); }
 
 .stickyContainer {
   position: absolute;

@@ -249,6 +249,7 @@ PAGE SPEED VIEW
     $('#loader-icon').removeClass('spin').hide();
     $('#analyzePage').removeAttr('disabled', 'disabled');
     $('.toggle-custom-view').removeAttr('disabled', 'disabled');
+    $('#clearPage').removeAttr('disabled', 'disabled');
   }
 
   window.app.pagespeedView = {
@@ -265,7 +266,6 @@ HTML VALIDATOR MODEL
     function filter(filterdata) {
       return (`Type: ${filterdata.type}\nLine: ${filterdata.lastLine}\nMessage: ${filterdata.message}\n\n`);
     }
-
     return (useData.map(filter).join(''));
   };
 
