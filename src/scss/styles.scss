@@ -7,7 +7,7 @@ body {
 	width: 100%;
 	overflow: hidden;
 	background-size: cover;
-  font-family: Lato, helvetica;
+  font-family: 'Lato', helvetica;
   font-size: 100%!important;
 
   .devtab-bg {
@@ -90,8 +90,8 @@ body {
 				  background: -webkit-linear-gradient(top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.5) 100%); /* Chrome10-25,Safari5.1-6 */
 				  background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.5) 100%);
 
-          border-radius: 8px;
-          border: 2px solid #444;
+          border-radius: 5px;
+          // border: 2px solid #444;
           box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
 
 	  			transition: .5s;
@@ -108,7 +108,7 @@ body {
 	  				background-color: #333;
 	  				font-weight: 700;
 	  				border: 1px solid #333;
-	  				border-radius: 5px;
+	  				border-radius: 3px;
 	  				transition: .3s;
 	  				outline: none;
 
@@ -192,7 +192,7 @@ body {
 				  color: rgba(255,255,255,.6);
 				  // background-color: rgba(0,0,0,.7);
 	  			border: 1px solid lightgrey;
-	  			border-radius: 5px;
+	  			border-radius: 3px;
 	  			transition: .5s;
 
 	  		}
@@ -296,7 +296,7 @@ body {
     border: none;
     color: #fff;
     cursor: pointer;
-    font-family: Lato, helvetica;
+    font-family: 'Lato', helvetica;
     font-weight: 600;
     text-decoration: none;
     transition: 300ms ease;
@@ -304,7 +304,7 @@ body {
   button:hover {
     // text-decoration: underline;
     background-color: hsla(0, 0, 0, 0.5);
-    border-radius: 8px;
+    border-radius: 5px;
     transition: 300ms ease;
   }
 }
@@ -319,7 +319,7 @@ body {
   margin: 1%;
   outline: none;
   background-color: hsla(0, 0, 0, .5);
-  border-radius: 5px;
+  border-radius: 3px;
   border: none;
 }
 
@@ -356,7 +356,7 @@ body {
     border: none;
     color: #fff;
     cursor: pointer;
-    font-family: Lato, helvetica;
+    font-family: 'Lato', helvetica;
     font-size: 1.2em;
     font-weight: 600;
     transition: 300ms ease;
@@ -372,7 +372,6 @@ body {
 }
 
 footer {
-
 	width: 100%;
 	height: 100px;
 	position: absolute;
@@ -410,46 +409,41 @@ footer {
 
 
 		ul {
-
 			display: flex;
 			margin: auto 0px;
 			padding: 0px;
-
 			list-style-type: none;
 
 			li {
-
 				cursor: pointer;
 				margin: auto;
 				padding: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
 				i {
-
 					margin: 0px;
 					padding: 20px 20px 0px 20px;
 
 					color: rgba(255,255,255,.6);
 					font-size: 1.8em;
 					transition: .5s;
-
 				}
 
 				.iconHover {
-
 					opacity: 0;
 					margin: 0px 20px;
 					padding: 0px;
 
 					color: #FFF;
 					font-size: 1em;
+          font-family: 'Lato', Helvetica;
 					transition: .5s;
 				}
-
-
 			}
 
 			li:hover {
-
 				.iconHover {
 					opacity: 1;
 					visibility: visible;
@@ -459,13 +453,9 @@ footer {
 					color: #FFF;
 					transition: .5s;
 				}
-
 			}
-
 		}
-
 	}
-
 }
 
 .tools {
@@ -473,8 +463,57 @@ footer {
 	width: 30%;
 	// width: 277px;
 	z-index: 1;
-	margin: auto 0px;
+	// margin: auto 0px;
 	color: #D9D9D9;
+}
+
+.tools-icon-list {
+  margin-left: -30px;
+  margin-top: 5px;
+	width: 100%;
+
+  ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+  }
+
+	li {
+		cursor: pointer;
+	}
+}
+
+.tools-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-right: 5px;
+  border: none;
+	outline: none;
+	background: transparent;
+	cursor: pointer;
+  color: rgba(255,255,255,.6);
+  font-size: 2.3em;
+  transition: .5s;
+}
+
+.tools-icon-hover {
+  color: #FFF;
+  font-size: .4em;
+  font-family: 'Lato', Helvetica;
+  margin-top: 5px;
+  opacity: 0;
+  transition: .5s;
+}
+
+.tools-icon:hover {
+	color: #FFF;
+
+  .tools-icon-hover {
+    opacity: 1;
+  }
 }
 
 // ********** COLOR PICKER RULES ************
@@ -482,8 +521,8 @@ footer {
 .color-picker-panel {
 	background: rgba(0,0,0,0.6);
 	width: 310px;
-	border-radius: 8px;
-	border: 2px solid #444;
+	border-radius: 3px;
+	// border: 2px solid #444;
 	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
 	position: absolute;
 	bottom: 80px;
@@ -515,8 +554,8 @@ footer {
 }
 
 .preview {
-	border: 2px solid #444;
-	border-radius: 4px;
+	// border: 2px solid #444;
+	border-radius: 3px;
 	background: #ccc;
 	width: 60px;
 	height: 35px;
@@ -535,11 +574,11 @@ footer {
 	width: 32px;
 	height: 32px;
 	background: #ccc;
-	border-radius: 4px;
+	border-radius: 3px;
 	margin-left: 4px;
 	margin-bottom: 4px;
 	box-sizing: border-box;
-	border: 2px solid #444;
+	// border: 2px solid #444;
 	cursor: pointer;
 }
 
@@ -622,7 +661,7 @@ footer {
 .tog-button {
 	background: rgba(255,255,255,0.6);
 	border: 0;
-	border-radius: 4px;
+	border-radius: 3px;
 	color: #303030;
 	font-size: 1rem;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -647,12 +686,12 @@ footer {
 }
 .value-fields .field-label {
 	margin-right: 5px;
-	font-family: Lato, helvetica;
+	font-family: 'Lato', helvetica;
 	font-size: 1rem;
 }
 .value-fields .field-input {
 	background: rgba(0,0,0,0.7);
-	border: 1px solid #444;
+	border: 0;
 	box-sizing: border-box;
 	border-radius: 2px;
 	line-height: 38px;
@@ -667,7 +706,7 @@ footer {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	font-family: Lato, helvetica;
+	font-family: 'Lato', helvetica;
 	font-size: 1rem;
 }
 .rgb-fields .field-input {
@@ -677,7 +716,7 @@ footer {
 
 .hex-field .field-input {
 	width: 155px;
-	font-family: Lato, helvetica;
+	font-family: 'Lato', helvetica;
 	font-size: 1rem;
 }
 
@@ -686,8 +725,8 @@ footer {
 .tools-container {
 	background: rgba(0,0,0,0.7);
 	width: 310px;
-	border-radius: 8px;
-	border: 2px solid #444;
+	border-radius: 3px;
+	// border: 2px solid #444;
 	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
 	position: absolute;
 
@@ -711,7 +750,7 @@ footer {
 	border: 1px solid transparent;
 	outline: none;
 
-	font-family: Lato, Helvetica;
+	font-family: 'Lato', Helvetica;
 	font-size: 1.3em;
 }
 
@@ -723,8 +762,8 @@ footer {
 .valid-container {
 	color: #C4C4C4;
 	background: rgba(0,0,0,0.8);
-	border-radius: 8px;
-	border: 2px solid #444;
+	border-radius: 3px;
+	// border: 2px solid #444;
 	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
 	position: absolute;
 
@@ -780,8 +819,9 @@ footer {
 	}
 
 	textarea {
-		overflow: scroll;
-    font-family: Lato, Helvetica;
+		overflow-y: scroll;
+    overflow-x: hidden;
+    font-family: 'Lato', Helvetica;
     font-weight: 700;
     width: 100%;
     background-color: rgba(255,255,255,.8);
@@ -792,72 +832,43 @@ footer {
 	#check-html, #check-css {
 		margin-top: 5px;
 		padding: 5px;
-		background: transparent;
+		background: #4c8edd;
 		outline: none;
-		border: 1px solid #C4C4C4;
-		border-radius: 5px;
-		color: #C4C4C4;
+		border: none;
+		border-radius: 3px;
+		color: #FFF;
 		cursor: pointer;
+    font-family: 'Lato', Helvetica;
+    font-size: 1em;
+    letter-spacing: 2px;
 	}
 
 	#check-html:hover, #check-css:hover {
-		background-color: rgba(255,255,255,.8);
-		color: rgba(0,0,0,.7);
+		background: #005bc6;
 	}
 }
 
 .validate-form {
   width: 35vw;
   height: 100%;
-  overflow: hidden;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 #html-validated, #css-validated {
   max-width: 100%;
   max-height: 85%;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
   white-space: pre-wrap;
   background-color: rgba(255,255,255,.8);
   color: #252525;
   padding: 10px;
 
   code {
-    font-family: Lato, Helvetica;
+    font-family: 'Lato', Helvetica;
     font-weight: 700;
   }
-}
-
-.tools-icon-list {
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-start;
-	padding: 0px;
-	width: 100%;
-	margin: 0px;
-	list-style-type: none;
-
-	li {
-		display: flex;
-		padding: 0px 20px;
-		cursor: pointer;
-
-		button {
-			color: rgba(255,255,255,.6);
-			font-size: 2.3em;
-		}
-	}
-}
-
-.tools-icon {
-	border: none;
-	outline: none;
-	background: transparent;
-	cursor: pointer;
-	color: #D9D9D9;
-}
-
-.tools-icon:hover {
-	color: #FFF;
 }
 
 // ********** PAGE SPEED RULES ************
@@ -889,9 +900,9 @@ footer {
   padding: 0px 5px;
 
   color: #C4C4C4;
-  background: rgba(0, 0, 0, 1.0);
-  border-radius: 8px;
-  border: 2px solid #444;
+  background: rgba(0, 0, 0, 1);
+  border-radius: 3px;
+  // border: 2px solid #444;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
 
   max-height: 95%;
@@ -966,7 +977,7 @@ footer {
 
 #path {
   width: 60%;
-  height: 25px;
+  height: 30px;
   padding: 5px;
   outline: none;
   border: 1px solid #000;
@@ -982,14 +993,14 @@ footer {
 #analyzePage {
   padding: 10px;
   margin: 10px;
-  background: #7BB8FF;
+  background: #4c8edd;
 	outline: none;
   border: none;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
 	border-radius: 2px;
   color: #FFF;
 	cursor: pointer;
-  font-family: Lato, Helvetica;
+  font-family: 'Lato', Helvetica;
   font-size: 1em;
   letter-spacing: 2px;
 }
@@ -1005,11 +1016,11 @@ footer {
 }
 
 .page-speed-box {
-  border-radius: 8px;
+  border-radius: 3px;
   background-color: rgba(255, 255, 255, 0.3);
   color: #C4C4C4;
   padding: 5px;
-  font-family: Lato, helvetica;
+  font-family: 'Lato', helvetica;
   font-size: 15px;
   overflow: scroll;
   white-space: pre-line;
@@ -1049,7 +1060,7 @@ footer {
 	border-radius: 2px;
   color: #FFF;
 	cursor: pointer;
-  font-family: Lato, Helvetica;
+  font-family: 'Lato', Helvetica;
   font-size: 1em;
   letter-spacing: 2px;
 }
@@ -1077,7 +1088,7 @@ footer {
 .speedTitles {
   padding-left: 5px;
   margin: 5px;
-  font-family: Lato, Helvetica;
+  font-family: 'Lato', Helvetica;
   font-size: 16px;
 }
 
@@ -1095,7 +1106,7 @@ footer {
 // ********** NEWSFEED RULES ************
 
 .newsfeed-wrapper {
-  border-radius: 8px;
+  border-radius: 3px;
   display: none;
   position: fixed;
   top: 10%;
@@ -1107,7 +1118,7 @@ footer {
 }
 
 .newsfeed {
-  border-radius: 8px;
+  border-radius: 3px;
   overflow-y: scroll;
   overflow-x: hidden;
   width: 100%;
@@ -1123,8 +1134,8 @@ footer {
 }
 
 .article {
-  border-radius: 8px;
-  border: 2px solid #444;
+  border-radius: 3px;
+  // border: 2px solid #444;
   display: flex;
   justify-content: center;
   width: 100%;
@@ -1176,7 +1187,7 @@ footer {
 
 	outline: 1px solid transparent;
 	border: 1px solid #7da4d7;
-	border-radius: 10px;
+	border-radius: 3px;
 
 }
 
@@ -1239,24 +1250,19 @@ footer {
 	background-color: lightgrey;
 
 	border: 1px solid lightgrey;
-	border-radius: 5px;
+	border-radius: 3px;
 
 }
 
 .stickLeft {
-
 	margin-right: auto;
-
 }
 
 .fa-trash {
-
 	margin-left: auto;
-
 }
 
 .stickNote {
-
 	width: 200px;
 	height: 100%;
 
@@ -1273,117 +1279,84 @@ footer {
 }
 
 .blueBar {
-
 	background-color: #1267d6;
-
 }
 
 .blueArea {
-
 	background-color: #7da4d7;
 	border: 1px solid #7da4d7;
-
 }
 
 .greenBar {
-
 	background-color: #16810a;
-
 }
 
 .greenArea {
-
 	background-color: #80d676;
 	border: 1px solid #80d676;
-
 }
 
 .yellowBar {
-
 	background-color: #f4af15;
-
 }
 
 .yellowArea {
-
 	background-color: #f1db87;
 	border: 1px solid #f1db87;
-
 }
 
 .purpleBar {
-
 	background-color: #5e0e99;
-
 }
 
 .purpleArea {
-
 	background-color: #d8aef7;
 	border: 1px solid #d8aef7;
-
 }
 
 .pinkBar {
-
 	background-color: #c70498;
-
 }
 
 .pinkArea {
-
 	background-color: #f58cdb;
 	border: 1px solid #f58cdb;
-
 }
 
 
 .greyBar {
-
 	background-color: #aaa8a9;
-
 }
 
 .greyArea {
-
 	background-color: #e5e0e4;
 	border: 1px solid #e5e0e4;
-
 }
 
 .redBar {
-
 	background-color: #bd1313;
-
 }
 
 .redArea {
-
 	background-color: #f17a7a;
 	border: 1px solid #f17a7a;
-
 }
 
 .palleteBar {
-
 	display: none;
 	margin: 0px;
 	padding: 10px;
 	background-color: white;
-
 }
 
 .palleteBar ul {
-
 	display: flex;
 	margin: 0px 0px 0px 0px;
 	padding: 5px;
 	justify-content: space-around;
-
 }
 
 .palleteBar li {
-
 	width: 22px;
 	height: 22px;
 	margin: 0px 1px 0px 1px;
@@ -1391,9 +1364,8 @@ footer {
 	border: 1px solid transparent;
 	border-radius: 50%;
 	cursor: pointer;
-
 }
 
 .stickyContainer {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.7);
 }
