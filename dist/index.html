@@ -27,37 +27,37 @@
                 <p>Quick Links</p>
                 <i class="fa fa-sort-desc" aria-hidden="true"></i>
 
+                <div class="quickDropdown">
+
+                 <h3>Popular Sites</h3>
+
+                 <ul class="quickList">
+
+                 </ul>
+
+                 <p class="addSite">+ Add New Site</p>
+
+                 <div class="addUrl">
+
+                   <div class="urlContainer">
+
+                     <form id="targetForm">
+
+                       <input id="titleInput" type="text" placeholder="title"/>
+                       <input id="urlInput" type="text" placeholder="url"/>
+                       <input id="invisibleInput" type="submit" />
+
+                     </form>
+
+                   </div>
+
+                 </div>
+
+               </div>
+
               </div>
 
-             <div class="quickDropdown">
 
-              <h3>Popular Sites</h3>
-
-              <ul class="quickList">
-
-
-
-              </ul>
-
-              <p class="addSite">+ Add New Site</p>
-
-              <div class="addUrl">
-
-                <div class="urlContainer">
-
-                  <form id="targetForm">
-
-                    <input id="titleInput" type="text" placeholder="title"/>
-                    <input id="urlInput" type="text" placeholder="url"/>
-                    <input id="invisibleInput" type="submit" />
-
-                  </form>
-
-                </div>
-
-              </div>
-
-            </div>
 
 
           </div>
@@ -172,7 +172,8 @@
             <div class="valid-container html-validator">
               <section class="instructions">
                 <h3>HTML Validation</h3>
-                <p>Enter HTML markup and click 'CHECK' to validate.</p>
+                <p>Enter HTML markup and click <strong>CHECK</strong> to validate.</p>
+                <p>Click <strong>CLEAR</strong> to reset the form.</p>
               </section>
               <div class="formfields">
                 <section> <!-- HTML Markup -->
@@ -184,6 +185,7 @@
                         <textarea name="content" rows="15" placeholder="Enter HTML markup here..."></textarea>
                       </div>
                       <button id="check-html" type="submit">CHECK</button>
+                      <button id="clear-html" type="reset">CLEAR</button>
                     </fieldset>
                   </form>
                   <fieldset class="validate-form"> <!-- Validation Result -->
@@ -198,18 +200,20 @@
             <div class="valid-container css-validator">
               <section class="instructions">
                 <h3>CSS Validation</h3>
-                <p>Copy and Paste CSS in text area below and click 'CHECK' to validate.</p>
+                <p>Copy and Paste CSS in text area below and click <strong>CHECK</strong> to validate.</p>
+                <p>Click <strong>CLEAR</strong> to reset the form.</p>
               </section>
               <div class="formfields">
                 <section> <!-- CSS -->
-                  <form class="validate-form" id="css-markup" method="post" enctype="multipart/form-data">
-                    <fieldset>
+                  <form id="css-markup" method="post" enctype="multipart/form-data">
+                    <fieldset class="validate-form">
                       <legend>CSS Markup</legend>
                       <div>
                         <input type="hidden" name="out" value="json">
-                        <textarea name="content" rows="15" placeholder="Enter CSS markup here..."></textarea>
+                        <textarea name="content" placeholder="Enter CSS markup here..."></textarea>
                       </div>
                       <button id="check-css" type="submit">CHECK</button>
+                      <button id="clear-css" type="reset">CLEAR</button>
                     </fieldset>
                   </form>
                   <fieldset class="validate-form"> <!-- Validation Result -->
@@ -228,12 +232,13 @@
                 <form id="anaylze-url">
                   <h3 id="speed-page-error"></h3>
                   <div id="checkedUrl">
-                    <input type="text" id="path" placeholder="Enter a webpage URL" autofocus>
+                    <input type="url" id="path" placeholder="Enter a webpage URL" pattern="https?://.+" autofocus required>
                     <fieldset class="radio-speed-view">
                       <label><input id="radio-desktop" class="toggle-custom-view" type="radio" name="view" value="desktop" checked> Desktop</label>
                       <label><input id="radio-mobile" class="toggle-custom-view" type="radio" name="view" value="mobile"> Mobile</label>
                     </fieldset>
                     <button type="submit" id="analyzePage">ANALYZE</button>
+                    <button type="reset" id="clearPage">CLEAR</button>
                   </div>
                 </form>
               </div>
@@ -244,56 +249,42 @@
               </div>
             </div>
 
-            <ul class="tools-icon-list">
-              <li>
-                <!-- Color Picker Toggle Button -->
-                <button type="button" name="color-picker" class="tools-icon" id="color-picker-icon">
-                  <i class="fa fa-paint-brush" aria-hidden="true"></i>
-                </button>
-              </li>
-              <li>
-                <!-- Tool Options Toggle Button -->
-                <button type="button" name="validators" class="tools-icon" id="validator-icon">
-                  <i class="fa fa-wrench" aria-hidden="true"></i>
-                </button></li>
-            </ul>
+            <div class="tools-icon-list">
+              <ul>
+                <li>
+                  <!-- Color Picker Toggle Button -->
+                  <button type="button" name="color-picker" class="tools-icon" id="color-picker-icon">
+                    <i class="fa fa-paint-brush" aria-hidden="true"></i>
+                    <span class="tools-icon-hover">Color Codes</span>
+                  </button>
+                </li>
+                <li>
+                  <!-- Tool Options Toggle Button -->
+                  <button type="button" name="validators" class="tools-icon" id="validator-icon">
+                    <i class="fa fa-wrench" aria-hidden="true"></i>
+                    <span class="tools-icon-hover">Toolbox</span>
+                  </button>
+                </li>
+              </ul>
+          </div>
 
           </div> <!-- Tools End -->
 
           <div class="credits">
-
             <p>Photograph by <a href="https://www.pexels.com/u/eberhardgross/" id="pic-author" target="_blank">Eberhard Grossgasteiger</a></p>
-
           </div>
 
           <div class="listArea">
-
             <ul>
-
               <li>
-                
-                <i class="fa fa-list-ul" aria-hidden="true"></i>
-                <p class="iconHover">Todo</p>
-
-              </li>
-
-              <li>
-
                 <i class="fa fa-newspaper-o" aria-hidden="true"></i>
                 <p class="iconHover">News</p>
-
-
               </li>
-
               <li>
-
                 <i class="fa fa-cog" aria-hidden="true"></i>
                 <p class="iconHover">Settings</p>
-
               </li>
-
             </ul>
-
           </div>
 
         </footer>

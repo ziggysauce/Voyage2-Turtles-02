@@ -11,17 +11,6 @@ BACKGROUND MODEL
     hour12: false,
   }), 10);
 
-  window.app.backgroundModel = {
-    picTime,
-  };
-}());
-
-/* ************************************************************************
-BACKGROUND MODEL
-************************************************************************* */
-
-// Store background picture information (day/night, authors, links)
-(function makeBackgroundView() {
   const bgInfo = [
     {
       day: {
@@ -244,24 +233,44 @@ BACKGROUND MODEL
       },
     },
   ];
-  const randomNum = Math.floor(Math.random() * bgInfo.length);
 
-  function generateDayBg() {
-    $('.devtab-bg').css('background-image', `url('./assets/img/dayPics/sample${randomNum}.jpeg')`).fadeIn(2000);
-    $('.credits p a').attr('href', bgInfo[randomNum].day.url);
-    $('#pic-author').text(bgInfo[randomNum].day.author);
+  const randomNum = Math.floor(Math.random() * bgInfo.length);
+  const userInput = 'https://static.pexels.com/photos/226465/pexels-photo-226465.jpeg';
+
+  window.app.backgroundModel = {
+    picTime,
+    bgInfo,
+    randomNum,
+    userInput,
+  };
+}());
+
+/* ************************************************************************
+BACKGROUND MODEL
+************************************************************************* */
+
+// Store background picture information (day/night, authors, links)
+(function makeBackgroundView() {
+  function generateDayBg(backgroundModel) {
+    $('.devtab-bg').css('background-image', `url('./assets/img/dayPics/sample${backgroundModel.randomNum}.jpeg')`);
+    $('#pic-author').attr('href', backgroundModel.bgInfo[backgroundModel.randomNum].day.url);
+    $('#pic-author').text(backgroundModel.bgInfo[backgroundModel.randomNum].day.author);
   }
 
-  function generateNightBg() {
-    $('.devtab-bg').css('background-image', `url('./assets/img/nightPics/sample${randomNum}.jpeg')`).fadeIn(2000);
-    $('#pic-author').attr('href', bgInfo[randomNum].night.url);
-    $('#pic-author').text(bgInfo[randomNum].night.author);
+  function generateNightBg(backgroundModel) {
+    $('.devtab-bg').css('background-image', `url('./assets/img/nightPics/sample${backgroundModel.randomNum}.jpeg')`);
+    $('#pic-author').attr('href', backgroundModel.bgInfo[backgroundModel.randomNum].night.url);
+    $('#pic-author').text(backgroundModel.bgInfo[backgroundModel.randomNum].night.author);
+  }
+
+  function generateUserBg(backgroundModel) {
+    $('.devtab-bg').css('background-image', `url(${backgroundModel.userInput})`);
+    $('.credits p').text('');
   }
 
   window.app.backgroundView = {
-    bgInfo,
-    randomNum,
     generateDayBg,
     generateNightBg,
+    generateUserBg,
   };
 }());
