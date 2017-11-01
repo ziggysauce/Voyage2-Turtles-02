@@ -45,42 +45,30 @@ body {
 	  /*Quick Links and Sticky Notes*/
 	  /*----------------------------------------------------*/
 	  	.quickLinks {
-
 	  		display: flex;
-
 	  		margin: 20px auto 0px 40px;
 
 	  		.dropdownButton {
-
 	  			display: flex;
 	  			cursor: pointer;
-
 	  		}
 
 	  		p {
-
-
 	  			margin: 0px 0px 0px 0px;
 	  			padding: 10px 8px 8px 8px;
-
 	  			font-size: 1.4em;
 					color: rgba(255,255,255,.8);
-
-
 	  		}
 
 	  		i {
-
 	  			margin: 6px 6px 6px 20px;
 	  			padding: 0px;
 					color: rgba(255,255,255,.6);
 	  			font-size: 1.75em;
-
 	  		}
 
 	  		.quickDropdown {
-
-          display: none;
+          // display: none;
 	  			position: absolute;
 	  			margin-top: 40px;
 	  			padding: 20px;
@@ -91,14 +79,12 @@ body {
 				  background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.5) 100%);
 
           border-radius: 5px;
-          // border: 2px solid #444;
           box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
 
 	  			transition: .5s;
 	  			// opacity: 0;/*Only properties with number values can be animated in CSS. Properties like display and visibilty do not have number values.*/
 
 	  			input {
-
 	  				display: block;
 	  				width: 115px;
 	  				padding: 2px;
@@ -111,33 +97,24 @@ body {
 	  				border-radius: 3px;
 	  				transition: .3s;
 	  				outline: none;
-
 	  			}
 
 	  			input:focus::placeholder {/*::placeholder is a selector that selects the content within the placehold attribute.*/
-
 	  				color: #D9D9D9;
 	  				transition: .3s;
-
 	  			}
 
 	  			#invisibleInput {
-
 	  				opacity: 0;
 	  				position: absolute;
-
 	  			}
 
 	  			button {
-
 	  				margin: 0px;
-
 	  			}
-
 	  		}
 
 	  		h3 {
-
 	  			margin: 0px 0px 10px 0px;
 	  			padding: 0px;
 
@@ -145,34 +122,25 @@ body {
 	  			font-weight: 300;
 
 	  			border-bottom: 1px solid lightgrey;
-
 	  		}
 
 	  		ul {
-
 	  			list-style-type: none;
 	  			margin: 0px 0px 0px 0px;
 	  			padding: 0px 0px 0px 0px;
-
-
-
 	  		}
 
 	  		li {
-
 	  			margin: 10px 0px 10px 0px;
 	  			padding: 0px;
 	  			font-weight: 700;
 	  			cursor: pointer;
 					border-bottom: 1px solid transparent;
-
 	  		}
 
 	  		a {
-
 	  			text-decoration: none;
 	  			color: lightgrey;
-
 	  		}
 
 	  		li:hover {
@@ -182,7 +150,6 @@ body {
 	  		}
 
 	  		.addSite{
-
 	  			padding: 3px;
 	  			margin: 10px 0px 10px 0px;
 	  			font-weight: 700;
@@ -194,7 +161,6 @@ body {
 	  			border: 1px solid lightgrey;
 	  			border-radius: 3px;
 	  			transition: .5s;
-
 	  		}
 
 				.addSite:hover {
@@ -205,16 +171,9 @@ body {
 				}
 	  	}
 
-			.quickLinks:hover {
-				p {
-					color: #FFF;
-				}
-				i {
-					color: #FFF;
-				}
-			}
-
-
+			.qlToggle:hover {
+        color: #FFF;
+      }
 
 	  	.stickyNotes {
 
@@ -769,16 +728,12 @@ footer {
 	color: #C4C4C4;
 	background: rgba(0,0,0,0.8);
 	border-radius: 3px;
-	// border: 2px solid #444;
 	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
 	position: absolute;
 
 	display: flex;
-	// display: none;
 	flex-direction: column;
-	// justify-content: center;
 	align-items: center;
-
 
 	height: 75vh;
 	width: 75vw;
@@ -790,7 +745,6 @@ footer {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	// height: 10%;
 	width: 80%;
 	padding: 5px;
 	padding-bottom: 30px;
@@ -813,7 +767,7 @@ footer {
 	flex-direction: column;
 	justify-content: center;
 	flex-wrap: wrap;
-	overflow: scroll;
+	overflow: hidden;
 	width: 95%;
   height: 100%;
 
@@ -839,12 +793,12 @@ footer {
 		align-items: center;
 		margin: 0px auto;
     width: 100%;
-    overflow: scroll;
+    overflow: hidden;
 	}
 
 	textarea {
     resize: none;
-		overflow-y: scroll;
+		overflow-y: auto;
     overflow-x: hidden;
     font-family: 'Lato', Helvetica;
     font-weight: 700;
@@ -899,14 +853,14 @@ footer {
 
 .validate-form {
   width: 35vw;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
 }
 
 #html-validated, #css-validated {
   width: 100%;
   height: 300px;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   white-space: pre-wrap;
   background-color: rgba(255,255,255,.8);
@@ -955,7 +909,8 @@ footer {
 
   max-height: 95%;
   width: 90%;
-  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: auto;
 
   position: fixed;
   top: 0%;
@@ -1069,7 +1024,8 @@ footer {
 
 .returnresults {
   padding: 10px;
-  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: auto;
   background: transparent;
 }
 
@@ -1080,7 +1036,8 @@ footer {
   padding: 5px;
   font-family: 'Lato', helvetica;
   font-size: 15px;
-  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: auto;
   white-space: pre-line;
 }
 
@@ -1177,7 +1134,7 @@ footer {
 
 .newsfeed {
   border-radius: 3px;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   width: 100%;
   height: 100%;

@@ -145,27 +145,27 @@ CONTROLLER
   /* ********* QUICK LINK SECTION ********* */
 
   function quickControl() {
-    $(".addSite").click(function() {
-      $('.addUrl').fadeToggle("slow");
+    $('.addSite').click(() => {
+      $('.addUrl').fadeToggle('slow');
     });
 
-    $("#targetForm").submit(function(e) {//When the quickLinks submit button is pressed, this will grab the input values and push it to localStorage.
+    $('#targetForm').submit((e) => { // When the quickLinks submit button is pressed, this will grab the input values and push it to localStorage.
       e.preventDefault();
 
-      var titleInput = $("#titleInput").val();
-      var urlInput = $("#urlInput").val();
-      var newObject = {//In order to push this to localStorage we will want it in object form so that the for loop above can access these properties.
+      const titleInput = $('#titleInput').val();
+      const urlInput = $('#urlInput').val();
+      const newObject = { // In order to push this to localStorage we will want it in object form so that the for loop above can access these properties.
         title: titleInput,
-        url: urlInput
-      }
+        url: urlInput,
+      };
       $('.addUrl').fadeOut('slow');
-      //This resets the inputs so that it doesnt show the link you already put in.
-      $("#titleInput").val("");
-      $("#urlInput").val("");
+      // This resets the inputs so that it doesnt show the link you already put in.
+      $('#titleInput').val('');
+      $('#urlInput').val('');
 
       function updateQuickStorage() {
         quickLinkApp.quickModel(newObject);
-        $(".quickList").append("<li><a href='" + newObject.url + "'>" + newObject.title + "</a></li>");
+        $('.quickList').append(`<li><a href="${newObject.url}">${newObject.title}</a></li>`);
       }
 
       updateQuickStorage();
@@ -213,15 +213,11 @@ CONTROLLER
         }
         return response.json();
       })
-<<<<<<< HEAD
-      .then(results => cssView.successOutput(results.cssvalidation.errors, cssModel.format));
-=======
       .then(results => cssView.successOutput(results.cssvalidation.errors, cssModel.format))
       .catch((error) => {
         cssView.errorOutput();
         console.log(error);
       });
->>>>>>> 7f5736972525c5cbcaacac6770e2f3e43f045880
     $('#check-css').removeAttr('disabled', 'disabled');
   }
 
@@ -236,6 +232,25 @@ CONTROLLER
   /* ********* PAGE SPEED SECTION ********** */
 
   function loadPageSpeedChecker() {
+    function catchSpeedErrors(result) {
+      if (result.responseJSON.error) {
+        const errors = result.responseJSON.error.errors;
+        for (let i = 0, len = errors.length; i < len; i += 1) {
+          if (errors[i].reason === 'badRequest' && pagespeedModel.API_KEY === 'yourAPIKey') {
+            // console.log('Please specify your Google API key in the API_KEY variable.');
+            $('#speed-page-error').append('Please specify your Google API key in the API_KEY variable.');
+          } else {
+            // console.log(errors[i].message);
+            $('#speed-page-error').append(`${errors[i].message}`);
+          }
+        }
+        $('#loader-icon').removeClass('spin').hide();
+        $('#analyzePage').removeAttr('disabled', 'disabled');
+        $('#clearPage').removeAttr('disabled', 'disabled');
+        $('.toggle-custom-view').removeAttr('disabled', 'disabled');
+      }
+    }
+
     // Invokes the PageSpeed Insights API. The response will contain
     // JavaScript that invokes our callback with the PageSpeed results
     function runPagespeed() {
@@ -246,18 +261,12 @@ CONTROLLER
         urlStrategy = `${pagespeedModel.API_URL}&key=${pagespeedModel.API_KEY}&strategy=mobile&url=${$('#path').val()}`;
       } else { urlStrategy = `${pagespeedModel.API_URL}&key=${pagespeedModel.API_KEY}&strategy=desktop&url=${$('#path').val()}`; }
 
-      // Check to see if URL entered is valid
-      if ($('#path').get(0).checkValidity() === true) {
-        $.getJSON(urlStrategy, (result) => {
-          pagespeedView.displayPageSpeedScore(result);
+      $.getJSON(urlStrategy, (result) => {
+        pagespeedView.displayPageSpeedScore(result);
+      })
+        .fail((result) => {
+          catchSpeedErrors(result);
         });
-      } else {
-        $('#speed-page-error').append(`Sorry '${$('#path').val()}' was not valid. Please make sure to enter a valid formatted URL (https://example.com) and try again.`);
-        $('#loader-icon').removeClass('spin').hide();
-        $('#analyzePage').removeAttr('disabled', 'disabled');
-        $('#clearPage').removeAttr('disabled', 'disabled');
-        $('.toggle-custom-view').removeAttr('disabled', 'disabled');
-      }
     }
 
     // Desktop & Mobile Score trigger from URL provided
@@ -450,7 +459,8 @@ CONTROLLER
       .on('click', toggleNameInput())
       .on('click', newsfeedView.toggleNewsfeed)
       .on('click', toolboxView.toggleToolbox)
-      .on('click', colorpickerView.toggleColorPicker);
+      .on('click', colorpickerView.toggleColorPicker)
+      .on('click', quickLinkApp.toggleQuickLinks);
     $('#name-form').on('submit', setUserName);
     $('.start, .stop').on('click', togglePomodoroActive);
     $('.pause').on('click', togglePomodoroPause);
@@ -469,9 +479,9 @@ CONTROLLER
     $('.returnresults').hide();
     $('#loader-icon').hide();
     $('.color-picker-panel').hide();
+    $('.quickDropdown').hide();
     greetingView.showGreeting(greetingModel.getUserName());
     clocksView.updateTime(clocksModel.getTime());
-    setupEventListeners();
     loadSounds();
     loadNewsArticles();
     clocksHandler();
@@ -480,6 +490,7 @@ CONTROLLER
     loadBackground();
     stickyApp.stickyNoteView(stickyApp.stickyNoteModel);
     quickLinkApp.quickView(quickLinkApp.quickModel);
+    setupEventListeners();
   }
 
   window.app.controller = {
