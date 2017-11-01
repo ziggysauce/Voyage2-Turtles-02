@@ -48,7 +48,7 @@ COLOR PICKER MODEL
     // convert to tinycolor object
     var color = tinycolor(color);
     var rgbValues = color.toRgb();
-    var hexValue = color.toHex();
+    var hexValue = "#" + color.toHex();
     var hslValues = color.toHsl();
     // set inputs
     red.value = rgbValues.r;

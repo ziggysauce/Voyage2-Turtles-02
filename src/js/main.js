@@ -167,7 +167,6 @@ CONTROLLER
         quickLinkApp.quickModel(newObject);
         $('.quickList').append(`<li><a href="${newObject.url}">${newObject.title}</a></li>`);
       }
-
       updateQuickStorage();
     });
   }
@@ -448,6 +447,18 @@ CONTROLLER
     // if (user inputs their own image url for background) {
     //   backgroundView.generateUserBg(backgroundModel);
     // }
+  }
+
+  /* ********* BASIC SETTINGS *************** */
+  //This is temporary, this is just a basic toggle fade for the settings.
+   const settingWrapper = $('.setting-wrapper');
+
+  function toggleSettings(e) {
+    if (settingWrapper.is(':visible') && !settingWrapper.find(e.target).length) {
+      settingWrapper.fadeOut();
+    } else if (!settingWrapper.is(':visible') && e.target === $('.fa-cog')[0]) {
+      settingWrapper.fadeIn();
+    }
   }
 
   /* ********* GENERAL ************ */
