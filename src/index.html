@@ -25,6 +25,7 @@
     <script src="js/components/background.js" defer></script>
     <script src="js/components/stickyNote.js" defer></script>
     <script src="js/components/quickLink.js" defer></script>
+    <script src="js/components/settings.js" defer></script>
     <script src="js/main.js" defer></script>
     <!-- endbuild -->
   </head>
@@ -39,37 +40,24 @@
           <div class="quickLinks">
 
               <div class="dropdownButton">
-
-                <p>Quick Links</p>
-                <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                <p class="qlToggle">Quick Links</p>
+                <!-- <i class="fa fa-sort-desc" aria-hidden="true"></i> -->
 
                 <div class="quickDropdown">
-
-                 <h3>Popular Sites</h3>
-
-                 <ul class="quickList">
-
-                 </ul>
-
-                 <p class="addSite">+ Add New Site</p>
-
-                 <div class="addUrl">
-
-                   <div class="urlContainer">
-
-                     <form id="targetForm">
-
-                       <input id="titleInput" type="text" placeholder="title"/>
-                       <input id="urlInput" type="text" placeholder="url"/>
-                       <input id="invisibleInput" type="submit" />
-
-                     </form>
-
-                   </div>
-
-                 </div>
-
-               </div>
+                  <h3>Popular Sites</h3>
+                  <ul class="quickList">
+                  </ul>
+                  <p class="addSite">+ Add New Site</p>
+                  <div class="addUrl">
+                    <div class="urlContainer">
+                      <form id="targetForm">
+                        <input id="titleInput" type="text" placeholder="title" required/>
+                        <input id="urlInput" type="text" placeholder="url" required/>
+                        <input id="invisibleInput" type="submit" />
+                      </form>
+                    </div>
+                  </div>
+                </div>
 
               </div>
 
@@ -304,27 +292,25 @@
           </div>
 
           <section class="setting-wrapper">
-        	<div class="setting-main">
+          	<div class="setting-main">
 
-	        	<div class="setting-aside">
-	        		<ul>
-	        			<li class="setting-general">General</li>
-	        			<li class="setting-clock">Clock</li>
-	        			<li class="setting-colorPick">Color Picker</li>
-	        			<li class="setting-validator">Validators</li>
-	        			<li class="setting-news">News Feed</li>
-	        			<li class="setting-sticky">Sticky Note</li>
-	        			<li class="setting-quickLink">Quick Links</li>
-	        		</ul>
-	        	</div>
+  	        	<div class="setting-aside">
+  	        		<ul>
+  	        			<li class="setting-general">General</li>
+  	        			<li class="setting-clock">Clock</li>
+  	        			<li class="setting-news">News Feed</li>
+  	        			<li class="setting-background">Background</li>
+  	        		</ul>
+                <ul>
+                  <li class="setting-about">About</li>
+                  <li class="setting-contribute">Contribute</li>
+                </ul>
+  	        	</div>
 
-	        	<div class="setting-controls">
-
-	        		
-
-	        	</div>
-	        </div>
-        </section>
+  	        	<div class="setting-controls">
+  	        	</div>
+  	        </div>
+          </section>
 
         </footer>
 
