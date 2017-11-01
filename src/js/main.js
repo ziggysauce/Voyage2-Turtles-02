@@ -30,6 +30,7 @@ CONTROLLER
   backgroundView,
   stickyApp,
   quickLinkApp,
+  settingsView,
 ) {
 /* ***** POMODORO SECTION ******** */
 
@@ -449,17 +450,9 @@ CONTROLLER
     // }
   }
 
-  /* ********* BASIC SETTINGS *************** */
-  //This is temporary, this is just a basic toggle fade for the settings.
-   const settingWrapper = $('.setting-wrapper');
+  /* ********* SETTINGS *************** */
 
-  function toggleSettings(e) {
-    if (settingWrapper.is(':visible') && !settingWrapper.find(e.target).length) {
-      settingWrapper.fadeOut();
-    } else if (!settingWrapper.is(':visible') && e.target === $('.fa-cog')[0]) {
-      settingWrapper.fadeIn();
-    }
-  }
+  // Settings Controller JS goes here!
 
   /* ********* GENERAL ************ */
 
@@ -471,7 +464,9 @@ CONTROLLER
       .on('click', newsfeedView.toggleNewsfeed)
       .on('click', toolboxView.toggleToolbox)
       .on('click', colorpickerView.toggleColorPicker)
-      .on('click', quickLinkApp.toggleQuickLinks);
+      .on('click', quickLinkApp.toggleQuickLinks)
+      .on('click', settingsView.toggleSettings)
+      .on('click', settingsView.toggleSettingsFeatures);
     $('#name-form').on('submit', setUserName);
     $('.start, .stop').on('click', togglePomodoroActive);
     $('.pause').on('click', togglePomodoroPause);
@@ -527,6 +522,7 @@ CONTROLLER
   window.app.backgroundView,
   window.app.stickyApp,
   window.app.quickLinkApp,
+  window.app.settingsView,
 ));
 
 window.app.controller.initialize();
