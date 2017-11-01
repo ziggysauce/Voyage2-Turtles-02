@@ -133,7 +133,6 @@ function addEventListener(index) {
 
 			if (noteRetrieve[x].id == noteID) {//As we iterate through the array, we check if the noteID is equal to noteRetrieve[x].id.
 											   //If noteID does equal to noteRetrieve[x].id, then that means we found the correct sticky note to remove.
-
 				noteRetrieve[x].left = $("#" + noteID).css("left");
 				noteRetrieve[x].top	 = $("#" + noteID).css("top");
 				updateStickStorage();

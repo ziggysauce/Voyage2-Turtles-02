@@ -151,7 +151,6 @@ CONTROLLER
 
     $("#targetForm").submit(function(e) {//When the quickLinks submit button is pressed, this will grab the input values and push it to localStorage.
       e.preventDefault();
-
       var titleInput = $("#titleInput").val();
       var urlInput = $("#urlInput").val();
       var newObject = {//In order to push this to localStorage we will want it in object form so that the for loop above can access these properties.
@@ -162,12 +161,10 @@ CONTROLLER
       //This resets the inputs so that it doesnt show the link you already put in.
       $("#titleInput").val("");
       $("#urlInput").val("");
-
       function updateQuickStorage() {
         quickLinkApp.quickModel(newObject);
         $(".quickList").append("<li><a href='" + newObject.url + "'>" + newObject.title + "</a></li>");
       }
-
       updateQuickStorage();
     });
   }
@@ -437,6 +434,18 @@ CONTROLLER
     // }
   }
 
+  /* ********* BASIC SETTINGS *************** */
+  //This is temporary, this is just a basic toggle fade for the settings.
+   const settingWrapper = $('.setting-wrapper');
+
+  function toggleSettings(e) {
+    if (settingWrapper.is(':visible') && !settingWrapper.find(e.target).length) {
+      settingWrapper.fadeOut();
+    } else if (!settingWrapper.is(':visible') && e.target === $('.fa-cog')[0]) {
+      settingWrapper.fadeIn();
+    }
+  }
+
   /* ********* GENERAL ************ */
 
   function setupEventListeners() {
@@ -446,7 +455,8 @@ CONTROLLER
       .on('click', toggleNameInput())
       .on('click', newsfeedView.toggleNewsfeed)
       .on('click', toolboxView.toggleToolbox)
-      .on('click', colorpickerView.toggleColorPicker);
+      .on('click', colorpickerView.toggleColorPicker)
+      .on('click', toggleSettings);
     $('#name-form').on('submit', setUserName);
     $('.start, .stop').on('click', togglePomodoroActive);
     $('.pause').on('click', togglePomodoroPause);
