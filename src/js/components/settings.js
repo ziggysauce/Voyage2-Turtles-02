@@ -16,48 +16,45 @@ SETTINGS VIEW
   const content = $('.setting-controls');
   const about = $('.setting-controls-about');
   const contribute = $('.setting-controls-contribute');
+  const pomodoroSettings = $('.settings-pomodoro');
 
 
   function toggleSettings(e) {
     if (settingWrapper.is(':visible') && !settingWrapper.find(e.target).length) {
       settingWrapper.fadeOut();
-      content.empty();
     } else if (!settingWrapper.is(':visible') && e.target === $('.fa-cog')[0]) {
       settingWrapper.fadeIn();
     }
   }
 
-  function toggleSettingsFeatures(e) {
-    if (!about.is(':visible') && e.target === $('.setting-about')[0]) {
-      content.empty();
-      $(`
-        <div class="setting-controls-about">
-          <img src="assets/img/scuba-turtle.png" alt="DevTab Thumbnail">
-          <h1>DevTab</h1>
-          <span>Personal Dashboard with a Front-End Developer Focus</span>
-          <span>v1.0.0</span>
-          <h3>Thank you for your support!</h3>
-        </div>
-        `).appendTo(content).hide().fadeIn();
+  function toggleAbout(e) {
+    if (about.is(':visible') && !about.find(e.target).length && e.target !== about[0] && e.target !== $('.setting-about')[0]) {
+      about.fadeOut();
+    } else if (!about.is(':visible') && e.target === $('.setting-about')[0]) {
+      about.fadeIn();
+    }
+  }
+
+  function toggleContribute(e) {
+    if (contribute.is(':visible') && !contribute.find(e.target).length && e.target !== contribute[0] && e.target !== $('.setting-contribute')[0]) {
+      contribute.fadeOut();
     } else if (!contribute.is(':visible') && e.target === $('.setting-contribute')[0]) {
-      content.empty();
-      $(`
-        <div class="setting-controls-contribute">
-          <h2>DevTab is an open source project</h2>
-          <a id="gh-repo" href="https://github.com/chingu-coders/Voyage2-Turtles-02">GitHub</a>
-          <span>Created by</span>
-          <span class="ghlinks">
-            <a href="https://github.com/ziggysauce">Dan</a>
-            <a href="https://github.com/jmbothe">Jeff</a>
-            <a href="https://github.com/HTMLNoob">Tyler</a>
-          </span>
-        </div>
-        `).appendTo(content).hide().fadeIn();
+      contribute.fadeIn();
+    }
+  }
+
+  function togglePomodoroSettings(e) {
+    if (pomodoroSettings.is(':visible') && !pomodoroSettings.find(e.target).length && e.target !== pomodoroSettings[0] && e.target !== $('.setting-clock')[0]) {
+      pomodoroSettings.fadeOut();
+    } else if (!pomodoroSettings.is(':visible') && e.target === $('.setting-clock')[0]) {
+      pomodoroSettings.fadeIn();
     }
   }
 
   window.app.settingsView = {
     toggleSettings,
-    toggleSettingsFeatures,
+    toggleAbout,
+    toggleContribute,
+    togglePomodoroSettings,
   };
 }());
