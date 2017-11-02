@@ -437,7 +437,6 @@ CONTROLLER
   /* ********* BASIC SETTINGS *************** */
   //This is temporary, this is just a basic toggle fade for the settings.
    const settingWrapper = $('.setting-wrapper');
-
   function toggleSettings(e) {
     if (settingWrapper.is(':visible') && !settingWrapper.find(e.target).length) {
       settingWrapper.fadeOut();
