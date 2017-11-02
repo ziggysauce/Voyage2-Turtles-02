@@ -123,9 +123,9 @@ CONTROLLER
   /* ********* STICKY NOTE LISTENER ******* */
 
   function stickClickEvent() {
-    const colorList = ['blue', 'yellow', 'green', 'purple', 'pink', 'grey', 'red'];
-    const randomColor = colorList[Math.floor((Math.random() * colorList.length))];
-    const newStickyObject = {
+    var colorList = ['blue', 'yellow', 'green', 'purple', 'pink', 'grey', 'red'];
+    var randomColor = colorList[Math.floor((Math.random() * colorList.length))];
+    var newStickyObject = {
       title: 'Sticky Note',
       barClass: `${randomColor}Bar`,
       areaClass: `${randomColor}Area`,
@@ -137,7 +137,7 @@ CONTROLLER
 
     stickyApp.stickyNoteModel(newStickyObject);
     function stickyObjectFunction() {
-      const pushArray = [newStickyObject];
+      var pushArray = [newStickyObject];
       return pushArray;
     }
     stickyApp.stickyNoteView(stickyObjectFunction);
@@ -364,6 +364,7 @@ CONTROLLER
     });
 
     function colorToPos(color) {
+      console.log(color);
       var color = tinycolor(color);
       const hsl = color.toHsl();
       colorpickerModel.hue = hsl.h;
@@ -395,7 +396,13 @@ CONTROLLER
     });
 
     colorpickerModel.hex.addEventListener('change', () => {
-      const color = tinycolor(`#${colorpickerModel.hex.value}`);
+      var pushColor = `#${colorpickerModel.hex.value}`;
+      pushColor = pushColor.split('');
+      if (pushColor[0] == '#' && pushColor[1] == '#') {
+        pushColor.shift();
+      }
+      pushColor = pushColor.join('');
+      const color = tinycolor(pushColor);
       colorToPos(color);
     });
 
