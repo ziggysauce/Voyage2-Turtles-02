@@ -10,17 +10,6 @@ CLOCKS MODEL
     return seconds == 60 ? `${minutes + 1}:00` : `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   }
 
-  function getTime() {
-    // was using toLocaleString() before, but it was causing a memory leak - jmbothe
-    const time = new Date();
-    let hours = time.getHours();
-    const timeOfDay = hours < 12 ? 'AM' : 'PM';
-    hours = hours === 0 || hours === 12 ? 12 : hours % 12;
-    let minutes = time.getMinutes();
-    minutes = minutes < 10 ? `0${minutes}` : minutes;
-    return `${hours}:${minutes} ${timeOfDay}`;
-  }
-
   const status = {
     isActive: false, // whether or not the pomodoro clock is on or off
     isOnBreak: false, // whether or not the pomodoro clock is in work mode or break mode
@@ -28,12 +17,40 @@ CLOCKS MODEL
     startTime: null,
     elapsedTime: 0,
     pauseTime: 0,
-    workPeriod: 60000, // eventually these variables will be set by user
-    breakPeriod: 60000,
+    workPeriod: 1500000, // eventually these variables will be set by user
+    breakPeriod: 300000,
+    timeFormat: 12,
   };
 
   function getStatus() {
     return status;
+  }
+
+  function setWorkPeriod(milliseconds) {
+    status.workPeriod = milliseconds;
+  }
+
+  function setBreakPeriod(milliseconds) {
+    status.breakPeriod = milliseconds;
+  }
+
+  function setTimeFormat(format) {
+    status.timeFormat = format;
+  }
+
+  function getTime() {
+    // was using toLocaleString() before, but it was causing a memory leak - jmbothe
+    const time = new Date();
+    let hours = time.getHours();
+    let minutes = time.getMinutes();
+
+    if (status.timeFormat == 12) {
+      const timeOfDay = hours < 12 ? 'AM' : 'PM';
+      hours = hours === 0 || hours === 12 ? 12 : hours % 12;
+      minutes = minutes < 10 ? `0${minutes}` : minutes;
+      return `${hours}:${minutes} ${timeOfDay}`;
+    }
+    return `${hours}:${minutes}`;
   }
 
   function resetClock() {
@@ -89,6 +106,9 @@ CLOCKS MODEL
   window.app.clocksModel = { // creates model object as property of app
     getTime,
     getStatus,
+    setWorkPeriod,
+    setBreakPeriod,
+    setTimeFormat,
     resetClock,
     toggleActive,
     toggleWorkBreak,

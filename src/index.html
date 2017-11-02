@@ -308,8 +308,51 @@
   	        	</div>
 
   	        	<div class="setting-controls">
-  	        	</div>
-  	        </div>
+
+                <div class="settings-pomodoro">
+
+                  <form>
+                    <label for="time-format" id="time-label">Time Format </label>
+                    <select id="time-format" name="time-format">
+                        <option value="12" selected>12 hour</option>
+                        <option value="24">24 hour</option>
+                    </select>
+                  </form>
+
+                  <form oninput="result.value=workperiod.value">
+                    <label for="workperiod">Pomodoro Work Period</label>
+                    <input type="range" name="workperiod" id="workperiod" value="25" min="1" max="120">
+                    <output name="result">25</output><span> minutes</span>
+                  </form>
+
+                  <form oninput="result.value=breakperiod.value">
+                    <label for="breakperiod">Pomodoro Break Period</label>
+                    <input type="range" name="breakperiod" id="breakperiod" value="5" min="1" max="30">
+                    <output name="result">5</output><span> minutes</span>
+                  </form>
+
+                </div><!-- END SETTINGS POMODORO -->
+                <div class="setting-controls-about">
+                  <img src="assets/img/scuba-turtle.png" alt="DevTab Thumbnail">
+                  <h1>DevTab</h1>
+                  <span>Personal Dashboard with a Front-End Developer Focus</span>
+                  <span>v1.0.0</span>
+                  <h3>Thank you for your support!</h3>
+                </div>
+
+                <div class="setting-controls-contribute">
+                  <h2>DevTab is an open source project</h2>
+                  <a id="gh-repo" href="https://github.com/chingu-coders/Voyage2-Turtles-02">GitHub</a>
+                  <span>Created by</span>
+                  <span class="ghlinks">
+                    <a href="https://github.com/ziggysauce">Dan</a>
+                    <a href="https://www.jmbothe.com">Jeff</a>
+                    <a href="https://github.com/HTMLNoob">Tyler</a>
+                  </span>
+                </div>
+
+  	        	</div><!-- END SETTINGS CONTROLS -->
+  	        </div><!-- END SETTINGS MAIN -->
           </section>
 
         </footer>
