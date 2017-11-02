@@ -57,6 +57,19 @@ CONTROLLER
     clocksView.togglePause(clocksModel.getStatus().isPaused);
   }
 
+  function setTimeFormat(e) {
+    const format = e.target.options[e.target.selectedIndex].value;
+    clocksModel.setTimeFormat(format);
+  }
+
+  function setPomodoroWorkPeriod(e) {
+    clocksModel.setWorkPeriod(e.target.value * 60000);
+  }
+
+  function setPomodoroBreakPeriod(e) {
+    clocksModel.setBreakPeriod(e.target.value * 60000);
+  }
+
   // continuous loop that updates clock display. reference https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
   function clocksHandler() {
     if (!clocksModel.getStatus().isActive) {
@@ -466,7 +479,9 @@ CONTROLLER
       .on('click', colorpickerView.toggleColorPicker)
       .on('click', quickLinkApp.toggleQuickLinks)
       .on('click', settingsView.toggleSettings)
-      .on('click', settingsView.toggleSettingsFeatures);
+      .on('click', settingsView.toggleAbout)
+      .on('click', settingsView.toggleContribute)
+      .on('click', settingsView.togglePomodoroSettings);
     $('#name-form').on('submit', setUserName);
     $('.start, .stop').on('click', togglePomodoroActive);
     $('.pause').on('click', togglePomodoroPause);
@@ -475,10 +490,16 @@ CONTROLLER
     $('#html-markup').on('submit', htmlValidatorCall);
     $('#css-markup').on('submit', CSSValidatorCall);
     $('#newNote').on('click', stickClickEvent);
+    $('#workperiod').on('change', setPomodoroWorkPeriod);
+    $('#breakperiod').on('change', setPomodoroBreakPeriod);
+    $('#time-format').on('change', setTimeFormat);
     quickControl(); // Sets up quicklink e-listeners
   }
 
   function initialize() {
+    $('.setting-controls-about').hide();
+    $('.setting-controls-contribute').hide();
+    $('.settings-pomodoro').hide();
     $('.tools-container').hide();
     $('.valid-container').hide();
     $('.page-speed-container').hide();
