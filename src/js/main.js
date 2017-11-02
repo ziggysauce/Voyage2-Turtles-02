@@ -100,6 +100,14 @@ CONTROLLER
       });
   }
 
+  $('#workperiod')[0].addEventListener('input', () => {
+    $('#workperiod')[0].setAttribute('value', $('#workperiod')[0].value);
+  }, false);
+
+  $('#breakperiod')[0].addEventListener('input', () => {
+    $('#breakperiod')[0].setAttribute('value', $('#breakperiod')[0].value);
+  }, false);
+
   /* ***** USER GREETING SECTION ******** */
 
   function setUserName(e) {
@@ -460,6 +468,20 @@ CONTROLLER
       } else { backgroundView.generateNightBg(backgroundModel); }
     }
 
+    // Let user select a specific image from DevTab's gallery
+    $('.gallery-container').on('click', (e) => {
+      // Clear local storage
+      backgroundModel.setUserImage('');
+      $('.bg-user-store').hide();
+      // Get number value from selected image
+      backgroundModel.randomNum = $(e.target).attr('src').slice(-7).replace(/[^0-9]/g, '');
+      // If image selected is daytime, get daytime image
+      // Otherwise get the nighttime image associated with the number value of the selected image
+      if ($(e.target).attr('src').match(/day/g)) {
+        backgroundView.generateDayBg(backgroundModel);
+      } else { backgroundView.generateNightBg(backgroundModel); }
+    });
+
     // Let user input their own image as the background
     $('#bg-user-url-submit').on('click', (e) => {
       e.preventDefault();
@@ -472,16 +494,12 @@ CONTROLLER
       }
     });
 
-    // Let user select a specific image from DevTab's gallery
-    $('.gallery-container').on('click', (e) => {
-      console.log($(e.target).attr('src'));
-    });
-
     // Let user use DevTab's gallery of rotating background images
     $('.fa-random').on('click', () => {
       backgroundModel.randomNum = Math.floor(Math.random() * backgroundModel.bgInfo.length);
       $('#rotate-bg-generator').addClass('spin-random-icon');
       $('#rotate-bg-generator').one('animationend', () => {
+        // Clear local storage
         backgroundModel.setUserImage('');
         $('.bg-user-store').hide();
         changeBg();
@@ -489,7 +507,8 @@ CONTROLLER
       });
     });
 
-    // If a user had added their own image, show it, otherwise default to DevTab image rotation
+    // If a user had added their own image, show it
+    // Otherwise default to DevTab image rotation
     if (backgroundModel.getUserImage()) {
       backgroundView.generateUserBg(backgroundModel.getUserImage());
     } else { changeBg(); }
