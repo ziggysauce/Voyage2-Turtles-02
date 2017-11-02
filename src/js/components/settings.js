@@ -16,6 +16,7 @@ SETTINGS VIEW
   const about = $('.setting-controls-about');
   const contribute = $('.setting-controls-contribute');
   const pomodoroSettings = $('.settings-pomodoro');
+  const background = $('.setting-controls-background');
 
   function toggleSettings(e) {
     if (settingWrapper.is(':visible') && !settingWrapper.find(e.target).length) {
@@ -49,10 +50,19 @@ SETTINGS VIEW
     }
   }
 
+  function toggleBackgroundSettings(e) {
+    if (background.is(':visible') && !background.find(e.target).length && e.target !== background[0] && e.target !== $('.setting-background')[0]) {
+      background.fadeOut();
+    } else if (!background.is(':visible') && e.target === $('.setting-background')[0]) {
+      background.fadeIn();
+    }
+  }
+
   window.app.settingsView = {
     toggleSettings,
     toggleAbout,
     toggleContribute,
     togglePomodoroSettings,
+    toggleBackgroundSettings,
   };
 }());

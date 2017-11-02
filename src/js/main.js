@@ -454,13 +454,45 @@ CONTROLLER
    */
 
   function loadBackground() {
-    if (backgroundModel.picTime > 6 && backgroundModel.picTime < 19) {
-      backgroundView.generateDayBg(backgroundModel);
-    } else { backgroundView.generateNightBg(backgroundModel); }
+    function changeBg() {
+      if (backgroundModel.picTime > 6 && backgroundModel.picTime < 19) {
+        backgroundView.generateDayBg(backgroundModel);
+      } else { backgroundView.generateNightBg(backgroundModel); }
+    }
 
-    // if (user inputs their own image url for background) {
-    //   backgroundView.generateUserBg(backgroundModel);
-    // }
+    // Let user input their own image as the background
+    $('#bg-user-url-submit').on('click', (e) => {
+      e.preventDefault();
+      const userInput = $('#bg-user-url').val();
+      if (userInput.match(/\.(jpeg|jpg|gif|png)$/) != null) {
+        backgroundModel.setUserImage($('#bg-user-url').val());
+        backgroundView.generateUserBg(backgroundModel.getUserImage());
+      } else {
+        backgroundView.showUserBgError();
+      }
+    });
+
+    // Let user select a specific image from DevTab's gallery
+    $('.gallery-container').on('click', (e) => {
+      console.log($(e.target).attr('src'));
+    });
+
+    // Let user use DevTab's gallery of rotating background images
+    $('.fa-random').on('click', () => {
+      backgroundModel.randomNum = Math.floor(Math.random() * backgroundModel.bgInfo.length);
+      $('#rotate-bg-generator').addClass('spin-random-icon');
+      $('#rotate-bg-generator').one('animationend', () => {
+        backgroundModel.setUserImage('');
+        $('.bg-user-store').hide();
+        changeBg();
+        $('#rotate-bg-generator').removeClass('spin-random-icon');
+      });
+    });
+
+    // If a user had added their own image, show it, otherwise default to DevTab image rotation
+    if (backgroundModel.getUserImage()) {
+      backgroundView.generateUserBg(backgroundModel.getUserImage());
+    } else { changeBg(); }
   }
 
   /* ********* SETTINGS *************** */
@@ -481,7 +513,8 @@ CONTROLLER
       .on('click', settingsView.toggleSettings)
       .on('click', settingsView.toggleAbout)
       .on('click', settingsView.toggleContribute)
-      .on('click', settingsView.togglePomodoroSettings);
+      .on('click', settingsView.togglePomodoroSettings)
+      .on('click', settingsView.toggleBackgroundSettings);
     $('#name-form').on('submit', setUserName);
     $('.start, .stop').on('click', togglePomodoroActive);
     $('.pause').on('click', togglePomodoroPause);
@@ -500,6 +533,7 @@ CONTROLLER
     $('.setting-controls-about').hide();
     $('.setting-controls-contribute').hide();
     $('.settings-pomodoro').hide();
+    $('.setting-controls-background').hide();
     $('.tools-container').hide();
     $('.valid-container').hide();
     $('.page-speed-container').hide();

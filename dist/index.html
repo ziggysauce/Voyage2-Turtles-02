@@ -291,13 +291,11 @@
   	        	</div>
 
   	        	<div class="setting-controls">
-<<<<<<< HEAD
-  	        	</div>
-  	        </div>
-=======
-            
+
                 <div class="settings-pomodoro">
-                 
+                  <h1>Clock &#38; Pomodoro</h1>
+                  <span>Increase productivity with custom work/break intervals</span>
+
                   <form>
                     <label for="time-format" id="time-label">Time Format </label>
                     <select id="time-format" name="time-format">
@@ -317,30 +315,115 @@
                     <input type="range" name="breakperiod" id="breakperiod" value="5" min="1" max="30">
                     <output name="result">5</output><span> minutes</span>
                   </form>
-        
+
                 </div><!-- END SETTINGS POMODORO -->
+
+                <div class="setting-controls-background">
+                  <h1>Background</h1>
+                  <span>View a beautiful new image each time DevTab is opened</span>
+
+                  <div class="bg-setting-select">
+                    <span class="bg-gallery">GALLERY</span>
+                    <span class="bg-customize">CUSTOMIZE</span>
+                    <span class="bg-rotate">ROTATE</span>
+                  </div>
+
+                  <div class="bg-setting-gallery">
+                    <span>Select an image to set as the background</span>
+                    <div class="gallery-container">
+                      <img src="assets/img/dayPics/sample0.jpeg" alt="daytime image">
+                      <img src="assets/img/nightPics/sample0.jpeg" alt="nighttime image">
+                      <img src="assets/img/dayPics/sample1.jpeg" alt="daytime image">
+                      <img src="assets/img/nightPics/sample1.jpeg" alt="nighttime image">
+                      <img src="assets/img/dayPics/sample2.jpeg" alt="daytime image">
+                      <img src="assets/img/nightPics/sample2.jpeg" alt="nighttime image">
+                      <img src="assets/img/dayPics/sample3.jpeg" alt="daytime image">
+                      <img src="assets/img/nightPics/sample3.jpeg" alt="nighttime image">
+                      <img src="assets/img/dayPics/sample4.jpeg" alt="daytime image">
+                      <img src="assets/img/nightPics/sample4.jpeg" alt="nighttime image">
+                      <img src="assets/img/dayPics/sample5.jpeg" alt="daytime image">
+                      <img src="assets/img/nightPics/sample5.jpeg" alt="nighttime image">
+                      <img src="assets/img/dayPics/sample6.jpeg" alt="daytime image">
+                      <img src="assets/img/nightPics/sample6.jpeg" alt="nighttime image">
+                      <img src="assets/img/dayPics/sample7.jpeg" alt="daytime image">
+                      <img src="assets/img/nightPics/sample7.jpeg" alt="nighttime image">
+                      <img src="assets/img/dayPics/sample8.jpeg" alt="daytime image">
+                      <img src="assets/img/nightPics/sample8.jpeg" alt="nighttime image">
+                      <img src="assets/img/dayPics/sample9.jpeg" alt="daytime image">
+                      <img src="assets/img/nightPics/sample9.jpeg" alt="nighttime image">
+                      <img src="assets/img/dayPics/sample10.jpeg" alt="daytime image">
+                      <img src="assets/img/nightPics/sample10.jpeg" alt="nighttime image">
+                      <img src="assets/img/dayPics/sample11.jpeg" alt="daytime image">
+                      <img src="assets/img/nightPics/sample11.jpeg" alt="nighttime image">
+                      <img src="assets/img/dayPics/sample12.jpeg" alt="daytime image">
+                      <img src="assets/img/nightPics/sample12.jpeg" alt="nighttime image">
+                      <img src="assets/img/dayPics/sample13.jpeg" alt="daytime image">
+                      <img src="assets/img/nightPics/sample13.jpeg" alt="nighttime image">
+                      <img src="assets/img/dayPics/sample14.jpeg" alt="daytime image">
+                      <img src="assets/img/nightPics/sample14.jpeg" alt="nighttime image">
+                      <img src="assets/img/dayPics/sample15.jpeg" alt="daytime image">
+                      <img src="assets/img/nightPics/sample15.jpeg" alt="nighttime image">
+                      <img src="assets/img/dayPics/sample16.jpeg" alt="daytime image">
+                      <img src="assets/img/nightPics/sample16.jpeg" alt="nighttime image">
+                      <img src="assets/img/dayPics/sample17.jpeg" alt="daytime image">
+                      <img src="assets/img/nightPics/sample17.jpeg" alt="nighttime image">
+                      <img src="assets/img/dayPics/sample18.jpeg" alt="daytime image">
+                      <img src="assets/img/nightPics/sample18.jpeg" alt="nighttime image">
+                      <img src="assets/img/dayPics/sample19.jpeg" alt="daytime image">
+                      <img src="assets/img/nightPics/sample19.jpeg" alt="nighttime image">
+                      <img src="assets/img/dayPics/sample20.jpeg" alt="daytime image">
+                      <img src="assets/img/nightPics/sample20.jpeg" alt="nighttime image">
+                      <img src="assets/img/dayPics/sample21.jpeg" alt="daytime image">
+                      <img src="assets/img/nightPics/sample21.jpeg" alt="nighttime image">
+                    </div>
+                  </div>
+
+                  <div class="bg-setting-custom">
+                    <span>Personalize your workspace by adding your own image</span>
+                    <form class="bg-user-input">
+                      <label><input id="bg-user-url" type="text" name="userBackground" placeholder="Enter image url here..." required></label>
+                      <button id="bg-user-url-submit" type="submit">+ Add Image</button>
+                    </form>
+                    <div class="bg-user-error">
+                      <p>Sorry, the url provided is not a valid image</p>
+                      <p>Please try again</p>
+                    </div>
+                    <div class="bg-user-store">
+                      <div class="stored-image"
+                        <p>Your image has been saved</p>
+                      </div>
+                      <p>To change, either enter a new image URL, select an image from the <strong class="bg-gallery">GALLERY</strong> or choose to <strong class="bg-rotate">ROTATE</strong> through our images</p>
+                    </div>
+                  </div>
+
+                  <div class="bg-setting-rotate">
+                    <p>Let DevTab randomly generate an image for your workspace</p>
+                    <button id="rotate-bg-generator" type="button" name="rotate-bg"><i class="fa fa-random"></i></button>
+                  </div>
+
+                </div><!-- END SETTINGS BACKGROUND -->
+
                 <div class="setting-controls-about">
                   <img src="assets/img/scuba-turtle.png" alt="DevTab Thumbnail">
                   <h1>DevTab</h1>
                   <span>Personal Dashboard with a Front-End Developer Focus</span>
                   <span>v1.0.0</span>
                   <h3>Thank you for your support!</h3>
-                </div>
+                </div><!-- END SETTINGS ABOUT -->
 
                 <div class="setting-controls-contribute">
-                  <h2>DevTab is an open source project</h2>
+                  <h1>DevTab is an open source project</h1>
                   <a id="gh-repo" href="https://github.com/chingu-coders/Voyage2-Turtles-02">GitHub</a>
                   <span>Created by</span>
                   <span class="ghlinks">
-                    <a href="https://github.com/ziggysauce">Dan</a>
-                    <a href="https://www.jmbothe.com">Jeff</a>
-                    <a href="https://github.com/HTMLNoob">Tyler</a>
+                    <a href="https://github.com/ziggysauce">DAN</a>
+                    <a href="https://www.jmbothe.com">JEFF</a>
+                    <a href="https://github.com/HTMLNoob">TYLER</a>
                   </span>
-                </div>
+                </div><!-- END SETTINGS CONTRIBUTE -->
 
   	        	</div><!-- END SETTINGS CONTROLS -->
   	        </div><!-- END SETTINGS MAIN -->
->>>>>>> 52d9f71b6c4f87127fb0042347a2482973978453
           </section>
 
         </footer>

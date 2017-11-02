@@ -1448,6 +1448,7 @@ footer {
 
   h1 {
     color: #FFF;
+    font-size: 1.5em;
   }
 }
 
@@ -1462,6 +1463,10 @@ footer {
   flex-direction: column;
   align-items: center;
   height: 400px;
+
+  h1 {
+    font-size: 2em;
+  }
 }
 
 .setting-controls-contribute {
@@ -1475,6 +1480,10 @@ footer {
   align-items: center;
   padding-top: 120px;
   height: 400px;
+
+  h1 {
+    font-size: 1.5em;
+  }
 
   #gh-repo {
     text-decoration: none;
@@ -1520,14 +1529,29 @@ footer {
   position: absolute;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  // justify-content: space-around;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
+  padding-left: 10px;
+
+  span {
+    margin-bottom: 40px;
+  }
 
   form {
     font-size: 1.5rem;
+    padding: 20px 0px;
+
+    select {
+      margin-left: 15px;
+      color: rgba(0,0,0,0.8);
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(255,255,255,0.7);
+      outline: none;
+      font-size: .8em;
+    }
   }
 
   label {
@@ -1537,5 +1561,173 @@ footer {
 
   #time-label {
     display: inline;
+  }
+}
+
+.setting-controls-background {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  padding-left: 10px;
+
+  span:first-of-type {
+    margin-bottom: 10px;
+  }
+
+  .bg-setting-select {
+    padding: 5px;
+    width: 98%;
+    border-top: 0.2px solid rgba(255,255,255,0.7);
+    border-bottom: 0.2px solid rgba(255,255,255,0.7);
+
+    span {
+      padding-right: 30px;
+      font-weight: bold;
+      font-size: .9em;
+      letter-spacing: 1px;
+    }
+    span:hover {
+      cursor: pointer;
+      color: #FFF;
+    }
+  }
+}
+
+.bg-setting-gallery {
+  margin-top: 10px;
+  padding-left: 30px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  span {
+    padding-left: 30px;
+  }
+
+  .gallery-container {
+    margin-top: 7px;
+  }
+
+  img {
+    width: 175px;
+    height: 120px;
+    padding: 5px;
+    cursor: pointer;
+  }
+
+  img:hover {
+    outline: 1px solid #FFF;
+  }
+}
+
+.bg-setting-custom {
+  display: none;
+  margin-top: 30px;
+}
+
+.bg-user-input {
+  margin-top: 20px;
+
+  input {
+    width: 60%;
+    margin-right: 10px;
+    padding: 5px;
+    outline: none;
+    border: 1px solid #000;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.3);
+    color: #FFF;
+  }
+
+  input::placeholder {
+    color: #C4C4C4;
+  }
+
+  button {
+    cursor: pointer;
+    color: rgba(255,255,255,.8);
+    background: #43ac00;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    outline: none;
+    transition: .5s;
+  }
+
+  button:hover {
+    background-color: #235900;
+    transition: .5s;
+  }
+}
+
+.bg-user-error {
+  display: none;
+  margin-top: 30px;
+
+  p {
+    margin: 0px;
+  }
+}
+
+.bg-user-store {
+  display: none;
+  margin-top: 30px;
+
+  .stored-image {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  p {
+    margin: 0px;
+    padding: 10px 0px;
+    line-height: 150%;
+  }
+
+  strong:hover {
+    cursor: pointer;
+    color: #FFF;
+  }
+}
+
+.bg-setting-rotate {
+  display: none;
+  padding: 10px;
+  font-size: 1em;
+
+  button {
+    margin-top: 20px;
+    margin-left: 40%;
+    font-size: 2.5em;
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    background: transparent;
+    color: rgba(255,255,255,.8);
+    cursor: pointer;
+  }
+
+  button:hover {
+    color: #FFF;
+  }
+}
+
+.spin-random-icon {
+  animation-name: random;
+  animation-duration: 500ms;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+
+@keyframes random {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
