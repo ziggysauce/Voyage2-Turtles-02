@@ -57,6 +57,7 @@ gulp.task('js', () => {
     'src/js/components/background.js',
     'src/js/components/stickyNote.js',
     'src/js/components/quickLink.js',
+    'src/js/components/settings.js',
     'src/js/main.js',
   ])
     .pipe(plumber())
