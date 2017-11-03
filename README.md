@@ -40,5 +40,4 @@ A new tab extension for Google Chrome that offers tools and resources for front-
 * [Dan Nguyen](https://github.com/ziggysauce)
 
 ### Notes
-The scuba-turtle image is currently a placeholder
-Source: https://www.goodfreephotos.com/albums/vector-images/scuba-turtle-vector-clipart.png
+The scuba-turtle image source: https://www.goodfreephotos.com/albums/vector-images/scuba-turtle-vector-clipart.png
