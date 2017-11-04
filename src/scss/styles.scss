@@ -105,8 +105,12 @@ body {
 	  			}
 
 	  			#invisibleInput {
+	  				margin: 0px 0px;
+	  				padding: 0px;
+	  				width: 1px;
+	  				height: 1px;
 	  				opacity: 0;
-	  				position: absolute;
+	  				
 	  			}
 
 	  			button {
@@ -143,13 +147,18 @@ body {
 	  			color: lightgrey;
 	  		}
 
-	  		li:hover {
-          a {
-            color: #FFF;
-          }
+	  		li:hover{
+	  			color: #FFF;
 	  		}
 
-	  		.addSite{
+	  		li:hover {
+	          a {
+	            color: #FFF;
+	          }
+	  		}
+
+	  		.siteButton{
+	  			text-align: center;
 	  			padding: 3px;
 	  			margin: 10px 0px 10px 0px;
 	  			font-weight: 700;
@@ -163,13 +172,26 @@ body {
 	  			transition: .5s;
 	  		}
 
-				.addSite:hover {
-				  background-color: rgba(255,255,255,.8);
-				  color: rgba(0,0,0,.7);
-	  			border: 1px solid transparent;
-	  			transition: .5s;
-				}
-	  	}
+			.siteButton:hover {
+			background-color: rgba(255,255,255,.8);
+			color: rgba(0,0,0,.7);
+  			border: 1px solid transparent;
+  			transition: .5s;
+			}
+
+			.cancelDelete {
+				display: none;
+			}
+
+			.deleteDesc{
+				display: none;
+				width: 125px;
+				margin: 0px;
+				padding: 0px;
+				font-size: .7em;
+			}
+
+	  		}
 
 			.qlToggle:hover {
         color: #FFF;

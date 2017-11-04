@@ -82,8 +82,11 @@ body {
         color: #D9D9D9;
         transition: .3s; }
       .linkNote .quickLinks .quickDropdown #invisibleInput {
-        opacity: 0;
-        position: absolute; }
+        margin: 0px 0px;
+        padding: 0px;
+        width: 1px;
+        height: 1px;
+        opacity: 0; }
       .linkNote .quickLinks .quickDropdown button {
         margin: 0px; }
     .linkNote .quickLinks h3 {
@@ -105,9 +108,12 @@ body {
     .linkNote .quickLinks a {
       text-decoration: none;
       color: lightgrey; }
+    .linkNote .quickLinks li:hover {
+      color: #FFF; }
     .linkNote .quickLinks li:hover a {
       color: #FFF; }
-    .linkNote .quickLinks .addSite {
+    .linkNote .quickLinks .siteButton {
+      text-align: center;
       padding: 3px;
       margin: 10px 0px 10px 0px;
       font-weight: 700;
@@ -117,11 +123,19 @@ body {
       border: 1px solid lightgrey;
       border-radius: 3px;
       transition: .5s; }
-    .linkNote .quickLinks .addSite:hover {
+    .linkNote .quickLinks .siteButton:hover {
       background-color: rgba(255, 255, 255, 0.8);
       color: rgba(0, 0, 0, 0.7);
       border: 1px solid transparent;
       transition: .5s; }
+    .linkNote .quickLinks .cancelDelete {
+      display: none; }
+    .linkNote .quickLinks .deleteDesc {
+      display: none;
+      width: 125px;
+      margin: 0px;
+      padding: 0px;
+      font-size: .7em; }
   .linkNote .qlToggle:hover {
     color: #FFF; }
   .linkNote .stickyNotes {
