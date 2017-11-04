@@ -533,7 +533,8 @@ CONTROLLER
       .on('click', settingsView.toggleAbout)
       .on('click', settingsView.toggleContribute)
       .on('click', settingsView.togglePomodoroSettings)
-      .on('click', settingsView.toggleBackgroundSettings);
+      .on('click', settingsView.toggleBackgroundSettings)
+      .on('click', settingsView.toggleNewsfeedSettings);
     $('#name-form').on('submit', setUserName);
     $('.start, .stop').on('click', togglePomodoroActive);
     $('.pause').on('click', togglePomodoroPause);
@@ -549,9 +550,10 @@ CONTROLLER
   }
 
   function initialize() {
-    $('.setting-controls-about').hide();
+    // $('.setting-controls-about').hide();
     $('.setting-controls-contribute').hide();
     $('.settings-pomodoro').hide();
+    $('.settings-newsfeed').hide();
     $('.setting-controls-background').hide();
     $('.tools-container').hide();
     $('.valid-container').hide();

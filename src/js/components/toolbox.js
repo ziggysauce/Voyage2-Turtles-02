@@ -89,7 +89,7 @@ PAGE SPEED VIEW
 
     $(`
       <div class="speed-score-box">
-        <h4 id="results-speed-title">Score: ${result.ruleGroups.SPEED.score}</h4>
+        <h2 id="results-speed-title">Score: ${result.ruleGroups.SPEED.score}</h2>
         <span>URL: ${result.id}</span>
       </div>
       `).appendTo(region);
@@ -102,9 +102,9 @@ PAGE SPEED VIEW
     // Make container for possible optimizations
     const possible = document.getElementById('possible');
     if (possibleRules.length > 0) {
-      $('<h1 class=optimizationTitles>Possible Optimizations</h1>').appendTo(possible);
+      $('<h2 class=optimizationTitles>Possible Optimizations</h2>').appendTo(possible);
     } else {
-      $('<h1 class=optimizationTitles>Congratulations! No issues found.</h1>').appendTo(possible);
+      $('<h2 class=optimizationTitles>Congratulations! No issues found.</h2>').appendTo(possible);
     }
 
     possibleRules.map((i) => {
@@ -156,9 +156,8 @@ PAGE SPEED VIEW
                   second.attr('href', `${i.urlBlocks[j].header.args[1].value}`);
                 } else if (i.localizedRuleName === 'Prioritize visible content') {
                   first.append(`${i.summary.format}\n`);
-                  second.append(`${i.localizedRuleName} of the following:\n`);
+                  second.append('Learn More\n');
                   second.attr('href', `${i.urlBlocks[j].header.args[0].value}`);
-                  third.append(`${i.urlBlocks[j].urls[0].result.format}\n`);
                 } else {
                   first.append(`${i.summary.format}\n`);
                   second.append(`${i.localizedRuleName} of the following:\n`);
@@ -205,7 +204,7 @@ PAGE SPEED VIEW
 
     // Create top of found optimizations container
     const found = document.getElementById('found');
-    $('<h1 class=optimizationTitles>Optimizations Found</h1>').appendTo(found);
+    $('<h2 class=optimizationTitles>Optimizations Found</h2>').appendTo(found);
     $('<button class="click-details inactive" type="submit" id="moreFoundOptimizations">More Details</button><div class="addFoundOptimizations"</div>').appendTo(found);
 
     // Show more info when clicking 'More Details' button
@@ -286,7 +285,7 @@ HTML VALIDATOR VIEW
   }
 
   function errorOutput() {
-    $output.text('Sorry, it looks like this code is outdated. Please update your extension or feel free to send a pull request with your own personal updates.');
+    $output.text('Error validating code. Please refresh, or try again later.');
   }
 
   window.app.htmlView = {

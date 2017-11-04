@@ -38,39 +38,31 @@
         <section class="linkNote">
 
           <div class="quickLinks">
-
-              <div class="dropdownButton">
-                <p class="qlToggle">Quick Links</p>
-                <!-- <i class="fa fa-sort-desc" aria-hidden="true"></i> -->
-
-                <div class="quickDropdown">
-                  <h3>Popular Sites</h3>
-                  <ul class="quickList">
-                  </ul>
-                  <p class="addSite">+ Add New Site</p>
-                  <div class="addUrl">
-                    <div class="urlContainer">
-                      <form id="targetForm">
-                        <input id="titleInput" type="text" placeholder="title" required/>
-                        <input id="urlInput" type="text" placeholder="url" required/>
-                        <input id="invisibleInput" type="submit" />
-                      </form>
-                    </div>
+            <div class="dropdownButton">
+              <p class="qlToggle">Quick Links</p>
+              <!-- <i class="fa fa-sort-desc" aria-hidden="true"></i> -->
+              <div class="quickDropdown">
+                <h2>Popular Sites</h2>
+                <ul class="quickList">
+                </ul>
+                <p class="addSite">+ Add New Site</p>
+                <div class="addUrl">
+                  <div class="urlContainer">
+                    <form id="targetForm">
+                      <input id="titleInput" type="text" placeholder="title" required/>
+                      <input id="urlInput" type="text" placeholder="url" required/>
+                      <input id="invisibleInput" type="submit" />
+                    </form>
                   </div>
                 </div>
-
               </div>
-
-
-
-
+            </div>
           </div>
 
           <div class="stickyNotes" id="newNote">
-
-            <p>+</p>
+            <span>+</span>
             <i class="fa fa-sticky-note" aria-hidden="true"></i>
-
+            <p>Sticky Notes</p>
           </div>
 
         </section>
@@ -80,9 +72,8 @@
         <!--**************************************************************-->
         <section class="clock-and-greeting">
 
-
           <div class="user-greeting">
-            <h1></h1>
+            <h1>Hello</h1>
             <form id="name-form">
               <input id="name-input" type="text" />
               <input id="name-submit" type="button" />
@@ -109,9 +100,36 @@
         <footer>
 
           <div class="tools">
+            <div class="tools-icon-list">
+              <ul>
+                <li>
+                  <!-- Color Picker Toggle Button -->
+                  <button type="button" name="color-picker" class="tools-icon" id="color-picker-icon">
+                    <i class="fa fa-paint-brush" aria-hidden="true"></i>
+                    <p class="tools-icon-hover">Color Picker</p>
+                  </button>
+                </li>
+                <li>
+                  <!-- Tool Options Toggle Button -->
+                  <button type="button" name="validators" class="tools-icon" id="validator-icon">
+                    <i class="fa fa-wrench" aria-hidden="true"></i>
+                    <p class="tools-icon-hover">Toolbox</p>
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Tools: Checkers -->
+            <div class="tools-container">
+              <h2>Toolbox</h2>
+              <button type="button" name="html-validator" id="html-val">HTML Validator</button>
+              <button type="button" name="css-validator" id="css-val">CSS Validator</button>
+              <button type="button" name="page-speed" id="insights">Page Speed</button>
+            </div>
 
             <!-- Color Picker Pop-Up Box -->
             <div class="color-picker-panel">
+              <h2>Color Picker</h2>
               <div class="panel-row">
                 <div class="panel-row">
                   <div id="hex-field" class="field-group value-fields hex-field active">
@@ -165,17 +183,10 @@
               <div id="user-swatches" class="swatches custom-swatches"></div>
             </div>
 
-            <!-- Tools: Checkers -->
-            <div class="tools-container">
-              <button type="button" name="html-validator" id="html-val">HTML Validator</button>
-              <button type="button" name="css-validator" id="css-val">CSS Validator</button>
-              <button type="button" name="page-speed" id="insights">Page Speed</button>
-            </div>
-
             <!-- HTML Checker Container -->
             <div class="valid-container html-validator">
               <section class="instructions">
-                <h3>HTML Validation</h3>
+                <h2>HTML Validation</h2>
                 <p>Enter HTML markup and click <strong>CHECK</strong> to validate.</p>
                 <p>Click <strong>CLEAR</strong> to reset the form.</p>
               </section>
@@ -203,7 +214,7 @@
             <!-- CSS Checker Container -->
             <div class="valid-container css-validator">
               <section class="instructions">
-                <h3>CSS Validation</h3>
+                <h2>CSS Validation</h2>
                 <p>Copy and Paste CSS in text area below and click <strong>CHECK</strong> to validate.</p>
                 <p>Click <strong>CLEAR</strong> to reset the form.</p>
               </section>
@@ -253,25 +264,6 @@
               </div>
             </div>
 
-            <div class="tools-icon-list">
-              <ul>
-                <li>
-                  <!-- Color Picker Toggle Button -->
-                  <button type="button" name="color-picker" class="tools-icon" id="color-picker-icon">
-                    <i class="fa fa-paint-brush" aria-hidden="true"></i>
-                    <span class="tools-icon-hover">Color Picker</span>
-                  </button>
-                </li>
-                <li>
-                  <!-- Tool Options Toggle Button -->
-                  <button type="button" name="validators" class="tools-icon" id="validator-icon">
-                    <i class="fa fa-wrench" aria-hidden="true"></i>
-                    <span class="tools-icon-hover">Toolbox</span>
-                  </button>
-                </li>
-              </ul>
-          </div>
-
           </div> <!-- Tools End -->
 
           <div class="credits">
@@ -295,8 +287,8 @@
           	<div class="setting-main">
 
   	        	<div class="setting-aside">
+                <h2>Settings</h2>
   	        		<ul>
-  	        			<li class="setting-general">General</li>
   	        			<li class="setting-clock">Clock</li>
   	        			<li class="setting-news">News Feed</li>
   	        			<li class="setting-background">Background</li>
@@ -310,7 +302,7 @@
   	        	<div class="setting-controls">
 
                 <div class="settings-pomodoro">
-                  <h1>Clock &#38; Pomodoro</h1>
+                  <h2>Clock &#38; Pomodoro</h2>
                   <span>Increase productivity with custom work/break intervals</span>
 
                   <form>
@@ -335,70 +327,31 @@
 
                 </div><!-- END SETTINGS POMODORO -->
 
+                <div class="settings-newsfeed">
+                  <h2>News Feed</h2>
+                  <span>Keep up to date with a personalized feed of news articles</span>
+                </div>
+
                 <div class="setting-controls-background">
-                  <h1>Background</h1>
+                  <h2>Background</h2>
                   <span>View a beautiful new image each time DevTab is opened</span>
 
-                  <div class="bg-setting-select">
-                    <span class="bg-gallery">GALLERY</span>
-                    <span class="bg-customize">CUSTOMIZE</span>
-                    <span class="bg-rotate">ROTATE</span>
-                  </div>
+                  <ul class="bg-setting-select">
+                    <li class="bg-gallery">GALLERY</li>
+                    <li class="bg-customize">CUSTOMIZE</li>
+                    <li class="bg-rotate">ROTATE</li>
+                  </ul>
 
                   <div class="bg-setting-gallery">
                     <span>Select an image to set as the background</span>
                     <div class="gallery-container">
-                      <img src="assets/img/dayPics/sample0.jpeg" alt="daytime image">
-                      <img src="assets/img/nightPics/sample0.jpeg" alt="nighttime image">
-                      <img src="assets/img/dayPics/sample1.jpeg" alt="daytime image">
-                      <img src="assets/img/nightPics/sample1.jpeg" alt="nighttime image">
-                      <img src="assets/img/dayPics/sample2.jpeg" alt="daytime image">
-                      <img src="assets/img/nightPics/sample2.jpeg" alt="nighttime image">
-                      <img src="assets/img/dayPics/sample3.jpeg" alt="daytime image">
-                      <img src="assets/img/nightPics/sample3.jpeg" alt="nighttime image">
-                      <img src="assets/img/dayPics/sample4.jpeg" alt="daytime image">
-                      <img src="assets/img/nightPics/sample4.jpeg" alt="nighttime image">
-                      <img src="assets/img/dayPics/sample5.jpeg" alt="daytime image">
-                      <img src="assets/img/nightPics/sample5.jpeg" alt="nighttime image">
-                      <img src="assets/img/dayPics/sample6.jpeg" alt="daytime image">
-                      <img src="assets/img/nightPics/sample6.jpeg" alt="nighttime image">
-                      <img src="assets/img/dayPics/sample7.jpeg" alt="daytime image">
-                      <img src="assets/img/nightPics/sample7.jpeg" alt="nighttime image">
-                      <img src="assets/img/dayPics/sample8.jpeg" alt="daytime image">
-                      <img src="assets/img/nightPics/sample8.jpeg" alt="nighttime image">
-                      <img src="assets/img/dayPics/sample9.jpeg" alt="daytime image">
-                      <img src="assets/img/nightPics/sample9.jpeg" alt="nighttime image">
-                      <img src="assets/img/dayPics/sample10.jpeg" alt="daytime image">
-                      <img src="assets/img/nightPics/sample10.jpeg" alt="nighttime image">
-                      <img src="assets/img/dayPics/sample11.jpeg" alt="daytime image">
-                      <img src="assets/img/nightPics/sample11.jpeg" alt="nighttime image">
-                      <img src="assets/img/dayPics/sample12.jpeg" alt="daytime image">
-                      <img src="assets/img/nightPics/sample12.jpeg" alt="nighttime image">
-                      <img src="assets/img/dayPics/sample13.jpeg" alt="daytime image">
-                      <img src="assets/img/nightPics/sample13.jpeg" alt="nighttime image">
-                      <img src="assets/img/dayPics/sample14.jpeg" alt="daytime image">
-                      <img src="assets/img/nightPics/sample14.jpeg" alt="nighttime image">
-                      <img src="assets/img/dayPics/sample15.jpeg" alt="daytime image">
-                      <img src="assets/img/nightPics/sample15.jpeg" alt="nighttime image">
-                      <img src="assets/img/dayPics/sample16.jpeg" alt="daytime image">
-                      <img src="assets/img/nightPics/sample16.jpeg" alt="nighttime image">
-                      <img src="assets/img/dayPics/sample17.jpeg" alt="daytime image">
-                      <img src="assets/img/nightPics/sample17.jpeg" alt="nighttime image">
-                      <img src="assets/img/dayPics/sample18.jpeg" alt="daytime image">
-                      <img src="assets/img/nightPics/sample18.jpeg" alt="nighttime image">
-                      <img src="assets/img/dayPics/sample19.jpeg" alt="daytime image">
-                      <img src="assets/img/nightPics/sample19.jpeg" alt="nighttime image">
-                      <img src="assets/img/dayPics/sample20.jpeg" alt="daytime image">
-                      <img src="assets/img/nightPics/sample20.jpeg" alt="nighttime image">
-                      <img src="assets/img/dayPics/sample21.jpeg" alt="daytime image">
-                      <img src="assets/img/nightPics/sample21.jpeg" alt="nighttime image">
                     </div>
                   </div>
 
                   <div class="bg-setting-custom">
                     <span>Personalize your workspace by adding your own image</span>
                     <form class="bg-user-input">
-                      <label><input id="bg-user-url" type="text" name="userBackground" placeholder="Enter image url here..." required></label>
+                      <label><input id="bg-user-url" type="text" name="userBackground" placeholder="Enter an image URL" required></label>
                       <button id="bg-user-url-submit" type="submit">+ Add Image</button>
                     </form>
                     <div class="bg-user-error">
@@ -406,10 +359,10 @@
                       <p>Please try again</p>
                     </div>
                     <div class="bg-user-store">
-                      <div class="stored-image"
+                      <div class="stored-image">
                         <p>Your image has been saved</p>
                       </div>
-                      <p>To change, either enter a new image URL, select an image from the <strong class="bg-gallery">GALLERY</strong> or choose to <strong class="bg-rotate">ROTATE</strong> through our images</p>
+                      <p>To change, either enter a new image URL, select an image from the <strong class="bg-gallery">GALLERY</strong>, or choose to <strong class="bg-rotate">ROTATE</strong> through our images</p>
                     </div>
                   </div>
 
@@ -422,21 +375,21 @@
 
                 <div class="setting-controls-about">
                   <img src="assets/img/scuba-turtle.png" alt="DevTab Thumbnail">
-                  <h1>DevTab</h1>
+                  <h2>DevTab</h2>
                   <span>Personal Dashboard with a Front-End Developer Focus</span>
                   <span>v1.0.0</span>
                   <h3>Thank you for your support!</h3>
                 </div><!-- END SETTINGS ABOUT -->
 
                 <div class="setting-controls-contribute">
-                  <h1>DevTab is an open source project</h1>
-                  <a id="gh-repo" href="https://github.com/chingu-coders/Voyage2-Turtles-02">GitHub</a>
+                  <h2>DevTab is an open source project</h2>
+                  <a id="gh-repo" href="https://github.com/chingu-coders/Voyage2-Turtles-02" target="_blank">GitHub</a>
                   <span>Created by</span>
-                  <span class="ghlinks">
-                    <a href="https://github.com/ziggysauce">DAN</a>
-                    <a href="https://www.jmbothe.com">JEFF</a>
-                    <a href="https://github.com/HTMLNoob">TYLER</a>
-                  </span>
+                  <ul class="ghlinks">
+                    <li><a href="https://github.com/ziggysauce" target="_blank">DAN</a></li>
+                    <li><a href="https://www.jmbothe.com" target="_blank">JEFF</a></li>
+                    <li><a href="https://github.com/HTMLNoob" target="_blank">TYLER</a></li>
+                  </ul>
                 </div><!-- END SETTINGS CONTRIBUTE -->
 
   	        	</div><!-- END SETTINGS CONTROLS -->
@@ -446,6 +399,7 @@
         </footer>
 
         <section class="newsfeed-wrapper">
+          <h2>News Feed</h2>
           <ul class="newsfeed">
           </ul>
         </section>
