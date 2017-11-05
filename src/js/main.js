@@ -33,7 +33,7 @@ CONTROLLER
   settingsView,
 ) {
 /* ***** POMODORO SECTION ******** */
-  
+
   function togglePomodoroActive() {
     clocksModel.toggleActive();
     clocksView.toggleActive(clocksModel.getStatus().isActive);
@@ -200,11 +200,11 @@ CONTROLLER
       updateQuickStorage();
     });
 
-    $('.deleteSite').click(function() {
+    $('.deleteSite').click(() => {
       quickLinkApp.deleteView(quickLinkApp.quickModel);
     });
 
-    $('.cancelDelete').click(function(){
+    $('.cancelDelete').click(() => {
       quickLinkApp.quickView(quickLinkApp.quickModel);
     });
   }
@@ -435,7 +435,7 @@ CONTROLLER
     colorpickerModel.hex.addEventListener('change', () => {
       var pushColor = `#${colorpickerModel.hex.value}`;
       pushColor = pushColor.split('');
-      if (pushColor[0] == '#' && pushColor[1] == '#') {
+      if (pushColor[0] === '#' && pushColor[1] === '#') {
         pushColor.shift();
       }
       pushColor = pushColor.join('');
@@ -557,7 +557,8 @@ CONTROLLER
       .on('click', settingsView.toggleAbout)
       .on('click', settingsView.toggleContribute)
       .on('click', settingsView.togglePomodoroSettings)
-      .on('click', settingsView.toggleBackgroundSettings);
+      .on('click', settingsView.toggleBackgroundSettings)
+      .on('click', settingsView.toggleNewsfeedSettings);
     $('#name-form').on('submit', setUserName);
     $('.start, .stop').on('click', togglePomodoroActive);
     $('.pause').on('click', togglePomodoroPause);
@@ -573,9 +574,10 @@ CONTROLLER
   }
 
   function initialize() {
-    $('.setting-controls-about').hide();
+    // $('.setting-controls-about').hide();
     $('.setting-controls-contribute').hide();
     $('.settings-pomodoro').hide();
+    $('.settings-newsfeed').hide();
     $('.setting-controls-background').hide();
     $('.tools-container').hide();
     $('.valid-container').hide();

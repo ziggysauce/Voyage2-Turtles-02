@@ -113,7 +113,7 @@ COLOR PICKER VIEW
   const colorpicker = $('.color-picker-panel');
 
   function toggleColorPicker(e) {
-    if (colorpicker.is(':visible') && !colorpicker.find(e.target).length) {
+    if (colorpicker.is(':visible') && !colorpicker.find(e.target).length && e.target !== colorpicker[0]) {
       colorpicker.fadeOut();
     } else if (!colorpicker.is(':visible') && e.target === $('.fa-paint-brush')[0]) {
       colorpicker.fadeIn();

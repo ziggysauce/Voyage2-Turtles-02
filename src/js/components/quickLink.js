@@ -34,12 +34,12 @@
   }
 
   function quickView(dataRecieve) {
-  	$('.quickList li').remove();
-  	$('.cancelDelete').hide();
-  	$('.deleteDesc').hide();
-  	$('.addUrl').hide();
-  	$('.addSite').fadeIn('slow');
-  	$('.deleteSite').fadeIn('slow');
+    $('.quickList li').remove();
+    $('.cancelDelete').hide();
+    $('.deleteDesc').hide();
+    $('.addUrl').hide();
+    $('.addSite').fadeIn('slow');
+    $('.deleteSite').fadeIn('slow');
     const retrieve = dataRecieve();
     for (let i = 0; i < retrieve.length; i += 1) { // This adds each object into the HTML page.
       $('.quickList').append(`<li id='${retrieve[i].id}'><a href="${retrieve[i].url}">${retrieve[i].title}</a></li>`);
@@ -57,42 +57,31 @@
   }
 
   function deleteView(dataRecieve) {
-  	$('.quickList li').remove();
-  	const retrieve = dataRecieve();
-  	for (let i = 0; i < retrieve.length; i++) {
-  		$('.quickList').append(`<li id='${retrieve[i].id}' class="deleteItem">${retrieve[i].title}</li>`);
-  		deleteControl(retrieve[i].id);
-  	}
-  	$('.addSite').hide();
-  	$('.deleteSite').hide();
-  	$('.deleteDesc').fadeIn('slow');
-  	$('.cancelDelete').fadeIn('slow');
+    $('.quickList li').remove();
+    const retrieve = dataRecieve();
+    for (let i = 0; i < retrieve.length; i++) {
+      $('.quickList').append(`<li id='${retrieve[i].id}' class="deleteItem">${retrieve[i].title}</li>`);
+      deleteControl(retrieve[i].id);
+    }
+    $('.addSite').hide();
+    $('.deleteSite').hide();
+    $('.deleteDesc').fadeIn('slow');
+    $('.cancelDelete').fadeIn('slow');
   }
 
   function deleteControl(recieveID) {
+    var linkID = recieveID;
+    var linkRetrieve = quickModel();
 
-  	var linkID = recieveID;
-
-  	var linkRetrieve = quickModel();
-
-  	$('#' + linkID).click(function() {
-
-  		for(var x = 0; x < linkRetrieve.length; x++) {
-
-  			if (linkRetrieve[x].id == linkID) {
-
-  				linkRetrieve.splice(x, 1);
-
-  				$('#' + linkID).fadeOut('slow');
-
-  				localStorage.setItem('linkArray', JSON.stringify(linkRetrieve));
-
-  			}
-
-  		}
-
-  	});
-
+    $('#' + linkID).click(() => {
+      for (var x = 0; x < linkRetrieve.length; x++) {
+        if (linkRetrieve[x].id == linkID) {
+          linkRetrieve.splice(x, 1);
+          $('#' + linkID).fadeOut('slow');
+          localStorage.setItem('linkArray', JSON.stringify(linkRetrieve));
+        }
+      }
+    });
   }
 
   window.app.quickLinkApp = {
