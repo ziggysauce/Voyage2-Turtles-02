@@ -37,194 +37,236 @@ body {
 }
 
 .linkNote {
-	  display: flex;
-	  justify-content: space-around;
-	  /*----------------------------------------------------*/
-	  /*Quick Links and Sticky Notes*/
-	  /*----------------------------------------------------*/
-	  	.quickLinks {
-	  		display: flex;
-	  		margin: 20px auto 0px 40px;
+  display: flex;
+	justify-content: space-around;
+	/*----------------------------------------------------*/
+	/*Quick Links and Sticky Notes*/
+	/*----------------------------------------------------*/
+	.quickLinks {
+    display: flex;
+	  margin: 20px auto 0px 40px;
 
-	  		.dropdownButton {
-	  			display: flex;
-	  		}
+	  .dropdownButton {
+	  	display: flex;
+	  }
 
-	  		p {
-          cursor: pointer;
-	  			margin: 0px 0px 0px 0px;
-	  			padding: 10px 8px 8px 8px;
-	  			font-size: 1.2em;
-					color: rgba(255,255,255,.8);
-	  		}
+	  p {
+	  	margin: 0px 0px 0px 0px;
+	  	padding: 10px 8px 8px 8px;
+	  	font-size: 1.2em;
+			color: rgba(255,255,255,.8);
+	  }
 
-	  		.quickDropdown {
-	  			position: absolute;
-	  			margin-top: 40px;
-	  			color: #D9D9D9;
-				  background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.6) 100%);
+	  .quickDropdown {
+      width: 175px;
+	  	position: absolute;
+	  	margin-top: 40px;
+	  	color: #D9D9D9;
+			background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.6) 100%);
 
-          border-radius: 5px;
-          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+      border-radius: 5px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+	  	transition: 0.5s;
 
-	  			transition: .5s;
+      h2 {
+  	  	margin: 0px 0px 5px 0px;
+  	  	padding: 10px;
+        text-align: center;
 
-	  			input {
-	  				display: block;
-	  				width: 115px;
-	  				padding: 3px 0px 3px 10px;
-	  				margin: 7px 0px 7px 30px;
+  	  	font-size: 1.5em;
+  	  	font-weight: bold;
+        color: #FFF;
 
-	  				background: rgba(255,255,255,.2);
-	  				color: #FFF;
-	  				font-weight: 700;
-	  				border: none;
-	  				border-radius: 3px;
-	  				transition: .3s;
-	  				outline: none;
-	  			}
+  	  	border-bottom: .4px solid rgba(255, 255, 255, 0.5);
+  	  }
 
-          input::placeholder {
-            color: rgba(255,255,255,.5);
-          }
+	  	input {
+        display: block;
+	  		padding: 5px;
+        margin: 5px auto;
+        width: 90%;
 
-	  			input:focus::placeholder {/*::placeholder is a selector that selects the content within the placehold attribute.*/
-	  				color: #FFF;
-	  				transition: .3s;
-	  			}
-
-	  			#invisibleInput {
-	  				opacity: 0;
-	  				position: absolute;
-	  			}
-
-	  			button {
-	  				margin: 0px;
-	  			}
-	  		}
-
-	  		h2 {
-	  			margin: 0px 0px 5px 0px;
-	  			padding: 10px 0px;
-          text-align: center;
-
-	  			font-size: 1.5em;
-	  			font-weight: bold;
-          color: #FFF;
-
-	  			border-bottom: .4px solid rgba(255, 255, 255, 0.5);
-	  		}
-
-	  		ul {
-	  			list-style-type: none;
-	  			margin: 0px;
-	  			padding: 0px;
-	  		}
-
-	  		li {
-	  			margin: 0px;
-	  			padding: 5px 0px 5px 30px;
-	  		}
-
-	  		a {
-          cursor: pointer;
-	  			text-decoration: none;
-	  			color: lightgrey;
-          font-size: 1em;
-	  		}
-
-	  		li:hover {
-          border-left: 5px solid #FFD63A;
-          a {
-            font-weight: bold;
-            color: #FFF;
-          }
-	  		}
-
-	  		.addSite{
-	  			padding: 3px;
-	  			margin: 10px 30px 10px 30px;
-	  			font-weight: 700;
-	  			cursor: pointer;
-
-	  			font-size: 1em;
-				  color: rgba(255,255,255,.8);
-          background: #43ac00;
-	  			border: 1px solid transparent;
-          outline: none;
-	  			border-radius: 3px;
-	  			transition: .5s;
-	  		}
-
-				.addSite:hover {
-				  background-color: #235900;
-	  			transition: .5s;
-				}
+	  		background: rgba(255,255,255,.2);
+	  		color: #FFF;
+        border: none;
+	  		border-radius: 3px;
+	  		transition: .3s;
+	  		outline: none;
 	  	}
 
-			.qlToggle:hover {
-        color: #FFF;
+      input::placeholder {
+        color: rgba(255,255,255,.5);
       }
 
-	  	.stickyNotes {
-	  		margin: 5px 30px 10px 10px;
-        padding: 0px;
-	  		cursor: pointer;
-
-	  		span {
-	  			margin: 8px 0px;
-	  			padding-top: 10px;
-
-	  			color: rgba(255,255,255,.6);
-	  			font-size: 1.5em;
-          transition: 0.5s;
-	  		}
-
-	  		i {
-	  			margin: 10px 0px 0px 10px;
-	  			padding: 10px 0px 0px 0px;
-
-					color: rgba(255,255,255,.6);
-	  			font-size: 1.8em;
-          transition: 0.5s;
-	  		}
-
-        p {
-          margin: 0px;
-          font-size: 14px;
-          opacity: 0;
-
-					color: #FFF;
-					font-size: 14px;
-          font-family: 'Lato', Helvetica;
-					transition: .5s;
-        }
+	  	input:focus::placeholder {/*::placeholder is a selector that selects the content within the placehold attribute.*/
+	  		color: #FFF;
+	  		transition: .3s;
 	  	}
 
-			.stickyNotes:hover {
-				span {
-          transition: 0.5s;
-					color: #FFF;
-				}
-				i {
-          transition: 0.5s;
-					color: #FFF;
-				}
-        p {
-          transition: 0.5s;
-          opacity: 1;
-          visibility: visible;
-        }
-			}
-
-	  	.dropdownButton:hover {
-	  		.quickDropdown {
-          display: block;
-	  			// opacity: 1;
-	  			z-index: 1;
-	  			transition: .5s;
-	  		}
+	  	#invisibleInput {
+	  		margin: 0px 0px;
+	  		padding: 0px;
+	  		width: 1px;
+	  		height: 1px;
+	  		opacity: 0;
 	  	}
+
+	  	// button {
+      //   margin: 0px;
+	  	// }
+	  }
+
+	  ul {
+      // display: block;
+	  	list-style-type: none;
+	  	margin: 0px;
+	  	padding: 0px;
+	  }
+
+	  li {
+      word-wrap: break-word;
+      max-width: 250px;
+	  	margin: 0px;
+	  	padding: 5px 15px;
+
+      a {
+        cursor: pointer;
+  	  	text-decoration: none;
+  	  	color: lightgrey;
+        font-size: 1em;
+  	  }
+	  }
+
+	  li:hover{
+	  	color: #FFF;
+      font-weight: bold;
+      border-left: 5px solid #FFD63A;
+
+      a {
+        cursor: pointer;
+        font-weight: bold;
+        color: #FFF;
+      }
+	  }
+
+	  .siteButton{
+      text-align: center;
+      width: 90%;
+      display: block;
+	  	padding: 3px;
+	  	margin: 10px auto;
+	  	cursor: pointer;
+	  	font-size: 1em;
+			color: #D9D9D9;
+      background: transparent;
+	  	border: 1px solid rgba(255,255,255,.4);
+      outline: none;
+	  	border-radius: 3px;
+      transition: 0.3s;
+	  }
+
+  	.addSite:hover {
+      color: rgba(0,0,0,.8);
+      font-weight: bold;
+
+      background: #43ac00;
+    	transition: .3s;
+      border: 1px solid transparent;
+  	}
+
+    .deleteSite:hover {
+      color: rgba(0,0,0,.8);
+      font-weight: bold;
+
+      background: #d44646;
+      transition: .3s;
+      border: 1px solid transparent;
+    }
+
+    .cancelDelete:hover {
+      color: rgba(0,0,0,.8);
+      font-weight: bold;
+      cursor: pointer;
+      background: #FFD63A;
+      transition: 0.3s;
+      border: 1px solid transparent;
+    }
+
+  	.deleteDesc{
+  		display: none;
+  		padding: 5px;
+      margin: 0px 10px;
+      // text-align: center;
+  		font-size: 1em;
+      font-weight: bold;
+      color: #FFD63A;
+  	}
+  }
+
+	.qlToggle:hover {
+    color: #FFF;
+    cursor: pointer;
+  }
+
+	.stickyNotes {
+    margin: 5px 30px 10px 10px;
+    padding: 0px;
+	  cursor: pointer;
+
+  	span {
+	    margin: 8px 0px;
+	    padding-top: 10px;
+
+	    color: rgba(255,255,255,.6);
+	    font-size: 1.5em;
+      transition: 0.5s;
+	  }
+
+	  i {
+	    margin: 10px 0px 0px 10px;
+	    padding: 10px 0px 0px 0px;
+
+		  color: rgba(255,255,255,.6);
+	    font-size: 1.8em;
+      transition: 0.5s;
+    }
+
+    p {
+      margin: 0px;
+      font-size: 14px;
+      opacity: 0;
+
+			color: #FFF;
+			font-size: 14px;
+      font-family: 'Lato', Helvetica;
+			transition: .5s;
+    }
+  }
+
+	.stickyNotes:hover {
+    span {
+      transition: 0.5s;
+			color: #FFF;
+		}
+		i {
+      transition: 0.5s;
+			color: #FFF;
+		}
+    p {
+      transition: 0.5s;
+      opacity: 1;
+      visibility: visible;
+    }
+	}
+
+  .dropdownButton:hover {
+    .quickDropdown {
+      display: block;
+	  	// opacity: 1;
+	  	z-index: 1;
+	  	transition: .5s;
+    }
+  }
 }
 
 /*----------------------------------------*/
@@ -580,7 +622,7 @@ footer {
 .preview {
 	border-radius: 3px;
 	background: #ccc;
-	width: 60px;
+	width: 65px;
 	height: 35px;
 	margin-bottom: 5px;
 }
@@ -681,10 +723,10 @@ footer {
 }
 
 .tog-button {
-	background: rgba(255,255,255,0.6);
-	border: 0;
+	background: transparent;
+	border: 1px solid rgba(255,255,255,0.5);
 	border-radius: 3px;
-	color: #303030;
+	color: #C9C9C9;
 	font-size: 1rem;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 	outline: none;
@@ -694,6 +736,8 @@ footer {
 }
 .tog-button:hover {
   background: rgba(255,255,255,0.8);
+  color: rgba(0,0,0,0.8);
+  font-weight: bold;
   transition: 0.5s;
 }
 .tog-button:active {
@@ -719,14 +763,14 @@ footer {
   font-weight: bold;
 }
 .value-fields .field-input {
-	background: rgba(255,255,255,0.6);
-	border: 0;
+  background: rgba(255, 255, 255, 0.2);
+  color: #FFF;
+  border: 0;
 	box-sizing: border-box;
 	border-radius: 2px;
 	line-height: 38px;
 	padding: 0 4px;
 	text-align: center;
-	color: #303030;
   font-weight: bold;
 	display: block;
 	outline: none;
@@ -849,11 +893,12 @@ footer {
 	}
 
 	#check-html, #check-css {
-		background: #4c8edd;
+		background: transparent;
 		outline: none;
 		border: none;
 		border-radius: 3px;
-		color: #FFF;
+		color: #C9C9C9;
+    border: 1px solid #C9C9C9;
 		cursor: pointer;
     font-family: 'Lato', Helvetica;
     font-size: 1em;
@@ -865,16 +910,20 @@ footer {
 	}
 
 	#check-html:hover, #check-css:hover {
-		background: #005bc6;
+		background: #4c8edd;
     transition: 0.5s;
+    color: rgba(0,0,0,0.8);
+    font-weight: bold;
+    border: 1px solid transparent;
 	}
 
   #clear-html, #clear-css {
-    background: #d44646;
+    background: transparent;
     outline: none;
     border: none;
     border-radius: 3px;
-    color: #FFF;
+    color: #C9C9C9;
+    border: 1px solid #C9C9C9;
     cursor: pointer;
     font-family: 'Lato', Helvetica;
     font-size: 1em;
@@ -887,8 +936,11 @@ footer {
   }
 
   #clear-html:hover, #clear-css:hover {
-    background: #8b0505;
+    background: #d44646;
     transition: 0.5s;
+    color: rgba(0,0,0,0.8);
+    font-weight: bold;
+    border: 1px solid transparent;
   }
 }
 
@@ -1055,12 +1107,12 @@ footer {
   padding: 10px;
   margin: 10px;
   width: 10%;
-  background: #4c8edd;
+  background: transparent;
+  border: 1px solid #C9C9C9;
+  color: #C9C9C9;
 	outline: none;
-  border: none;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
 	border-radius: 2px;
-  color: #FFF;
 	cursor: pointer;
   font-family: 'Lato', Helvetica;
   font-size: 1em;
@@ -1068,19 +1120,20 @@ footer {
   transition: 0.5s;
 }
 
-#analyzePage:hover, #clearPage:hover {
-  background: #005bc6;
+#analyzePage:hover {
+  font-weight: bold;
+  border: 1px solid transparent;
+  color: rgba(0,0,0,0.8);
+  background: #4c8edd;
   transition: 0.5s;
-}
-
-#clearPage {
-  transition: 0.5s;
-  background: #d44646;
 }
 
 #clearPage:hover {
+  font-weight: bold;
+  border: 1px solid transparent;
+  color: rgba(0,0,0,0.8);
   transition: 0.5s;
-  background: #8b0505;
+  background: #d44646;
 }
 
 .returnresults {
@@ -1129,7 +1182,7 @@ footer {
 }
 
 .click-details {
-  padding: 10px;
+  padding: 5px;
   margin: 10px;
   background: #43ac00;
 	outline: none;
@@ -1175,7 +1228,7 @@ footer {
 .learn-more-link {
   margin-left: 30px;
   text-decoration: none;
-  color: #EE6200;
+  color: #6144A2;
   font-weight: 700;
   transition: 0.5s;
 }
@@ -1500,7 +1553,7 @@ footer {
 }
 
 .setting-aside h2 {
-  margin: 0px 0px 5px 0px;
+  margin: 0px;
   padding: 20px 0px;
   width: 100%;
   text-align: center;
@@ -1512,7 +1565,6 @@ footer {
 
 .setting-aside ul {
 	width: 160px;
-	height: 50%;
 	padding: 10px 0px 0px 0px;
 	list-style-type: none;
 }
@@ -1583,20 +1635,16 @@ footer {
     font-size: 1.5em;
   }
 
-  #gh-repo {
-    text-decoration: none;
-    padding: 5px;
-    font-size: 1.5em;
+  i {
+    font-size: 3em;
+    margin: 5px;
     color: rgba(255,255,255,0.7);
-    border: 1px solid rgba(255,255,255,0.7);
-    border-radius: 3px;
     transition: 0.5s;
   }
 
-  #gh-repo:hover {
-    background: rgba(255,255,255,0.7);
-    color: rgba(0, 0, 0, 0.9);
+  i:hover {
     transition: 0.5s;
+    color: #FFD63A;
   }
 
   span {
@@ -1654,10 +1702,14 @@ footer {
 
     select {
       margin-left: 15px;
-      color: rgba(0,0,0,0.8);
-      background: rgba(255,255,255,0.7);
+      color: rgba(255,255,255,0.8);
+      background: transparent;
       outline: none;
       font-size: .8em;
+    }
+
+    option {
+      border: 2px solid red;
     }
   }
 
@@ -1684,7 +1736,7 @@ footer {
     // position: relative;
     height: 12px;
     cursor: pointer;
-    background: transparent linear-gradient(#57487a, #57487a) no-repeat;
+    background: transparent linear-gradient(#FFD63A, #FFD63A) no-repeat;
     box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0);
     border-radius: 3px;
     background-size: 100%;
@@ -1693,12 +1745,12 @@ footer {
   &::-webkit-slider-thumb {
     // position: relative;
     border-radius: 3px;
-    border: 2px solid rgba(0, 0, 0, 0.5);
+    border: 2px solid #FFD63A;
     height: 24px;
     width: 16px;
     -webkit-appearance: none;
     margin-top: -6px;
-    background: #e6dbff;
+    background: #000;
     background-position: 21% 100%;
     background-size: 10px 10px;
     transition: all 0.1s ease;
@@ -1804,7 +1856,7 @@ footer {
     outline: none;
     border: 1px solid #000;
     border-radius: 3px;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.2);
     color: #FFF;
   }
 

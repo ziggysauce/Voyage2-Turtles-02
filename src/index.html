@@ -40,21 +40,23 @@
           <div class="quickLinks">
             <div class="dropdownButton">
               <p class="qlToggle">Quick Links</p>
-              <!-- <i class="fa fa-sort-desc" aria-hidden="true"></i> -->
               <div class="quickDropdown">
                 <h2>Popular Sites</h2>
+                <p class="deleteDesc">Click link to delete</p>
                 <ul class="quickList">
                 </ul>
-                <p class="addSite">+ Add New Site</p>
+                <button class="addSite siteButton">Add Link</button>
+                <button class="deleteSite siteButton">Delete Link</button>
                 <div class="addUrl">
                   <div class="urlContainer">
                     <form id="targetForm">
                       <input id="titleInput" type="text" placeholder="title" required/>
-                      <input id="urlInput" type="text" placeholder="url" required/>
+                      <input id="urlInput" type="url" placeholder="url" required/>
                       <input id="invisibleInput" type="submit" />
                     </form>
                   </div>
                 </div>
+                <button class="cancelDelete siteButton">Cancel</button>
               </div>
             </div>
           </div>
@@ -308,8 +310,8 @@
                   <form>
                     <label for="time-format" id="time-label">Time Format </label>
                     <select id="time-format" name="time-format">
-                        <option value="12" selected>12 hour</option>
-                        <option value="24">24 hour</option>
+                      <option value="12" selected>12 hour</option>
+                      <option value="24">24 hour</option>
                     </select>
                   </form>
 
@@ -383,7 +385,7 @@
 
                 <div class="setting-controls-contribute">
                   <h2>DevTab is an open source project</h2>
-                  <a id="gh-repo" href="https://github.com/chingu-coders/Voyage2-Turtles-02" target="_blank">GitHub</a>
+                  <a href="https://github.com/chingu-coders/Voyage2-Turtles-02"><i class="fa fa-github"></i></a>
                   <span>Created by</span>
                   <ul class="ghlinks">
                     <li><a href="https://github.com/ziggysauce" target="_blank">DAN</a></li>

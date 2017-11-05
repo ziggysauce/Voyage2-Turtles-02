@@ -144,9 +144,9 @@ CONTROLLER
   /* ********* STICKY NOTE LISTENER ******* */
 
   function stickClickEvent() {
-    const colorList = ['blue', 'yellow', 'green', 'purple', 'pink', 'grey', 'red'];
-    const randomColor = colorList[Math.floor((Math.random() * colorList.length))];
-    const newStickyObject = {
+    var colorList = ['blue', 'yellow', 'green', 'purple', 'pink', 'grey', 'red'];
+    var randomColor = colorList[Math.floor((Math.random() * colorList.length))];
+    var newStickyObject = {
       title: 'Sticky Note',
       barClass: `${randomColor}Bar`,
       areaClass: `${randomColor}Area`,
@@ -158,7 +158,7 @@ CONTROLLER
 
     stickyApp.stickyNoteModel(newStickyObject);
     function stickyObjectFunction() {
-      const pushArray = [newStickyObject];
+      var pushArray = [newStickyObject];
       return pushArray;
     }
     stickyApp.stickyNoteView(stickyObjectFunction);
@@ -168,7 +168,10 @@ CONTROLLER
 
   function quickControl() {
     $('.addSite').click(() => {
-      $('.addUrl').fadeToggle('slow');
+      $('.addSite').hide();
+      $('.deleteSite').hide();
+      $('.addUrl').fadeIn('slow');
+      $('.cancelDelete').fadeIn('slow');
     });
 
     $('#targetForm').submit((e) => { // When the quickLinks submit button is pressed, this will grab the input values and push it to localStorage.
@@ -179,17 +182,30 @@ CONTROLLER
       const newObject = { // In order to push this to localStorage we will want it in object form so that the for loop above can access these properties.
         title: titleInput,
         url: urlInput,
+        id: Math.floor((Math.random() * 1000) + 1),
       };
-      $('.addUrl').fadeOut('slow');
+      $('.addUrl').hide();
+      $('cancelDelete').hide();
+      $('.addSite').fadeIn('slow');
+      $('.deleteSite').fadeIn('slow');
+
       // This resets the inputs so that it doesnt show the link you already put in.
       $('#titleInput').val('');
       $('#urlInput').val('');
 
       function updateQuickStorage() {
         quickLinkApp.quickModel(newObject);
-        $('.quickList').append(`<li><a href="${newObject.url}">${newObject.title}</a></li>`);
+        $('.quickList').append(`<li id='${newObject.id}'><a href="${newObject.url}">${newObject.title}</a></li>`);
       }
       updateQuickStorage();
+    });
+
+    $('.deleteSite').click(() => {
+      quickLinkApp.deleteView(quickLinkApp.quickModel);
+    });
+
+    $('.cancelDelete').click(() => {
+      quickLinkApp.quickView(quickLinkApp.quickModel);
     });
   }
 
@@ -385,6 +401,7 @@ CONTROLLER
     });
 
     function colorToPos(color) {
+      console.log(color);
       var color = tinycolor(color);
       const hsl = color.toHsl();
       colorpickerModel.hue = hsl.h;
@@ -416,7 +433,13 @@ CONTROLLER
     });
 
     colorpickerModel.hex.addEventListener('change', () => {
-      const color = tinycolor(`#${colorpickerModel.hex.value}`);
+      var pushColor = `#${colorpickerModel.hex.value}`;
+      pushColor = pushColor.split('');
+      if (pushColor[0] === '#' && pushColor[1] === '#') {
+        pushColor.shift();
+      }
+      pushColor = pushColor.join('');
+      const color = tinycolor(pushColor);
       colorToPos(color);
     });
 
@@ -517,6 +540,7 @@ CONTROLLER
   /* ********* SETTINGS *************** */
 
   // Settings Controller JS goes here!
+
 
   /* ********* GENERAL ************ */
 

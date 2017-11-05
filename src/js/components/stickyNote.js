@@ -106,15 +106,15 @@
     });
 
     $(`#${noteID}`).click(() => { // This records the text inside of the sticky note.
-      $(`#${noteID} textarea`).keypress(() => { // Each time a key is pressed, it records the letter and pushes it into localStorage.
+      $(`#${noteID} textarea`).keydown(() => { // Each time a key is pressed, it records the letter and pushes it into localStorage.
         for (let y = 0; y < noteRetrieve.length; y += 1) {
           if (noteRetrieve[y].id === noteID) {
             ((y) => { // This creates an additional closure so that the setTimeout function can access pushRetrieve[y].
               setTimeout(() => { // The reason why we need a setTimeout is because when the keypress event is triggered, .val() will ignore the last letter of the input. setTimeout gives enough time for the input to update then we grab and push the text into localStorage.
                 noteRetrieve[y].text = $(`#${noteID} textarea`).val();
-                updateStickStorage();
+                   updateStickStorage();
                 console.log(noteRetrieve[y].text); // This serves no purpose other than to help debug.
-              }, 100);
+              }, 10);
             })(y);
           }
         }
@@ -153,16 +153,26 @@
 
     $(`#${noteID} form`).submit((e) => {
       e.preventDefault();
+      if ($(`#${noteID} .stickTitleInput`).val() == '') {
+        $(`#${noteID} .stickTitle`).html('Sticky Note');
+      } else {
       $(`#${noteID} .stickTitle`).html($(`#${noteID} .stickTitleInput`).val());
+      }
       for (let z = 0; z < noteRetrieve.length; z += 1) {
         if (noteRetrieve[z].id === noteID) {
+          if ($(`#${noteID} .stickTitleInput`).val() == '') {
+          noteRetrieve[z].title = 'Sticky Note';
+          $(`#${noteID} .stickTitleInput`).val('');
+          updateStickStorage();
+          }else {
           noteRetrieve[z].title = $(`#${noteID} .stickTitleInput`).val();
           $(`#${noteID} .stickTitleInput`).val('');
           updateStickStorage();
+          }
         }
       }
       $(`#${noteID} .stickTitleInput`).hide();
-      $(`#${noteID} .stickTitleInput`).fadeIn('slow');
+      $(`#${noteID} .stickTitle`).fadeIn('slow');
     });
 
     $('.draggable').draggable({ scroll: false }); // .draggable() makes the sticky notes draggable and scroll: false ensures that the sticky notes wont fly off the screen xD

@@ -29,7 +29,7 @@ SETTINGS VIEW
   }
 
   function toggleAbout(e) {
-    if ($('.setting-aside').find(e.target).length) {
+    if ($('.setting-aside').find(e.target).length || e.target === $('.setting-aside')[0]) {
       if (e.target !== $('.setting-contribute')[0] && e.target !== $('.setting-clock')[0] && e.target !== $('.setting-news')[0] && e.target !== $('.setting-background')[0]) {
         about.fadeIn();
       }

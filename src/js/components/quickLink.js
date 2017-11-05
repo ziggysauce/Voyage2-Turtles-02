@@ -6,17 +6,17 @@
         {
           title: 'Github', // A must for any developer ^^
           url: 'https://Github.com',
-          id: 1,
+          id: Math.floor((Math.random() * 1000) + 1),
         },
         {
           title: 'MDN',
           url: 'https://developer.mozilla.org/en-US/',
-          id: 2,
+          id: Math.floor((Math.random() * 1000) + 1),
         },
         {
           title: 'Stack Overflow', // Maybe FreeCodeCamp??
           url: 'https://stackoverflow.com',
-          id: 3,
+          id: Math.floor((Math.random() * 1000) + 1),
         },
       ];
 
@@ -34,9 +34,15 @@
   }
 
   function quickView(dataRecieve) {
+    $('.quickList li').remove();
+    $('.cancelDelete').hide();
+    $('.deleteDesc').hide();
+    $('.addUrl').hide();
+    $('.addSite').fadeIn('slow');
+    $('.deleteSite').fadeIn('slow');
     const retrieve = dataRecieve();
     for (let i = 0; i < retrieve.length; i += 1) { // This adds each object into the HTML page.
-      $('.quickList').append(`<li><a href="${retrieve[i].url}">${retrieve[i].title}</a></li>`);
+      $('.quickList').append(`<li id='${retrieve[i].id}'><a href="${retrieve[i].url}">${retrieve[i].title}</a></li>`);
     }
   }
 
@@ -50,9 +56,38 @@
     }
   }
 
+  function deleteView(dataRecieve) {
+    $('.quickList li').remove();
+    const retrieve = dataRecieve();
+    for (let i = 0; i < retrieve.length; i++) {
+      $('.quickList').append(`<li id='${retrieve[i].id}' class="deleteItem">${retrieve[i].title}</li>`);
+      deleteControl(retrieve[i].id);
+    }
+    $('.addSite').hide();
+    $('.deleteSite').hide();
+    $('.deleteDesc').fadeIn('slow');
+    $('.cancelDelete').fadeIn('slow');
+  }
+
+  function deleteControl(recieveID) {
+    var linkID = recieveID;
+    var linkRetrieve = quickModel();
+
+    $('#' + linkID).click(() => {
+      for (var x = 0; x < linkRetrieve.length; x++) {
+        if (linkRetrieve[x].id == linkID) {
+          linkRetrieve.splice(x, 1);
+          $('#' + linkID).fadeOut('slow');
+          localStorage.setItem('linkArray', JSON.stringify(linkRetrieve));
+        }
+      }
+    });
+  }
+
   window.app.quickLinkApp = {
     quickModel,
     quickView,
+    deleteView,
     toggleQuickLinks,
   };
 }());
