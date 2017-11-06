@@ -1327,6 +1327,8 @@ footer {
   }
 }
 
+/* STICKY NOTES RULES */
+
 
 .stickyContainer {
 
@@ -1709,7 +1711,7 @@ footer {
     }
 
     option {
-      border: 2px solid red;
+      border: 2px solid;
     }
   }
 
@@ -1758,13 +1760,13 @@ footer {
 }
 
 @for $i from 1 through 120 {
-#workperiod[value='#{$i}']::-webkit-slider-runnable-track {
+#work-period[value='#{$i}']::-webkit-slider-runnable-track {
     background-size: #{($i/1.2)}% 100%;
   }
 }
 
 @for $i from 1 through 120 {
-#breakperiod[value='#{$i}']::-webkit-slider-runnable-track {
+#break-period[value='#{$i}']::-webkit-slider-runnable-track {
     background-size: #{($i/.3)}% 100%;
   }
 }
@@ -1965,7 +1967,26 @@ footer {
   right: 0;
   padding-left: 10px;
 
-  span {
-    margin-bottom: 40px;
+  a {
+    color: rgba(255, 255, 255, 0.7);
   }
+
+  form {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-size: 1.5rem;
+    padding: 5% 10%;
+  }
+
+  select {
+    color: rgba(255,255,255,0.8);
+    outline: none;
+    font-size: .8em;
+  }
+}
+
+option {
+  background-color: rgba(0, 0, 0, 0.7);
 }

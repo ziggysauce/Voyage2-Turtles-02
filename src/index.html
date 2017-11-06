@@ -315,23 +315,80 @@
                     </select>
                   </form>
 
-                  <form oninput="result.value=workperiod.value">
-                    <label for="workperiod">Pomodoro Work Period</label>
-                    <input type="range" name="workperiod" id="workperiod" value="25" min="1" max="120">
-                    <output name="result">25</output><span> minutes</span>
+                  <form>
+                    <label for="work-period">Pomodoro Work Period</label>
+                    <input type="range" name="work-period" id="work-period" value="25" min="1" max="120">
+                    <output name="result" id="work-display">25</output><span> minutes</span>
                   </form>
 
-                  <form oninput="result.value=breakperiod.value">
-                    <label for="breakperiod">Pomodoro Break Period</label>
-                    <input type="range" name="breakperiod" id="breakperiod" value="5" min="1" max="30">
-                    <output name="result">5</output><span> minutes</span>
+                  <form>
+                    <label for="break-period">Pomodoro Break Period</label>
+                    <input type="range" name="break-period" id="break-period" value="5" min="1" max="30">
+                    <output name="result" id="break-display">5</output><span> minutes</span>
                   </form>
 
                 </div><!-- END SETTINGS POMODORO -->
 
                 <div class="settings-newsfeed">
                   <h2>News Feed</h2>
-                  <span>Keep up to date with a personalized feed of news articles</span>
+                  <span>Keep up to date with a personalized feed of articles from your favorite industry news sources. Powered by <a href="https://newsapi.org" target="_blank">NewsAPI.org</a></span>
+
+                  <form>
+                    <select class="news-source-dropdown" id="news-source-dropdown-0" name="news-source-dropdown-1">
+                      <option value="ars-technica">Ars Technica</option>
+                      <option value="bloomberg">Bloomberg</option>
+                      <option value="business-insider">Business Insider</option>
+                      <option value="buzzfeed">Buzzfeed</option>
+                      <option value="engadget">Engadget</option>
+                      <option value="fortune">Fortune</option>
+                      <option value="hacker-news" selected>Hacker News</option>
+                      <option value="ign">IGN</option>
+                      <option value="mashable">Mashable</option>
+                      <option value="new-scientist">New Scientist</option>
+                      <option value="polygon">Polygon</option>
+                      <option value="recode" disabled>Recode</option>
+                      <option value="reddit-r-all">Reddit /r/all</option>
+                      <option value="techcrunch" disabled>TechCrunch</option>
+                      <option value="techradar">TechRadar</option>
+                      <option value="the-verge">The Verge</option>
+                    </select>
+                    <select class="news-source-dropdown" id="news-source-dropdown-1" name="news-source-dropdown-2">
+                      <option value="ars-technica">Ars Technica</option>
+                      <option value="bloomberg">Bloomberg</option>
+                      <option value="business-insider">Business Insider</option>
+                      <option value="buzzfeed">Buzzfeed</option>
+                      <option value="engadget">Engadget</option>
+                      <option value="fortune">Fortune</option>
+                      <option value="hacker-news" disabled>Hacker News</option>
+                      <option value="ign">IGN</option>
+                      <option value="mashable">Mashable</option>
+                      <option value="new-scientist">New Scientist</option>
+                      <option value="polygon">Polygon</option>
+                      <option value="recode" selected>Recode</option>
+                      <option value="reddit-r-all">Reddit /r/all</option>
+                      <option value="techcrunch" disabled>TechCrunch</option>
+                      <option value="techradar">TechRadar</option>
+                      <option value="the-verge">The Verge</option>
+                    </select>
+                    <select class="news-source-dropdown" id="news-source-dropdown-2" name="news-source-dropdown-3">
+                      <option value="ars-technica">Ars Technica</option>
+                      <option value="bloomberg">Bloomberg</option>
+                      <option value="business-insider">Business Insider</option>
+                      <option value="buzzfeed">Buzzfeed</option>
+                      <option value="engadget">Engadget</option>
+                      <option value="fortune">Fortune</option>
+                      <option value="hacker-news" disabled>Hacker News</option>
+                      <option value="ign">IGN</option>
+                      <option value="mashable">Mashable</option>
+                      <option value="new-scientist">New Scientist</option>
+                      <option value="polygon">Polygon</option>
+                      <option value="recode" disabled>Recode</option>
+                      <option value="reddit-r-all">Reddit /r/all</option>
+                      <option value="techcrunch" selected>TechCrunch</option>
+                      <option value="techradar">TechRadar</option>
+                      <option value="the-verge">The Verge</option>
+                    </select>
+                  </form>
                 </div>
 
                 <div class="setting-controls-background">

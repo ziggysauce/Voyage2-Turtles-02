@@ -161,11 +161,17 @@ CLOCKS VIEW
     display.innerText = `${countdown} ${task}`;
   }
 
+  function rangeDisplayUpdate(id, value) {
+    const output = $(`#${id.substring(0, id.indexOf('-'))}-display`);
+    output.val(value);
+  }
+
   window.app.clocksView = {
     toggleActive,
     togglePause,
     toggleWorkBreak,
     updateTime,
     updateCountdown,
+    rangeDisplayUpdate,
   };
 }());

@@ -6,10 +6,15 @@ NEWSFEED MODEL
   const sources = ['hacker-news', 'recode', 'techcrunch'];
   const articlesList = [];
 
+  function updateNewsSources(source, index) {
+    sources[index] = source;
+  }
+
   window.app.newsfeedModel = {
     APIKey,
     sources,
     articlesList,
+    updateNewsSources,
   };
 }());
 /* ************************************************************************
@@ -46,9 +51,14 @@ NEWSFEED VIEW
     $('.newsfeed').append(`${sourceArticles}`);
   }
 
+  function clear() {
+    $('.newsfeed').empty();
+  }
+
   window.app.newsfeedView = {
     toggleNewsfeed,
     generateArticle,
     append,
+    clear,
   };
 }());

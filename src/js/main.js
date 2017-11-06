@@ -70,6 +70,10 @@ CONTROLLER
     clocksModel.setBreakPeriod(e.target.value * 60000);
   }
 
+  function rangeDisplayUpdate(e) {
+    clocksView.rangeDisplayUpdate(e.target.id, e.target.value);
+  }
+
   // continuous loop that updates clock display. reference https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
   function clocksHandler() {
     if (!clocksModel.getStatus().isActive) {
@@ -100,12 +104,12 @@ CONTROLLER
       });
   }
 
-  $('#workperiod')[0].addEventListener('input', () => {
-    $('#workperiod')[0].setAttribute('value', $('#workperiod')[0].value);
+  $('#work-period')[0].addEventListener('input', () => {
+    $('#work-period')[0].setAttribute('value', $('#work-period')[0].value);
   }, false);
 
-  $('#breakperiod')[0].addEventListener('input', () => {
-    $('#breakperiod')[0].setAttribute('value', $('#breakperiod')[0].value);
+  $('#break-period')[0].addEventListener('input', () => {
+    $('#break-period')[0].setAttribute('value', $('#break-period')[0].value);
   }, false);
 
   /* ***** USER GREETING SECTION ******** */
@@ -139,6 +143,24 @@ CONTROLLER
           newsfeedView.append(`${content.filter((item, index) => index < 3).join('\r\n')}`);
         });
     });
+  }
+
+  function disableNewsSources() {
+    $('.settings-newsfeed select').each((index, item) => {
+      $(item).children().removeAttr('disabled');
+      newsfeedModel.sources.forEach((itm) => {
+        if ($(`#${item.id} option:selected`).val() !== itm) {
+          $(`#${item.id} option[value='${itm}']`).attr('disabled', 'disabled');
+        }
+      });
+    });
+  }
+
+  function updateNewsSources(e) {
+    newsfeedModel.updateNewsSources(e.target.value, e.target.id.substring(e.target.id.length - 1));
+    newsfeedView.clear();
+    loadNewsArticles();
+    disableNewsSources();
   }
 
   /* ********* STICKY NOTE LISTENER ******* */
@@ -567,9 +589,12 @@ CONTROLLER
     $('#html-markup').on('submit', htmlValidatorCall);
     $('#css-markup').on('submit', CSSValidatorCall);
     $('#newNote').on('click', stickClickEvent);
-    $('#workperiod').on('change', setPomodoroWorkPeriod);
-    $('#breakperiod').on('change', setPomodoroBreakPeriod);
+    $('#work-period').on('change', setPomodoroWorkPeriod)
+      .on('change', rangeDisplayUpdate);
+    $('#break-period').on('change', setPomodoroBreakPeriod)
+      .on('change', rangeDisplayUpdate);
     $('#time-format').on('change', setTimeFormat);
+    $('.news-source-dropdown').on('change', updateNewsSources);
     quickControl(); // Sets up quicklink e-listeners
   }
 
