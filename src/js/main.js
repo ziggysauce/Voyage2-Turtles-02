@@ -29,7 +29,8 @@ CONTROLLER
   backgroundModel,
   backgroundView,
   stickyApp,
-  quickLinkApp,
+  quicklinksModel,
+  quicklinksView,
   settingsView,
 ) {
 /* ***** POMODORO SECTION ******** */
@@ -187,48 +188,23 @@ CONTROLLER
   }
 
   /* ********* QUICK LINK SECTION ********* */
+  function handleLinkSubmit(e) {
+    e.preventDefault();
 
-  function quickControl() {
-    $('.addSite').click(() => {
-      $('.addSite').hide();
-      $('.deleteSite').hide();
-      $('.addUrl').fadeIn('slow');
-      $('.cancelDelete').fadeIn('slow');
-    });
+    const title = $('#titleInput').val();
+    const url = $('#urlInput').val();
+    const newObject = { title, url };
 
-    $('#targetForm').submit((e) => { // When the quickLinks submit button is pressed, this will grab the input values and push it to localStorage.
-      e.preventDefault();
+    quicklinksModel.addLink(newObject);
+    quicklinksView.appendLinks();
+    quicklinksView.toggleAddSite(true);
+  }
 
-      const titleInput = $('#titleInput').val();
-      const urlInput = $('#urlInput').val();
-      const newObject = { // In order to push this to localStorage we will want it in object form so that the for loop above can access these properties.
-        title: titleInput,
-        url: urlInput,
-        id: Math.floor((Math.random() * 1000) + 1),
-      };
-      $('.addUrl').hide();
-      $('cancelDelete').hide();
-      $('.addSite').fadeIn('slow');
-      $('.deleteSite').fadeIn('slow');
+  function deleteLink(e) {
+    const index = $('.quickList li').index($(e.target).parent());
 
-      // This resets the inputs so that it doesnt show the link you already put in.
-      $('#titleInput').val('');
-      $('#urlInput').val('');
-
-      function updateQuickStorage() {
-        quickLinkApp.quickModel(newObject);
-        $('.quickList').append(`<li id='${newObject.id}'><a href="${newObject.url}">${newObject.title}</a></li>`);
-      }
-      updateQuickStorage();
-    });
-
-    $('.deleteSite').click(() => {
-      quickLinkApp.deleteView(quickLinkApp.quickModel);
-    });
-
-    $('.cancelDelete').click(() => {
-      quickLinkApp.quickView(quickLinkApp.quickModel);
-    });
+    quicklinksModel.deleteLink(index);
+    quicklinksView.appendLinks();
   }
 
   /* ********* VALIDATOR SECTION ********** */
@@ -574,7 +550,7 @@ CONTROLLER
       .on('click', newsfeedView.toggleNewsfeed)
       .on('click', toolboxView.toggleToolbox)
       .on('click', colorpickerView.toggleColorPicker)
-      .on('click', quickLinkApp.toggleQuickLinks)
+      .on('click', quicklinksView.toggleQuickLinks)
       .on('click', settingsView.toggleSettings)
       .on('click', settingsView.toggleAbout)
       .on('click', settingsView.toggleContribute)
@@ -595,7 +571,9 @@ CONTROLLER
       .on('change', rangeDisplayUpdate);
     $('#time-format').on('change', setTimeFormat);
     $('.news-source-dropdown').on('change', updateNewsSources);
-    quickControl(); // Sets up quicklink e-listeners
+    $('#targetForm').submit(handleLinkSubmit);
+    $('.addSite').on('click', quicklinksView.toggleAddSite.bind(null, false));
+    $('.quickList').on('click', '.link-delete', deleteLink);
   }
 
   function initialize() {
@@ -620,7 +598,8 @@ CONTROLLER
     loadColorPicker();
     loadBackground();
     stickyApp.stickyNoteView(stickyApp.stickyNoteModel);
-    quickLinkApp.quickView(quickLinkApp.quickModel);
+    quicklinksModel.addLink();
+    quicklinksView.appendLinks();
     setupEventListeners();
   }
 
@@ -646,7 +625,8 @@ CONTROLLER
   window.app.backgroundModel,
   window.app.backgroundView,
   window.app.stickyApp,
-  window.app.quickLinkApp,
+  window.app.quicklinksModel,
+  window.app.quicklinksView,
   window.app.settingsView,
 ));
 

@@ -141,16 +141,18 @@ body {
       background: #FFD63A;
       transition: 0.3s;
       border: 1px solid transparent; }
-    .linkNote .quickLinks .deleteDesc {
-      display: none;
-      padding: 5px;
-      margin: 0px 10px;
-      font-size: 1em;
-      font-weight: bold;
-      color: #FFD63A; }
   .linkNote .qlToggle:hover {
     color: #FFF;
     cursor: pointer; }
+  .linkNote .link-delete {
+    float: right;
+    background-color: transparent;
+    color: lightgrey;
+    outline: none;
+    border: none;
+    cursor: pointer; }
+  .linkNote .link-delete:hover {
+    font-weight: bold; }
   .linkNote .stickyNotes {
     margin: 5px 30px 10px 10px;
     padding: 0px;

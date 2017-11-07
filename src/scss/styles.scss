@@ -110,14 +110,9 @@ body {
 	  		height: 1px;
 	  		opacity: 0;
 	  	}
-
-	  	// button {
-      //   margin: 0px;
-	  	// }
 	  }
 
 	  ul {
-      // display: block;
 	  	list-style-type: none;
 	  	margin: 0px;
 	  	padding: 0px;
@@ -134,7 +129,7 @@ body {
   	  	text-decoration: none;
   	  	color: lightgrey;
         font-size: 1em;
-  	  }
+      }
 	  }
 
 	  li:hover{
@@ -191,21 +186,24 @@ body {
       transition: 0.3s;
       border: 1px solid transparent;
     }
-
-  	.deleteDesc{
-  		display: none;
-  		padding: 5px;
-      margin: 0px 10px;
-      // text-align: center;
-  		font-size: 1em;
-      font-weight: bold;
-      color: #FFD63A;
-  	}
   }
 
 	.qlToggle:hover {
     color: #FFF;
     cursor: pointer;
+  }
+
+  .link-delete {
+    float: right;
+    background-color: transparent;
+    color: lightgrey;
+    outline: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .link-delete:hover {
+    font-weight: bold;
   }
 
 	.stickyNotes {

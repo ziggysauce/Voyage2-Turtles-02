@@ -1,93 +1,83 @@
-(function quickLinkFunc() {
-  function quickModel(newData) {
+(function makeQuicklinksModel() {
+  function addLink(newData) {
     if (typeof localStorage.getItem('linkArray') !== 'string') {
-      const retrieve = // retrieve is an array of default values for the quickLinks.
-      [// Note: The default sites that I added here are dev-based, if you guys prefer anything else or you guys would want to add then tell me :)
+      const linksArray = // here linksArray is an array of default values for the quickLinks.
+      [
         {
-          title: 'Github', // A must for any developer ^^
+          title: 'Github',
           url: 'https://Github.com',
-          id: Math.floor((Math.random() * 1000) + 1),
         },
         {
           title: 'MDN',
           url: 'https://developer.mozilla.org/en-US/',
-          id: Math.floor((Math.random() * 1000) + 1),
         },
         {
-          title: 'Stack Overflow', // Maybe FreeCodeCamp??
+          title: 'Stack Overflow',
           url: 'https://stackoverflow.com',
-          id: Math.floor((Math.random() * 1000) + 1),
         },
       ];
 
-      localStorage.setItem('linkArray', JSON.stringify(retrieve)); // Here, we create the "linkArray" object and we set retrieve as its value.
-    }
-
-    let retrieve = localStorage.getItem('linkArray'); // We declare the retrieve variable and assign the "linkArray" object to retrieve.
-    retrieve = JSON.parse(retrieve); // Since the objects in retrieve have been stringified we will parse them back together.
-
-    if (typeof newData === 'object') {
-      retrieve.push(newData);
-      localStorage.setItem('linkArray', JSON.stringify(retrieve));
-    }
-    return retrieve;
-  }
-
-  function quickView(dataRecieve) {
-    $('.quickList li').remove();
-    $('.cancelDelete').hide();
-    $('.deleteDesc').hide();
-    $('.addUrl').hide();
-    $('.addSite').fadeIn('slow');
-    $('.deleteSite').fadeIn('slow');
-    const retrieve = dataRecieve();
-    for (let i = 0; i < retrieve.length; i += 1) { // This adds each object into the HTML page.
-      $('.quickList').append(`<li id='${retrieve[i].id}'><a href="${retrieve[i].url}">${retrieve[i].title}</a></li>`);
+      localStorage.setItem('linkArray', JSON.stringify(linksArray));
+    } else if (newData) {
+      const linksArray = JSON.parse(localStorage.getItem('linkArray'));
+      linksArray.push(newData);
+      localStorage.setItem('linkArray', JSON.stringify(linksArray));
     }
   }
 
-  // Fade in/out buggy
+  function deleteLink(index) {
+    const linksArray = JSON.parse(localStorage.getItem('linkArray'));
+    linksArray.splice(index, 1);
+    localStorage.setItem('linkArray', JSON.stringify(linksArray));
+  }
+
+  window.app.quicklinksModel = {
+    addLink,
+    deleteLink,
+  };
+}());
+
+(function makeQuicklinksView() {
+  function appendLinks() {
+    const linksArray = JSON.parse(localStorage.getItem('linkArray'));
+
+    $('.quickList').empty();
+
+    for (let i = 0; i < linksArray.length; i++) {
+      $('.quickList').append(`
+        <li>
+          <a href="${linksArray[i].url}" target="_blank">${linksArray[i].title}</a>
+          <button class="link-delete">x</button>
+        </li>
+      `);
+    }
+  }
+
+  function toggleAddSite(shouldHideInputs) {
+    if (shouldHideInputs) {
+      $('.addUrl').hide();
+      $('.addSite').fadeIn('slow');
+      $('#titleInput').val('');
+      $('#urlInput').val('');
+    } else {
+      $('.addSite').hide();
+      $('.addUrl').fadeIn('slow');
+    }
+  }
+
   function toggleQuickLinks(e) {
     const qlBox = $('.quickDropdown');
-    if (qlBox.is(':visible') && !qlBox.find(e.target).length) {
+    if (qlBox.is(':visible') && !qlBox.find(e.target).length && !$(e.target).is('.link-delete')) {
       qlBox.hide();
+      toggleAddSite(true);
     } else if (!qlBox.is(':visible') && e.target === $('.qlToggle')[0]) {
       qlBox.show();
     }
   }
 
-  function deleteView(dataRecieve) {
-    $('.quickList li').remove();
-    const retrieve = dataRecieve();
-    for (let i = 0; i < retrieve.length; i++) {
-      $('.quickList').append(`<li id='${retrieve[i].id}' class="deleteItem">${retrieve[i].title}</li>`);
-      deleteControl(retrieve[i].id);
-    }
-    $('.addSite').hide();
-    $('.deleteSite').hide();
-    $('.deleteDesc').fadeIn('slow');
-    $('.cancelDelete').fadeIn('slow');
-  }
-
-  function deleteControl(recieveID) {
-    var linkID = recieveID;
-    var linkRetrieve = quickModel();
-
-    $('#' + linkID).click(() => {
-      for (var x = 0; x < linkRetrieve.length; x++) {
-        if (linkRetrieve[x].id == linkID) {
-          linkRetrieve.splice(x, 1);
-          $('#' + linkID).fadeOut('slow');
-          localStorage.setItem('linkArray', JSON.stringify(linkRetrieve));
-        }
-      }
-    });
-  }
-
-  window.app.quickLinkApp = {
-    quickModel,
-    quickView,
-    deleteView,
+  window.app.quicklinksView = {
+    appendLinks,
     toggleQuickLinks,
+    toggleAddSite,
   };
 }());
