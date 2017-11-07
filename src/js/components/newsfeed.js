@@ -40,7 +40,7 @@ NEWSFEED VIEW
       <a class="article-image" href="${url}" style="background-image: url(${image})" target="_blank">
       </a>
       <div class"artcle-body">
-        <a class="headline" href="${url}" target="_blank">${title}</a>
+        <a class="headline" href="${url}" target="_blank" rel="noopener">${title}</a>
         <p class="source">${author} - ${source}</p>
       </div>
     </li>

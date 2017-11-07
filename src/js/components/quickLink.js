@@ -44,12 +44,12 @@
     $('.quickList').empty();
 
     for (let i = 0; i < linksArray.length; i++) {
-      $('.quickList').append(`
+      $(`
         <li>
-          <a href="${linksArray[i].url}" target="_blank">${linksArray[i].title}</a>
+          <a href="${linksArray[i].url}" target="_blank" rel="noopener">${linksArray[i].title}</a>
           <button class="link-delete">x</button>
         </li>
-      `);
+      `).appendTo($('.quickList'));
     }
   }
 
@@ -68,10 +68,10 @@
   function toggleQuickLinks(e) {
     const qlBox = $('.quickDropdown');
     if (qlBox.is(':visible') && !qlBox.find(e.target).length && !$(e.target).is('.link-delete')) {
-      qlBox.hide();
+      qlBox.fadeOut();
       toggleAddSite(true);
     } else if (!qlBox.is(':visible') && e.target === $('.qlToggle')[0]) {
-      qlBox.show();
+      qlBox.fadeIn();
     }
   }
 

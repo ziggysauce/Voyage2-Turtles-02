@@ -73,6 +73,7 @@ PAGE SPEED VIEW
     const possibleRules = [];
     const foundRules = [];
 
+    // Sort optimizations by impact score
     rulesArray.map((i) => {
       if (i.ruleImpact > 0) {
         possibleRules.push(i);
@@ -83,10 +84,7 @@ PAGE SPEED VIEW
       return i;
     });
 
-    $('#output').hide().slideDown(500);
-    $('#possible').hide().slideDown(500);
-    $('#found').hide().slideDown(500);
-
+    // Make container for speed score based on strategy (desktop/mobile)
     $(`
       <div class="speed-score-box">
         <h2 id="results-speed-title">Score: ${result.ruleGroups.SPEED.score}</h2>
@@ -107,14 +105,15 @@ PAGE SPEED VIEW
       $('<h2 class=optimizationTitles>Congratulations! No issues found.</h2>').appendTo(possible);
     }
 
+    // Create 3 sections for possible optimizations
+    // Title, link for more information, and content regarding to optimization
     possibleRules.map((i) => {
       $(`<h4 class="speedTitles">${i.localizedRuleName}</h4>`).appendTo(possible);
-      // possible.append(`${i.localizedRuleName}\n`);
       $(`
-        <button class="click-details inactive" type="submit" id="${possibleRules.indexOf(i)}button">More Details</button>
+        <button class="click-details inactive-speedinfo" type="submit" id="${possibleRules.indexOf(i)}button">More Details</button>
         <div class="addInfo" id="${possibleRules.indexOf(i)}">
           <span id="${possibleRules.indexOf(i)}info"></span>
-          <span><a href="#" id="${possibleRules.indexOf(i)}link" class="learn-more-link" target="_blank"></a></span>
+          <span><a href="#" id="${possibleRules.indexOf(i)}link" class="learn-more-link" target="_blank" rel="noopener"></a></span>
           <span id="${possibleRules.indexOf(i)}these"></span>
         </div>
       `).appendTo(possible);
@@ -123,16 +122,18 @@ PAGE SPEED VIEW
       const second = $(`#${possibleRules.indexOf(i)}link`);
       const third = $(`#${possibleRules.indexOf(i)}these`);
 
+      // Show results after analyzing
       $('#output').hide().slideDown(500);
       $('#possible').hide().slideDown(500);
       $('#found').hide().slideDown(500);
-      $(`#${possibleRules.indexOf(i)}`).hide();
+      // Hide additional information until 'More Details' is clicked
+      $(`#${possibleRules.indexOf(i)}`).hide().slideUp();
 
       // Show more info when clicking 'More Details' button
       $(`#${possibleRules.indexOf(i)}button`).on('click', () => {
-        if ($(`#${possibleRules.indexOf(i)}button`)[0].className === 'click-details inactive') {
-          $(`#${possibleRules.indexOf(i)}button`).removeClass('inactive');
-          $(`#${possibleRules.indexOf(i)}button`).addClass('active');
+        if ($(`#${possibleRules.indexOf(i)}button`)[0].className === 'click-details inactive-speedinfo') {
+          $(`#${possibleRules.indexOf(i)}button`).removeClass('inactive-speedinfo');
+          $(`#${possibleRules.indexOf(i)}button`).addClass('active-speedinfo');
           $(`#${possibleRules.indexOf(i)}button`).text('Less Details');
 
           // Show possible optimizations
@@ -186,10 +187,11 @@ PAGE SPEED VIEW
               }
             }
           }
-          $(`#${possibleRules.indexOf(i)}`).slideDown(500);
+          $(`#${possibleRules.indexOf(i)}`).hide().slideDown(500);
         } else {
-          $(`#${possibleRules.indexOf(i)}button`).removeClass('active');
-          $(`#${possibleRules.indexOf(i)}button`).addClass('inactive');
+          // Clear results and slide up
+          $(`#${possibleRules.indexOf(i)}button`).removeClass('active-speedinfo');
+          $(`#${possibleRules.indexOf(i)}button`).addClass('inactive-speedinfo');
           $(`#${possibleRules.indexOf(i)}button`).text('More Details');
           $(`#${possibleRules.indexOf(i)}`).slideUp(500, () => {
             first.empty();
@@ -205,21 +207,23 @@ PAGE SPEED VIEW
     // Create top of found optimizations container
     const found = document.getElementById('found');
     $('<h2 class=optimizationTitles>Optimizations Found</h2>').appendTo(found);
-    $('<button class="click-details inactive" type="submit" id="moreFoundOptimizations">More Details</button><div class="addFoundOptimizations"</div>').appendTo(found);
+    $('<button class="click-details inactive-speedinfo" type="submit" id="moreFoundOptimizations">More Details</button><div class="addFoundOptimizations"</div>').appendTo(found);
 
     // Show more info when clicking 'More Details' button
     $('#moreFoundOptimizations').on('click', () => {
-      if ($('#moreFoundOptimizations')[0].className === 'click-details inactive') {
-        $('#moreFoundOptimizations').removeClass('inactive');
-        $('#moreFoundOptimizations').addClass('active');
+      if ($('#moreFoundOptimizations')[0].className === 'click-details inactive-speedinfo') {
+        $('#moreFoundOptimizations').removeClass('inactive-speedinfo');
+        $('#moreFoundOptimizations').addClass('active-speedinfo');
         $('#moreFoundOptimizations').text('Less Details');
-        $('.addFoundOptimizations').hide();
+        // $('.addFoundOptimizations').hide(); // Can delete this?
 
+        // Create 2 sections for found optimizations
+        // Titles and links for more information
         foundRules.map((m) => {
           $(`
             <div class="addFoundInfo">
               <h4 id="${foundRules.indexOf(m)}title" class="speedTitles"></h4>
-              <div><a href="#" id="${foundRules.indexOf(m)}anchor" class="learn-more-link" target="_blank"></a></div>
+              <div><a href="#" id="${foundRules.indexOf(m)}anchor" class="learn-more-link" target="_blank" rel="noopener"></a></div>
             </div>
             `).appendTo($('.addFoundOptimizations'));
 
@@ -234,16 +238,19 @@ PAGE SPEED VIEW
           // $(`#${foundRules.indexOf(m)}`).slideDown(500);
           return m;
         });
-        $('.addFoundOptimizations').slideDown(500);
+        $('.addFoundOptimizations').hide().slideDown(500);
       } else {
-        $('#moreFoundOptimizations').removeClass('active');
-        $('#moreFoundOptimizations').addClass('inactive');
+        $('#moreFoundOptimizations').removeClass('active-speedinfo');
+        $('#moreFoundOptimizations').addClass('inactive-speedinfo');
         $('#moreFoundOptimizations').text('More Details');
         $('.addFoundOptimizations').slideUp(500, () => {
           $('.addFoundOptimizations').empty();
         });
       }
     });
+    // Show loaded results
+    // Enable buttons again for new search
+    // Hide spinning loader icon
     $('.returnresults').slideDown(500);
     $('#loader-icon').removeClass('spin').hide();
     $('#analyzePage').removeAttr('disabled', 'disabled');

@@ -51,11 +51,16 @@ body {
 	  }
 
 	  p {
+      cursor: pointer;
 	  	margin: 0px 0px 0px 0px;
 	  	padding: 10px 8px 8px 8px;
 	  	font-size: 1.2em;
 			color: rgba(255,255,255,.8);
 	  }
+
+    p:hover {
+      color: #FFF;
+    }
 
 	  .quickDropdown {
       width: 175px;
@@ -98,7 +103,7 @@ body {
         color: rgba(255,255,255,.5);
       }
 
-	  	input:focus::placeholder {/*::placeholder is a selector that selects the content within the placehold attribute.*/
+	  	input:focus::placeholder {
 	  		color: #FFF;
 	  		transition: .3s;
 	  	}
@@ -119,6 +124,10 @@ body {
 	  }
 
 	  li {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
       word-wrap: break-word;
       max-width: 250px;
 	  	margin: 0px;
@@ -142,7 +151,29 @@ body {
         font-weight: bold;
         color: #FFF;
       }
+
+      .link-delete {
+        color: rgba(255,255,255,0.5);
+      }
+
+      .link-delete:hover {
+        border-radius: 50%;
+        border: 2px solid #FFD63A;
+        color: #FFD63A;
+      }
 	  }
+
+    .link-delete {
+      height: 1.75em;
+      float: right;
+      background-color: transparent;
+      outline: none;
+      border: 2px solid rgba(0,0,0,0);
+      color: transparent;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: .8em;
+    }
 
 	  .siteButton{
       text-align: center;
@@ -160,50 +191,13 @@ body {
       transition: 0.3s;
 	  }
 
-  	.addSite:hover {
-      color: rgba(0,0,0,.8);
-      font-weight: bold;
-
+    .addSite:hover {
       background: #43ac00;
-    	transition: .3s;
-      border: 1px solid transparent;
-  	}
-
-    .deleteSite:hover {
-      color: rgba(0,0,0,.8);
+      color: rgba(0,0,0,0.8);
+      border: 1px solid rgba(0,0,0,0);
       font-weight: bold;
-
-      background: #d44646;
-      transition: .3s;
-      border: 1px solid transparent;
-    }
-
-    .cancelDelete:hover {
-      color: rgba(0,0,0,.8);
-      font-weight: bold;
-      cursor: pointer;
-      background: #FFD63A;
       transition: 0.3s;
-      border: 1px solid transparent;
     }
-  }
-
-	.qlToggle:hover {
-    color: #FFF;
-    cursor: pointer;
-  }
-
-  .link-delete {
-    float: right;
-    background-color: transparent;
-    color: lightgrey;
-    outline: none;
-    border: none;
-    cursor: pointer;
-  }
-
-  .link-delete:hover {
-    font-weight: bold;
   }
 
 	.stickyNotes {
@@ -1329,7 +1323,7 @@ footer {
 
 
 .stickyContainer {
-
+  visibility: hidden;
 	position: absolute;
 	display: flex;
 	flex-direction: column;
@@ -1702,8 +1696,8 @@ footer {
 
     select {
       margin-left: 15px;
-      color: rgba(255,255,255,0.8);
-      background: transparent;
+      color: rgba(255,255,255,.8);
+      background: rgba(0,0,0,0.8);
       outline: none;
       font-size: .8em;
     }
@@ -1969,6 +1963,10 @@ footer {
     color: rgba(255, 255, 255, 0.7);
   }
 
+  a:hover {
+    color: #FFD63A;
+  }
+
   form {
     flex-grow: 1;
     display: flex;
@@ -1979,7 +1977,8 @@ footer {
   }
 
   select {
-    color: rgba(255,255,255,0.8);
+    color: rgba(255,255,255,.8);
+    background: rgba(0,0,0,0.8);
     outline: none;
     font-size: .8em;
   }
