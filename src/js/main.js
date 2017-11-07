@@ -580,6 +580,7 @@ CONTROLLER
   function initialize() {
     $('.setting-controls-contribute, settings-pomodoro, .settings-newsfeed, .setting-controls-background, .tools-container, .valid-container, .page-speed-container, .returnresults, #loader-icon, .color-picker-panel, .quickDropdown').hide();
     greetingView.showGreeting(greetingModel.getUserName());
+    clocksModel.initClockSettings();
     clocksView.updateTime(clocksModel.getTime());
     loadSounds();
     loadNewsArticles();

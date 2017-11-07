@@ -17,25 +17,48 @@ CLOCKS MODEL
     startTime: null,
     elapsedTime: 0,
     pauseTime: 0,
-    workPeriod: 1500000, // eventually these variables will be set by user
-    breakPeriod: 300000,
-    timeFormat: 12,
   };
+
+  function initClockSettings() {
+    let settings;
+    if (typeof localStorage.getItem('clockSettings') !== 'string') {
+      settings = {
+        workPeriod: 1500000,
+        breakPeriod: 300000,
+        timeFormat: 12,
+      };
+      localStorage.setItem('clockSettings', JSON.stringify(settings));
+    } else {
+      settings = JSON.parse(localStorage.getItem('clockSettings'));
+    }
+    status.workPeriod = settings.workPeriod;
+    status.breakPeriod = settings.breakPeriod;
+    status.timeFormat = settings.timeFormat;
+  }
 
   function getStatus() {
     return status;
   }
 
   function setWorkPeriod(milliseconds) {
+    const settings = JSON.parse(localStorage.getItem('clockSettings'));
+    settings.workPeriod = milliseconds;
     status.workPeriod = milliseconds;
+    localStorage.setItem('clockSettings', JSON.stringify(settings));
   }
 
   function setBreakPeriod(milliseconds) {
+    const settings = JSON.parse(localStorage.getItem('clockSettings'));
+    settings.breakPeriod = milliseconds;
     status.breakPeriod = milliseconds;
+    localStorage.setItem('clockSettings', JSON.stringify(settings));
   }
 
   function setTimeFormat(format) {
+    const settings = JSON.parse(localStorage.getItem('clockSettings'));
+    settings.timeFormat = format;
     status.timeFormat = format;
+    localStorage.setItem('clockSettings', JSON.stringify(settings));
   }
 
   function getTime() {
@@ -105,6 +128,7 @@ CLOCKS MODEL
   window.app = {}; // creates app object as porperty of global object
   window.app.clocksModel = { // creates model object as property of app
     getTime,
+    initClockSettings,
     getStatus,
     setWorkPeriod,
     setBreakPeriod,
