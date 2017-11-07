@@ -545,7 +545,6 @@ CONTROLLER
   function setupEventListeners() {
     $(window).on('load', () => {
       $('.devtab-bg').css({ visibility: 'visible' }).hide().fadeIn(1000);
-      $('.stickyContainer').css({ visibility: 'visible' }).hide().fadeIn(1000);
     })
       .on('click', toggleNameInput())
       .on('click', newsfeedView.toggleNewsfeed)
@@ -580,6 +579,7 @@ CONTROLLER
   function initialize() {
     $('.setting-controls-contribute, settings-pomodoro, .settings-newsfeed, .setting-controls-background, .tools-container, .valid-container, .page-speed-container, .returnresults, #loader-icon, .color-picker-panel, .quickDropdown').hide();
     greetingView.showGreeting(greetingModel.getUserName());
+    clocksModel.initClockSettings();
     clocksView.updateTime(clocksModel.getTime());
     loadSounds();
     loadNewsArticles();
