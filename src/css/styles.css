@@ -9,6 +9,7 @@ body {
   font-family: 'Lato', helvetica;
   font-size: 100% !important; }
   body .devtab-bg {
+    position: relative;
     visibility: hidden;
     width: 100%;
     height: 100%;
@@ -1050,7 +1051,6 @@ footer {
 
 /* STICKY NOTES RULES */
 .stickyContainer {
-  visibility: hidden;
   position: absolute;
   display: flex;
   flex-direction: column;

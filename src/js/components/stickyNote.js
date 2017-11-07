@@ -56,7 +56,7 @@
       </div>
       `;
 
-      $('body').append(appendStickNote); // Adds appendStickNote to the HTML page.
+      $('.devtab-bg').append(appendStickNote); // Adds appendStickNote to the HTML page.
       $(`#${modelData[i].id}`).fadeIn(250);
       // This places the sticky note where it was last placed by defining the CSS "left" and "top" properties.
       $(`#${modelData[i].id}`).css({ left: modelData[i].left, top: modelData[i].top });

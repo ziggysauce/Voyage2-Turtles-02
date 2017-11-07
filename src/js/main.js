@@ -545,7 +545,6 @@ CONTROLLER
   function setupEventListeners() {
     $(window).on('load', () => {
       $('.devtab-bg').css({ visibility: 'visible' }).hide().fadeIn(1000);
-      $('.stickyContainer').css({ visibility: 'visible' }).hide().fadeIn(1000);
     })
       .on('click', toggleNameInput())
       .on('click', newsfeedView.toggleNewsfeed)
