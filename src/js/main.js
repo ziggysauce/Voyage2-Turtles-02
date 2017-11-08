@@ -10,30 +10,33 @@ reference: https://www.youtube.com/watch?v=pOfwp6VlnlM
 /* ************************************************************************
 CONTROLLER
 ************************************************************************* */
-(function makeController(
-  clocksModel,
-  clocksView,
-  greetingModel,
-  greetingView,
-  newsfeedModel,
-  newsfeedView,
-  toolboxView,
-  htmlModel,
-  htmlView,
-  cssModel,
-  cssView,
-  pagespeedModel,
-  pagespeedView,
-  colorpickerModel,
-  colorpickerView,
-  backgroundModel,
-  backgroundView,
-  stickyApp,
-  quicklinksModel,
-  quicklinksView,
-  settingsView,
-) {
-/* ***** POMODORO SECTION ******** */
+(function makeController() {
+  const {
+    clocksModel,
+    clocksView,
+    greetingModel,
+    greetingView,
+    newsfeedModel,
+    newsfeedView,
+    toolboxView,
+    htmlModel,
+    htmlView,
+    cssModel,
+    cssView,
+    pagespeedModel,
+    pagespeedView,
+    colorpickerModel,
+    colorpickerView,
+    backgroundModel,
+    backgroundView,
+    stickynoteModel,
+    stickynoteView,
+    quicklinksModel,
+    quicklinksView,
+    settingsView,
+  } = window.app;
+
+  /* ***** POMODORO SECTION ******** */
 
   function togglePomodoroActive() {
     clocksModel.toggleActive();
@@ -175,27 +178,59 @@ CONTROLLER
     disableNewsSources();
   }
 
-  /* ********* STICKY NOTE LISTENER ******* */
+  /* ********* STICKY NOTE SECTION ******* */
 
-  function stickClickEvent() {
-    var colorList = ['blue', 'yellow', 'green', 'purple', 'pink', 'grey', 'red'];
-    var randomColor = colorList[Math.floor((Math.random() * colorList.length))];
-    var newStickyObject = {
-      title: 'Sticky Note',
-      barClass: `${randomColor}Bar`,
-      areaClass: `${randomColor}Area`,
-      text: '',
-      left: 600,
-      top: 50,
-      id: Math.floor((Math.random() * 1000) + 1),
-    };
+  function makeNewStickynote() {
+    const newNote = stickynoteModel.makeNote();
+    stickynoteModel.storeNote(newNote);
+    stickynoteView.makeNote(newNote);
+  }
 
-    stickyApp.stickyNoteModel(newStickyObject);
-    function stickyObjectFunction() {
-      var pushArray = [newStickyObject];
-      return pushArray;
-    }
-    stickyApp.stickyNoteView(stickyObjectFunction);
+  function deleteNote(e) {
+    const noteID = $(e.target).closest('.stickyContainer').attr('id');
+    stickynoteModel.deleteNote(noteID);
+    stickynoteView.deleteNote(noteID);
+  }
+
+  function changeStickynoteColor(e) {
+    const noteID = $(e.target).closest('.stickyContainer').attr('id');
+    const previousColor = $(`#${noteID}`).data('color');
+    const color = $(e.target).data('color');
+    const barClass = `${color}Bar`;
+    const areaClass = `${color}Area`;
+    stickynoteModel.changeState(noteID, { color, barClass, areaClass });
+    stickynoteView.changeColor(noteID, previousColor, color);
+  }
+
+  function moveStickynote(e) {
+    const noteID = $(e.target).closest('.stickyContainer').attr('id');
+    const left = $(`#${noteID}`).css('left');
+    const top = $(`#${noteID}`).css('top');
+    stickynoteModel.changeState(noteID, { left, top });
+  }
+
+  function addStickynoteText(e) {
+    const noteID = $(e.target).closest('.stickyContainer').attr('id');
+    const text = $(`#${noteID} textarea`).val();
+    stickynoteModel.changeState(noteID, { text });
+  }
+
+  function changeStickynoteTitle(e) {
+    e.preventDefault();
+    const noteID = $(e.target).closest('.stickyContainer').attr('id');
+    const title = $(`#${noteID} .stickTitleInput`).val() || 'Sticky Note';
+    stickynoteModel.changeState(noteID, { title });
+    stickynoteView.changeTitle(noteID, title);
+  }
+
+  function toggleStickynoteColorOptions(e) {
+    const noteID = $(e.target).closest('.stickyContainer').attr('id');
+    stickynoteView.toggleColorOptions(noteID);
+  }
+
+  function toggleStickynoteTitleEdit(e) {
+    const noteID = $(e.target).closest('.stickyContainer').attr('id');
+    stickynoteView.toggleTitleEdit(noteID);
   }
 
   /* ********* QUICK LINK SECTION ********* */
@@ -570,7 +605,7 @@ CONTROLLER
     $('.work-break').on('click', toggleWorkBreak);
     $('#html-markup').on('submit', htmlValidatorCall);
     $('#css-markup').on('submit', CSSValidatorCall);
-    $('#newNote').on('click', stickClickEvent);
+    $('#newNote').on('click', makeNewStickynote);
     $('#work-period').on('input', setPomodoroWorkPeriod)
       .on('input', rangeDisplayUpdate);
     $('#break-period').on('input', setPomodoroBreakPeriod)
@@ -580,6 +615,13 @@ CONTROLLER
     $('#targetForm').submit(handleLinkSubmit);
     $('.addSite').on('click', quicklinksView.toggleAddSite.bind(null, false));
     $('.quickList').on('click', '.link-delete', deleteLink);
+    $('.devtab-bg').on('submit', '.stickyContainer form', changeStickynoteTitle);
+    $('.devtab-bg').on('click', '.stickTitle', toggleStickynoteTitleEdit);
+    $('.devtab-bg').on('keyup', '.stickyContainer textarea', addStickynoteText);
+    $('.devtab-bg').on('mouseup', '.stickyContainer', moveStickynote);
+    $('.devtab-bg').on('click', '.colorBar', changeStickynoteColor);
+    $('.devtab-bg').on('click', '.stickLeft', toggleStickynoteColorOptions);
+    $('.devtab-bg').on('click', '.fa-trash', deleteNote);
   }
 
   function initialize() {
@@ -594,7 +636,7 @@ CONTROLLER
     loadPageSpeedChecker();
     loadColorPicker();
     loadBackground();
-    stickyApp.stickyNoteView(stickyApp.stickyNoteModel);
+    stickynoteView.initNotes();
     quicklinksModel.addLink();
     quicklinksView.appendLinks();
     setupEventListeners();
@@ -603,28 +645,6 @@ CONTROLLER
   window.app.controller = {
     initialize,
   };
-}(
-  window.app.clocksModel,
-  window.app.clocksView,
-  window.app.greetingModel,
-  window.app.greetingView,
-  window.app.newsfeedModel,
-  window.app.newsfeedView,
-  window.app.toolboxView,
-  window.app.htmlModel,
-  window.app.htmlView,
-  window.app.cssModel,
-  window.app.cssView,
-  window.app.pagespeedModel,
-  window.app.pagespeedView,
-  window.app.colorpickerModel,
-  window.app.colorpickerView,
-  window.app.backgroundModel,
-  window.app.backgroundView,
-  window.app.stickyApp,
-  window.app.quicklinksModel,
-  window.app.quicklinksView,
-  window.app.settingsView,
-));
+}());
 
 window.app.controller.initialize();

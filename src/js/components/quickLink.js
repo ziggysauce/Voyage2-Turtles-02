@@ -1,6 +1,6 @@
 (function makeQuicklinksModel() {
   function addLink(newData) {
-    if (typeof localStorage.getItem('linkArray') !== 'string') {
+    if (typeof localStorage.getItem('quickLinks') !== 'string') {
       const linksArray = // here linksArray is an array of default values for the quickLinks.
       [
         {
@@ -17,18 +17,18 @@
         },
       ];
 
-      localStorage.setItem('linkArray', JSON.stringify(linksArray));
+      localStorage.setItem('quickLinks', JSON.stringify(linksArray));
     } else if (newData) {
-      const linksArray = JSON.parse(localStorage.getItem('linkArray'));
+      const linksArray = JSON.parse(localStorage.getItem('quickLinks'));
       linksArray.push(newData);
-      localStorage.setItem('linkArray', JSON.stringify(linksArray));
+      localStorage.setItem('quickLinks', JSON.stringify(linksArray));
     }
   }
 
   function deleteLink(index) {
-    const linksArray = JSON.parse(localStorage.getItem('linkArray'));
+    const linksArray = JSON.parse(localStorage.getItem('quickLinks'));
     linksArray.splice(index, 1);
-    localStorage.setItem('linkArray', JSON.stringify(linksArray));
+    localStorage.setItem('quickLinks', JSON.stringify(linksArray));
   }
 
   window.app.quicklinksModel = {
@@ -39,7 +39,7 @@
 
 (function makeQuicklinksView() {
   function appendLinks() {
-    const linksArray = JSON.parse(localStorage.getItem('linkArray'));
+    const linksArray = JSON.parse(localStorage.getItem('quickLinks'));
 
     $('.quickList').empty();
 
