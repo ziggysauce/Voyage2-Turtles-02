@@ -16,29 +16,45 @@ USER GREETING VIEW
 (function makeGreetingView() {
   const nameForm = $('#name-form');
   const nameInput = $('#name-input');
-  const greeting = $('.user-greeting h1');
+  const name = $('#user-greeting-name');
+  const time = $('#user-greeting-time');
 
   function showGreeting(userName) {
     if (userName) {
-      greeting.html(`Hello, <button>${userName}</button>.`);
+      name.html(`, <button>${userName}</button>.`);
     } else {
-      greeting.html('Hello. What\'s your <button>name</button>?');
+      name.html(', what\'s your <button>name</button>?');
     }
     nameForm.hide();
     nameInput.val('').blur();
-    greeting.show();
+    name.show();
+    time.show();
+  }
+
+  function greetByTime(backgroundModel) {
+    if (backgroundModel.picTime > 3 && backgroundModel.picTime < 12) {
+      time.html('Good morning');
+    } else if (backgroundModel.picTime > 12 && backgroundModel.picTime < 17) {
+      time.html('Good afternoon');
+    } else if (backgroundModel.picTime > 17 || backgroundModel.picTime < 3) {
+      time.html('Good evening');
+    }
+    name.show();
+    time.show();
   }
 
   function showNameInput() {
     nameForm.show();
     nameInput.focus();
-    greeting.hide();
+    name.hide();
+    time.hide();
   }
 
   function toggleNameInput(userName) {
     return function handler(e) {
       if (nameInput.is(':visible') && e.target !== nameInput[0]) {
         showGreeting(userName);
+        greetByTime();
       } else if (!nameInput.is(':visible') && e.target === $('.user-greeting button')[0]) {
         showNameInput();
       }
@@ -47,6 +63,7 @@ USER GREETING VIEW
 
   window.app.greetingView = {
     showGreeting,
+    greetByTime,
     showNameInput,
     toggleNameInput,
   };

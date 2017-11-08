@@ -176,7 +176,6 @@ CLOCKS VIEW
 
   function initClockSettings(status) {
     $('#work-period, #work-display').val(status.workPeriod / 60000);
-    console.log(status.workPeriod / 60000);
     $('#break-period, #break-display').val(status.breakPeriod / 60000);
     $('#time-format').val(status.timeFormat);
   }
