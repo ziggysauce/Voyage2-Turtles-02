@@ -131,6 +131,12 @@ CONTROLLER
     return greetingView.toggleNameInput(greetingModel.getUserName());
   }
 
+  function toggleGreetingMessage() {
+    if (greetingModel.getUserName) {
+      greetingView.greetByTime(backgroundModel);
+    }
+  }
+
   /* ******** NEWSFEED SECTION ******* */
 
   function loadNewsArticles() {
@@ -565,6 +571,7 @@ CONTROLLER
   function initialize() {
     $('.setting-controls-contribute, settings-pomodoro, .settings-newsfeed, .setting-controls-background, .tools-container, .valid-container, .page-speed-container, .returnresults, #loader-icon, .color-picker-panel, .quickDropdown').hide();
     greetingView.showGreeting(greetingModel.getUserName());
+    toggleGreetingMessage();
     initClockSettings();
     clocksView.updateTime(clocksModel.getTime());
     loadSounds();
