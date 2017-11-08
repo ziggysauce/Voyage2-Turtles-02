@@ -129,10 +129,10 @@ body {
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
-      word-wrap: break-word;
+      word-break: break-all;
       max-width: 250px;
-	  	margin: 0px;
-	  	padding: 5px 15px;
+	  	margin: 0px 5px 0px 0px;
+	  	padding: 5px 0px 5px 10px;
 
       a {
         cursor: pointer;
@@ -1241,6 +1241,7 @@ footer {
   bottom: 5%;
   left: 20%;
   right: 20%;
+  height: calc(100% - 50px);
   z-index: 1;
   background: linear-gradient(to bottom, rgba(0,0,0,1) 0%,rgba(0,0,0,0.8) 100%);
   h2 {
@@ -1249,6 +1250,7 @@ footer {
     margin: 0px;
     padding: 10px;
     width: 100%;
+    height: 50px;
 
     font-size: 2em;
     font-weight: bold;
@@ -1266,7 +1268,7 @@ footer {
   overflow-y: auto;
   overflow-x: hidden;
   width: 100%;
-  height: 535px;
+  height: calc(100% - 50px);
   margin-top: 0;
   padding: 0;
   > :first-child {
@@ -1727,26 +1729,21 @@ footer {
   background: transparent;
 
   &::-webkit-slider-runnable-track {
-    // position: relative;
     height: 12px;
     cursor: pointer;
-    background: transparent linear-gradient(#FFD63A, #FFD63A) no-repeat;
-    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0);
+    background: transparent;
+    border: 2px solid rgba(255,255,255,.3);
     border-radius: 3px;
-    background-size: 100%;
   }
 
   &::-webkit-slider-thumb {
-    // position: relative;
     border-radius: 3px;
     border: 2px solid #FFD63A;
     height: 24px;
     width: 16px;
     -webkit-appearance: none;
-    margin-top: -6px;
+    margin-top: -8px;
     background: #000;
-    background-position: 21% 100%;
-    background-size: 10px 10px;
     transition: all 0.1s ease;
   }
 }
@@ -1756,12 +1753,12 @@ footer {
 //     background-size: #{($i/1.2)}% 100%;
 //   }
 // }
-
-@for $i from 1 through 120 {
-#break-period[value='#{$i}']::-webkit-slider-runnable-track {
-    background-size: #{($i/.3)}% 100%;
-  }
-}
+//
+// @for $i from 1 through 120 {
+// #break-period[value='#{$i}']::-webkit-slider-runnable-track {
+//     background-size: #{($i/.3)}% 100%;
+//   }
+// }
 
   #time-label {
     display: inline;
