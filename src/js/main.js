@@ -535,11 +535,6 @@ CONTROLLER
     } else { changeBg(); }
   }
 
-  /* ********* SETTINGS *************** */
-
-  // Settings Controller JS goes here!
-
-
   /* ********* GENERAL ************ */
 
   function setupEventListeners() {
