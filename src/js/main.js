@@ -113,14 +113,6 @@ CONTROLLER
       });
   }
 
-  $('#work-period')[0].addEventListener('input', () => {
-    $('#work-period')[0].setAttribute('value', $('#work-period')[0].value);
-  }, false);
-
-  $('#break-period')[0].addEventListener('input', () => {
-    $('#break-period')[0].setAttribute('value', $('#break-period')[0].value);
-  }, false);
-
   /* ***** USER GREETING SECTION ******** */
 
   function setUserName(e) {
@@ -161,18 +153,23 @@ CONTROLLER
   }
 
   function disableNewsSources() {
-    $('.settings-newsfeed select').each((index, item) => {
-      $(item).children().removeAttr('disabled');
-      newsfeedModel.sources.forEach((itm) => {
-        if ($(`#${item.id} option:selected`).val() !== itm) {
-          $(`#${item.id} option[value='${itm}']`).attr('disabled', 'disabled');
+    $('.settings-newsfeed select').each((index, dropdownMenu) => {
+      $(dropdownMenu).children().removeAttr('disabled');
+      newsfeedModel.sources.forEach((source) => {
+        const isNotSelected = $(`#${dropdownMenu.id} option:selected`).val() !== source;
+
+        if (isNotSelected) {
+          $(`#${dropdownMenu.id} option[value='${source}']`)
+            .attr('disabled', 'disabled');
         }
       });
     });
   }
 
   function updateNewsSources(e) {
-    newsfeedModel.updateNewsSources(e.target.value, e.target.id.substring(e.target.id.length - 1));
+    const index = e.target.id.substring(e.target.id.length - 1);
+
+    newsfeedModel.updateNewsSources(e.target.value, index);
     newsfeedView.clear();
     loadNewsArticles();
     disableNewsSources();
@@ -182,12 +179,14 @@ CONTROLLER
 
   function makeNewStickynote() {
     const newNote = stickynoteModel.makeNote();
+
     stickynoteModel.storeNote(newNote);
     stickynoteView.makeNote(newNote);
   }
 
   function deleteNote(e) {
     const noteID = $(e.target).closest('.stickyContainer').attr('id');
+
     stickynoteModel.deleteNote(noteID);
     stickynoteView.deleteNote(noteID);
   }
@@ -196,9 +195,8 @@ CONTROLLER
     const noteID = $(e.target).closest('.stickyContainer').attr('id');
     const previousColor = $(`#${noteID}`).data('color');
     const color = $(e.target).data('color');
-    const barClass = `${color}Bar`;
-    const areaClass = `${color}Area`;
-    stickynoteModel.changeState(noteID, { color, barClass, areaClass });
+
+    stickynoteModel.changeState(noteID, { color });
     stickynoteView.changeColor(noteID, previousColor, color);
   }
 
@@ -206,12 +204,14 @@ CONTROLLER
     const noteID = $(e.target).closest('.stickyContainer').attr('id');
     const left = $(`#${noteID}`).css('left');
     const top = $(`#${noteID}`).css('top');
+
     stickynoteModel.changeState(noteID, { left, top });
   }
 
   function addStickynoteText(e) {
     const noteID = $(e.target).closest('.stickyContainer').attr('id');
     const text = $(`#${noteID} textarea`).val();
+
     stickynoteModel.changeState(noteID, { text });
   }
 
@@ -219,17 +219,20 @@ CONTROLLER
     e.preventDefault();
     const noteID = $(e.target).closest('.stickyContainer').attr('id');
     const title = $(`#${noteID} .stickTitleInput`).val() || 'Sticky Note';
+
     stickynoteModel.changeState(noteID, { title });
     stickynoteView.changeTitle(noteID, title);
   }
 
   function toggleStickynoteColorOptions(e) {
     const noteID = $(e.target).closest('.stickyContainer').attr('id');
+
     stickynoteView.toggleColorOptions(noteID);
   }
 
   function toggleStickynoteTitleEdit(e) {
     const noteID = $(e.target).closest('.stickyContainer').attr('id');
+
     stickynoteView.toggleTitleEdit(noteID);
   }
 
@@ -239,16 +242,14 @@ CONTROLLER
 
     const title = $('#titleInput').val();
     const url = $('#urlInput').val();
-    const newObject = { title, url };
 
-    quicklinksModel.addLink(newObject);
+    quicklinksModel.addLink({ title, url });
     quicklinksView.appendLinks();
     quicklinksView.toggleAddSite(true);
   }
 
   function deleteLink(e) {
     const index = $('.quickList li').index($(e.target).parent());
-
     quicklinksModel.deleteLink(index);
     quicklinksView.appendLinks();
   }
@@ -530,7 +531,8 @@ CONTROLLER
 
   function loadBackground() {
     function changeBg() {
-      if (backgroundModel.picTime > 6 && backgroundModel.picTime < 19) {
+      const hours = getHours();
+      if (hours > 6 && hours < 19) {
         backgroundView.generateDayBg(backgroundModel);
       } else { backgroundView.generateNightBg(backgroundModel); }
     }
@@ -541,7 +543,7 @@ CONTROLLER
       backgroundModel.setUserImage('');
       $('.bg-user-store').hide();
       // Get number value from selected image
-      backgroundModel.randomNum = $(e.target).attr('src').slice(-7).replace(/[^0-9]/g, '');
+      backgroundModel.imageIndex = $(e.target).attr('src').slice(-7).replace(/[^0-9]/g, '');
       // If image selected is daytime, get daytime image
       // Otherwise get the nighttime image associated with the number value of the selected image
       if ($(e.target).attr('src').match(/day/g)) {
@@ -563,7 +565,7 @@ CONTROLLER
 
     // Let user use DevTab's gallery of rotating background images
     $('.fa-random').on('click', () => {
-      backgroundModel.randomNum = Math.floor(Math.random() * backgroundModel.bgInfo.length);
+      backgroundModel.imageIndex = randomNumber(0, backgroundModel.bgInfo.length);
       $('#rotate-bg-generator').addClass('spin-random-icon');
       $('#rotate-bg-generator').one('animationend', () => {
         // Clear local storage
