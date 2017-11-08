@@ -1,68 +1,71 @@
-(function makeStickyApp() {
-/*-----------------*/
-/* -----MODEL----- */
-/*-----------------*/
-  function stickyNoteModel(newData) {
+(function makeStickynoteModel() {
+  const colorList = ['blue', 'yellow', 'green', 'purple', 'pink', 'grey', 'red'];
+  let colorCounter = -1;
+
+  function makeNote() {
+    colorCounter++
+    const color = colorList[colorCounter % (colorList.length)]; // cycles through the color list, rather than assigning a random color
+
+    return {
+      title: 'Sticky Note',
+      barClass: `${color}Bar`,
+      areaClass: `${color}Area`,
+      text: '',
+      left: 600,
+      top: 50,
+      id: Math.floor(performance.now()), // with performance.now(), in order to get a duplicate ID the user would have to create a new note less than one millisecond after the previous note. highly unlikely.
+    };
+  }
+
+  function storeNote(note) {
     if (typeof localStorage.getItem('stickNoteStorage') !== 'string') { // If "stickNoteStorage" does not exist then we create it.
       localStorage.setItem('stickNoteStorage', JSON.stringify([]));
     }
-    if (newData) {
-      const noteRetrieve = JSON.parse(localStorage.getItem('stickNoteStorage'));
-      noteRetrieve.push(newData);
-      localStorage.setItem('stickNoteStorage', JSON.stringify(noteRetrieve));
-    }
+    const noteRetrieve = JSON.parse(localStorage.getItem('stickNoteStorage'));
+    noteRetrieve.push(note);
+    localStorage.setItem('stickNoteStorage', JSON.stringify(noteRetrieve));
   }
+  window.app.stickynoteModel = {
+    makeNote,
+    storeNote,
+  };
+}());
 
-  /*-----------------*/
-  /* ------VIEW----- */
-  /*-----------------*/
-  function stickyNoteView() {
-    const modelData = JSON.parse(localStorage.getItem('stickNoteStorage'));
-    for (let i = 0; i < modelData.length; i += 1) {
-      // appendStickNote creates the new sticky note and places data from noteRetrieve into the new sticky note.
-      // This uses Template Literals which greatly increases the readability of the HTML below. Thanks @jmbothe for suggesting this!
-
-      // We need to randomize an id for each sticky note but we also need to ensure that each id wont clash into each other.
-      //There is an EXTREMELY slight change that 2 ids would be created but the change of it happening is so slight that it isnt worth going through the extra-lines of code to make it fool-proof.
-
-      const appendStickNote = `
-      <div style="display:none" id='${modelData[i].id}' class='draggable ui-widget-content stickyContainer ${modelData[i].areaClass}' >
-        <div class='stickBar ${modelData[i].barClass}' >
-          <i class='fa fa-ellipsis-v stickIcon stickLeft'></i>
-          <p class="stickTitle">${modelData[i].title}</p>
-          <form class="stickyForm">
-          <input class="stickTitleInput" type="text" spellcheck="false" />
-          </form>
-          <i class='fa fa-trash stickIcon'></i>
-        </div>
-        <div class='palleteBar'>
-          <ul>
-            <li class="yellowBar"></li>
-            <li class="greenBar"></li>
-            <li class="blueBar"></li>
-            <li class="purpleBar"></li>
-            <li class="pinkBar"></li>
-            <li class="greyBar"></li>
-            <li class="redBar"></li>
-          </ul>
-        </div>
-        <textarea spellcheck="false" class='stickNote ${modelData[i].areaClass}'>${modelData[i].text}</textarea>
+(function makeStickynoteView() {
+  function makeNote(note) {
+    const noteHTML = `
+    <div style="display:none" id='${note.id}' class='draggable ui-widget-content stickyContainer ${note.areaClass}' >
+      <div class='stickBar ${note.barClass}' >
+        <i class='fa fa-ellipsis-v stickIcon stickLeft'></i>
+        <p class="stickTitle">${note.title}</p>
+        <form class="stickyForm">
+        <input class="stickTitleInput" type="text" spellcheck="false" />
+        </form>
+        <i class='fa fa-trash stickIcon'></i>
       </div>
-      `;
+      <div class='palleteBar'>
+        <ul>
+          <li class="yellowBar"></li>
+          <li class="greenBar"></li>
+          <li class="blueBar"></li>
+          <li class="purpleBar"></li>
+          <li class="pinkBar"></li>
+          <li class="greyBar"></li>
+          <li class="redBar"></li>
+        </ul>
+      </div>
+      <textarea spellcheck="false" class='stickNote ${note.areaClass}'>${note.text}</textarea>
+    </div>
+    `;
 
-      $('.devtab-bg').append(appendStickNote); // Adds appendStickNote to the HTML page.
-      $(`#${modelData[i].id}`).fadeIn(250);
-      // This places the sticky note where it was last placed by defining the CSS "left" and "top" properties.
-      $(`#${modelData[i].id}`).css({ left: modelData[i].left, top: modelData[i].top });
+    $('.devtab-bg').append(noteHTML);
+    $(`#${note.id}`).fadeIn(250);
+    $(`#${note.id}`).css({ left: note.left, top: note.top });
 
-      addEventListener(modelData[i].id); // The function is called and begins to listen for events.
-    }
+    addEventListeners(note.id);
   }
 
-  /*------------------*/
-  /* ---CONTROLLER--- */
-  /*------------------*/
-  function addEventListener(index) {
+  function addEventListeners(index) {
     const noteID = index; // When this function is created we will want this function to always remember the ID of a created sticky note.
 
     function updateStickStorage(notes) {
@@ -174,8 +177,17 @@
     $('.draggable').draggable({ scroll: false }); // .draggable() makes the sticky notes draggable and scroll: false ensures that the sticky notes wont fly off the screen xD
   }
 
-  window.app.stickyApp = {
-    stickyNoteModel,
-    stickyNoteView,
+  function initNotes() {
+    if (typeof localStorage.getItem('stickNoteStorage') === 'string') {
+      const noteRetrieve = JSON.parse(localStorage.getItem('stickNoteStorage'));
+      noteRetrieve.forEach((item) => {
+        makeNote(item);
+      });
+    }
+  }
+
+  window.app.stickynoteView = {
+    makeNote,
+    initNotes,
   };
 }());

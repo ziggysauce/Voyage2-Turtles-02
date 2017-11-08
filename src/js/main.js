@@ -28,7 +28,8 @@ CONTROLLER
   colorpickerView,
   backgroundModel,
   backgroundView,
-  stickyApp,
+  stickynoteModel,
+  stickynoteView,
   quicklinksModel,
   quicklinksView,
   settingsView,
@@ -169,22 +170,12 @@ CONTROLLER
     disableNewsSources();
   }
 
-  /* ********* STICKY NOTE LISTENER ******* */
+  /* ********* STICKY NOTE SECTION ******* */
 
   function stickClickEvent() {
-    var colorList = ['blue', 'yellow', 'green', 'purple', 'pink', 'grey', 'red'];
-    var randomColor = colorList[Math.floor((Math.random() * colorList.length))];
-    var newStickyObject = {
-      title: 'Sticky Note',
-      barClass: `${randomColor}Bar`,
-      areaClass: `${randomColor}Area`,
-      text: '',
-      left: 600,
-      top: 50,
-      id: Math.floor(performance.now()),
-    };
-    stickyApp.stickyNoteModel(newStickyObject);
-    stickyApp.stickyNoteView();
+    const newNote = stickynoteModel.makeNote();
+    stickynoteModel.storeNote(newNote);
+    stickynoteView.makeNote(newNote);
   }
 
   /* ********* QUICK LINK SECTION ********* */
@@ -582,8 +573,7 @@ CONTROLLER
     loadPageSpeedChecker();
     loadColorPicker();
     loadBackground();
-    stickyApp.stickyNoteModel();
-    stickyApp.stickyNoteView();
+    stickynoteView.initNotes();
     quicklinksModel.addLink();
     quicklinksView.appendLinks();
     setupEventListeners();
@@ -610,7 +600,8 @@ CONTROLLER
   window.app.colorpickerView,
   window.app.backgroundModel,
   window.app.backgroundView,
-  window.app.stickyApp,
+  window.app.stickynoteModel,
+  window.app.stickynoteView,
   window.app.quicklinksModel,
   window.app.quicklinksView,
   window.app.settingsView,
