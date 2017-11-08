@@ -1,4 +1,3 @@
-
 /* ************************************************************************
 CLOCKS MODEL
 ************************************************************************ */
@@ -40,24 +39,10 @@ CLOCKS MODEL
     return status;
   }
 
-  function setWorkPeriod(milliseconds) {
+  function setStatus(key, value) {
     const settings = JSON.parse(localStorage.getItem('clockSettings'));
-    settings.workPeriod = milliseconds;
-    status.workPeriod = milliseconds;
-    localStorage.setItem('clockSettings', JSON.stringify(settings));
-  }
-
-  function setBreakPeriod(milliseconds) {
-    const settings = JSON.parse(localStorage.getItem('clockSettings'));
-    settings.breakPeriod = milliseconds;
-    status.breakPeriod = milliseconds;
-    localStorage.setItem('clockSettings', JSON.stringify(settings));
-  }
-
-  function setTimeFormat(format) {
-    const settings = JSON.parse(localStorage.getItem('clockSettings'));
-    settings.timeFormat = format;
-    status.timeFormat = format;
+    settings[key] = value;
+    status[key] = value;
     localStorage.setItem('clockSettings', JSON.stringify(settings));
   }
 
@@ -66,13 +51,14 @@ CLOCKS MODEL
     const time = new Date();
     let hours = time.getHours();
     let minutes = time.getMinutes();
+    minutes = minutes < 10 ? `0${minutes}` : minutes;
 
     if (status.timeFormat == 12) {
       const timeOfDay = hours < 12 ? 'AM' : 'PM';
       hours = hours === 0 || hours === 12 ? 12 : hours % 12;
-      minutes = minutes < 10 ? `0${minutes}` : minutes;
       return `${hours}:${minutes} ${timeOfDay}`;
     }
+    hours = hours < 10 ? `0${hours}` : hours;
     return `${hours}:${minutes}`;
   }
 
@@ -130,9 +116,7 @@ CLOCKS MODEL
     getTime,
     initClockSettings,
     getStatus,
-    setWorkPeriod,
-    setBreakPeriod,
-    setTimeFormat,
+    setStatus,
     resetClock,
     toggleActive,
     toggleWorkBreak,
@@ -187,7 +171,13 @@ CLOCKS VIEW
 
   function rangeDisplayUpdate(id, value) {
     const output = $(`#${id.substring(0, id.indexOf('-'))}-display`);
-    output.val(value);
+    output.text(value);
+  }
+
+  function initClockSettings(status) {
+    $('#work-period, #work-display').val(status.workPeriod / 60000);
+    $('#break-period, #break-display').val(status.breakPeriod / 60000);
+    $('#time-format').val(status.timeFormat);
   }
 
   window.app.clocksView = {
@@ -197,5 +187,6 @@ CLOCKS VIEW
     updateTime,
     updateCountdown,
     rangeDisplayUpdate,
+    initClockSettings,
   };
 }());

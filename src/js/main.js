@@ -60,19 +60,24 @@ CONTROLLER
 
   function setTimeFormat(e) {
     const format = e.target.options[e.target.selectedIndex].value;
-    clocksModel.setTimeFormat(format);
+    clocksModel.setStatus('timeFormat', format);
   }
 
   function setPomodoroWorkPeriod(e) {
-    clocksModel.setWorkPeriod(e.target.value * 60000);
+    clocksModel.setStatus('workPeriod', e.target.value * 60000);
   }
 
   function setPomodoroBreakPeriod(e) {
-    clocksModel.setBreakPeriod(e.target.value * 60000);
+    clocksModel.setStatus('breakPeriod', e.target.value * 60000);
   }
 
   function rangeDisplayUpdate(e) {
     clocksView.rangeDisplayUpdate(e.target.id, e.target.value);
+  }
+
+  function initClockSettings() {
+    clocksModel.initClockSettings();
+    clocksView.initClockSettings(clocksModel.getStatus());
   }
 
   // continuous loop that updates clock display. reference https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
@@ -565,10 +570,10 @@ CONTROLLER
     $('#html-markup').on('submit', htmlValidatorCall);
     $('#css-markup').on('submit', CSSValidatorCall);
     $('#newNote').on('click', stickClickEvent);
-    $('#work-period').on('change', setPomodoroWorkPeriod)
-      .on('change', rangeDisplayUpdate);
-    $('#break-period').on('change', setPomodoroBreakPeriod)
-      .on('change', rangeDisplayUpdate);
+    $('#work-period').on('input', setPomodoroWorkPeriod)
+      .on('input', rangeDisplayUpdate);
+    $('#break-period').on('input', setPomodoroBreakPeriod)
+      .on('input', rangeDisplayUpdate);
     $('#time-format').on('change', setTimeFormat);
     $('.news-source-dropdown').on('change', updateNewsSources);
     $('#targetForm').submit(handleLinkSubmit);
@@ -579,7 +584,7 @@ CONTROLLER
   function initialize() {
     $('.setting-controls-contribute, settings-pomodoro, .settings-newsfeed, .setting-controls-background, .tools-container, .valid-container, .page-speed-container, .returnresults, #loader-icon, .color-picker-panel, .quickDropdown').hide();
     greetingView.showGreeting(greetingModel.getUserName());
-    clocksModel.initClockSettings();
+    initClockSettings();
     clocksView.updateTime(clocksModel.getTime());
     loadSounds();
     loadNewsArticles();
