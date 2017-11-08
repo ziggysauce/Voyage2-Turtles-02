@@ -6,24 +6,18 @@
     if (typeof localStorage.getItem('stickNoteStorage') !== 'string') { // If "stickNoteStorage" does not exist then we create it.
       localStorage.setItem('stickNoteStorage', JSON.stringify([]));
     }
-
-    let noteRetrieve = localStorage.getItem('stickNoteStorage'); // noteRetrieve is the data that will be used to update localStorage and to display the data onto the HTML.
-    noteRetrieve = JSON.parse(noteRetrieve);
-
-    if (typeof newData === 'object') {
+    if (newData) {
+      const noteRetrieve = JSON.parse(localStorage.getItem('stickNoteStorage'));
       noteRetrieve.push(newData);
       localStorage.setItem('stickNoteStorage', JSON.stringify(noteRetrieve));
     }
-
-    console.log(noteRetrieve);
-    return noteRetrieve;
   }
 
   /*-----------------*/
   /* ------VIEW----- */
   /*-----------------*/
-  function stickyNoteView(dataRecieve) {
-    const modelData = dataRecieve();
+  function stickyNoteView() {
+    const modelData = JSON.parse(localStorage.getItem('stickNoteStorage'));
     for (let i = 0; i < modelData.length; i += 1) {
       // appendStickNote creates the new sticky note and places data from noteRetrieve into the new sticky note.
       // This uses Template Literals which greatly increases the readability of the HTML below. Thanks @jmbothe for suggesting this!
@@ -41,7 +35,7 @@
           </form>
           <i class='fa fa-trash stickIcon'></i>
         </div>
-        <div class='palleteBar blueBar'>
+        <div class='palleteBar'>
           <ul>
             <li class="yellowBar"></li>
             <li class="greenBar"></li>
@@ -52,7 +46,7 @@
             <li class="redBar"></li>
           </ul>
         </div>
-        <textarea spellcheck="false" class='stickNote ${modelData[i].areaClass}'>${modelData[i].text} </textarea>
+        <textarea spellcheck="false" class='stickNote ${modelData[i].areaClass}'>${modelData[i].text}</textarea>
       </div>
       `;
 
@@ -70,21 +64,19 @@
   /*------------------*/
   function addEventListener(index) {
     const noteID = index; // When this function is created we will want this function to always remember the ID of a created sticky note.
-    const noteRetrieve = stickyNoteModel(); // Grabs data from model.
 
-    function updateStickStorage() {
-      localStorage.setItem('stickNoteStorage', JSON.stringify(noteRetrieve));
+    function updateStickStorage(notes) {
+      localStorage.setItem('stickNoteStorage', JSON.stringify(notes));
     }
 
     $(`#${noteID} .fa-trash`).click(() => {
+      const noteRetrieve = JSON.parse(localStorage.getItem('stickNoteStorage'));
       $(`#${noteID}`).fadeOut('fast'); // Its fades out for affect, the sticky note is visually removed but technically it still "exists" with a display: none; property.
       setTimeout(() => { $(`#${noteID}`).remove(); }, 1000);
       for (let x = 0; x < noteRetrieve.length; x += 1) {
         if (noteRetrieve[x].id === noteID) {
           noteRetrieve.splice(x, 1); // We splice the sticky note from the array of sticky notes.
-          console.log(noteRetrieve); // The console.logs are simply for debugging purposes. I'll remove them when are code is product ready.
-          console.log(noteID);
-          updateStickStorage(); // updateStickStorage is a function that updates the localstorage.
+          updateStickStorage(noteRetrieve); // updateStickStorage is a function that updates the localstorage.
         }
       }
     });
@@ -95,24 +87,26 @@
     });
 
     $(`#${noteID}`).mouseup(() => { // When a user drags a stick note and then RELEASES the stick note or on mouseup, this function will record the left and top css properties.
+      const noteRetrieve = JSON.parse(localStorage.getItem('stickNoteStorage'));
       for (let x = 0; x < noteRetrieve.length; x += 1) {
         if (noteRetrieve[x].id === noteID) { // As we iterate through the array, we check if the noteID is equal to noteRetrieve[x].id.
           // If noteID does equal to noteRetrieve[x].id, then that means we found the correct sticky note to remove.
           noteRetrieve[x].left = $(`#${noteID}`).css('left');
           noteRetrieve[x].top = $(`#${noteID}`).css('top');
-          updateStickStorage();
+          updateStickStorage(noteRetrieve);
         }
       }
     });
 
     $(`#${noteID}`).click(() => { // This records the text inside of the sticky note.
       $(`#${noteID} textarea`).keydown(() => { // Each time a key is pressed, it records the letter and pushes it into localStorage.
+        const noteRetrieve = JSON.parse(localStorage.getItem('stickNoteStorage'));
         for (let y = 0; y < noteRetrieve.length; y += 1) {
           if (noteRetrieve[y].id === noteID) {
             ((y) => { // This creates an additional closure so that the setTimeout function can access pushRetrieve[y].
               setTimeout(() => { // The reason why we need a setTimeout is because when the keypress event is triggered, .val() will ignore the last letter of the input. setTimeout gives enough time for the input to update then we grab and push the text into localStorage.
                 noteRetrieve[y].text = $(`#${noteID} textarea`).val();
-                   updateStickStorage();
+                updateStickStorage(noteRetrieve);
                 console.log(noteRetrieve[y].text); // This serves no purpose other than to help debug.
               }, 10);
             })(y);
@@ -129,18 +123,19 @@
 
     function colorEvent(index) {
       $(`#${noteID} .palleteBar .${index}Bar`).click(() => {
+        const noteRetrieve = JSON.parse(localStorage.getItem('stickNoteStorage'));
         for (let z = 0; z < noteRetrieve.length; z += 1) {
           if (noteRetrieve[z].id === noteID) {
             $(`#${noteID}`).removeClass(noteRetrieve[z].areaClass).addClass(`${index}Area`);
             $(`#${noteID} textarea`).removeClass(noteRetrieve[z].areaClass).addClass(`${index}Area`);
-            $(`#${noteID} .stickBar`).removeClass(noteRetrieve[z].barClass).addClass(index + "Bar");
+            $(`#${noteID} .stickBar`).removeClass(noteRetrieve[z].barClass).addClass(`${index}Bar`);
 
             noteRetrieve[z].areaClass = `${index}Area`;
-            noteRetrieve[z].barClass = index + "Bar";
+            noteRetrieve[z].barClass = `${index}Bar`;
 
             $(`#${noteID} .palleteBar`).hide();
             $(`#${noteID} .stickBar`).fadeIn('slow');
-            updateStickStorage();
+            updateStickStorage(noteRetrieve);
           }
         }
       });
@@ -156,18 +151,19 @@
       if ($(`#${noteID} .stickTitleInput`).val() == '') {
         $(`#${noteID} .stickTitle`).html('Sticky Note');
       } else {
-      $(`#${noteID} .stickTitle`).html($(`#${noteID} .stickTitleInput`).val());
+        $(`#${noteID} .stickTitle`).html($(`#${noteID} .stickTitleInput`).val());
       }
+      let noteRetrieve = JSON.parse(localStorage.getItem('stickNoteStorage'));
       for (let z = 0; z < noteRetrieve.length; z += 1) {
         if (noteRetrieve[z].id === noteID) {
           if ($(`#${noteID} .stickTitleInput`).val() == '') {
-          noteRetrieve[z].title = 'Sticky Note';
-          $(`#${noteID} .stickTitleInput`).val('');
-          updateStickStorage();
-          }else {
-          noteRetrieve[z].title = $(`#${noteID} .stickTitleInput`).val();
-          $(`#${noteID} .stickTitleInput`).val('');
-          updateStickStorage();
+            noteRetrieve[z].title = 'Sticky Note';
+            $(`#${noteID} .stickTitleInput`).val('');
+            updateStickStorage(noteRetrieve);
+          } else {
+            noteRetrieve[z].title = $(`#${noteID} .stickTitleInput`).val();
+            $(`#${noteID} .stickTitleInput`).val('');
+            updateStickStorage(noteRetrieve);
           }
         }
       }

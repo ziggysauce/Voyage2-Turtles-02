@@ -181,15 +181,10 @@ CONTROLLER
       text: '',
       left: 600,
       top: 50,
-      id: Math.floor((Math.random() * 1000) + 1),
+      id: Math.floor(performance.now()),
     };
-
     stickyApp.stickyNoteModel(newStickyObject);
-    function stickyObjectFunction() {
-      var pushArray = [newStickyObject];
-      return pushArray;
-    }
-    stickyApp.stickyNoteView(stickyObjectFunction);
+    stickyApp.stickyNoteView();
   }
 
   /* ********* QUICK LINK SECTION ********* */
@@ -592,7 +587,8 @@ CONTROLLER
     loadPageSpeedChecker();
     loadColorPicker();
     loadBackground();
-    stickyApp.stickyNoteView(stickyApp.stickyNoteModel);
+    stickyApp.stickyNoteModel();
+    stickyApp.stickyNoteView();
     quicklinksModel.addLink();
     quicklinksView.appendLinks();
     setupEventListeners();

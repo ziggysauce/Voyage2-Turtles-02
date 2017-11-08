@@ -1751,11 +1751,11 @@ footer {
   }
 }
 
-// @for $i from 1 through 120 {
-// #work-period[value='#{$i}']::-webkit-slider-runnable-track {
-//     background-size: #{($i/1.2)}% 100%;
-//   }
-// }
+@for $i from 1 through 120 {
+#work-period[value='#{$i}']::-webkit-slider-runnable-track {
+    background-size: #{($i/1.2)}% 100%;
+  }
+}
 
 @for $i from 1 through 120 {
 #break-period[value='#{$i}']::-webkit-slider-runnable-track {
