@@ -1,3 +1,9 @@
+/*
+ * Randomly selects background image and associated author and reference link for page
+ * Background images change every time tab is opened or page is refreshed
+ * Background images categorized into daytime (7AM-6:59PM) and nighttime (7PM-6:59AM)
+ * Background image shown depends on user's local time (day/night)
+ */
 
 /* ************************************************************************
 BACKGROUND MODEL

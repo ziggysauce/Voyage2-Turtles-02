@@ -1322,8 +1322,7 @@ footer {
   }
 }
 
-/* STICKY NOTES RULES */
-
+// ********** STICKYNOTE RULES ************
 
 .stickyContainer {
 	position: absolute;
@@ -1345,62 +1344,82 @@ footer {
 	display: flex;
 	margin: 0px;
 	padding: 0px 0px 15px 0px;
-
-	color: white;
 }
-
-// ********** STICKYNOTE RULES ************
 
 .stickIcon {
 	font-size: 1.3em;
 	margin: 10px 10px 0px 10px;
 	transition: .5s;
-
+  color: rgba(255,255,255,0.7);
 }
 
 .stickIcon:hover {
-
 	cursor: pointer;
-	color: #D9D9D9;
+	color: #FFF;
 	transition: .5s;
 
 }
 
-.stickyContainer p {
-
-	cursor: pointer;
+.stickTitle {
+  cursor: pointer;
 	font-weight: bold;
 	margin: 5px 0px;
 	padding: 5px 0px;
 	font-size: .98em;
 	transition: .5s;
-
+  color: rgba(255,255,255,0.7);
 }
 
-.stickyContainer p:hover {
-
-	cursor: pointer;
-	color: #D9D9D9;
+.stickTitle:hover {
+  cursor: pointer;
 	transition: .5s;
+  color: #FFF;
 }
 
 .stickyContainer input {
 
 	display: none;
 	height: 20px;
-	width: 90px;
-	padding: 2px;
+	width: 120px;
+	padding: 5px;
 	margin: 10px 0px 10px 0px;
 
 	outline: none;
 	font-size: .9em;
 	font-family: 'Lato', helvetica;
 	font-weight: 700;
-	background-color: lightgrey;
+  color: #FFF;
+	background: rgba(0,0,0,.4);
 
-	border: 1px solid lightgrey;
+  border: 1px solid transparent;
 	border-radius: 3px;
+}
 
+.stickyContainer input::placeholder {
+  color: rgba(255,255,255,0.7);
+}
+
+.stickyContainer input:focus::placeholder {
+  color: #FFF;
+  transition: .3s;
+}
+
+.cancel-note {
+  display: none;
+  cursor: pointer;
+  padding: 0px 5px;
+  margin-left: 5px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  outline: none;
+  background: transparent;
+  color: rgba(255,255,255,0.7);
+}
+
+.cancel-note:hover {
+  color: #FFF;
+  border: 2px solid #FFF;
+  transition: 0.3s;
 }
 
 .stickLeft {

@@ -218,7 +218,7 @@ CONTROLLER
   function changeStickynoteTitle(e) {
     e.preventDefault();
     const noteID = $(e.target).closest('.stickyContainer').attr('id');
-    const title = $(`#${noteID} .stickTitleInput`).val() || 'Sticky Note';
+    const title = $(`#${noteID} .stickTitleInput`).val() || $(`#${noteID} .stickTitle`).html() || 'Sticky Note';
 
     stickynoteModel.changeState(noteID, { title });
     stickynoteView.changeTitle(noteID, title);
@@ -234,6 +234,12 @@ CONTROLLER
     const noteID = $(e.target).closest('.stickyContainer').attr('id');
 
     stickynoteView.toggleTitleEdit(noteID);
+  }
+
+  function cancelNoteTitle(e) {
+    const noteID = $(e.target).closest('.stickyContainer').attr('id');
+    const title = $(`#${noteID} .stickTitle`).html() || 'Sticky Note';
+    stickynoteView.cancelTitle(noteID, title);
   }
 
   /* ********* QUICK LINK SECTION ********* */
@@ -522,17 +528,20 @@ CONTROLLER
 
   /* ********* BACKGROUND SECTION ************ */
 
-  /*
-   * Randomly selects background image and associated author and reference link for page
-   * Background images change every time tab is opened or page is refreshed
-   * Background images categorized into daytime (7AM-6:59PM) and nighttime (7PM-6:59AM)
-   * Background image shown depends on user's local time (day/night)
-   */
-
   function loadBackground() {
     function changeBg() {
       const hours = getHours();
       if (hours > 6 && hours < 19) {
+        backgroundView.generateDayBg(backgroundModel);
+      } else { backgroundView.generateNightBg(backgroundModel); }
+    }
+
+    function gallerySelect() {
+      backgroundModel.imageIndex = JSON.parse(localStorage.getItem('gallery')).num;
+
+      // If image selected is daytime, get daytime image
+      // Otherwise get the nighttime image associated with the number value of the selected image
+      if (JSON.parse(localStorage.getItem('gallery')).url.match(/day/g)) {
         backgroundView.generateDayBg(backgroundModel);
       } else { backgroundView.generateNightBg(backgroundModel); }
     }
@@ -542,18 +551,21 @@ CONTROLLER
       // Clear local storage
       backgroundModel.setUserImage('');
       $('.bg-user-store').hide();
+
       // Get number value from selected image
-      backgroundModel.imageIndex = $(e.target).attr('src').slice(-7).replace(/[^0-9]/g, '');
-      // If image selected is daytime, get daytime image
-      // Otherwise get the nighttime image associated with the number value of the selected image
-      if ($(e.target).attr('src').match(/day/g)) {
-        backgroundView.generateDayBg(backgroundModel);
-      } else { backgroundView.generateNightBg(backgroundModel); }
+      const gallery = {
+        num: $(e.target).attr('src').slice(-7).replace(/[^0-9]/g, ''),
+        url: $(e.target).attr('src'),
+      };
+      localStorage.setItem('gallery', JSON.stringify(gallery));
+
+      gallerySelect();
     });
 
     // Let user input their own image as the background
     $('#bg-user-url-submit').on('click', (e) => {
       e.preventDefault();
+      localStorage.removeItem('gallery');
       const userInput = $('#bg-user-url').val();
       if (userInput.match(/\.(jpeg|jpg|gif|png)$/) != null) {
         backgroundModel.setUserImage($('#bg-user-url').val());
@@ -569,6 +581,7 @@ CONTROLLER
       $('#rotate-bg-generator').addClass('spin-random-icon');
       $('#rotate-bg-generator').one('animationend', () => {
         // Clear local storage
+        localStorage.removeItem('gallery');
         backgroundModel.setUserImage('');
         $('.bg-user-store').hide();
         changeBg();
@@ -577,9 +590,12 @@ CONTROLLER
     });
 
     // If a user had added their own image, show it
+    // If a user has selected an image from the gallery, show it
     // Otherwise default to DevTab image rotation
     if (backgroundModel.getUserImage()) {
       backgroundView.generateUserBg(backgroundModel.getUserImage());
+    } else if (localStorage.getItem('gallery')) {
+      gallerySelect();
     } else { changeBg(); }
   }
 
@@ -619,6 +635,7 @@ CONTROLLER
     $('.quickList').on('click', '.link-delete', deleteLink);
     $('.devtab-bg').on('submit', '.stickyContainer form', changeStickynoteTitle);
     $('.devtab-bg').on('click', '.stickTitle', toggleStickynoteTitleEdit);
+    $('.devtab-bg').on('click', '.cancel-note', cancelNoteTitle);
     $('.devtab-bg').on('keyup', '.stickyContainer textarea', addStickynoteText);
     $('.devtab-bg').on('mouseup', '.stickyContainer', moveStickynote);
     $('.devtab-bg').on('click', '.colorBar', changeStickynoteColor);

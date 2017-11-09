@@ -64,7 +64,8 @@
         <i class='fa fa-ellipsis-v stickIcon stickLeft'></i>
         <p class="stickTitle">${note.title}</p>
         <form class="stickyForm">
-        <input class="stickTitleInput" type="text" spellcheck="false" />
+          <input class="stickTitleInput" placeholder="title" type="text" spellcheck="false" />
+          <button class="cancel-note" type="reset">x</button>
         </form>
         <i class='fa fa-trash stickIcon'></i>
       </div>
@@ -114,9 +115,9 @@
   }
 
   function changeTitle(noteID, newTitle) {
-    $(`#${noteID} .stickTitle`).html(newTitle);
+    $(`#${noteID} .stickTitle`).html(newTitle).fadeIn('slow');
     $(`#${noteID} .stickTitleInput`).hide();
-    $(`#${noteID} .stickTitle`).fadeIn('slow');
+    $(`#${noteID} .cancel-note`).hide();
   }
 
   function initNotes() {
@@ -134,11 +135,18 @@
   function toggleTitleEdit(noteID) {
     $(`#${noteID} .stickTitle`).hide();
     $(`#${noteID} .stickTitleInput`).fadeIn('slow');
+    $(`#${noteID} .cancel-note`).fadeIn('slow');
   }
 
   function toggleColorOptions(noteID) {
     $(`#${noteID} .stickBar`).hide();
     $(`#${noteID} .palleteBar`).fadeIn('slow');
+  }
+
+  function cancelTitle(noteID, title) {
+    $(`#${noteID} .stickTitle`).html(title).fadeIn('slow');
+    $(`#${noteID} .stickTitleInput`).hide();
+    $(`#${noteID} .cancel-note`).hide();
   }
 
   window.app.stickynoteView = {
@@ -149,5 +157,6 @@
     changeTitle,
     toggleTitleEdit,
     toggleColorOptions,
+    cancelTitle,
   };
 }());
