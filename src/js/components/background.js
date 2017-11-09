@@ -6,12 +6,6 @@ BACKGROUND MODEL
 (function makeBackgroundModel() {
   const setUserImage = userUrl => localStorage.setItem('userUrl', userUrl);
   const getUserImage = () => localStorage.getItem('userUrl');
-  const curTime = new Date();
-  const picTime = parseInt(curTime.toLocaleString('en-US', {
-    hour: 'numeric',
-    minute: 'numeric',
-    hour12: false,
-  }), 10);
 
   const bgInfo = [
     {
@@ -236,14 +230,13 @@ BACKGROUND MODEL
     },
   ];
 
-  const randomNum = Math.floor(Math.random() * bgInfo.length);
+  const imageIndex = randomNumber(0, bgInfo.length);
 
   window.app.backgroundModel = {
     setUserImage,
     getUserImage,
-    picTime,
     bgInfo,
-    randomNum,
+    imageIndex,
   };
 }());
 
@@ -254,15 +247,15 @@ BACKGROUND VIEW
 // Store background picture information (day/night, authors, links)
 (function makeBackgroundView() {
   function generateDayBg(backgroundModel) {
-    $('.devtab-bg').css('background-image', `url('./assets/img/dayPics/sample${backgroundModel.randomNum}.jpeg')`).hide().fadeIn(1000);
-    $('#pic-author').attr('href', backgroundModel.bgInfo[backgroundModel.randomNum].day.url);
-    $('#pic-author').text(backgroundModel.bgInfo[backgroundModel.randomNum].day.author);
+    $('.devtab-bg').css('background-image', `url('./assets/img/dayPics/sample${backgroundModel.imageIndex}.jpeg')`).hide().fadeIn(1000);
+    $('#pic-author').attr('href', backgroundModel.bgInfo[backgroundModel.imageIndex].day.url);
+    $('#pic-author').text(backgroundModel.bgInfo[backgroundModel.imageIndex].day.author);
   }
 
   function generateNightBg(backgroundModel) {
-    $('.devtab-bg').css('background-image', `url('./assets/img/nightPics/sample${backgroundModel.randomNum}.jpeg')`).hide().fadeIn(1000);
-    $('#pic-author').attr('href', backgroundModel.bgInfo[backgroundModel.randomNum].night.url);
-    $('#pic-author').text(backgroundModel.bgInfo[backgroundModel.randomNum].night.author);
+    $('.devtab-bg').css('background-image', `url('./assets/img/nightPics/sample${backgroundModel.imageIndex}.jpeg')`).hide().fadeIn(1000);
+    $('#pic-author').attr('href', backgroundModel.bgInfo[backgroundModel.imageIndex].night.url);
+    $('#pic-author').text(backgroundModel.bgInfo[backgroundModel.imageIndex].night.author);
   }
 
   function generateUserBg(userUrl) {

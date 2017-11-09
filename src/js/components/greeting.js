@@ -21,9 +21,9 @@ USER GREETING VIEW
 
   function showGreeting(userName) {
     if (userName) {
-      name.html(`, <button>${userName}</button>.`);
+      name.html(`<button>${userName}</button>.`);
     } else {
-      name.html(', what\'s your <button>name</button>?');
+      name.html('what\'s your <button>name</button>?');
     }
     nameForm.hide();
     nameInput.val('').blur();
@@ -31,13 +31,14 @@ USER GREETING VIEW
     time.show();
   }
 
-  function greetByTime(backgroundModel) {
-    if (backgroundModel.picTime > 3 && backgroundModel.picTime < 12) {
-      time.html('Good morning');
-    } else if (backgroundModel.picTime > 12 && backgroundModel.picTime < 17) {
-      time.html('Good afternoon');
-    } else if (backgroundModel.picTime > 17 || backgroundModel.picTime < 3) {
-      time.html('Good evening');
+  function greetByTime() {
+    const hours = getHours();
+    if (hours >= 3 && hours < 12) {
+      time.html('Good morning,&nbsp;');
+    } else if (hours >= 12 && hours < 17) {
+      time.html('Good afternoon,&nbsp;');
+    } else if (hours >= 17 || hours < 3) {
+      time.html('Good evening,&nbsp;');
     }
     name.show();
     time.show();

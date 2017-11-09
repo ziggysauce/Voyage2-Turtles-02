@@ -49,6 +49,7 @@ gulp.task('js', () => {
     'src/js/jquery-3.2.1.js',
     'src/js/jquery-ui.min.js',
     'src/js/tinycolor.js',
+    'src/js/helpers.js',
     'src/js/components/clocks.js',
     'src/js/components/greeting.js',
     'src/js/components/newsfeed.js',

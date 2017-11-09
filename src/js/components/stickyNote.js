@@ -3,14 +3,12 @@
   let colorCounter = -1;
 
   function makeNote() {
-    colorCounter++
+    colorCounter++;
     const color = colorList[colorCounter % (colorList.length)]; // cycles through the color list, rather than assigning a random color
 
     return {
       title: 'Sticky Note',
       color,
-      barClass: `${color}Bar`,
-      areaClass: `${color}Area`,
       text: '',
       left: 600,
       top: 50,
@@ -19,17 +17,21 @@
   }
 
   function storeNote(note) {
-    if (typeof localStorage.getItem('stickyNotes') !== 'string') { // If "stickyNotes" does not exist then we create it.
+    const nothingInStorage = typeof localStorage.getItem('stickyNotes') !== 'string';
+
+    if (nothingInStorage) {
       localStorage.setItem('stickyNotes', JSON.stringify([]));
     }
-    const noteRetrieve = JSON.parse(localStorage.getItem('stickyNotes'));
-    noteRetrieve.push(note);
-    localStorage.setItem('stickyNotes', JSON.stringify(noteRetrieve));
+    const stickyNotes = JSON.parse(localStorage.getItem('stickyNotes'));
+
+    stickyNotes.push(note);
+    localStorage.setItem('stickyNotes', JSON.stringify(stickyNotes));
   }
 
   function deleteNote(noteID) {
     const stickyNotes = JSON.parse(localStorage.getItem('stickyNotes'));
     const index = stickyNotes.findIndex(note => note.id == noteID);
+
     stickyNotes.splice(index, 1);
     localStorage.setItem('stickyNotes', JSON.stringify(stickyNotes));
   }
@@ -37,9 +39,10 @@
   function changeState(noteID, obj) {
     const stickyNotes = JSON.parse(localStorage.getItem('stickyNotes'));
     const index = stickyNotes.findIndex(note => note.id == noteID);
+
     Object.keys(obj).forEach((item) => {
       stickyNotes[index][item] = obj[item];
-    })
+    });
     localStorage.setItem('stickyNotes', JSON.stringify(stickyNotes));
   }
   window.app.stickynoteModel = {
@@ -53,8 +56,11 @@
 (function makeStickynoteView() {
   function makeNote(note) {
     const noteHTML = `
-    <div style="display:none" id='${note.id}' class='draggable ui-widget-content stickyContainer ${note.areaClass}' data-color="${note.color}" >
-      <div class='stickBar ${note.barClass}' >
+    <div style="display:none" id='${note.id}' 
+      class='draggable ui-widget-content stickyContainer ${note.color}Area' 
+      data-color="${note.color}"
+    >
+      <div class='stickBar ${note.color}Bar' >
         <i class='fa fa-ellipsis-v stickIcon stickLeft'></i>
         <p class="stickTitle">${note.title}</p>
         <form class="stickyForm">
@@ -73,7 +79,9 @@
           <li class="redBar colorBar" data-color="red"></li>
         </ul>
       </div>
-      <textarea spellcheck="false" class='stickNote ${note.areaClass}'>${note.text}</textarea>
+      <textarea spellcheck="false" class='stickNote ${note.color}Area'>
+        ${note.text}
+      </textarea>
     </div>
     `;
 
@@ -84,15 +92,23 @@
   }
 
   function deleteNote(noteID) {
-    $(`#${noteID}`).fadeOut('fast'); // Its fades out for affect, the sticky note is visually removed but technically it still "exists" with a display: none; property.
-    setTimeout(() => { $(`#${noteID}`).remove(); }, 1000);
+    $(`#${noteID}`).fadeOut('fast', () => $(`#${noteID}`).remove());
   }
 
   function changeColor(noteID, previousColor, newColor) {
-    $(`#${noteID}`).removeClass(`${previousColor}Area`).addClass(`${newColor}Area`);
-    $(`#${noteID}`).data('color', newColor);
-    $(`#${noteID} textarea`).removeClass(`${previousColor}Area`).addClass(`${newColor}Area`);
-    $(`#${noteID} .stickBar`).removeClass(`${previousColor}Bar`).addClass(`${newColor}Bar`);
+    $(`#${noteID}`)
+      .removeClass(`${previousColor}Area`)
+      .addClass(`${newColor}Area`)
+      .data('color', newColor);
+
+    $(`#${noteID} textarea`)
+      .removeClass(`${previousColor}Area`)
+      .addClass(`${newColor}Area`);
+
+    $(`#${noteID} .stickBar`)
+      .removeClass(`${previousColor}Bar`)
+      .addClass(`${newColor}Bar`);
+
     $(`#${noteID} .palleteBar`).hide();
     $(`#${noteID} .stickBar`).fadeIn('slow');
   }
@@ -104,10 +120,13 @@
   }
 
   function initNotes() {
-    if (typeof localStorage.getItem('stickyNotes') === 'string') {
-      const noteRetrieve = JSON.parse(localStorage.getItem('stickyNotes'));
-      noteRetrieve.forEach((item) => {
-        makeNote(item);
+    const storageExists = typeof localStorage.getItem('stickyNotes') === 'string';
+
+    if (storageExists) {
+      const stickyNotes = JSON.parse(localStorage.getItem('stickyNotes'));
+
+      stickyNotes.forEach((note) => {
+        makeNote(note);
       });
     }
   }
