@@ -56,6 +56,7 @@ body {
       margin-top: 40px;
       color: #D9D9D9;
       background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 100%);
+      z-index: 1;
       border-radius: 5px;
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5); }
       .linkNote .quickLinks .quickDropdown h2 {
@@ -334,7 +335,6 @@ footer {
 .tools {
   display: flex;
   width: 30%;
-  z-index: 1;
   color: #D9D9D9; }
 
 .tools-icon-list {
@@ -384,6 +384,7 @@ footer {
   bottom: 80px;
   left: 110px;
   width: 150px;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   justify-content: center; }
@@ -617,6 +618,7 @@ footer {
   font-size: 1rem; }
 
 .valid-container {
+  z-index: 1;
   color: #C4C4C4;
   background: rgba(0, 0, 0, 0.8);
   border-radius: 3px;
@@ -772,6 +774,7 @@ footer {
     transform: rotate(360deg); } }
 
 .page-speed-container {
+  z-index: 1;
   margin: 20px 0px;
   padding: 0px 5px;
   color: #C4C4C4;
@@ -945,7 +948,8 @@ footer {
   transition: 0.5s; }
 
 .addInfo {
-  padding: 0px 40px; }
+  padding: 0px 40px;
+  display: none; }
 
 .addFoundOptimizations {
   display: flex;
