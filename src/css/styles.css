@@ -948,8 +948,7 @@ footer {
   transition: 0.5s; }
 
 .addInfo {
-  padding: 0px 40px;
-  display: none; }
+  padding: 0px 40px; }
 
 .addFoundOptimizations {
   display: flex;
@@ -971,11 +970,9 @@ footer {
   margin-left: 30px;
   text-decoration: none;
   color: #6144A2;
-  font-weight: 700;
-  transition: 0.5s; }
+  font-weight: 700; }
 
 .learn-more-link:hover {
-  transition: 0.5s;
   text-decoration: underline; }
 
 .newsfeed-wrapper {
@@ -1098,30 +1095,11 @@ footer {
   transition: .5s;
   color: #FFF;
   cursor: pointer; }
-  .stickTitle:hover .cancel-note {
-    visibility: visible; }
-
-.cancel-note {
-  visibility: hidden;
-  font-size: .7em;
-  cursor: pointer;
-  padding: 5px 10px;
-  position: absolute;
-  top: 0;
-  border: 1px solid transparent;
-  outline: none;
-  background: transparent;
-  color: rgba(255, 255, 255, 0.7);
-  transition: 0.3s; }
-
-.cancel-note:hover {
-  color: #FFF;
-  transition: 0.3s; }
 
 .stickyContainer input {
   display: none;
   height: 20px;
-  width: 120px;
+  width: 160px;
   padding: 5px;
   margin: 10px 0px 10px 0px;
   outline: none;

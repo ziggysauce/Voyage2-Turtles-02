@@ -247,11 +247,6 @@ CONTROLLER
     stickynoteView.toggleTitleEdit(noteID);
   }
 
-  function cancelNoteTitle(e) {
-    const noteID = $(e.target).closest('.stickyContainer').attr('id');
-    stickynoteView.cancelTitle(noteID);
-  }
-
   /* ********* QUICK LINK SECTION ********* */
   function handleLinkSubmit(e) {
     e.preventDefault();
@@ -639,9 +634,8 @@ CONTROLLER
     $('.addSite').on('click', quicklinksView.toggleAddSite.bind(null, false));
     $('.quickList').on('click', '.link-delete', deleteLink);
     $('.devtab-bg').on('submit', '.stickyContainer form', changeStickynoteTitle);
-    $('.devtab-bg').on('click', '.stickyContainer', clickAway);
-    $('.devtab-bg').on('dblclick', '.title-and-cancel', toggleStickynoteTitleEdit);
-    $('.devtab-bg').on('click', '.cancel-note', cancelNoteTitle);
+    $('.devtab-bg').on('click', '.stickNote', clickAway);
+    $('.devtab-bg').on('click', '.title-and-cancel', toggleStickynoteTitleEdit);
     $('.devtab-bg').on('keyup', '.stickyContainer textarea', addStickynoteText);
     $('.devtab-bg').on('mouseup', '.stickyContainer', moveStickynote);
     $('.devtab-bg').on('click', '.colorBar', changeStickynoteColor);
