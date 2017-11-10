@@ -1309,7 +1309,7 @@ footer {
 // ********** STICKYNOTE RULES ************
 
 .stickyContainer {
-	position: absolute;
+	position: absolute !important;
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
