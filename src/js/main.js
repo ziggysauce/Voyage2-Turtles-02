@@ -218,10 +218,21 @@ CONTROLLER
   function changeStickynoteTitle(e) {
     e.preventDefault();
     const noteID = $(e.target).closest('.stickyContainer').attr('id');
-    const title = $(`#${noteID} .stickTitleInput`).val() || $(`#${noteID} .stickTitle`).html() || 'Sticky Note';
+    const title = $(`#${noteID} .stickTitleInput`).val() || ' ';
 
     stickynoteModel.changeState(noteID, { title });
     stickynoteView.changeTitle(noteID, title);
+  }
+
+  function clickAway(e) {
+    e.preventDefault();
+    const noteID = $(e.target).closest('.stickyContainer').attr('id');
+    const title = $(`#${noteID} .stickTitleInput`).val() || ' ';
+
+    if ($(`#${noteID} .stickTitleInput`).is(':visible') && !$(`#${noteID} .stickyForm`).find(e.target).length) {
+      stickynoteModel.changeState(noteID, { title });
+      stickynoteView.changeTitle(noteID, title);
+    }
   }
 
   function toggleStickynoteColorOptions(e) {
@@ -238,8 +249,7 @@ CONTROLLER
 
   function cancelNoteTitle(e) {
     const noteID = $(e.target).closest('.stickyContainer').attr('id');
-    const title = $(`#${noteID} .stickTitle`).html() || 'Sticky Note';
-    stickynoteView.cancelTitle(noteID, title);
+    stickynoteView.cancelTitle(noteID);
   }
 
   /* ********* QUICK LINK SECTION ********* */
@@ -634,7 +644,8 @@ CONTROLLER
     $('.addSite').on('click', quicklinksView.toggleAddSite.bind(null, false));
     $('.quickList').on('click', '.link-delete', deleteLink);
     $('.devtab-bg').on('submit', '.stickyContainer form', changeStickynoteTitle);
-    $('.devtab-bg').on('click', '.stickTitle', toggleStickynoteTitleEdit);
+    $('.devtab-bg').on('click', '.stickyContainer', clickAway);
+    $('.devtab-bg').on('dblclick', '.title-and-cancel', toggleStickynoteTitleEdit);
     $('.devtab-bg').on('click', '.cancel-note', cancelNoteTitle);
     $('.devtab-bg').on('keyup', '.stickyContainer textarea', addStickynoteText);
     $('.devtab-bg').on('mouseup', '.stickyContainer', moveStickynote);
