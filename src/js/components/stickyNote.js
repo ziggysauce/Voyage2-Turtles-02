@@ -7,7 +7,7 @@
     const color = colorList[colorCounter % (colorList.length)]; // cycles through the color list, rather than assigning a random color
 
     return {
-      title: 'Sticky Note',
+      title: 'Double Click',
       color,
       text: '',
       left: 600,
@@ -56,16 +56,17 @@
 (function makeStickynoteView() {
   function makeNote(note) {
     const noteHTML = `
-    <div style="display:none" id='${note.id}' 
-      class='draggable ui-widget-content stickyContainer ${note.color}Area' 
+    <div style="display:none" id='${note.id}'
+      class='draggable ui-widget-content stickyContainer ${note.color}Area'
       data-color="${note.color}"
     >
       <div class='stickBar ${note.color}Bar' >
         <i class='fa fa-ellipsis-v stickIcon stickLeft'></i>
-        <p class="stickTitle">${note.title}</p>
+        <div class="title-and-cancel">
+          <p class="stickTitle">${note.title}<button class="cancel-note" type="reset">x</button></p>
+        </div>
         <form class="stickyForm">
           <input class="stickTitleInput" placeholder="title" type="text" spellcheck="false" />
-          <button class="cancel-note" type="reset">x</button>
         </form>
         <i class='fa fa-trash stickIcon'></i>
       </div>
@@ -80,9 +81,7 @@
           <li class="redBar colorBar" data-color="red"></li>
         </ul>
       </div>
-      <textarea spellcheck="false" class='stickNote ${note.color}Area'>
-        ${note.text}
-      </textarea>
+      <textarea spellcheck="false" class='stickNote ${note.color}Area'>${note.text}</textarea>
     </div>
     `;
 
@@ -115,9 +114,9 @@
   }
 
   function changeTitle(noteID, newTitle) {
-    $(`#${noteID} .stickTitle`).html(newTitle).fadeIn('slow');
+    $(`#${noteID} .stickTitle`).html(`${newTitle}<button class="cancel-note" type="reset">x</button>`).fadeIn('slow');
     $(`#${noteID} .stickTitleInput`).hide();
-    $(`#${noteID} .cancel-note`).hide();
+    $(`#${noteID} .title-and-cancel`).fadeIn();
   }
 
   function initNotes() {
@@ -135,7 +134,7 @@
   function toggleTitleEdit(noteID) {
     $(`#${noteID} .stickTitle`).hide();
     $(`#${noteID} .stickTitleInput`).fadeIn('slow');
-    $(`#${noteID} .cancel-note`).fadeIn('slow');
+    $(`#${noteID} .title-and-cancel`).hide();
   }
 
   function toggleColorOptions(noteID) {
@@ -143,10 +142,10 @@
     $(`#${noteID} .palleteBar`).fadeIn('slow');
   }
 
-  function cancelTitle(noteID, title) {
-    $(`#${noteID} .stickTitle`).html(title).fadeIn('slow');
+  function cancelTitle(noteID) {
+    $(`#${noteID} .stickTitle`).html(' ').fadeIn('slow');
     $(`#${noteID} .stickTitleInput`).hide();
-    $(`#${noteID} .cancel-note`).hide();
+    $(`#${noteID} .title-and-cancel`).fadeIn();
   }
 
   window.app.stickynoteView = {

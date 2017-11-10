@@ -38,6 +38,3 @@ A new tab extension for Google Chrome that offers tools and resources for front-
 * [Jeff Bothe](https://github.com/jmbothe)
 * [Tyler Del Rosario](https://github.com/HTMLNoob)
 * [Dan Nguyen](https://github.com/ziggysauce)
-
-### Notes
-The scuba-turtle image source: https://www.goodfreephotos.com/albums/vector-images/scuba-turtle-vector-clipart.png

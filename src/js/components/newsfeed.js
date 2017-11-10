@@ -33,7 +33,7 @@ NEWSFEED VIEW
 
   function generateArticle(source, url, image, title, author) {
     author = author == null || author == '' ? 'unnamed author' : author.toLowerCase().replace(/^by/, '');
-    image = image == null ? './assets/img/scuba-turtle.png' : image;
+    image = image == null ? './assets/img/devtab5.png' : image;
 
     return `
       <li class="article">
