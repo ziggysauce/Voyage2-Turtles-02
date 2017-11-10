@@ -113,7 +113,7 @@ PAGE SPEED VIEW
         <button class="click-details inactive-speedinfo" type="submit" id="${possibleRules.indexOf(i)}button">More Details</button>
         <div class="addInfo" id="${possibleRules.indexOf(i)}">
           <span id="${possibleRules.indexOf(i)}info"></span>
-          <span><a href="#" id="${possibleRules.indexOf(i)}link" class="learn-more-link" target="_blank" rel="noopener"></a></span>
+          <span class="secondspan"><a href="#" id="${possibleRules.indexOf(i)}link" class="learn-more-link" target="_blank" rel="noopener"></a></span>
           <span id="${possibleRules.indexOf(i)}these"></span>
         </div>
       `).appendTo(possible);
@@ -132,6 +132,10 @@ PAGE SPEED VIEW
       // Show more info when clicking 'More Details' button
       $(`#${possibleRules.indexOf(i)}button`).on('click', () => {
         if ($(`#${possibleRules.indexOf(i)}button`)[0].className === 'click-details inactive-speedinfo') {
+          first.empty();
+          second.attr('href', '#');
+          second.empty();
+          third.empty();
           $(`#${possibleRules.indexOf(i)}button`).removeClass('inactive-speedinfo');
           $(`#${possibleRules.indexOf(i)}button`).addClass('active-speedinfo');
           $(`#${possibleRules.indexOf(i)}button`).text('Less Details');
@@ -187,18 +191,20 @@ PAGE SPEED VIEW
               }
             }
           }
-          $(`#${possibleRules.indexOf(i)}`).slideDown(500);
+          first.hide().fadeIn(1000);
+          $('.secondspan').hide().fadeIn(1000);
+          second.hide().fadeIn(1000);
+          third.hide().fadeIn(1000);
+          $(`#${possibleRules.indexOf(i)}`).slideDown();
         } else {
           // Clear results and slide up
           $(`#${possibleRules.indexOf(i)}button`).removeClass('active-speedinfo');
           $(`#${possibleRules.indexOf(i)}button`).addClass('inactive-speedinfo');
           $(`#${possibleRules.indexOf(i)}button`).text('More Details');
-          $(`#${possibleRules.indexOf(i)}`).slideUp(500, () => {
-            first.empty();
-            second.empty();
-            second.attr('href', '#');
-            third.empty();
-          });
+          first.fadeOut('fast');
+          second.fadeOut('fast');
+          third.fadeOut('fast');
+          $(`#${possibleRules.indexOf(i)}`).slideUp();
         }
       });
       return i;
@@ -243,7 +249,7 @@ PAGE SPEED VIEW
         $('#moreFoundOptimizations').removeClass('active-speedinfo');
         $('#moreFoundOptimizations').addClass('inactive-speedinfo');
         $('#moreFoundOptimizations').text('More Details');
-        $('.addFoundOptimizations').slideUp(500, () => {
+        $('.addFoundOptimizations').slideUp(() => {
           $('.addFoundOptimizations').empty();
         });
       }
@@ -251,7 +257,7 @@ PAGE SPEED VIEW
     // Show loaded results
     // Enable buttons again for new search
     // Hide spinning loader icon
-    $('.returnresults').slideDown(500);
+    $('.returnresults').slideDown();
     $('#loader-icon').removeClass('spin').hide();
     $('#analyzePage').removeAttr('disabled', 'disabled');
     $('.toggle-custom-view').removeAttr('disabled', 'disabled');

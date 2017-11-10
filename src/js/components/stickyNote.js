@@ -7,7 +7,7 @@
     const color = colorList[colorCounter % (colorList.length)]; // cycles through the color list, rather than assigning a random color
 
     return {
-      title: 'Double Click',
+      title: 'Click to change',
       color,
       text: '',
       left: 600,
@@ -63,7 +63,7 @@
       <div class='stickBar ${note.color}Bar' >
         <i class='fa fa-ellipsis-v stickIcon stickLeft'></i>
         <div class="title-and-cancel">
-          <p class="stickTitle">${note.title}<button class="cancel-note" type="reset">x</button></p>
+          <p class="stickTitle">${note.title}</p>
         </div>
         <form class="stickyForm">
           <input class="stickTitleInput" placeholder="title" type="text" spellcheck="false" />
@@ -114,7 +114,7 @@
   }
 
   function changeTitle(noteID, newTitle) {
-    $(`#${noteID} .stickTitle`).html(`${newTitle}<button class="cancel-note" type="reset">x</button>`).fadeIn('slow');
+    $(`#${noteID} .stickTitle`).html(newTitle).fadeIn();
     $(`#${noteID} .stickTitleInput`).hide();
     $(`#${noteID} .title-and-cancel`).fadeIn();
   }
@@ -142,12 +142,6 @@
     $(`#${noteID} .palleteBar`).fadeIn('slow');
   }
 
-  function cancelTitle(noteID) {
-    $(`#${noteID} .stickTitle`).html(' ').fadeIn('slow');
-    $(`#${noteID} .stickTitleInput`).hide();
-    $(`#${noteID} .title-and-cancel`).fadeIn();
-  }
-
   window.app.stickynoteView = {
     makeNote,
     deleteNote,
@@ -156,6 +150,5 @@
     changeTitle,
     toggleTitleEdit,
     toggleColorOptions,
-    cancelTitle,
   };
 }());
