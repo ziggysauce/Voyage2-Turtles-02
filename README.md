@@ -1,6 +1,6 @@
 # Voyage2-Turtles-02
 
-## DevTab
+## DevTab <img src="dist/assets/img/devtab5.png" width="50">
 A new tab extension for Google Chrome that offers tools and resources for front-end developers
 
 ## Getting Started with Contributing
