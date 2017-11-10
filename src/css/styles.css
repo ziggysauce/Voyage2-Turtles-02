@@ -1047,7 +1047,7 @@ footer {
       color: rgba(255, 255, 255, 0.7); }
 
 .stickyContainer {
-  position: absolute;
+  position: absolute !important;
   display: flex;
   flex-direction: column;
   overflow: hidden;
