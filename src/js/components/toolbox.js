@@ -187,7 +187,7 @@ PAGE SPEED VIEW
               }
             }
           }
-          $(`#${possibleRules.indexOf(i)}`).hide().slideDown(500);
+          $(`#${possibleRules.indexOf(i)}`).slideDown(500);
         } else {
           // Clear results and slide up
           $(`#${possibleRules.indexOf(i)}button`).removeClass('active-speedinfo');
