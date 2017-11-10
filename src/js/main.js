@@ -298,7 +298,6 @@ CONTROLLER
     e.preventDefault();
     $('#check-css').attr('disabled', 'disabled');
 
-    // const content = $('#css-markup textarea').val().replace(/\n/ig, '%0A');
     const content = encodeURIComponent($('#css-markup textarea').val());
     const proxyURL = 'https://cors-anywhere.herokuapp.com/';
     const validatorURL = `http://jigsaw.w3.org/css-validator/validator?text=${content}&profile=css3&output=json`;
@@ -314,7 +313,6 @@ CONTROLLER
       .then(results => cssView.successOutput(results.cssvalidation.errors, cssModel.format))
       .catch((error) => {
         cssView.errorOutput();
-        console.log(error);
       });
     $('#check-css').removeAttr('disabled', 'disabled');
   }
@@ -335,10 +333,8 @@ CONTROLLER
         const errors = result.responseJSON.error.errors;
         for (let i = 0, len = errors.length; i < len; i += 1) {
           if (errors[i].reason === 'badRequest' && pagespeedModel.API_KEY === 'yourAPIKey') {
-            // console.log('Please specify your Google API key in the API_KEY variable.');
             $('#speed-page-error').append('Please specify your Google API key in the API_KEY variable.');
           } else {
-            // console.log(errors[i].message);
             $('#speed-page-error').append(`${errors[i].message}`);
           }
         }
@@ -462,7 +458,6 @@ CONTROLLER
     });
 
     function colorToPos(color) {
-      console.log(color);
       var color = tinycolor(color);
       const hsl = color.toHsl();
       colorpickerModel.hue = hsl.h;
