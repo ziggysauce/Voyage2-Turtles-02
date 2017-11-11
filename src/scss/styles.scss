@@ -552,6 +552,7 @@ footer {
 // ********** COLOR PICKER RULES ************
 
 .color-picker-panel {
+  z-index: 1;
   background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.5) 100%);
 	width: 310px;
 	border-radius: 3px;
