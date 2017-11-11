@@ -781,16 +781,16 @@ footer {
 	background: rgba(0,0,0,0.8);
 	border-radius: 3px;
 	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
-	position: absolute;
 
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 
-	height: 80vh;
-	width: 75vw;
-	bottom: 12.5vh;
-	left: 12.5vw;
+  position: fixed;
+  top: 5%;
+  bottom: 5%;
+  left: 10%;
+  right: 10%;
 }
 
 .instructions {
@@ -798,7 +798,6 @@ footer {
 	flex-direction: column;
 	align-items: center;
 	width: 100%;
-	padding-bottom: 30px;
 
 	p {
 		margin: 0px;
@@ -823,13 +822,9 @@ footer {
 }
 
 .formfields {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	flex-wrap: wrap;
+  margin: auto 0px;
 	overflow: hidden;
 	width: 95%;
-  height: 100%;
 
   .val-boxes {
     display: flex;
@@ -854,7 +849,8 @@ footer {
 		align-items: center;
 		margin: 0px auto;
     width: 100%;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 	}
 
 	textarea {
@@ -865,7 +861,7 @@ footer {
     font-family: 'Lato', Helvetica;
     font-weight: 700;
     width: 100%;
-    height: 300px;
+    height: 45vh;
     background-color: rgba(255,255,255,.8);
     color: #252525;
     padding: 10px;
@@ -932,7 +928,7 @@ footer {
 
 #html-validated, #css-validated {
   width: 100%;
-  height: 300px;
+  height: 45vh;
   overflow-y: auto;
   overflow-x: hidden;
   white-space: pre-wrap;
@@ -1638,8 +1634,16 @@ footer {
     color: #FFD63A;
   }
 
-  span {
+  span:first-of-type {
     margin-top: 30px;
+  }
+
+  span a {
+    color: inherit;
+  }
+
+  span a:hover {
+    color: #FFD63A;
   }
 
   .ghlinks {
