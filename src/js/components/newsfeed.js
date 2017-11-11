@@ -3,17 +3,34 @@ NEWSFEED MODEL
 ************************************************************************* */
 (function makeNewsfeedModel() {
   const APIKey = 'dcbb5b4e58ce4a95941e5a3f5ba1c9b8';
-  const sources = ['hacker-news', 'recode', 'techcrunch'];
+  let sources = ['hacker-news', 'recode', 'techcrunch'];
   const articlesList = [];
 
-  function updateNewsSources(source, index) {
+  function initNewsSources(callback1, callback2, callback3) {
+    const nothingInStorage = typeof localStorage.getItem('newsSources') !== 'string';
+
+    if (nothingInStorage) {
+      localStorage.setItem('newsSources', JSON.stringify(sources));
+    } else {
+      sources = JSON.parse(localStorage.getItem('newsSources'));
+    }
+    callback1(sources);
+    callback2(sources);
+    callback3(sources);
+  }
+
+  function updateNewsSources(source, index, callback1, callback2) {
     sources[index] = source;
+    localStorage.setItem('newsSources', JSON.stringify(sources));
+    callback1(sources);
+    callback2(sources);
   }
 
   window.app.newsfeedModel = {
     APIKey,
     sources,
     articlesList,
+    initNewsSources,
     updateNewsSources,
   };
 }());

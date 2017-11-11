@@ -133,8 +133,8 @@ CONTROLLER
 
   /* ******** NEWSFEED SECTION ******* */
 
-  function loadNewsArticles() {
-    newsfeedModel.sources.forEach((source) => {
+  function loadNewsArticles(sources) {
+    sources.forEach((source) => {
       fetch(`https://newsapi.org/v1/articles?source=${source}&sortBy=top&apiKey=${newsfeedModel.APIKey}`)
         .then(response => response.json())
         .then((data) => {
@@ -152,10 +152,10 @@ CONTROLLER
     });
   }
 
-  function disableNewsSources() {
+  function disableNewsSources(sources) {
     $('.settings-newsfeed select').each((index, dropdownMenu) => {
       $(dropdownMenu).children().removeAttr('disabled');
-      newsfeedModel.sources.forEach((source) => {
+      sources.forEach((source) => {
         const isNotSelected = $(`#${dropdownMenu.id} option:selected`).val() !== source;
 
         if (isNotSelected) {
@@ -169,10 +169,20 @@ CONTROLLER
   function updateNewsSources(e) {
     const index = e.target.id.substring(e.target.id.length - 1);
 
-    newsfeedModel.updateNewsSources(e.target.value, index);
+    newsfeedModel
+      .updateNewsSources(e.target.value, index, loadNewsArticles, disableNewsSources);
     newsfeedView.clear();
-    loadNewsArticles();
-    disableNewsSources();
+  }
+
+  function initNewsSourceSelect(sources) {
+    $('.settings-newsfeed select').each((index, dropdownMenu) => {
+      $(dropdownMenu).val(sources[index]);
+    });
+  }
+
+  function initNewsSources() {
+    newsfeedModel
+      .initNewsSources(loadNewsArticles, initNewsSourceSelect, disableNewsSources);
   }
 
   /* ********* STICKY NOTE SECTION ******* */
@@ -650,7 +660,7 @@ CONTROLLER
     initClockSettings();
     clocksView.updateTime(clocksModel.getTime());
     loadSounds();
-    loadNewsArticles();
+    initNewsSources();
     clocksHandler();
     loadPageSpeedChecker();
     loadColorPicker();
