@@ -36,5 +36,5 @@ A new tab extension for Google Chrome that offers tools and resources for front-
 ## Contributors
 
 * [Jeff Bothe](https://github.com/jmbothe)
-* [Tyler Del Rosario](https://github.com/HTMLNoob)
+* [Tyler Del Rosario](https://github.com/TylerDelRosario)
 * [Dan Nguyen](https://github.com/ziggysauce)
