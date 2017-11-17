@@ -50,7 +50,7 @@ nav li {
 
 nav li:hover {
 	background-color:#0E0B16;
-	color:#D7CEC7; 
+	color:#D7CEC7;
 	transition: .5s;
 }
 
@@ -78,9 +78,9 @@ main .mainInfo {
 .mainInfo {
 	position: absolute;
 	padding: 25px;
-	margin:0px;
-	width: 420px;
-	height: 420px;
+	margin: 0px;
+	width: 400px;
+	height: 400px;
 	border:3px solid #0E0B16;
 	transform: rotate(45deg);
 }
@@ -110,6 +110,7 @@ main .mainInfo {
 	border-radius: 5px;
 	transition: .5s;
 	outline:none;
+	text-decoration: none;
 }
 
 .mainInfo .downloadLink:hover {
