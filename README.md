@@ -1,4 +1,4 @@
-<img src="dist/assets/img/intro.png">
+<img src="dist/assets/img/readme/intro.png">
 
 ## Table of Contents
 * [About](#about)
@@ -22,12 +22,12 @@ DevTab is a front-end developer focused new tab extension for Google Chrome. Thi
 * Newsfeed to stay informed on the latest news
 * Settings to customize your homepage to your liking
 
-<img src="dist/assets/img/features.png">
-<img src="dist/assets/img/stickynotefeature.png">
-<img src="dist/assets/img/colorfeature.png">
-<img src="dist/assets/img/toolboxfeatures.png">
-<img src="dist/assets/img/newsfeedfeature.png">
-<img src="dist/assets/img/settingsfeature.png">
+<img src="dist/assets/img/readme/features.png">
+<img src="dist/assets/img/readme/stickynotefeature.png">
+<img src="dist/assets/img/readme/colorfeature.png">
+<img src="dist/assets/img/readme/toolboxfeatures.png">
+<img src="dist/assets/img/readme/newsfeedfeature.png">
+<img src="dist/assets/img/readme/settingsfeature.png">
 
 
 ## Getting Started with Contributing
