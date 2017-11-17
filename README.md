@@ -10,7 +10,7 @@
 * [Contributors](#contributors)
 
 ## About
-DevTab is a front-end developer focused new tab extension for Google Chrome. This new homepage is designed to help cater to a developer's everyday needs including quicklinks, a color picker, code validators, sticky note reminders, and more. It was created by remote [contributors](#contributors) in collaboration with [chingu cohorts](https://chingu-cohorts.github.io/chingu-directory/), an international community of remote developers (both aspiring and professional).
+DevTab is a front-end developer focused new tab extension for Google Chrome. This new homepage is designed to help cater to a developer's everyday needs including quicklinks, a color picker, code validators, sticky note reminders, and more. It is created by a  [team](#contributors) of passionate coders in collaboration with [chingu cohorts](https://chingu-cohorts.github.io/chingu-directory/), an international community of remote developers.
 
 ## Features
 * Pomodoro timer to keep you productive and focused
@@ -23,6 +23,12 @@ DevTab is a front-end developer focused new tab extension for Google Chrome. Thi
 * Settings to customize your homepage to your liking
 
 <img src="dist/assets/img/features.png">
+<img src="dist/assets/img/stickynotefeature.png">
+<img src="dist/assets/img/colorfeature.png">
+<img src="dist/assets/img/toolboxfeatures.png">
+<img src="dist/assets/img/newsfeedfeature.png">
+<img src="dist/assets/img/settingsfeature.png">
+
 
 ## Getting Started with Contributing
 1. [Fork](https://help.github.com/articles/fork-a-repo/) this repository and [clone your fork](https://help.github.com/articles/cloning-a-repository/) onto your machine.
