@@ -1,7 +1,34 @@
-# Voyage2-Turtles-02
+<img src="dist/assets/img/readme/intro.png">
 
-## DevTab <img src="dist/assets/img/devtab5.png" width="50">
-A new tab extension for Google Chrome that offers tools and resources for front-end developers
+## Table of Contents
+* [About](#about)
+* [Features](#features)
+* [Contributing](#getting-started-with-contributing)
+* [Pull Requests](#making-a-pull-request)
+* [Installation](#deployment-to-chrome)
+* [Build Tools](#built-with)
+* [Contributors](#contributors)
+
+## About
+DevTab is a front-end developer focused new tab extension for Google Chrome. This new homepage is designed to help cater to a developer's everyday needs including quicklinks, a color picker, code validators, sticky note reminders, and more. It is created by a  [team](#contributors) of passionate coders in collaboration with [chingu cohorts](https://chingu-cohorts.github.io/chingu-directory/), an international community of remote developers.
+
+## Features
+* Pomodoro timer to keep you productive and focused
+* Quicklinks to quickly access your most used websites
+* Sticky notes to store information, tasks, reminders, etc.
+* Color picker to quickly access hex, RGB, and HSL codes
+* HTML/CSS validators to ensure your code is up to standards with W3C
+* Page speed insights to see how to optimize your code
+* Newsfeed to stay informed on the latest news
+* Settings to customize your homepage to your liking
+
+<img src="dist/assets/img/readme/features.png">
+<img src="dist/assets/img/readme/stickynotefeature.png">
+<img src="dist/assets/img/readme/colorfeature.png">
+<img src="dist/assets/img/readme/toolboxfeatures.png">
+<img src="dist/assets/img/readme/newsfeedfeature.png">
+<img src="dist/assets/img/readme/settingsfeature.png">
+
 
 ## Getting Started with Contributing
 1. [Fork](https://help.github.com/articles/fork-a-repo/) this repository and [clone your fork](https://help.github.com/articles/cloning-a-repository/) onto your machine.
@@ -36,5 +63,5 @@ A new tab extension for Google Chrome that offers tools and resources for front-
 ## Contributors
 
 * [Jeff Bothe](https://github.com/jmbothe)
-* [Tyler Del Rosario](https://github.com/HTMLNoob)
+* [Tyler Del Rosario](https://github.com/TylerDelRosario)
 * [Dan Nguyen](https://github.com/ziggysauce)
