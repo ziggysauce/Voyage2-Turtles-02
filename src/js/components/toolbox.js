@@ -26,8 +26,10 @@ TOOLBOX VIEW
       cssBox.fadeIn();
     } else if (toolsBox.is(':visible') && !toolsBox.find(e.target).length) {
       toolsBox.fadeOut();
-    } else if (!toolsBox.is(':visible') && e.target === $('.fa-wrench')[0]) {
-      toolsBox.fadeIn();
+    } else if (!toolsBox.is(':visible')) {
+        if (e.target === $('.fa-wrench')[0] || e.target === $('#validator-icon')[0]) {
+        toolsBox.fadeIn();
+      }
     }
   }
 
@@ -254,6 +256,14 @@ PAGE SPEED VIEW
         });
       }
     });
+
+    // Specific load for pages with 100 scores
+    if (result.ruleGroups.SPEED.score === 100) {
+      $('.returnresults').slideDown(() => {
+        $('.page-speed-box').hide().slideDown(500);
+      });
+    }
+
     // Show loaded results
     // Enable buttons again for new search
     // Hide spinning loader icon

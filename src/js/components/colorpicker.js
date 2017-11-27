@@ -111,12 +111,16 @@ COLOR PICKER VIEW
 ************************************************************************* */
 (function makeColorPickerView() {
   const colorpicker = $('.color-picker-panel');
+  const colorIcon = $('#color-picker-icon');
 
   function toggleColorPicker(e) {
     if (colorpicker.is(':visible') && !colorpicker.find(e.target).length && e.target !== colorpicker[0]) {
       colorpicker.fadeOut();
-    } else if (!colorpicker.is(':visible') && e.target === $('.fa-paint-brush')[0]) {
-      colorpicker.fadeIn();
+    } else if (!colorpicker.is(':visible')) {
+      // Click event for chrome and firefox
+      if (e.target === $('.fa-paint-brush')[0] || e.target === colorIcon[0]) {
+        colorpicker.fadeIn();
+      }
     }
   }
 

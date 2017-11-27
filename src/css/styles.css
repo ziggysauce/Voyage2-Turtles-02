@@ -25,7 +25,7 @@ body {
     /* FF3.6-15 */
     background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.25) 100%);
     /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.25) 100%);
+    background: linear-gradient(top, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.25) 100%);
     /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */ }
 
 .addUrl {
@@ -56,6 +56,11 @@ body {
       margin-top: 40px;
       color: #D9D9D9;
       background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 100%);
+      /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      background: -moz-linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 100%);
+      /* FF3.6-15 */
+      background: -webkit-linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 100%);
+      /* Chrome10-25,Safari5.1-6 */
       z-index: 1;
       border-radius: 5px;
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5); }
@@ -245,7 +250,7 @@ body {
   margin: 0px;
   font-weight: 700;
   color: white;
-  font-size: 5.5em; }
+  font-size: 8em; }
   .time-display p {
     padding: 0px;
     margin: 0; }
@@ -378,6 +383,11 @@ footer {
 
 .tools-container {
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  background: -moz-linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 100%);
+  /* Chrome10-25,Safari5.1-6 */
   border-radius: 3px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
   position: absolute;
@@ -413,11 +423,17 @@ footer {
   font-weight: bold;
   color: #FFF;
   border-left: 5px solid #FFD63A;
+  border-radius: 0px;
   cursor: pointer; }
 
 .color-picker-panel {
   z-index: 1;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  background: -moz-linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 100%);
+  /* Chrome10-25,Safari5.1-6 */
   width: 310px;
   border-radius: 3px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
@@ -809,6 +825,7 @@ footer {
   border: none; }
   .radio-speed-view input {
     -webkit-appearance: none;
+    -moz-appearance: none;
     appearance: none;
     border-radius: 50%;
     width: 16px;
@@ -984,7 +1001,12 @@ footer {
   right: 20%;
   height: calc(100% - 50px);
   z-index: 1;
-  background: linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.8) 100%); }
+  background: linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.8) 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  background: -moz-linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.8) 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.8) 100%);
+  /* Chrome10-25,Safari5.1-6 */ }
   .newsfeed-wrapper h2 {
     text-align: center;
     margin: 0px;
@@ -1211,6 +1233,11 @@ footer {
 
 .setting-wrapper {
   background: linear-gradient(90deg, black, rgba(0, 0, 0, 0.7));
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  background: -moz-linear-gradient(0deg, black, rgba(0, 0, 0, 0.7));
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(0deg, black, rgba(0, 0, 0, 0.7));
+  /* Chrome10-25,Safari5.1-6 */
   width: 600px;
   height: 400px;
   border-radius: 3px;
@@ -1360,6 +1387,8 @@ footer {
       margin-left: 15px;
       color: rgba(255, 255, 255, 0.8);
       background: rgba(0, 0, 0, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 3px;
       outline: none;
       font-size: .8em; }
     .settings-pomodoro form option {
@@ -1370,21 +1399,21 @@ footer {
     font-size: .8em; }
   .settings-pomodoro output {
     padding-left: 15px; }
-  .settings-pomodoro input[type='range'] {
+  .settings-pomodoro input[type=range] {
     -webkit-appearance: none;
+    -moz-appearance: none;
     outline: none;
     border: 0;
     width: 50%;
-    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.3);
     border-radius: 3px;
     background: transparent; }
-    .settings-pomodoro input[type='range']::-webkit-slider-runnable-track {
+    .settings-pomodoro input[type=range]::-webkit-slider-runnable-track {
       height: 12px;
       cursor: pointer;
       background: transparent;
       border: 2px solid rgba(255, 255, 255, 0.3);
       border-radius: 3px; }
-    .settings-pomodoro input[type='range']::-webkit-slider-thumb {
+    .settings-pomodoro input[type=range]::-webkit-slider-thumb {
       border-radius: 3px;
       border: 2px solid #FFD63A;
       height: 24px;
@@ -1393,6 +1422,21 @@ footer {
       margin-top: -8px;
       background: #000;
       transition: all 0.1s ease; }
+  .settings-pomodoro input[type=range]::-moz-range-track {
+    height: 12px;
+    cursor: pointer;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 3px; }
+  .settings-pomodoro input[type=range]::-moz-range-thumb {
+    border-radius: 3px;
+    border: 2px solid #FFD63A;
+    height: 24px;
+    width: 14px;
+    -webkit-appearance: none;
+    margin-top: -8px;
+    background: #000;
+    transition: all 0.1s ease; }
   .settings-pomodoro #time-label {
     display: inline; }
 
@@ -1516,17 +1560,39 @@ footer {
     transition: 0.5s;
     color: #FFD63A; }
 
-.spin-random-icon {
-  animation-name: random;
-  animation-duration: 500ms;
-  animation-iteration-count: 1;
-  animation-timing-function: linear; }
-
 @keyframes random {
   from {
     transform: rotate(0deg); }
   to {
     transform: rotate(360deg); } }
+
+/* Safari and Chrome */
+@-webkit-keyframes random {
+  from {
+    -webkit-transform: rotate(0deg); }
+  to {
+    -webkit-transform: rotate(360deg); } }
+
+/* Firefox */
+@-moz-keyframes random {
+  from {
+    -moz-transform: rotate(0deg); }
+  to {
+    -moz-transform: rotate(360deg); } }
+
+.spin-random-icon {
+  animation-name: random;
+  animation-duration: 500ms;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+  -webkit-animation-name: random;
+  -webkit-animation-duration: 500ms;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-name: random;
+  -moz-animation-duration: 500ms;
+  -moz-animation-iteration-count: 1;
+  -moz-animation-timing-function: linear; }
 
 .settings-newsfeed {
   position: absolute;
@@ -1551,6 +1617,7 @@ footer {
   .settings-newsfeed select {
     color: rgba(255, 255, 255, 0.8);
     background: rgba(0, 0, 0, 0.8);
+    border-radius: 3px;
     outline: none;
     font-size: .8em; }
 

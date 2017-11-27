@@ -369,7 +369,8 @@ CONTROLLER
     }
 
     // Desktop & Mobile Score trigger from URL provided
-    $('#analyzePage').on('click', () => {
+    $('#analyzePage').on('click', (e) => {
+      e.preventDefault();
       $('#speed-page-error').empty(); // Clear previous results
       $('.returnresults').slideUp(500);
       $('.page-speed-box').slideUp(500).empty();
@@ -586,7 +587,7 @@ CONTROLLER
     });
 
     // Let user use DevTab's gallery of rotating background images
-    $('.fa-random').on('click', () => {
+    $('#rotate-bg-generator').on('click', () => {
       backgroundModel.imageIndex = randomNumber(0, backgroundModel.bgInfo.length);
       $('#rotate-bg-generator').addClass('spin-random-icon');
       $('#rotate-bg-generator').one('animationend', () => {
