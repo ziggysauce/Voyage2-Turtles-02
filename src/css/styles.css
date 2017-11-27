@@ -1119,10 +1119,10 @@ footer {
 
 .stickyContainer input {
   display: none;
-  height: 20px;
+  height: 75%;
   width: 160px;
-  padding: 5px;
-  margin: 10px 0px 10px 0px;
+  padding: 0px 5px;
+  margin: 5px 0px;
   outline: none;
   font-size: .9em;
   font-family: 'Lato', helvetica;
