@@ -246,8 +246,9 @@ PAGE SPEED VIEW
           // $(`#${foundRules.indexOf(m)}`).slideDown(500);
           return m;
         });
-        $('.addFoundInfo').hide().fadeIn(1000);
-        $('.addFoundOptimizations').hide().slideDown(500);
+        $('.addFoundOptimizations').hide().slideDown(() => {
+          $('.addFoundInfo').hide().fadeIn(1000);          
+        });
       } else {
         $('#moreFoundOptimizations').removeClass('active-speedinfo');
         $('#moreFoundOptimizations').addClass('inactive-speedinfo');
