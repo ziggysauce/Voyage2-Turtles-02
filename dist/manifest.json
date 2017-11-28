@@ -16,8 +16,8 @@
   "content_scripts": [
     {
       "matches": ["*://*.mozilla.org/*"],
-      "js": ["app.min.js"],
-      "css": ["styles.css"]
+      "js": ["js/app.min.js"],
+      "css": ["css/styles.css"]
     }
   ]
 }
