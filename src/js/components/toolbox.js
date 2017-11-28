@@ -223,7 +223,7 @@ PAGE SPEED VIEW
         $('#moreFoundOptimizations').removeClass('inactive-speedinfo');
         $('#moreFoundOptimizations').addClass('active-speedinfo');
         $('#moreFoundOptimizations').text('Less Details');
-        // $('.addFoundOptimizations').hide();
+        $('.addFoundOptimizations').empty();
 
         // Create 2 sections for found optimizations
         // Titles and links for more information
@@ -246,16 +246,14 @@ PAGE SPEED VIEW
           // $(`#${foundRules.indexOf(m)}`).slideDown(500);
           return m;
         });
-        $('.addFoundOptimizations').hide().slideDown(() => {
-          $('.addFoundInfo').hide().fadeIn(1000);          
-        });
+        $('.addFoundOptimizations').hide().slideDown('fast');
+        $('.addFoundInfo').hide().fadeIn('slow');
       } else {
         $('#moreFoundOptimizations').removeClass('active-speedinfo');
         $('#moreFoundOptimizations').addClass('inactive-speedinfo');
         $('#moreFoundOptimizations').text('More Details');
-        $('.addFoundOptimizations').slideUp(() => {
-          $('.addFoundOptimizations').empty();
-        });
+        $('.addFoundInfo').fadeOut('fast');
+        $('.addFoundOptimizations').slideUp();
       }
     });
 
