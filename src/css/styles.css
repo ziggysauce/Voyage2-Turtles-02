@@ -121,7 +121,10 @@ body {
         font-weight: bold;
         color: #FFF; }
       .linkNote .quickLinks li:hover .link-delete {
-        color: rgba(255, 255, 255, 0.5); }
+        color: rgba(255, 255, 255, 0.5);
+        width: 12%;
+        height: 12%;
+        padding: 0px 2px; }
       .linkNote .quickLinks li:hover .link-delete:hover {
         border-radius: 50%;
         border: 2px solid #FFD63A;
