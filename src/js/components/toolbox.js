@@ -44,7 +44,7 @@ PAGE SPEED MODEL
 (function makePageSpeedModel() {
   // Object that will hold the callbacks that process results from the PageSpeed Insights API.
   const API_KEY = 'AIzaSyDKAeC02KcdPOHWVEZqdR1t5wwgaFJJKiM';
-  const API_URL = 'https://www.googleapis.com/pagespeedonline/v2/runPagespeed?';
+  const API_URL = 'https://cors-anywhere.herokuapp.com/https://www.googleapis.com/pagespeedonline/v2/runPagespeed?';
 
   window.app.pagespeedModel = {
     API_KEY,
