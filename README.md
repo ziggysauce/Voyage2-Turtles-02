@@ -60,12 +60,10 @@ DevTab is a front-end developer focused new tab extension for Google Chrome. Thi
 ## Deployment to Mozilla Firefox
 1. Clone or download this repo
 2. Open up Mozilla Firefox
-3a. Either enter `about:addons` in browser's address bar and on the left-hand side, click on **extensions**
-3b. Or click the menu bar icon on the right-hand side of the address bar and click on **Add-ons**, then on the left-hand side, click on **extensions**
+3. Either enter `about:addons` in browser's address bar and on the left-hand side, click on **extensions** or click the menu bar icon on the right-hand side of the address bar and click on **Add-ons**, then on the left-hand side, click on **extensions**
 4. On the top, click on the settings wheel icon (labeled `Tools for all add-ons`) dropdown menu
 5. Click **Install Add-on From File...** ; a file navigation box will appear
-6a. Either navigate to the directory where you cloned/downloaded the repo, select the `dist` folder and click **Open**
-6b. Or drag and drop the file into the Add-ons window
+6. Either navigate to the directory where you cloned/downloaded the repo, select the `dist` folder and click **Open** or drag and drop the file into the Add-ons window
 7. DevTab extension should appear on page
 8. Open up a new tab either by pressing the new tab button on the top-right hand corner of your browser or by pressing `Cmd+T` (mac) or `Ctrl+T` (windows)
 
