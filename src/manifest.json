@@ -19,5 +19,8 @@
       "js": ["app.min.js"],
       "css": ["styles.css"]
     }
+  ],
+  "permissions": [
+    "all_urls"
   ]
 }
