@@ -223,7 +223,7 @@ PAGE SPEED VIEW
         $('#moreFoundOptimizations').removeClass('inactive-speedinfo');
         $('#moreFoundOptimizations').addClass('active-speedinfo');
         $('#moreFoundOptimizations').text('Less Details');
-        // $('.addFoundOptimizations').hide(); // Can delete this?
+        // $('.addFoundOptimizations').hide();
 
         // Create 2 sections for found optimizations
         // Titles and links for more information
@@ -246,6 +246,7 @@ PAGE SPEED VIEW
           // $(`#${foundRules.indexOf(m)}`).slideDown(500);
           return m;
         });
+        $('.addFoundInfo').hide().fadeIn(1000);
         $('.addFoundOptimizations').hide().slideDown(500);
       } else {
         $('#moreFoundOptimizations').removeClass('active-speedinfo');

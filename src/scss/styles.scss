@@ -27,8 +27,9 @@ body {
 		bottom: 0;
 
 		background: -moz-linear-gradient(top, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.25) 100%); /* FF3.6-15 */
-		background: -webkit-linear-gradient(top, rgba(0,0,0,0.25) 0%,rgba(0,0,0,0.25) 100%); /* Chrome10-25,Safari5.1-6 */
-		background: linear-gradient(top, rgba(0,0,0,0.25) 0%,rgba(0,0,0,0.25) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+		background: -webkit-linear-gradient(top, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.25) 100%); /* Chrome10-25,Safari5.1-6 */
+		background: linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.25) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+
 	}
 
 
@@ -892,7 +893,7 @@ footer {
     border: 1px solid #C9C9C9;
 		cursor: pointer;
     font-family: 'Lato', Helvetica;
-    font-size: 1em;
+    font-size: 1vw;
     letter-spacing: 2px;
     width: 30%;
     padding: 5px;
@@ -917,7 +918,7 @@ footer {
     border: 1px solid #C9C9C9;
     cursor: pointer;
     font-family: 'Lato', Helvetica;
-    font-size: 1em;
+    font-size: 1vw;
     letter-spacing: 2px;
     width: 30%;
     padding: 5px;
@@ -1108,7 +1109,7 @@ footer {
 	border-radius: 2px;
 	cursor: pointer;
   font-family: 'Lato', Helvetica;
-  font-size: 1em;
+  font-size: 1vw;
   letter-spacing: 2px;
   transition: 0.5s;
 }
