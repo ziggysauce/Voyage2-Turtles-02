@@ -11,7 +11,7 @@
 * [Contributors](#contributors)
 
 ## About
-DevTab is a front-end developer focused new tab extension for Google Chrome. This new homepage is designed to help cater to a developer's everyday needs including quicklinks, a color picker, code validators, sticky note reminders, and more. It is created by a  [team](#contributors) of passionate coders in collaboration with [chingu cohorts](https://chingu-cohorts.github.io/chingu-directory/), an international community of remote developers.
+DevTab is a front-end developer focused new tab extension for your web browser (currently available for Google Chrome and Mozilla Firefox). This new homepage is designed to help cater to a developer's everyday needs including quicklinks, a color picker, code validators, sticky note reminders, and more. It is created by a  [team](#contributors) of passionate coders in collaboration with [chingu cohorts](https://chingu-cohorts.github.io/chingu-directory/), an international community of remote developers.
 
 ## Download
 * [Google Chrome Store](https://chrome.google.com/webstore/detail/devtab/alolnmpdpmfhpcaljhaheeoedkfkganm)
