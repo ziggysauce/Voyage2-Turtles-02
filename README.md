@@ -15,6 +15,7 @@ DevTab is a front-end developer focused new tab extension for Google Chrome. Thi
 
 ## Download
 [Google Chrome Store](https://chrome.google.com/webstore/detail/devtab/alolnmpdpmfhpcaljhaheeoedkfkganm)
+[Mozilla Firefox Add-Ons](https://addons.mozilla.org/en-US/firefox/addon/devtab/)
 
 ## Features
 * Pomodoro timer to keep you productive and focused
