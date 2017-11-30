@@ -26,8 +26,10 @@ TOOLBOX VIEW
       cssBox.fadeIn();
     } else if (toolsBox.is(':visible') && !toolsBox.find(e.target).length) {
       toolsBox.fadeOut();
-    } else if (!toolsBox.is(':visible') && e.target === $('.fa-wrench')[0]) {
-      toolsBox.fadeIn();
+    } else if (!toolsBox.is(':visible')) {
+        if (e.target === $('.fa-wrench')[0] || e.target === $('#validator-icon')[0]) {
+        toolsBox.fadeIn();
+      }
     }
   }
 
@@ -42,7 +44,7 @@ PAGE SPEED MODEL
 (function makePageSpeedModel() {
   // Object that will hold the callbacks that process results from the PageSpeed Insights API.
   const API_KEY = 'AIzaSyDKAeC02KcdPOHWVEZqdR1t5wwgaFJJKiM';
-  const API_URL = 'https://www.googleapis.com/pagespeedonline/v2/runPagespeed?';
+  const API_URL = 'https://cors-anywhere.herokuapp.com/https://www.googleapis.com/pagespeedonline/v2/runPagespeed?';
 
   window.app.pagespeedModel = {
     API_KEY,
@@ -221,7 +223,7 @@ PAGE SPEED VIEW
         $('#moreFoundOptimizations').removeClass('inactive-speedinfo');
         $('#moreFoundOptimizations').addClass('active-speedinfo');
         $('#moreFoundOptimizations').text('Less Details');
-        // $('.addFoundOptimizations').hide(); // Can delete this?
+        $('.addFoundOptimizations').empty();
 
         // Create 2 sections for found optimizations
         // Titles and links for more information
@@ -244,16 +246,24 @@ PAGE SPEED VIEW
           // $(`#${foundRules.indexOf(m)}`).slideDown(500);
           return m;
         });
-        $('.addFoundOptimizations').hide().slideDown(500);
+        $('.addFoundOptimizations').hide().slideDown('fast');
+        $('.addFoundInfo').hide().fadeIn('slow');
       } else {
         $('#moreFoundOptimizations').removeClass('active-speedinfo');
         $('#moreFoundOptimizations').addClass('inactive-speedinfo');
         $('#moreFoundOptimizations').text('More Details');
-        $('.addFoundOptimizations').slideUp(() => {
-          $('.addFoundOptimizations').empty();
-        });
+        $('.addFoundInfo').fadeOut('fast');
+        $('.addFoundOptimizations').slideUp();
       }
     });
+
+    // Specific load for pages with 100 scores
+    if (result.ruleGroups.SPEED.score === 100) {
+      $('.returnresults').slideDown(() => {
+        $('.page-speed-box').hide().slideDown(500);
+      });
+    }
+
     // Show loaded results
     // Enable buttons again for new search
     // Hide spinning loader icon

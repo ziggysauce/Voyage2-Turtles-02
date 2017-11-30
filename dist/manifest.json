@@ -3,7 +3,7 @@
   "name": "DevTab",
   "description": "New tab extension that provides tools for front-end developers",
   "manifest_version": 2,
-  "version": "1.0",
+  "version": "1.1.0",
   "icons": {
     "128": "assets/img/devtab5.png"
   },
@@ -12,5 +12,12 @@
   },
   "browser_action": {
     "default_icon": "assets/img/devtab5.png"
-  }
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.mozilla.org/*"],
+      "js": ["js/app.min.js"],
+      "css": ["css/styles.css"]
+    }
+  ]
 }

@@ -2,6 +2,7 @@
 
 ## Table of Contents
 * [About](#about)
+* [Download](#download)
 * [Features](#features)
 * [Contributing](#getting-started-with-contributing)
 * [Pull Requests](#making-a-pull-request)
@@ -11,6 +12,9 @@
 
 ## About
 DevTab is a front-end developer focused new tab extension for Google Chrome. This new homepage is designed to help cater to a developer's everyday needs including quicklinks, a color picker, code validators, sticky note reminders, and more. It is created by a  [team](#contributors) of passionate coders in collaboration with [chingu cohorts](https://chingu-cohorts.github.io/chingu-directory/), an international community of remote developers.
+
+## Download
+[Google Chrome Store](https://chrome.google.com/webstore/detail/devtab/alolnmpdpmfhpcaljhaheeoedkfkganm)
 
 ## Features
 * Pomodoro timer to keep you productive and focused
@@ -42,23 +46,33 @@ DevTab is a front-end developer focused new tab extension for Google Chrome. Thi
 ## Making a Pull Request
 1. When you've finished making your changes, [watch this video](https://www.youtube.com/watch?v=mENDYhfxH-o) to make sure your local clone is up-to-date, and then properly make a pull request.
 
-## Deployment to Chrome
+## Deployment to Google Chrome
 1. Clone or download this repo
 2. Open up Google Chrome
 3. Enter `chrome://extensions` in browser's address bar
 4. In top right-hand corner, ensure that the **Developer Mode** box is checked
-5. Click **Load unpacked extension...** , a file navigation box will appear
+5. Click **Load unpacked extension...** ; a file navigation box will appear
 6. Navigate to the directory where you cloned/downloaded the repo, select the `dist` folder and click **Select**
 7. DevTab extension should appear on page
 8. On right-hand side, ensure the **Enabled** box is checked
 9. Open up a new tab either by pressing the new tab button on the top-right hand corner of your browser or by pressing `Cmd+T` (mac) or `Ctrl+T` (windows)
+
+## Deployment to Mozilla Firefox (for testing)
+1. Clone or download this repo
+2. Open up Mozilla Firefox
+3. Either enter `about:debugging` in browser's address bar and on the top, click on **Load Temporary Add-On**
+4. Navigate to the directory where you cloned/downloaded the repo, select the `dist` folder, and then select the `manifest.json` or `index.html` file and click **Open**
+5. DevTab extension should appear on page
+6. Open up a new tab either by pressing the new tab button on the top-right hand corner of your browser or by pressing `Cmd+T` (mac) or `Ctrl+T` (windows)
+7. This will remain as the temporary extension until Firefox is closed or restarted
 
 ## Built With
 
 * HTML5
 * CSS3
 * JavaScript
-* jQuery
+* jQuery/jQuery UI
+* [tinycolor.js](https://github.com/bgrins/TinyColor)
 
 ## Contributors
 

@@ -66,7 +66,7 @@
           <p class="stickTitle">${note.title}</p>
         </div>
         <form class="stickyForm">
-          <input class="stickTitleInput" placeholder="title" type="text" spellcheck="false" />
+          <input class="stickTitleInput" placeholder="title" type="text" spellcheck="false" autofocus="autofocus" />
         </form>
         <i class='fa fa-trash stickIcon'></i>
       </div>
@@ -134,6 +134,7 @@
   function toggleTitleEdit(noteID) {
     $(`#${noteID} .stickTitle`).hide();
     $(`#${noteID} .stickTitleInput`).fadeIn('slow');
+    $(`#${noteID} .stickTitleInput`).focus();
     $(`#${noteID} .title-and-cancel`).hide();
   }
 
