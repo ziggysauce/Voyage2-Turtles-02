@@ -5,7 +5,6 @@
 * [Download](#download)
 * [Features](#features)
 * [Contributing](#contributing)
-* [Pull Requests](#making-a-pull-request)
 * [Installation](#deployment-to-chrome)
 * [Build Tools](#built-with)
 * [Releases](#releases)
