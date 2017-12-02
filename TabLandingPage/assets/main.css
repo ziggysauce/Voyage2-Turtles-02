@@ -79,18 +79,17 @@ main .mainInfo {
 	position: absolute;
 	padding: 25px;
 	margin: 0px;
-	width: 400px;
-	height: 400px;
+	width: 425px;
+	height: 425px;
 	border:3px solid #0E0B16;
 	transform: rotate(45deg);
 }
 
 .developerInfo {
 	transform: rotate(-45deg);
-	margin-left: 10px;
 }
 .mainInfo h1 {
-	margin: 10px 0px 15px;
+	margin: 5px 0px 5px 0px;
 	font-size: 70px;
 }
 
@@ -101,7 +100,7 @@ main .mainInfo {
 .mainInfo .downloadLink {
 	cursor: pointer;
 	background-color:#0E0B16;
-	padding:10px;
+	padding:5px;
 	width: 175px;
 	color:white;
 	font-family: 'Quicksand';
@@ -122,4 +121,46 @@ main .mainInfo {
 .mainInfo img {
 	width: 255px;
 	height: 195px;
+}
+
+.download-pop-up {
+	display: none;
+	z-index: 1;
+	width: 50%;
+	min-width: 500px;
+	height: 25%;
+	background: rgba(0,0,0,.85);
+	border-radius: 5px;
+}
+
+.dl-links {
+	height: 100%;
+	padding-right: 5%;
+	margin: 0px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.dl-links li {
+	list-style: none;
+	font-size: 1.5em;
+	transition: .5s;
+}
+
+.dl-links a {
+	border: 2px solid #D7CEC7;
+	border-radius: 5px;
+	padding: 10px;
+	cursor: pointer;
+	color: #D7CEC7;
+	text-decoration: none;
+	transition: .5s;
+}
+
+.dl-links a:hover {
+	background: #D7CEC7;
+	color: #000;
+	transition: .5s;
 }
