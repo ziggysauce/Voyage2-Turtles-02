@@ -4,7 +4,7 @@
 body {
   height: 100%;
   width: 100%;
-  overflow: hidden;
+  overflow: scroll !important;
   background-size: cover;
   font-family: 'Lato', helvetica;
   font-size: 100% !important; }
