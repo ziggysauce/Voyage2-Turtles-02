@@ -17,7 +17,8 @@
     {
       "matches": ["*://*.mozilla.org/*"],
       "js": ["js/app.min.js"],
-      "css": ["css/styles.css"]
+      "css": ["css/styles.css"],
+      "run_at": "document_idle"
     }
   ]
 }

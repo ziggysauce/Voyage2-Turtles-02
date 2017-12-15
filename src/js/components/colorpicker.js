@@ -15,10 +15,12 @@ COLOR PICKER MODEL
   var colorIndicator = document.getElementById('color-indicator');
 
   var spectrumCanvas = document.getElementById('spectrum-canvas');
+  var spectrumCtx = spectrumCanvas.getContext('2d');
   var spectrumCursor = document.getElementById('spectrum-cursor');
   var spectrumRect = spectrumCanvas.getBoundingClientRect();
 
   var hueCanvas = document.getElementById('hue-canvas');
+  var hueCtx = hueCanvas.getContext('2d');
   var hueCursor = document.getElementById('hue-cursor');
   var hueRect = hueCanvas.getBoundingClientRect();
 

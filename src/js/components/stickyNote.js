@@ -57,9 +57,8 @@
   function makeNote(note) {
     const noteHTML = `
     <div style="display:none" id='${note.id}'
-      class='draggable ui-widget-content stickyContainer ${note.color}Area'
-      data-color="${note.color}"
-    >
+      class='draggable resizable ui-widget-content ui-state-active stickyContainer ${note.color}Area'
+      data-color="${note.color}">
       <div class='stickBar ${note.color}Bar' >
         <i class='fa fa-ellipsis-v stickIcon stickLeft'></i>
         <div class="title-and-cancel">

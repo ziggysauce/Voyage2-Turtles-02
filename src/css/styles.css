@@ -4,7 +4,7 @@
 body {
   height: 100%;
   width: 100%;
-  overflow: hidden;
+  overflow: scroll !important;
   background-size: cover;
   font-family: 'Lato', helvetica;
   font-size: 100% !important; }
@@ -104,6 +104,7 @@ body {
       justify-content: space-between;
       align-items: center;
       word-break: break-all;
+      height: 2em;
       max-width: 250px;
       margin: 0px 5px 0px 0px;
       padding: 5px 0px 5px 10px; }
@@ -122,9 +123,7 @@ body {
         color: #FFF; }
       .linkNote .quickLinks li:hover .link-delete {
         color: rgba(255, 255, 255, 0.5);
-        width: 12%;
-        height: 12%;
-        padding: 0px 2px; }
+        padding: 0px 6px; }
       .linkNote .quickLinks li:hover .link-delete:hover {
         border-radius: 50%;
         border: 2px solid #FFD63A;
@@ -1078,6 +1077,8 @@ footer {
   overflow: hidden;
   width: 230px;
   height: 190px;
+  min-width: 230px;
+  min-height: 190px;
   outline: 1px solid transparent;
   border: 1px solid #7da4d7;
   border-radius: 3px; }
