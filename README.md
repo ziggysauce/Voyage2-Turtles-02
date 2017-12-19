@@ -67,6 +67,10 @@ DevTab is a front-end developer focused new tab extension for your web browser (
 * [tinycolor.js](https://github.com/bgrins/TinyColor)
 
 ## Releases
+* **v1.1.2**
+  * *Vertical overflow fixed*
+  * *Sticky notes are re-sizable*
+  * *Added version releases to settings menu*
 * **v1.1.1**
   * *Quicklinks flicker bug fixed*
   * *Hidden overflow injection on mozilla pages bug fixed*
