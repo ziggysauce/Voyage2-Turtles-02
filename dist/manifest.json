@@ -7,7 +7,6 @@
   "icons": {
     "128": "assets/img/devtab5.png"
   },
-  "homepage_url": "index.html",
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
