@@ -633,6 +633,7 @@ CONTROLLER
       .on('click', settingsView.toggleSettings)
       .on('click', settingsView.toggleAbout)
       .on('click', settingsView.toggleContribute)
+      .on('click', settingsView.toggleUpdates)
       .on('click', settingsView.togglePomodoroSettings)
       .on('click', settingsView.toggleBackgroundSettings)
       .on('click', settingsView.toggleNewsfeedSettings);
@@ -664,7 +665,7 @@ CONTROLLER
   }
 
   function initialize() {
-    $('.setting-controls-contribute, settings-pomodoro, .settings-newsfeed, .setting-controls-background, .tools-container, .valid-container, .page-speed-container, .returnresults, #loader-icon, .color-picker-panel, .quickDropdown').hide();
+    $('.setting-controls-contribute, .setting-controls-updates, settings-pomodoro, .settings-newsfeed, .setting-controls-background, .tools-container, .valid-container, .page-speed-container, .returnresults, #loader-icon, .color-picker-panel, .quickDropdown').hide();
     greetingView.showGreeting(greetingModel.getUserName());
     toggleGreetingMessage();
     initClockSettings();

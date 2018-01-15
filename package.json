@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/chingu-coders/Voyage2-Turtles-02#readme",
   "devDependencies": {
+    "ajv": "^5.0.0",
     "browser-sync": "^2.18.13",
     "del": "^3.0.0",
     "eslint": "^4.7.2",
@@ -31,5 +32,8 @@
     "gulp-plumber": "^1.1.0",
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.6.1"
+  },
+  "dependencies": {
+    "sass": "^1.0.0-beta.4"
   }
 }
