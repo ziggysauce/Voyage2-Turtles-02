@@ -1150,9 +1150,9 @@ footer {
   margin-left: auto; }
 
 .stickNote {
-  width: 200px;
+  width: 100%;
   height: 100%;
-  margin: 10px;
+  margin: 0px;
   padding: 0px;
   font-size: .95em;
   color: #333;
@@ -1167,14 +1167,14 @@ footer {
 
 .blueArea {
   background-color: #7da4d7;
-  border: 1px solid #7da4d7; }
+  border: 1px solid #7da4d7 !important; }
 
 .greenBar {
   background-color: #16810a; }
 
 .greenArea {
   background-color: #80d676;
-  border: 1px solid #80d676; }
+  border: 1px solid #80d676  !important; }
 
 .yellowBar {
   background-color: #f4af15; }

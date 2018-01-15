@@ -12,6 +12,8 @@
       text: '',
       left: 600,
       top: 50,
+      width: 230,
+      height: 190,
       id: Math.floor(performance.now()), // with performance.now(), in order to get a duplicate ID the user would have to create a new note less than one millisecond after the previous note. highly unlikely.
     };
   }
@@ -86,8 +88,8 @@
 
     $('.devtab-bg').append(noteHTML);
     $(`#${note.id}`).fadeIn(250);
-    $(`#${note.id}`).css({ left: note.left, top: note.top });
-    $('.draggable').draggable({ scroll: false });
+    $(`#${note.id}`).css({ left: note.left, top: note.top, width: note.width, height: note.height });
+    $('.draggable').draggable({ scroll: false }).resizable({ scroll: false });
   }
 
   function deleteNote(noteID) {

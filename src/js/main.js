@@ -214,8 +214,17 @@ CONTROLLER
     const noteID = $(e.target).closest('.stickyContainer').attr('id');
     const left = $(`#${noteID}`).css('left');
     const top = $(`#${noteID}`).css('top');
+    var width = $(`#${noteID}`).css('width');
+    width = width.split('');
+    width.splice(width.length - 2, 2);
+    width = width.join('');
 
-    stickynoteModel.changeState(noteID, { left, top });
+    var height = $(`#${noteID}`).css('height');
+    height = height.split('');
+    height.splice(height.length -2, 2);
+    height = height.join('');
+
+    stickynoteModel.changeState(noteID, { left, top, width, height });
   }
 
   function addStickynoteText(e) {

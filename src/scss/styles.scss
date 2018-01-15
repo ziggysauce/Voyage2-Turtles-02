@@ -1327,11 +1327,10 @@ footer {
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
-  width: 230px;
+  	width: 230px;
 	height: 190px;
-  min-width: 230px;
+  	min-width: 230px;
 	min-height: 190px;
-
 
 	outline: 1px solid transparent;
 	border: 1px solid #7da4d7;
@@ -1421,10 +1420,10 @@ footer {
 }
 
 .stickNote {
-	width: 200px;
+	width: 100%;
 	height: 100%;
 
-	margin: 10px;
+	margin: 0px;
 	padding: 0px;
 
 	font-size: .95em;
@@ -1442,7 +1441,7 @@ footer {
 
 .blueArea {
 	background-color: #7da4d7;
-	border: 1px solid #7da4d7;
+	border: 1px solid #7da4d7 !important;
 }
 
 .greenBar {
@@ -1451,7 +1450,7 @@ footer {
 
 .greenArea {
 	background-color: #80d676;
-	border: 1px solid #80d676;
+	border: 1px solid #80d676  !important;
 }
 
 .yellowBar {
