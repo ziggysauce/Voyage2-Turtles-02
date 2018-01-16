@@ -15,6 +15,7 @@ SETTINGS VIEW
   const settingWrapper = $('.setting-wrapper');
   const about = $('.setting-controls-about');
   const contribute = $('.setting-controls-contribute');
+  const updates = $('.setting-controls-update');
   const pomodoroSettings = $('.settings-pomodoro');
   const background = $('.setting-controls-background');
   const newsfeed = $('.settings-newsfeed');
@@ -37,6 +38,15 @@ SETTINGS VIEW
   }
 
   function toggleContribute(e) {
+    if (updates.is(':visible') && !updates.find(e.target).length && e.target !== updates[0] && e.target !== $('.setting-updates')[0]) {
+      updates.fadeOut();
+    } else if (!updates.is(':visible') && e.target === $('.setting-updates')[0]) {
+      updates.fadeIn();
+      about.hide();
+    }
+  }
+
+  function toggleUpdates(e) {
     if (contribute.is(':visible') && !contribute.find(e.target).length && e.target !== contribute[0] && e.target !== $('.setting-contribute')[0]) {
       contribute.fadeOut();
     } else if (!contribute.is(':visible') && e.target === $('.setting-contribute')[0]) {
@@ -123,6 +133,7 @@ SETTINGS VIEW
     toggleSettings,
     toggleAbout,
     toggleContribute,
+    toggleUpdates,
     togglePomodoroSettings,
     toggleBackgroundSettings,
     toggleNewsfeedSettings,
