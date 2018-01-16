@@ -1235,6 +1235,9 @@ footer {
 .stickyContainer {
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.7); }
 
+.ui-resizable-handle.ui-resizable-se.ui-icon.ui-icon-gripsmall-diagonal-se {
+  z-index: 0 !important; }
+
 .setting-wrapper {
   background: linear-gradient(90deg, black, rgba(0, 0, 0, 0.7));
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
