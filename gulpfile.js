@@ -107,22 +107,21 @@ gulp.task('assets', ['cleanfolder'], () => {
 
 // watches src directory and handles hot-reloading in browser
 // also allows for viewing webiste on multiple devices
-// baseDir can be changed to './dist' if you want to watch the dist directory instead
 gulp.task('browser-sync', () => {
   browserSync({
     server: {
       baseDir: './src',
-    },
+    }
   });
 });
 
 // watches all src folders for changes to files
 gulp.task('watch', () => {
-  gulp.watch('src/js/**/*.js', ['js']);
-  gulp.watch('src/scss/**/*.scss', ['css']);
-  gulp.watch('src/**/*.html', ['html']);
-  gulp.watch('src/assets/**/*', ['assets']);
+  gulp.watch('src/scss/**/*.scss', ['scss'])
+  gulp.watch('./src/**/*').on('add', browserSync.reload);
+  gulp.watch(['./src/**/*', '!./src/scss', '!./src/scss/**/*']).on('change', browserSync.reload);
 });
 
 // default task that runs when you type 'gulp' in command line
-gulp.task('default', ['browser-sync', 'js', 'css', 'html', 'assets', 'manifest', 'watch']);
+gulp.task('default', ['browser-sync', 'watch']);
+gulp.task('build', ['html', 'js', 'css', 'assets']);
