@@ -313,10 +313,9 @@ CONTROLLER
     $('#check-css').attr('disabled', 'disabled');
 
     const content = encodeURIComponent($('#css-markup textarea').val());
-    const proxyURL = 'https://cors-anywhere.herokuapp.com/';
     const validatorURL = `http://jigsaw.w3.org/css-validator/validator?text=${content}&profile=css3&output=json`;
 
-    fetch(proxyURL + validatorURL)
+    fetch(validatorURL)
       .then((response) => {
         if (!response.ok) {
           cssView.errorOutput();
