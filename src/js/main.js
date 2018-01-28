@@ -97,7 +97,7 @@ CONTROLLER
       }
       clocksView.updateCountdown(countdown, task);
     }
-    requestAnimationFrame(clocksHandler);
+    setTimeout(clocksHandler, 1000);
   }
 
   // basic web audio API audio loading function. reference: https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/decodeAudioData
