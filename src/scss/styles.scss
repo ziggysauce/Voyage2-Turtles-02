@@ -1,3 +1,6 @@
+$accent: #FFD63A;
+$font: 'Lato';
+
 * {
   box-sizing: border-box;
 }
@@ -6,7 +9,7 @@ body {
   height: 100%;
 	width: 100%;
 	background-size: cover;
-  font-family: 'Lato', helvetica;
+  font-family: $font, sans-serif;
   font-size: 100% !important;
 
   .devtab-bg {
@@ -149,7 +152,7 @@ body {
 	  li:hover{
 	  	color: #FFF;
       font-weight: bold;
-      border-left: 5px solid #FFD63A;
+      border-left: 5px solid $accent;;
 
       a {
         cursor: pointer;
@@ -166,8 +169,8 @@ body {
 
       .link-delete:hover {
         border-radius: 50%;
-        border: 2px solid #FFD63A;
-        color: #FFD63A;
+        border: 2px solid $accent;;
+        color: $accent;;
       }
 	  }
 
@@ -200,10 +203,10 @@ body {
 	  }
 
     .addSite:hover {
-      background: #43ac00;
-      color: rgba(0,0,0,0.8);
+      background: #44bd32;
+      color: #FFF;
       border: 1px solid rgba(0,0,0,0);
-      font-weight: bold;
+      // font-weight: bold;
       transition: 0.3s;
     }
   }
@@ -238,7 +241,7 @@ body {
 
 			color: #FFF;
 			font-size: 14px;
-      font-family: 'Lato', Helvetica;
+      font-family: $font, sans-serif;
 			transition: .5s;
     }
   }
@@ -292,7 +295,7 @@ body {
     border: none;
     color: #fff;
     cursor: pointer;
-    font-family: 'Lato', helvetica;
+    font-family: $font, sans-serif;
     font-weight: 600;
     text-decoration: none;
     transition: 300ms ease;
@@ -351,7 +354,7 @@ body {
     border: none;
     color: #fff;
     cursor: pointer;
-    font-family: 'Lato', helvetica;
+    font-family: $font, sans-serif;
     font-size: 1.2em;
     font-weight: 600;
     transition: 300ms ease;
@@ -431,7 +434,7 @@ footer {
 
 					color: #FFF;
 					font-size: 14px;
-          font-family: 'Lato', Helvetica;
+          font-family: $font, sans-serif;
 					transition: .5s;
 				}
 			}
@@ -494,7 +497,7 @@ footer {
 .tools-icon-hover {
   color: #FFF;
   font-size: 14px;
-  font-family: 'Lato', Helvetica;
+  font-family: $font, sans-serif;
   margin-top: 5px;
   opacity: 0;
   transition: .5s;
@@ -548,14 +551,14 @@ footer {
 	border: none;
 	outline: none;
 
-	font-family: 'Lato', Helvetica;
+	font-family: $font, sans-serif;
 	font-size: 1em;
 }
 
 .tools-container button:hover {
   font-weight: bold;
   color: #FFF;
-  border-left: 5px solid #FFD63A;
+  border-left: 5px solid $accent;;
   border-radius: 0px;
   cursor: pointer;
 }
@@ -739,7 +742,8 @@ footer {
 }
 .tog-button.mode-toggle {
 	width: 65px;
-	height: 35px;
+  height: 35px;
+  // text-transform: uppercase;
 }
 
 .value-fields {
@@ -752,7 +756,7 @@ footer {
 .value-fields .field-label {
 	margin-right: 5px;
   margin-bottom: 5px;
-	font-family: 'Lato', helvetica;
+	font-family: $font, sans-serif;
 	font-size: 1rem;
   font-weight: bold;
 }
@@ -774,7 +778,7 @@ footer {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	font-family: 'Lato', helvetica;
+	font-family: $font, sans-serif;
 	font-size: 1rem;
 }
 .rgb-fields .field-input {
@@ -784,7 +788,7 @@ footer {
 
 .hex-field .field-input {
 	width: 155px;
-	font-family: 'Lato', helvetica;
+	font-family: $font, sans-serif;
 	font-size: 1rem;
 }
 
@@ -873,7 +877,7 @@ footer {
     outline: none;
 		overflow-y: auto;
     overflow-x: hidden;
-    font-family: 'Lato', Helvetica;
+    font-family: $font, sans-serif;
     font-weight: 700;
     width: 100%;
     height: 45vh;
@@ -892,11 +896,11 @@ footer {
 		color: #C9C9C9;
     border: 1px solid #C9C9C9;
 		cursor: pointer;
-    font-family: 'Lato', Helvetica;
+    font-family: $font, sans-serif;
     font-size: 1vw;
     letter-spacing: 2px;
     width: 30%;
-    padding: 5px;
+    padding: 10px 5px;
     margin-top: 8px;
     transition: 0.5s;
 	}
@@ -904,7 +908,8 @@ footer {
 	#check-html:hover, #check-css:hover {
 		background: #4c8edd;
     transition: 0.5s;
-    color: rgba(0,0,0,0.8);
+    // color: rgba(0,0,0,0.8);
+    color: #FFF;
     font-weight: bold;
     border: 1px solid transparent;
 	}
@@ -917,11 +922,11 @@ footer {
     color: #C9C9C9;
     border: 1px solid #C9C9C9;
     cursor: pointer;
-    font-family: 'Lato', Helvetica;
+    font-family: $font, sans-serif;
     font-size: 1vw;
     letter-spacing: 2px;
     width: 30%;
-    padding: 5px;
+    padding: 10px 5px;
     margin-left: 10px;
     margin-top: 8px;
     transition: 0.5s;
@@ -930,7 +935,8 @@ footer {
   #clear-html:hover, #clear-css:hover {
     background: #d44646;
     transition: 0.5s;
-    color: rgba(0,0,0,0.8);
+    // color: rgba(0,0,0,0.8);
+    color: #FFF;
     font-weight: bold;
     border: 1px solid transparent;
   }
@@ -956,7 +962,7 @@ footer {
   line-height: 20px;
 
   code {
-    font-family: 'Lato', Helvetica;
+    font-family: $font, sans-serif;
     font-weight: 700;
   }
 }
@@ -1049,7 +1055,7 @@ footer {
   }
 
   input:checked {
-    border: 6px solid #FFD63A;
+    border: 6px solid $accent;;
   }
 }
 
@@ -1108,7 +1114,7 @@ footer {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
 	border-radius: 2px;
 	cursor: pointer;
-  font-family: 'Lato', Helvetica;
+  font-family: $font, sans-serif;
   font-size: 1vw;
   letter-spacing: 2px;
   transition: 0.5s;
@@ -1117,7 +1123,8 @@ footer {
 #analyzePage:hover {
   font-weight: bold;
   border: 1px solid transparent;
-  color: rgba(0,0,0,0.8);
+  // color: rgba(0,0,0,0.8);
+  color: #FFF;
   background: #4c8edd;
   transition: 0.5s;
 }
@@ -1125,7 +1132,8 @@ footer {
 #clearPage:hover {
   font-weight: bold;
   border: 1px solid transparent;
-  color: rgba(0,0,0,0.8);
+  // color: rgba(0,0,0,0.8);
+  color: #FFF;
   transition: 0.5s;
   background: #d44646;
 }
@@ -1142,7 +1150,7 @@ footer {
   background-color: rgba(255,255,255,.8);
   color: #252525;
   padding: 5px;
-  font-family: 'Lato', helvetica;
+  font-family: $font, sans-serif;
   white-space: pre-line;
   word-wrap: break-word;
   overflow-x: hidden;
@@ -1178,21 +1186,21 @@ footer {
 .click-details {
   padding: 5px;
   margin: 10px;
-  background: #43ac00;
+  background: #44bd32;
 	outline: none;
   border: none;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
 	border-radius: 2px;
   color: #FFF;
 	cursor: pointer;
-  font-family: 'Lato', Helvetica;
+  font-family: $font, sans-serif;
   font-size: 1em;
   letter-spacing: 2px;
   transition: 0.5s;
 }
 
 .click-details:hover {
-  background: #235900;
+  background: #338d25;
   transition: 0.5s;
 }
 
@@ -1215,7 +1223,7 @@ footer {
 .speedTitles {
   padding-left: 5px;
   margin: 5px;
-  font-family: 'Lato', Helvetica;
+  font-family: $font, sans-serif;
   font-size: 16px;
 }
 
@@ -1309,7 +1317,7 @@ footer {
     > a:hover {
       font-weight: bold;
       color: #FFF;
-      border-left: 5px solid #FFD63A;
+      border-left: 5px solid $accent;;
       cursor: pointer;
     }
     > p {
@@ -1393,7 +1401,7 @@ footer {
 
 	outline: none;
 	font-size: .9em;
-	font-family: 'Lato', helvetica;
+	font-family: $font, sans-serif;
 	font-weight: 700;
   color: #FFF;
 	background: rgba(0,0,0,.4);
@@ -1424,11 +1432,11 @@ footer {
 	height: 100%;
 
 	margin: 0px;
-	padding: 0px;
+	padding: 10px;
 
 	font-size: .95em;
 	color: #333;
-	font-family: 'Lato', helvetica;
+	font-family: $font, sans-serif;
 	font-weight: 700;
 	border: none;
 	outline: none;
@@ -1436,12 +1444,12 @@ footer {
 }
 
 .blueBar {
-	background-color: #1267d6;
+	background-color: #0984e3;
 }
 
 .blueArea {
-	background-color: #7da4d7;
-	border: 1px solid #7da4d7 !important;
+	background-color: #74b9ff;
+	border: 1px solid #74b9ff !important;
 }
 
 .greenBar {
@@ -1463,21 +1471,21 @@ footer {
 }
 
 .purpleBar {
-	background-color: #5e0e99;
+	background-color: #6c5ce7;
 }
 
 .purpleArea {
-	background-color: #d8aef7;
-	border: 1px solid #d8aef7;
+	background-color: #a29bfe;
+	border: 1px solid #a29bfe;
 }
 
 .pinkBar {
-	background-color: #c70498;
+	background-color: #e84393;
 }
 
 .pinkArea {
-	background-color: #f58cdb;
-	border: 1px solid #f58cdb;
+	background-color: #fd79a8;
+	border: 1px solid #fd79a8;
 }
 
 .greyBar {
@@ -1597,7 +1605,7 @@ footer {
 .setting-aside li:hover {
   font-weight: bold;
   color: #FFF;
-  border-left: 5px solid #FFD63A;
+  border-left: 5px solid $accent;;
   cursor: pointer;
 }
 
@@ -1630,7 +1638,7 @@ footer {
 }
 
 .second-half {
-  color: #FFD63A;
+  color: $accent;;
 }
 
 .setting-controls-contribute {
@@ -1659,7 +1667,7 @@ footer {
 
   i:hover {
     transition: 0.5s;
-    color: #FFD63A;
+    color: $accent;;
   }
 
   span:first-of-type {
@@ -1671,7 +1679,7 @@ footer {
   }
 
   span a:hover {
-    color: #FFD63A;
+    color: $accent;;
   }
 
   .ghlinks {
@@ -1700,7 +1708,7 @@ footer {
   }
 
   .ghlinks a:hover {
-    color: #FFD63A;
+    color: $accent;;
     font-weight: bold;
   }
 }
@@ -1725,7 +1733,7 @@ footer {
   overflow-y: auto;
 
   strong {
-    color: #FFD63A;
+    color: $accent;;
   }
 }
 
@@ -1791,7 +1799,7 @@ footer {
 
   &::-webkit-slider-thumb {
     border-radius: 3px;
-    border: 2px solid #FFD63A;
+    border: 2px solid $accent;;
     height: 24px;
     width: 16px;
     -webkit-appearance: none;
@@ -1812,7 +1820,7 @@ input[type=range]::-moz-range-track {
 
 input[type=range]::-moz-range-thumb {
   border-radius: 3px;
-  border: 2px solid #FFD63A;
+  border: 2px solid $accent;;
   height: 24px;
   width: 14px;
   -webkit-appearance: none;
@@ -1861,7 +1869,7 @@ input[type=range]::-moz-range-thumb {
     }
     li:hover {
       cursor: pointer;
-      color: #FFD63A;
+      color: $accent;;
       font-weight: bold;
     }
   }
@@ -1889,7 +1897,7 @@ input[type=range]::-moz-range-thumb {
   }
 
   img:hover {
-    outline: 1px solid #FFD63A;
+    outline: 1px solid $accent;;
   }
 }
 
@@ -1918,16 +1926,17 @@ input[type=range]::-moz-range-thumb {
 
   button {
     cursor: pointer;
-    color: rgba(255,255,255,.8);
-    background: #43ac00;
+    color: rgba(255,255,255,1);
+    background: #44bd32;
     border: 1px solid transparent;
     border-radius: 3px;
     outline: none;
+    padding: 5px;
     transition: .5s;
   }
 
   button:hover {
-    background-color: #235900;
+    background-color: #338d25;
     transition: .5s;
   }
 }
@@ -1963,7 +1972,7 @@ input[type=range]::-moz-range-thumb {
 
   strong:hover {
     cursor: pointer;
-    color: #FFD63A;
+    color: $accent;;
   }
 }
 
@@ -1987,7 +1996,7 @@ input[type=range]::-moz-range-thumb {
 
   button:hover {
     transition: 0.5s;
-    color: #FFD63A;
+    color: $accent;;
   }
 }
 
@@ -2040,7 +2049,7 @@ input[type=range]::-moz-range-thumb {
   }
 
   a:hover {
-    color: #FFD63A;
+    color: $accent;;
   }
 
   form {

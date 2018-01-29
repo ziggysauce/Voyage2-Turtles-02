@@ -64,9 +64,14 @@ DevTab is a front-end developer focused new tab extension for your web browser (
 * CSS3
 * JavaScript
 * jQuery/jQuery UI
+* Gulp
 * [tinycolor.js](https://github.com/bgrins/TinyColor)
 
 ## Releases
+* **v1.1.4**
+  * *Timer persists when DevTab is out of focus*
+  * *Added number input for timer settings*
+  * *Added padding to sticky notes*
 * **v1.1.3**
   * *Sticky note re-sizable icon no longer persist above other items*
 * **v1.1.2**

@@ -5,7 +5,7 @@ body {
   height: 100%;
   width: 100%;
   background-size: cover;
-  font-family: 'Lato', helvetica;
+  font-family: "Lato", sans-serif;
   font-size: 100% !important; }
   body .devtab-bg {
     position: relative;
@@ -153,10 +153,9 @@ body {
       border-radius: 3px;
       transition: 0.3s; }
     .linkNote .quickLinks .addSite:hover {
-      background: #43ac00;
-      color: rgba(0, 0, 0, 0.8);
+      background: #44bd32;
+      color: #FFF;
       border: 1px solid transparent;
-      font-weight: bold;
       transition: 0.3s; }
   .linkNote .stickyNotes {
     margin: 5px 30px 10px 10px;
@@ -180,7 +179,7 @@ body {
       opacity: 0;
       color: #FFF;
       font-size: 14px;
-      font-family: 'Lato', Helvetica;
+      font-family: "Lato", sans-serif;
       transition: .5s; }
   .linkNote .stickyNotes:hover span {
     transition: 0.5s;
@@ -220,7 +219,7 @@ body {
     border: none;
     color: #fff;
     cursor: pointer;
-    font-family: 'Lato', helvetica;
+    font-family: "Lato", sans-serif;
     font-weight: 600;
     text-decoration: none;
     transition: 300ms ease; }
@@ -268,7 +267,7 @@ body {
     border: none;
     color: #fff;
     cursor: pointer;
-    font-family: 'Lato', helvetica;
+    font-family: "Lato", sans-serif;
     font-size: 1.2em;
     font-weight: 600;
     transition: 300ms ease; }
@@ -329,7 +328,7 @@ footer {
           padding: 0px;
           color: #FFF;
           font-size: 14px;
-          font-family: 'Lato', Helvetica;
+          font-family: "Lato", sans-serif;
           transition: .5s; }
       footer .listArea ul li:hover .iconHover {
         opacity: 1;
@@ -373,7 +372,7 @@ footer {
 .tools-icon-hover {
   color: #FFF;
   font-size: 14px;
-  font-family: 'Lato', Helvetica;
+  font-family: "Lato", sans-serif;
   margin-top: 5px;
   opacity: 0;
   transition: .5s; }
@@ -418,7 +417,7 @@ footer {
   background: transparent;
   border: none;
   outline: none;
-  font-family: 'Lato', Helvetica;
+  font-family: "Lato", sans-serif;
   font-size: 1em; }
 
 .tools-container button:hover {
@@ -603,7 +602,7 @@ footer {
 .value-fields .field-label {
   margin-right: 5px;
   margin-bottom: 5px;
-  font-family: 'Lato', helvetica;
+  font-family: "Lato", sans-serif;
   font-size: 1rem;
   font-weight: bold; }
 
@@ -624,7 +623,7 @@ footer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: 'Lato', helvetica;
+  font-family: "Lato", sans-serif;
   font-size: 1rem; }
 
 .rgb-fields .field-input {
@@ -633,7 +632,7 @@ footer {
 
 .hex-field .field-input {
   width: 155px;
-  font-family: 'Lato', helvetica;
+  font-family: "Lato", sans-serif;
   font-size: 1rem; }
 
 .valid-container {
@@ -699,7 +698,7 @@ footer {
     outline: none;
     overflow-y: auto;
     overflow-x: hidden;
-    font-family: 'Lato', Helvetica;
+    font-family: "Lato", sans-serif;
     font-weight: 700;
     width: 100%;
     height: 45vh;
@@ -716,17 +715,17 @@ footer {
     color: #C9C9C9;
     border: 1px solid #C9C9C9;
     cursor: pointer;
-    font-family: 'Lato', Helvetica;
+    font-family: "Lato", sans-serif;
     font-size: 1vw;
     letter-spacing: 2px;
     width: 30%;
-    padding: 5px;
+    padding: 10px 5px;
     margin-top: 8px;
     transition: 0.5s; }
   .formfields #check-html:hover, .formfields #check-css:hover {
     background: #4c8edd;
     transition: 0.5s;
-    color: rgba(0, 0, 0, 0.8);
+    color: #FFF;
     font-weight: bold;
     border: 1px solid transparent; }
   .formfields #clear-html, .formfields #clear-css {
@@ -737,18 +736,18 @@ footer {
     color: #C9C9C9;
     border: 1px solid #C9C9C9;
     cursor: pointer;
-    font-family: 'Lato', Helvetica;
+    font-family: "Lato", sans-serif;
     font-size: 1vw;
     letter-spacing: 2px;
     width: 30%;
-    padding: 5px;
+    padding: 10px 5px;
     margin-left: 10px;
     margin-top: 8px;
     transition: 0.5s; }
   .formfields #clear-html:hover, .formfields #clear-css:hover {
     background: #d44646;
     transition: 0.5s;
-    color: rgba(0, 0, 0, 0.8);
+    color: #FFF;
     font-weight: bold;
     border: 1px solid transparent; }
 
@@ -770,7 +769,7 @@ footer {
   padding: 10px;
   line-height: 20px; }
   #html-validated code, #css-validated code {
-    font-family: 'Lato', Helvetica;
+    font-family: "Lato", sans-serif;
     font-weight: 700; }
 
 #loader-icon {
@@ -888,7 +887,7 @@ footer {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
   border-radius: 2px;
   cursor: pointer;
-  font-family: 'Lato', Helvetica;
+  font-family: "Lato", sans-serif;
   font-size: 1vw;
   letter-spacing: 2px;
   transition: 0.5s; }
@@ -896,14 +895,14 @@ footer {
 #analyzePage:hover {
   font-weight: bold;
   border: 1px solid transparent;
-  color: rgba(0, 0, 0, 0.8);
+  color: #FFF;
   background: #4c8edd;
   transition: 0.5s; }
 
 #clearPage:hover {
   font-weight: bold;
   border: 1px solid transparent;
-  color: rgba(0, 0, 0, 0.8);
+  color: #FFF;
   transition: 0.5s;
   background: #d44646; }
 
@@ -918,7 +917,7 @@ footer {
   background-color: rgba(255, 255, 255, 0.8);
   color: #252525;
   padding: 5px;
-  font-family: 'Lato', helvetica;
+  font-family: "Lato", sans-serif;
   white-space: pre-line;
   word-wrap: break-word;
   overflow-x: hidden;
@@ -949,20 +948,20 @@ footer {
 .click-details {
   padding: 5px;
   margin: 10px;
-  background: #43ac00;
+  background: #44bd32;
   outline: none;
   border: none;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
   border-radius: 2px;
   color: #FFF;
   cursor: pointer;
-  font-family: 'Lato', Helvetica;
+  font-family: "Lato", sans-serif;
   font-size: 1em;
   letter-spacing: 2px;
   transition: 0.5s; }
 
 .click-details:hover {
-  background: #235900;
+  background: #338d25;
   transition: 0.5s; }
 
 .addInfo {
@@ -981,7 +980,7 @@ footer {
 .speedTitles {
   padding-left: 5px;
   margin: 5px;
-  font-family: 'Lato', Helvetica;
+  font-family: "Lato", sans-serif;
   font-size: 16px; }
 
 .learn-more-link {
@@ -1129,7 +1128,7 @@ footer {
   margin: 5px 0px;
   outline: none;
   font-size: .9em;
-  font-family: 'Lato', helvetica;
+  font-family: "Lato", sans-serif;
   font-weight: 700;
   color: #FFF;
   background: rgba(0, 0, 0, 0.4);
@@ -1153,21 +1152,21 @@ footer {
   width: 100%;
   height: 100%;
   margin: 0px;
-  padding: 0px;
+  padding: 10px;
   font-size: .95em;
   color: #333;
-  font-family: 'Lato', helvetica;
+  font-family: "Lato", sans-serif;
   font-weight: 700;
   border: none;
   outline: none;
   resize: none; }
 
 .blueBar {
-  background-color: #1267d6; }
+  background-color: #0984e3; }
 
 .blueArea {
-  background-color: #7da4d7;
-  border: 1px solid #7da4d7 !important; }
+  background-color: #74b9ff;
+  border: 1px solid #74b9ff !important; }
 
 .greenBar {
   background-color: #16810a; }
@@ -1184,18 +1183,18 @@ footer {
   border: 1px solid #f1db87; }
 
 .purpleBar {
-  background-color: #5e0e99; }
+  background-color: #6c5ce7; }
 
 .purpleArea {
-  background-color: #d8aef7;
-  border: 1px solid #d8aef7; }
+  background-color: #a29bfe;
+  border: 1px solid #a29bfe; }
 
 .pinkBar {
-  background-color: #c70498; }
+  background-color: #e84393; }
 
 .pinkArea {
-  background-color: #f58cdb;
-  border: 1px solid #f58cdb; }
+  background-color: #fd79a8;
+  border: 1px solid #fd79a8; }
 
 .greyBar {
   background-color: #aaa8a9; }
@@ -1535,14 +1534,15 @@ footer {
     color: #C4C4C4; }
   .bg-user-input button {
     cursor: pointer;
-    color: rgba(255, 255, 255, 0.8);
-    background: #43ac00;
+    color: white;
+    background: #44bd32;
     border: 1px solid transparent;
     border-radius: 3px;
     outline: none;
+    padding: 5px;
     transition: .5s; }
   .bg-user-input button:hover {
-    background-color: #235900;
+    background-color: #338d25;
     transition: .5s; }
 
 .bg-user-error {
