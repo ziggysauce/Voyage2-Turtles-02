@@ -1769,7 +1769,11 @@ footer {
   }
 
   output {
+    display: inline-block;
+    cursor: pointer;
     padding-left: 15px;
+    width: 60px;
+    text-align: right;
   }
 
   input[type=range] {
@@ -1799,6 +1803,42 @@ footer {
     background: #000;
     transition: all 0.1s ease;
   }
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+#work-period-box, #break-period-box {
+  display: none;
+  position: absolute;
+  color: #000;
+  outline: none;
+  background-color: hsla(0, 0, 100, 1);
+  border-radius: 3px;
+  border: none;
+  width: 100%;
+  padding: 0 5%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.clock-period-display-container {
+  display: inline-block;
+  position: relative;
+  margin: 0 1%;
+}
+
+#work-period-submit, #break-period-submit {
+  display: none;
 }
 
 // Slider for firefox

@@ -68,19 +68,39 @@ CONTROLLER
 
   function setPomodoroWorkPeriod(e) {
     clocksModel.setStatus('workPeriod', e.target.value * 60000);
+    $('#work-period-box').hide();
+    clocksView.rangeDisplayUpdate(e.target.id, e.target.value);
   }
 
   function setPomodoroBreakPeriod(e) {
     clocksModel.setStatus('breakPeriod', e.target.value * 60000);
+    $('#break-period-box').hide();
+    clocksView.rangeDisplayUpdate(e.target.id, e.target.value);
   }
 
-  function rangeDisplayUpdate(e) {
-    clocksView.rangeDisplayUpdate(e.target.id, e.target.value);
+  function handleWorkBoxInput(e) {
+    e.preventDefault();
+    $('#work-period').val($('#work-period-box').val());
+    $('#work-period').trigger('input');
+  }
+
+  function handleBreakBoxInput(e) {
+    e.preventDefault();
+    $('#break-period').val($('#break-period-box').val());
+    $('#break-period').trigger('input');
   }
 
   function initClockSettings() {
     clocksModel.initClockSettings();
     clocksView.initClockSettings(clocksModel.getStatus());
+  }
+
+  function toggleWorkPeriodInput(e) {
+    clocksView.toggleWorkPeriodInput(e);
+  }
+
+  function toggleBreakPeriodInput(e) {
+    clocksView.toggleBreakPeriodInput(e);
   }
 
   // continuous loop that updates clock display. reference https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
@@ -635,7 +655,9 @@ CONTROLLER
       .on('click', settingsView.toggleUpdates)
       .on('click', settingsView.togglePomodoroSettings)
       .on('click', settingsView.toggleBackgroundSettings)
-      .on('click', settingsView.toggleNewsfeedSettings);
+      .on('click', settingsView.toggleNewsfeedSettings)
+      .on('click', toggleWorkPeriodInput)
+      .on('click', toggleBreakPeriodInput);
     $('#name-form').on('submit', setUserName);
     $('.start, .stop').on('click', togglePomodoroActive);
     $('.pause').on('click', togglePomodoroPause);
@@ -644,10 +666,10 @@ CONTROLLER
     $('#html-markup').on('submit', htmlValidatorCall);
     $('#css-markup').on('submit', CSSValidatorCall);
     $('#newNote').on('click', makeNewStickynote);
-    $('#work-period').on('input', setPomodoroWorkPeriod)
-      .on('input', rangeDisplayUpdate);
-    $('#break-period').on('input', setPomodoroBreakPeriod)
-      .on('input', rangeDisplayUpdate);
+    $('#work-period').on('input', setPomodoroWorkPeriod);
+    $('#break-period').on('input', setPomodoroBreakPeriod);
+    $('#work-period-form').on('submit', handleWorkBoxInput);
+    $('#break-period-form').on('submit', handleBreakBoxInput);
     $('#time-format').on('change', setTimeFormat);
     $('.news-source-dropdown').on('change', updateNewsSources);
     $('#targetForm').submit(handleLinkSubmit);
@@ -687,3 +709,8 @@ CONTROLLER
 }());
 
 window.app.controller.initialize();
+
+// when click on output: hide output, show number input with default value of current pomodoro setting
+// on input update (submit): hide input, show output with updated LS value, update slider, update value in LS
+// if user clicks away from input" hide input, show output with LS value
+
