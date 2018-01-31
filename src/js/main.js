@@ -82,12 +82,14 @@ CONTROLLER
     e.preventDefault();
     $('#work-period').val($('#work-period-box').val());
     $('#work-period').trigger('input');
+    $('#work-period-box').val('');
   }
 
   function handleBreakBoxInput(e) {
     e.preventDefault();
     $('#break-period').val($('#break-period-box').val());
     $('#break-period').trigger('input');
+    $('#break-period-box').val('');
   }
 
   function initClockSettings() {
@@ -117,7 +119,6 @@ CONTROLLER
       }
       clocksView.updateCountdown(countdown, task);
     }
-    setTimeout(clocksHandler, 1000);
   }
 
   // basic web audio API audio loading function. reference: https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/decodeAudioData
@@ -693,7 +694,7 @@ CONTROLLER
     clocksView.updateTime(clocksModel.getTime());
     loadSounds();
     initNewsSources();
-    clocksHandler();
+    setInterval(clocksHandler, 500);
     loadPageSpeedChecker();
     loadColorPicker();
     loadBackground();

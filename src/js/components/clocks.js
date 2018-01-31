@@ -162,11 +162,11 @@ CLOCKS VIEW
   }
 
   function updateTime(time) {
-    display.innerText = `${time}`;
+    document.querySelector('.time-display p').innerText = `${time}`;
   }
 
   function updateCountdown(countdown, task) {
-    display.innerText = `${countdown} ${task}`;
+    document.querySelector('.time-display p').innerText = `${countdown} ${task}`;
   }
 
   function rangeDisplayUpdate(id, value) {
@@ -182,19 +182,17 @@ CLOCKS VIEW
 
   function toggleWorkPeriodInput(e) {
     if ($('#work-period-box').is(':visible') && e.target !== $('#work-period-box')[0]) {
-      $('#work-period-box').hide();
+      $('#work-period-box').hide().val('');
     } else if (!$('#work-period-box').is(':visible') && e.target === $('#work-display')[0]) {
-      $('#work-period-box').show();
-      $('#work-period-box').focus();
+      $('#work-period-box').show().focus();
     }
   }
 
   function toggleBreakPeriodInput(e) {
     if ($('#break-period-box').is(':visible') && e.target !== $('#break-period-box')[0]) {
-      $('#break-period-box').hide();
+      $('#break-period-box').hide().val('');
     } else if (!$('#break-period-box').is(':visible') && e.target === $('#break-display')[0]) {
-      $('#break-period-box').show();
-      $('#break-period-box').focus();
+      $('#break-period-box').show().focus();
     }
   }
 
