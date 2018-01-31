@@ -1190,11 +1190,11 @@ footer {
   border: 1px solid #a29bfe; }
 
 .pinkBar {
-  background-color: #e84393; }
+  background-color: #fd79a8; }
 
 .pinkArea {
-  background-color: #fd79a8;
-  border: 1px solid #fd79a8; }
+  background-color: #f8a5c2;
+  border: 1px solid #f8a5c2; }
 
 .greyBar {
   background-color: #aaa8a9; }
@@ -1424,7 +1424,11 @@ footer {
     margin-bottom: 2%;
     font-size: .8em; }
   .settings-pomodoro output {
-    padding-left: 15px; }
+    display: inline-block;
+    cursor: pointer;
+    padding-left: 15px;
+    width: 60px;
+    text-align: right; }
   .settings-pomodoro input[type=range] {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -1448,6 +1452,34 @@ footer {
       margin-top: -8px;
       background: #000;
       transition: all 0.1s ease; }
+  .settings-pomodoro input[type="number"]::-webkit-outer-spin-button,
+  .settings-pomodoro input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; }
+  .settings-pomodoro input[type="number"] {
+    -moz-appearance: textfield; }
+  .settings-pomodoro #work-period-box, .settings-pomodoro #break-period-box {
+    display: none;
+    position: absolute;
+    color: #000;
+    outline: none;
+    background-color: white;
+    border-radius: 3px;
+    border: none;
+    width: 100%;
+    padding: 0 5%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0; }
+  .settings-pomodoro .clock-period-display-container {
+    display: inline-block;
+    position: relative;
+    margin: 0 1%; }
+  .settings-pomodoro #work-display:hover, .settings-pomodoro #break-display:hover {
+    color: #FFD63A; }
+  .settings-pomodoro #work-period-submit, .settings-pomodoro #break-period-submit {
+    display: none; }
   .settings-pomodoro input[type=range]::-moz-range-track {
     height: 12px;
     cursor: pointer;

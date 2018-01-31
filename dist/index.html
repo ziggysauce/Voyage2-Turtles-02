@@ -298,16 +298,26 @@
                     </select>
                   </form>
 
-                  <form>
+                  <form id="work-period-form">
                     <label for="work-period">Pomodoro Work Period</label>
                     <input type="range" name="work-period" id="work-period" min="1" max="120">
-                    <output name="result" id="work-display"></output><span> minutes</span>
+                    <div class="clock-period-display-container">
+                      <output name="result" id="work-display"></output>
+                      <input type="number" name="work-period-box" id="work-period-box" min="1" max="120">
+                    </div>
+                    <input id="work-period-submit" type="button" aria-label="submit"/>
+                    <span> minutes</span>
                   </form>
 
-                  <form>
+                  <form id="break-period-form">
                     <label for="break-period">Pomodoro Break Period</label>
                     <input type="range" name="break-period" id="break-period" min="1" max="30">
-                    <output name="result" id="break-display"></output><span> minutes</span>
+                    <div class="clock-period-display-container">
+                      <output name="result" id="break-display"></output>
+                      <input type="number" name="break-period-box" id="break-period-box" min="1" max="120">
+                    </div>
+                    <input id="break-period-submit" type="button" aria-label="submit"/>
+                    <span> minutes</span>
                   </form>
 
                 </div><!-- END SETTINGS POMODORO -->
