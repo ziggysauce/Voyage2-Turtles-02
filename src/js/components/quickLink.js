@@ -46,7 +46,7 @@
     for (let i = 0; i < linksArray.length; i++) {
       $(`
         <li>
-          <a href="${linksArray[i].url}" target="_blank" rel="noopener">${linksArray[i].title}</a>
+          <a href="${linksArray[i].url}" rel="noopener">${linksArray[i].title}</a>
           <button class="link-delete">x</button>
         </li>
       `).appendTo($('.quickList'));
