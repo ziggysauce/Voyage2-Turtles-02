@@ -22,3 +22,5 @@ implemented in this version.
 6: More Image galleries and the ability for users to create custom galleries.
 
 7: Additional Languages.
+
+8: If you have any other feature that you'd like to see implemented, feel free to start an issue!
