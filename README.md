@@ -5,7 +5,7 @@
 Our top priority in this version is to optimize DevTab for a truly fast tab-like speed.
 
 **Secondly** We wish to add many new features for our users to use.
-NOTE: Depending upon a variety a factors, not all of the features below may not
+NOTE: Depending upon a variety a factors, not all of the features below may be
 implemented in this version.
 
 1: ToDo List with the preset checklists such as the popular Front-End Checklist.
