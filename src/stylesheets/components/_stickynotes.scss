@@ -1,0 +1,13 @@
+.stickynote-icon {
+  position: fixed;
+  top: 3vh;
+  right: 3vw;
+  margin: 0px 10px;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.5em;
+
+  &:hover {
+    color: #FFF;
+  }
+}

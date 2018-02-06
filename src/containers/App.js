@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
+
+// Import files
 import '../stylesheets/main.css';
+import Greeting from '../components/Greeting';
+import Quicklinks from '../components/Quicklinks';
+import StickyNotes from '../components/StickyNotes';
+import ColorPicker from '../components/ColorPicker';
+import Tools from '../components/Tools';
+import Newsfeed from '../components/Newsfeed';
+import Settings from '../components/Settings';
 
 class App extends Component {
   constructor(){
@@ -28,7 +37,14 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        
+        <div className="bg-overlay" />
+        <Greeting />
+        <Quicklinks />
+        <StickyNotes />
+        <ColorPicker />
+        <Tools />
+        <Newsfeed />
+        <Settings />
       </div>
     );
   }

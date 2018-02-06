@@ -1,0 +1,7 @@
+# MacOS Files
+.DS_Store
+
+# Windows thumbnail cache files
+Thumbs.db
+
+node_modules
