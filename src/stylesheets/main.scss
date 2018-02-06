@@ -1,1 +1,24 @@
+// Import additional scss files
+@import './components/_app.scss';
+@import './components/_greeting.scss';
+@import './components/_quicklinks.scss';
+@import './components/_stickynotes.scss';
+@import './components/_colorpicker.scss';
+@import './components/_tools.scss';
+@import './components/_newsfeed.scss';
+@import './components/_settings.scss';
+@import './components/_pomodoro.scss';
 
+// Import fonts
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700');
+
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  height: 100%;
+	width: 100%;
+  font-family: 'Lato', sans-serif;
+}

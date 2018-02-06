@@ -1,0 +1,22 @@
+// Styles for App container
+
+.App {
+  width: 100vw;
+  height: 100vh;
+
+  background-image: url('https://images.pexels.com/photos/33041/antelope-canyon-lower-canyon-arizona.jpg?w=1260&h=750&dpr=2&auto=compress&cs=tinysrgb');
+  background-size: cover;
+}
+
+.bg-overlay {
+  content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	overflow:hidden;
+	background: -moz-linear-gradient(top, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.25) 100%); 
+	background: -webkit-linear-gradient(top, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.25) 100%); 
+	background: linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.25) 100%);
+}
