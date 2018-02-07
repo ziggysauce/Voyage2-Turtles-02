@@ -19,7 +19,7 @@ const Quicklinks = (props) => {
     </div>
     );
   }
-  if(props.toggled){
+  if (props.toggled) {
     quicklinks = (
     <div className="quickDropdown">
       <h2>Popular Sites</h2>
@@ -34,7 +34,7 @@ const Quicklinks = (props) => {
         })}
       </ul>
 
-      <button onClick={props.inputToggleHandler} className="addSite siteButton">Add Link</button>
+      <button onClick={props.inputToggleHandler} className="addSite siteButton">+ Add Link</button>
 
       {quickForms}
     </div>
@@ -42,8 +42,8 @@ const Quicklinks = (props) => {
   }
   
   return (
-    <div className='ql-icon'>
-      <p onClick={props.toggleHandler}>Quick Links</p>
+    <div>
+      <p className="ql-icon" onClick={props.toggleHandler}>Quick Links</p>
       {quicklinks}
     </div>
   );

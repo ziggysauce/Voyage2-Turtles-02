@@ -13,8 +13,10 @@ class Settings extends Component {
   render() {
     return (
       <div>
-        <i className="fas fa-cog fa-lg settings-icon"></i>
-        </div>
+        <p className="settings-icon"><i className="fas fa-cog fa-lg"></i>
+          <span className="settings-label">Settings</span>
+        </p>
+      </div>
     );
   }
 }

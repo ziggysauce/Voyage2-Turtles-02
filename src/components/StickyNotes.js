@@ -13,7 +13,9 @@ class StickyNotes extends Component {
   render() {
     return (
       <div>
-        <span className=" stickynote-icon">+ <i className="far fa-sticky-note fa-lg"></i></span>
+        <p className="stickynote-icon">+ <i className="fas fa-sticky-note fa-lg"></i>
+          <span className="sticky-note-label">Sticky Notes</span>
+        </p>
       </div>
     );
   }

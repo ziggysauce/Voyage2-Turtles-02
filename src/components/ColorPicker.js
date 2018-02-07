@@ -13,7 +13,9 @@ class ColorPicker extends Component {
   render() {
     return (
       <div>
-        <i className="fas fa-paint-brush fa-lg colorpicker-icon"></i>
+        <p className="colorpicker-icon"><i className="fas fa-paint-brush fa-lg"></i>
+          <span className="color-picker-label">Color Picker</span>
+        </p>
       </div>
     );
   }

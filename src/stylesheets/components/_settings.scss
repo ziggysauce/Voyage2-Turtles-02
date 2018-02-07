@@ -1,13 +1,17 @@
 .settings-icon {
   position: fixed;
-  bottom: 3vh;
+  bottom: 1vh;
   right: 3vw;
   margin: 0px 10px;
   cursor: pointer;
   color: rgba(255, 255, 255, 0.7);
-  font-size: 1.5em;
+  font-size: 1.2em;
 
   &:hover {
     color: #FFF;
+
+    .settings-label {
+      visibility: visible;
+    }
   }
 }

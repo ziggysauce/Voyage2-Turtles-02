@@ -13,7 +13,9 @@ class Newsfeed extends Component {
   render() {
     return (
       <div>
-        <i className="far fa-newspaper fa-lg newsfeed-icon"></i>
+        <p className="newsfeed-icon"><i className="far fa-newspaper fa-lg"></i>
+          <span className="newsfeed-label">Newsfeed</span>
+        </p>
       </div>
     );
   }

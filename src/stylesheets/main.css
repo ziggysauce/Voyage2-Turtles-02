@@ -17,6 +17,15 @@
   background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.25) 100%);
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.25) 100%); }
 
+.sticky-note-label, .color-picker-label,
+.tools-label, .newsfeed-label, .settings-label {
+  display: flex;
+  padding-top: 5px;
+  visibility: hidden;
+  font-size: .8rem;
+  font-weight: 100;
+  transform: translateX(-8px); }
+
 .greeting-container {
   width: 100vw;
   height: 100vh;
@@ -38,10 +47,29 @@
 .greeting-name {
   padding: 0px 10px;
   font-weight: 700;
-  cursor: pointer; }
+  cursor: pointer;
+  transition: .5s; }
   .greeting-name:hover {
     background: rgba(0, 0, 0, 0.5);
     border-radius: 3px; }
+
+.greetingForm {
+  display: inline; }
+  .greetingForm input {
+    padding: 10px;
+    font-size: .5em;
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid transparent;
+    border-radius: 3px;
+    outline: none; }
+
+.invisibleInput {
+  margin: 0px 0px;
+  padding: 0px;
+  width: 1px;
+  height: 1px;
+  opacity: 0; }
 
 .greeting-time {
   font-weight: 700;
@@ -60,16 +88,130 @@
       text-decoration: underline; }
 
 .ql-icon {
-  font-size: 1.5em;
+  font-size: 1.3em;
   font-weight: 300;
   position: fixed;
   top: 3vh;
   left: 3vw;
-  margin: 0px 10px;
+  margin: 0px;
   cursor: pointer;
   color: rgba(255, 255, 255, 0.7); }
   .ql-icon:hover {
     color: #FFF; }
+  .ql-icon p {
+    padding: 0;
+    margin: 0; }
+
+.quickDropdown {
+  width: 175px;
+  position: absolute;
+  left: 3vw;
+  top: 8vh;
+  color: #D9D9D9;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.8) 100%);
+  z-index: 1;
+  border-radius: 3px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+  font-size: 1em; }
+  .quickDropdown h2 {
+    margin: 0px 0px 5px 0px;
+    padding: 10px;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #FFF;
+    border-bottom: 0.4px solid rgba(255, 255, 255, 0.5); }
+  .quickDropdown input {
+    display: block;
+    padding: 5px;
+    margin: 5px auto;
+    width: 90%;
+    background: rgba(255, 255, 255, 0.2);
+    color: #FFF;
+    border: none;
+    border-radius: 3px;
+    transition: .3s;
+    outline: none; }
+  .quickDropdown input::placeholder {
+    color: rgba(255, 255, 255, 0.5); }
+  .quickDropdown input:focus::placeholder {
+    color: #FFF;
+    transition: .3s; }
+  .quickDropdown .invisibleInput {
+    margin: 0px 0px;
+    padding: 0px;
+    width: 1px;
+    height: 1px;
+    opacity: 0; }
+
+ul {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px; }
+
+li {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  word-break: break-word;
+  max-width: 250px;
+  margin: 0px 5px 0px 0px;
+  padding: 5px 0px 5px 10px;
+  font-weight: 100; }
+  li a {
+    cursor: pointer;
+    text-decoration: none;
+    color: lightgrey;
+    font-size: 1em; }
+
+li:hover {
+  color: #FFF;
+  font-weight: bold;
+  border-left: 5px solid #FFD63A; }
+  li:hover a {
+    cursor: pointer;
+    font-weight: bold;
+    color: #FFF; }
+  li:hover .link-delete {
+    color: rgba(255, 255, 255, 0.5);
+    padding: 0px 6px 2px 6px; }
+  li:hover .link-delete:hover {
+    border-radius: 50%;
+    border: 2px solid #FFD63A;
+    color: #FFD63A; }
+
+.link-delete {
+  height: 1.75em;
+  float: right;
+  background-color: transparent;
+  outline: none;
+  border: 2px solid transparent;
+  color: transparent;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: .8em; }
+
+.siteButton {
+  text-align: center;
+  width: 90%;
+  display: block;
+  padding: 3px;
+  margin: 10px auto;
+  cursor: pointer;
+  font-size: 1em;
+  color: #D9D9D9;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  outline: none;
+  border-radius: 3px;
+  transition: 0.3s; }
+
+.addSite:hover {
+  background: #44bd32;
+  color: #FFF;
+  border: 1px solid transparent;
+  transition: 0.3s; }
 
 .stickynote-icon {
   position: fixed;
@@ -78,53 +220,64 @@
   margin: 0px 10px;
   cursor: pointer;
   color: rgba(255, 255, 255, 0.7);
-  font-size: 1.5em; }
+  font-size: 1.5em;
+  font-weight: 100; }
   .stickynote-icon:hover {
     color: #FFF; }
+    .stickynote-icon:hover .sticky-note-label {
+      visibility: visible; }
 
 .colorpicker-icon {
   position: fixed;
-  bottom: 3vh;
+  bottom: 1vh;
   left: 3vw;
   margin: 0px 10px;
   cursor: pointer;
   color: rgba(255, 255, 255, 0.7);
-  font-size: 1.5em; }
+  font-size: 1.2em; }
   .colorpicker-icon:hover {
     color: #FFF; }
+    .colorpicker-icon:hover .color-picker-label {
+      visibility: visible; }
 
 .tools-icon {
   position: fixed;
-  bottom: 3vh;
+  bottom: 1vh;
   left: 6vw;
   margin: 0 2em;
   cursor: pointer;
   color: rgba(255, 255, 255, 0.7);
-  font-size: 1.5em; }
+  font-size: 1.2em; }
   .tools-icon:hover {
     color: #FFF; }
+    .tools-icon:hover .tools-label {
+      visibility: visible; }
 
 .newsfeed-icon {
   position: fixed;
-  bottom: 3vh;
+  bottom: 1vh;
   right: 6vw;
   margin: 0 2em;
   cursor: pointer;
   color: rgba(255, 255, 255, 0.7);
-  font-size: 1.5em; }
+  font-size: 1.2em; }
   .newsfeed-icon:hover {
     color: #FFF; }
+    .newsfeed-icon:hover .newsfeed-label {
+      visibility: visible; }
 
 .settings-icon {
   position: fixed;
-  bottom: 3vh;
+  bottom: 1vh;
   right: 3vw;
   margin: 0px 10px;
   cursor: pointer;
   color: rgba(255, 255, 255, 0.7);
-  font-size: 1.5em; }
+  font-size: 1.2em; }
   .settings-icon:hover {
     color: #FFF; }
+    .settings-icon:hover .settings-label {
+      visibility: visible; }
 
 .pomodoro-button {
   cursor: pointer;

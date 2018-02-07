@@ -6,8 +6,13 @@
   cursor: pointer;
   color: rgba(255, 255, 255, 0.7);
   font-size: 1.5em;
+  font-weight: 100;
 
   &:hover {
     color: #FFF;
+
+    .sticky-note-label {
+      visibility: visible
+    }
   }
 }

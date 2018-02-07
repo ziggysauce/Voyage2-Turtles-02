@@ -13,8 +13,10 @@ class Tools extends Component {
   render() {
     return (
       <div>
-        <i className="fas fa-wrench fa-lg tools-icon"></i>
-        </div>
+        <p className="tools-icon"><i className="fas fa-wrench fa-lg"></i>
+          <span className="tools-label">Toolbox</span>
+        </p>
+      </div>
     );
   }
 }
