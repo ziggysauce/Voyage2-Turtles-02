@@ -43,6 +43,8 @@ constructor(){
     ],
 
     userTitle:'User',
+    userToggle: false,
+    userInput:'',
 
     pomodoroState: {
     	pomodoroTrue: false,
@@ -50,7 +52,6 @@ constructor(){
     }
 
    };
-   this.toggleQuickLink = this.toggleQuickLink.bind(this);
   }
 
   //-------------------Data RETRIEVE and POST------------------------
@@ -59,7 +60,7 @@ constructor(){
     let retrieveStorage = localStorage.getItem("devTabData");
     if(retrieveStorage){
       //If retrieve storage exists we push the localstorage items into the App.js state.
-      retrieveStorage = JSON.parse(retrieveStorage);
+      retrieveStorage = JSON.parse(retrieveStorage);//We parse localstorage into useable object form.
 
       this.setState({
       	quickLinks: retrieveStorage.quickLinks,
@@ -67,14 +68,14 @@ constructor(){
       	userTitle: retrieveStorage.userTitle,
       	pomodoroState: retrieveStorage.pomodoroState
       });
-      console.log(retrieveStorage); 
     }
     else {
       //If retrieve storage DOESN'T exist, then we create a default object and we push it into localstorage.
       const defaultStorage = JSON.stringify(this.state);
       localStorage.setItem("devTabData", defaultStorage); 
     }
-
+    //console.log(retrieveStorage);
+    //For debugging purposes.
   }
 
   //This will be a re-usable function that pushes the updated state into localstorage
@@ -98,8 +99,9 @@ constructor(){
   	}
   	else {//If deleteOrAdd equals false, then we remove the link from quicklinks.
   		currentArray.splice(linkIndex, 1);
-  		this.setState({quickLinks:currentArray.slice()}, function(){
-  			this.updateLocalStorage();
+
+  		this.setState({quickLinks:currentArray.slice()}, function(){//setState doesnt immediatelly update state so we need to create a callback
+  			this.updateLocalStorage();								//before we can update localstorage.
   		});
   	}
   }
@@ -138,12 +140,39 @@ constructor(){
   //-----------------------------------------------------------------//
   //*****************************************************************//
 
-  render() {
 
+
+  //*****************************************************************//
+  //--------------------------GREETING METHODS-----------------------//
+  //*****************************************************************//
+  submitUserHandler = (event) => {
+  	event.preventDefault()
+  	this.setState({userTitle: this.state.userInput, userToggle:false}, function(){
+  		this.updateLocalStorage();
+  	});
+
+  }
+
+  userChangeHandler = (event) => {
+  	this.setState({userInput: event.target.value});
+  }
+
+  toggleUserInput = () => {
+  	this.setState({userToggle: !this.state.userToggle});
+  }
+  //*****************************************************************//
+  //-----------------------------------------------------------------//
+  //*****************************************************************//
+  render() {
     return (
       <div className="App">
         <div className="bg-overlay" />
-        <Greeting />
+        <Greeting
+         user={this.state.userTitle}
+         greetingToggle={this.state.userToggle}
+         greetingSubmit={this.submitUserHandler}
+         greetingHandler={this.userChangeHandler}
+         greetingToggleHandler={this.toggleUserInput}/>
 
         <Quicklinks
          inputToggled={this.state.quickInputToggle}

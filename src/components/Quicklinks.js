@@ -13,7 +13,7 @@ const Quicklinks = (props) => {
         <form id="targetForm">
           <input onChange={props.titleHandler} id="titleInput" type="text" placeholder="Title" value={props.quickTitle} />
           <input onChange={props.urlHandler} id="urlInput" type="text" placeholder="Url" value={props.quickUrl} />
-          <input id="invisibleInput" type="submit"/>
+          <input class="invisibleInput" type="submit"/>
         </form>
       </div>
     </div>
